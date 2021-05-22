@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"/>
+
+<body>
+
+<div th:replace="fragments/bodyHeader :: bodyHeader"/>
+
+<div class="container container-form">
+    </br>
+    <div class="py-2 row">
+        <h4>인물 정보</h4>
+    </div>
+
+    <form th:object="${form}" method="post" class="row g-3">
+        <input type="hidden" th:field="*{id}"/>
+
+        <a th:href="@{/admin/comment/search(keyword=${form.name},personId=${form.id},tab=2)}" class="btn btn-outline-primary" th:text="|*{name}의 발언 목록 보기|"></a>
+        <br>
+        <!-- 이름 -->
+        <div class="col-6">
+            <label th:for="name" class="form-label">이름</label>
+            <input type="text" th:field="*{name}" class="form-control"
+                   placeholder="이름을 입력하세요"
+                   th:class="${#fields.hasErrors('name')}? 'form-control fieldError' : 'form-control'">
+            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Incorrect date</p>
+        </div>
+
+        <!-- 성별 -->
+        <div class="col-6">
+            <label th:for="gender" class="form-label">성별</label>
+            <select class="form-select" th:field="*{gender}">
+                <option th:value=null>성별</option>
+                <option th:value="'남자'">남자</option>
+                <option th:value="'여자'">여자</option>
+            </select>
+        </div>
+        <!-- 생년월일 -->
+        <!-- 년 -->
+        <label th:for="birthForm">생년월일</label>
+        <div class="col-4 birthForm">
+            <input type="number" th:field="*{birth.birth_year}" class="form-control"
+                   placeholder="년(4자)" maxlength="4" oninput="yearMaxLength(this);">
+        </div>
+
+        <!-- 월 -->
+        <div class="col-4">
+            <select class="form-select" th:field="*{birth.birth_month}">
+                <option value="">월</option>
+                <option th:each="i : ${#numbers.sequence(1, 9)}" th:value="'0'+${i}" th:text="'0'+${i}"></option>
+                <option th:each="i : ${#numbers.sequence(10, 12)}" th:value="${i}" th:text="${i}"></option>
+            </select>
+        </div>
+
+        <!-- 일 -->
+        <div class="col-4">
+            <input type="number" th:field="*{birth.birth_day}" class="form-control"
+                   placeholder="일" maxlength="2" oninput="dayMaxLength(this);">
+        </div>
+
+        <!-- 직업 -->
+        <div class="col-6">
+            <label th:for="job" class="form-label">직업</label>
+            <input type="text" th:field="*{job}" class="form-control" placeholder="인물의 직업을 입력하세요">
+        </div>
+
+        <!-- 카테고리 -->
+        <div class="col-6">
+            <label th:for="categoryId" class="form-label">카테고리</label>
+            <select th:field="*{category}" class="form-select">
+                <option th:value="기타">기타</option>
+                <option th:value="정치">정치</option>
+                <option th:value="사회">사회</option>
+                <option th:value="연예">연예</option>
+                <option th:value="스포츠">스포츠</option>
+                <option th:value="인플루언서">인플루언서</option>
+            </select>
+        </div>
+
+        <!-- 요약 -->
+        <div class="col-12">
+            <label th:for="summary" class="form-label">요약</label>
+            <textarea th:field="*{summary}" class="form-control" rows="3"></textarea>
+        </div>
+
+        <hr class="my-4">
+
+        <!-- 수정 삭제 취소 버튼 나열-->
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="submit" class="btn btn-primary me-md-2">수정</button>
+            <a href="/admin/person" class="btn btn-outline-secondary me-md-2">취소</a>
+    </form>
+    <!-- 삭제 버튼 -->
+    <form th:object="${form}" th:action="@{/admin/person/{id}/delete (id=${form.id.toString()})}" method="post"
+          onsubmit="return confirm('정말 삭제하시겠습니까? \n인물 정보를 삭제하는 경우, 해당 인물의 모든 발언 또한 삭제되고\n복원할 수 없습니다.');">
+        <input type="hidden" th:field="*{id}"/>
+        <button type="submit" class="btn btn-danger" id="btn-delete">삭제</button>
+    </form>
+</div>
+<!-- 수정 삭제 취소 버튼 끝 -->
+
+
+</div>
+<br/>
+
+
+<div th:replace="fragments/footer :: footer"/>
+</div>
+
+<script type="text/javascript" th:src="@{/js/admin/person/person.js}"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="header" th:fragment="bodyHeader">
+
+    <!-- 헤더 네비바 -->
+    <header class="py-3 border-bottom">
+        <div class="container-fluid d-grid gap-3 align-items-center" style="grid-template-columns: 1fr 2fr;">
+            <div class="dropdown">
+                <a href="#"
+                   class="d-flex align-items-center col-lg-4 mb-2 mb-lg-0 link-dark text-decoration-none dropdown-toggle"
+                   id="dropdownNavLink" data-bs-toggle="dropdown" aria-expanded="false">
+                    <svg class="bi me-2" width="40" height="32">
+                        <use xlink:href="#bootstrap"></use>
+                    </svg>
+                    퀏.
+                </a>
+                <!-- 메인 드롭다운 메뉴 -->
+                <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownNavLink" style="">
+                    <li><a class="dropdown-item active" href="#">카테고리</a></li>
+                    <li><a class="dropdown-item" href="#">카테고리</a></li>
+                    <li><a class="dropdown-item" href="#">카테고리</a></li>
+                    <li><a class="dropdown-item" href="#">카테고리</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">제보하기</a></li>
+                </ul>
+            </div>
+
+            <!-- 검색창 -->
+            <div class="d-flex">
+                <form action="/admin/comment/search" method="get" class="d-flex">
+                    <input id="keyword" name="keyword" class="form-control search-bar" placeholder="검색"
+                           th:value="${keyword}">
+                    <input id="tab" name="tab" type="hidden" value="1">
+                    <button id="btn-search" type="submit" class="btn btn-secondary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+            </form>
+        </div>
+    </header>
+
+
+    <!-- admin 네비바 -->
+    <div class="p-3 border">
+        <div class="container container-custom d-flex justify-content-between">
+            <div><h4>Admin Page</h4></div>
+            <div>
+                <a class="btn btn-secondary d-flex justify-content-end" href="/logout">로그아웃</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container container-custom">
+        <nav class="nav">
+            <a class="nav-link active" aria-current="page" href="/admin/person">인물 목록</a>
+            <a class="nav-link" href="/admin/comment">발언 목록</a>
+        </nav>
+    </div>
+
+</div>

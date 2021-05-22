@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <title>Hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div th:replace="fragments/bodyHeader :: bodyHeader"/>
+<div class="container container-custom">
+    </br>
+    <div class="py-2 d-flex justify-content-between" style="grid-template-columns: 1fr 2fr;">
+        <div>
+            <h4>발언 목록</h4>
+        </div>
+        <div>
+            <a href="/admin/person" class="btn btn-primary">등록</a>
+        </div>
+    </div>
+    <br>
+    <hr class="my-4">
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <tbody>
+            <tr th:each="comment : ${list}">
+                <td>
+                    <!-- 발언인 이름 -->
+                    <div>발언인 : <a href="#" th:href="@{/admin/person/{id} (id=${comment.person.id})}"
+                                  th:text="${comment.person.name}"></a></div>
+                    <!-- 발언 내용 -->
+                    <div>발언 내용 : <span th:text="${comment.content}"></span></div>
+                    <!-- 발언 날짜 -->
+                    <div>발언 일자 : <span
+                            th:text="${#temporals.format(comment.commentDate,'yyyy-MM-dd')}"></span></div>
+                    <!-- 출처 -->
+                    <div>출처 : <a th:href="${comment.sourceUrl}"><span th:text="${comment.sourceSort}"></span></a></div>
+                    <!-- 태그 목록-->
+                    <div>
+                        <th:block th:each="tag : ${comment.tags}">
+                            <a href="#"><span th:text="${tag.name}" class="badge bg-secondary"></span></a>
+                        </th:block>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-between">
+                        <!-- 등록, 수정, 삭제 일자-->
+                        <div>
+                            등록일 : <span
+                                th:text="${#temporals.format(comment.createdDate,'yyyy-MM-dd HH:mm:ss')}"></span>
+                            <span th:if="${comment.status.toString.equals('UPDATED') or comment.status.toString.equals('DELETED')}"
+                                  th:text="|${#temporals.format(comment.updatedDate,'yyyy-MM-dd HH:mm:ss')} 최종 수정됨|"></span>
+                        </div>
+
+                        <!-- 수정 삭제 버튼-->
+                        <div>
+                            <a th:href="@{/admin/comment/{commentId}(commentId=${comment.commentId})}"
+                               class="btn btn-outline-secondary btn-sm me-md-2"
+                               href="#">수정</a>
+                            <button class="btn btn-outline-danger btn-sm btn-delete">삭제</button>
+                            <!-- 발언인 아이디 -->
+                            <input type="hidden" name="commentId" th:value="${comment.commentId}">
+
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script type="application/javascript">
+
+    $('.btn-delete').on('click', function () {
+
+        const id = $(this).next().val();
+
+        if (confirm("정말 삭제하시겠습니까? \n삭제한 발언은 복원할 수 없습니다.") == true) {
+
+            $.ajax({
+                type: 'DELETE',
+                url: '/admin/comment/' + id,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+            }).done(function () {
+                alert('발언이 삭제되었습니다.');
+                window.location.href = '/admin/comment';
+            }).fail(function (error) {
+                alert(JSON.stringify(error));
+            });
+
+
+        } else {
+            return;
+        }
+
+
+    });
+
+</script>
+
+<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>

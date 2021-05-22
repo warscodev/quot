@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="header">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <!-- container 사이즈 조절 custom -->
+    <link rel="stylesheet" href="/css/form/form.css">
+    <!-- admin 커스텀 css (fieldError)-->
+    <link rel="stylesheet" href="/css/admin/admin.css">
+
+    <!-- tagify & dragsort -->
+    <link rel="stylesheet" href="/node_modules/@yaireo/tagify/dist/tagify.css">
+    <link rel="stylesheet" href="/node_modules/@yaireo/dragsort/dist/dragsort.css">
+    <!-- jquery -->
+    <script src="/node_modules/jquery/dist/jquery.js"></script>
+    <!-- tagify 스타일 -->
+    <style>
+        .tagify--outside{
+            border: 0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .tagify--outside .tagify__input{
+            order: -1;
+            flex: 100%;
+            border: 1px solid var(--tags-border-color);
+            margin-bottom: 1em;
+            transition: .1s;
+        }
+
+        .tagify--outside .tagify__input:hover{ border-color:var(--tags-hover-border-color); }
+        .tagify--outside.tagify--focus .tagify__input{
+            transition:0s;
+            border-color: var(--tags-focus-border-color);
+        }
+    </style>
+
+    <title>Quot.</title>
+</head>

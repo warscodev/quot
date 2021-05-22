@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <title>Hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div th:replace="fragments/bodyHeader :: bodyHeader"/>
+<div class="container container-custom">
+    </br>
+    <div class="py-2 d-flex justify-content-between" style="grid-template-columns: 1fr 2fr;">
+        <div>
+            <h4>인물 목록</h4>
+        </div>
+        <div>
+            <a href="/admin/person/new" class="btn btn-primary">등록</a>
+        </div>
+    </div>
+    <div class="py-1">
+        <form th:action="@{/admin/person}" th:object="${searchCondition}" class="row g-1">
+            <div class="col-2">
+                <select class="form-select" th:field="*{status}">
+                    <option th:value=null selected="selected">상태</option>
+                    <option th:value="CREATED">수정되지 않음</option>
+                    <option th:value="UPDATED">수정됨</option>
+                </select>
+            </div>
+            <div class="col-2">
+                <select class="form-select" th:field="*{category}">
+                    <option th:value=null>카테고리</option>
+                    <option th:value="기타">기타</option>
+                    <option th:value="정치">정치</option>
+                    <option th:value="사회">사회</option>
+                    <option th:value="연예">연예</option>
+                    <option th:value="스포츠">스포츠</option>
+                    <option th:value="인플루언서">인플루언서</option>
+                </select>
+            </div>
+            <div class="col-8">
+                <input type="text" th:field="*{name}" class="form-control" placeholder="검색(이름)">
+            </div>
+        </form>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>이름</th>
+                <th>생일</th>
+                <th>직업</th>
+                <th>등록일</th>
+                <th>마지막 수정일</th>
+                <th>상태</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody id="tbody">
+            <tr th:each="person : ${list}">
+                <!--이름-->
+                <td scope="row">
+                    <a href="#" class="person-name" th:href="@{/admin/person/{id} (id=${person.id})}" th:text="${person.name}"></a>
+                </td>
+                <!--생년월일-->
+                <td>
+                    <th:block th:if="${not #strings.isEmpty(person.birth.birth_year)}"
+                              th:text="${person.birth.birth_year}+'년'"></th:block>
+                    <th:block th:if="${not #strings.isEmpty(person.birth.birth_month)}"
+                              th:text="${person.birth.birth_month}+'월'"></th:block>
+                    <th:block th:if="${not #strings.isEmpty(person.birth.birth_day)}"
+                              th:text="${person.birth.birth_day}+'일'"></th:block>
+                </td>
+                <!-- 직업 -->
+                <td th:text="${person.job}"></td>
+                <!-- 생성일 -->
+                <td th:text="${#temporals.format(person.createdDate,'yyyy-MM-dd HH:mm:ss')}"></td>
+                <!-- 수정일 -->
+                <td th:if="${person.status.toString.equals('UPDATED') or person.status.toString.equals('DELETED')}"
+                    th:text="${#temporals.format(person.updatedDate,'yyyy-MM-dd HH:mm:ss')}">
+                <td th:unless="${person.status.toString.equals('UPDATED') or person.status.toString.equals('DELETED')}"
+                    th:text=null>
+                </td>
+                <!-- 글 상태 -->
+                <td th:if="${person.status.toString.equals('CREATED')}" th:text=null></td>
+                <td th:unless="${person.status.toString.equals('CREATED')}" th:text="${person.status}"></td>
+                <td>
+                    <div class="float-end">
+                        <a th:href="@{/admin/person/{id}/comment (id=${person.id})}"
+                           class="btn btn-outline-primary btn-sm">발언 등록</a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>

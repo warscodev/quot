@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:replace="fragments/header :: header"/>
+<meta charset="UTF-8">
+<title>계정등록</title>
+</head>
+<body>
+
+<form th:action="@{/admin/join}" th:object="${form}" method="post" class="row g-3">
+    <input type="hidden" name="auth" value="ROLE_ADMIN,ROLE_USER">
+    <div>
+        <label th:for="account">계정명</label>
+        <input th:field="*{account}" type="text" placeholder="계정">
+    </div>
+    <div>
+        <label th:for="password">비밀번호</label>
+        <input th:field="*{password}" type="password">
+        <button type="submit">생성</button>
+    </div>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <title>Hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div th:replace="fragments/bodyHeader :: bodyHeader"/>
+<div class="container container-custom">
+    </br>
+    <div class="py-2 d-flex justify-content-between" style="grid-template-columns: 1fr 2fr;">
+        <div>
+            <h5>
+                <b th:text="|&#039${keyword}&#039|"></b>에 대한 검색 결과
+                <input id="search-keyword" type="hidden" th:value="${keyword}">
+                <input id="search-tab" type="hidden" th:value="${tab}">
+                <input id="search-personId" type="hidden" th:value="${personId}">
+            </h5>
+        </div>
+        <div>
+            <a href="/admin/person/new" class="btn btn-primary">등록</a>
+        </div>
+    </div>
+    <!-- 코멘트 리스트 네비바 -->
+    <div class="comment-nav-tabs-container">
+        <ul class="nav nav-tabs nav-fill">
+            <li class="nav-item">
+                <a class="nav-link" onclick="move_tab(this,1)"
+                th:classappend="${tab} == 1 ? active">발언 내용</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" onclick="move_tab(this,2)"
+                   th:classappend="${tab} == 2 ? active">발언인</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" onclick="move_tab(this,3)"
+                   th:classappend="${tab} == 3 ? active">태그</a>
+            </li>
+        </ul>
+    </div>
+    <!-- 코멘트 리스트 네비바 끝-->
+
+    <!--<hr class="my-2">-->
+
+    <!-- 테이블 -->
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <tbody id="listTableBody">
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 페이지네이션 -->
+    <div class="comment-pagination d-flex justify-content-center" id="comment-pagination-container">
+    </div>
+
+
+</div>
+<script src="/js/admin/comment/commentList.js"></script>
+<script>
+    function move_tab(e, tab) {
+        let keyword = document.getElementById("search-keyword").value,
+            url = '/admin/comment/search?keyword=' + keyword + '&tab=' + tab;
+
+        //url 변경
+        history.pushState('', '', url);
+
+        //input tab value 변경
+        document.getElementById("search-tab").value = tab;
+
+        $(".nav-link").removeClass("active");
+        $(e).addClass("active");
+
+        main.loadComment(0);
+    };
+</script>
+
+<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>

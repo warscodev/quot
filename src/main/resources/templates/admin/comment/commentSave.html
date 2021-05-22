@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:replace="fragments/header :: header"/>
+
+<body>
+<div th:replace="fragments/bodyHeader :: bodyHeader"/>
+
+
+<div class="container container-form col-md">
+
+    </br>
+    <div class="py-2 row">
+        <h4 th:text="|${form.person.name}의 발언 등록|"></h4>
+    </div>
+    </br>
+
+    <div class="row g-3">
+        <input type="hidden" id="personId" th:value="${personId}">
+
+        <!-- 발언 내용 -->
+        <div class="col-12">
+            <label for="content" class="form-label">발언 내용</label>
+            <textarea name="content" id="content" class="form-control" rows="3"></textarea>
+        </div>
+
+        <!-- 발언 날짜 -->
+        <div class="col-12">
+            <label class="form-label">발언 날짜</label>
+            <input type="date" name="commentDate" id="commentDate" class="form-control">
+        </div>
+
+
+        <!-- 태그 -->
+        <div class="col-12">
+            <label class="form-label" th:for="jasonArrayTags">태그</label>
+            <input name="jasonArrayTags" id="jasonArrayTags" class='tagify--outside' placeholder='태그입력'>
+        </div>
+
+        <hr class="my-4">
+        <h5>출처</h5>
+
+        <!-- 소스 -->
+        <!--소스 sort-->
+        <div class="col-4">
+            <label for="sourceSort" class="form-label">종류</label>
+            <input type="text" class="form-control" placeholder="ex)유튜브, 기사 등..."
+                   id="sourceSort">
+        </div>
+
+        <!--소스 url-->
+        <div class="col-8 ">
+            <label for="sourceUrl" class="form-label">URL</label>
+            <input type="text" name="sourceUrl" class="form-control" placeholder="링크"
+                   id="sourceUrl">
+        </div>
+
+        <hr class="my-4">
+
+        <!-- 버튼 -->
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="button" class="btn btn-primary me-md-2" id="btn-save">저장</button>
+            <a href="/admin/person" class="btn btn-outline-secondary">취소</a>
+            <div></div>
+        </div>
+    </div>
+    <!--</form>-->
+</div>
+<br/>
+
+
+<!-- tagify js-->
+<script src="/node_modules/@yaireo/tagify/dist/tagify.min.js"></script>
+<script src="/node_modules/@yaireo/dragsort/dist/dragsort.js"></script>
+
+
+<script type="application/javascript">
+
+    var input = document.querySelector('.tagify--outside');
+
+    // init Tagify script on the above inputs
+    tagify = new Tagify(input);
+
+
+    //dragsort
+    var dragsort = new DragSort(tagify.DOM.scope, {
+        selector: '.' + tagify.settings.classNames.tag,
+        callbacks: {
+            dragEnd: onDragEnd
+        }
+    })
+
+    function onDragEnd(elm) {
+        tagify.updateValueByDOMTags()
+    }
+
+
+    //저장 이벤트
+    $('#btn-save').on('click', function () {
+
+        var id = $('#personId').val();
+
+        var data = {
+            content: $('#content').val(),
+            commentDate: $('#commentDate').val(),
+            jasonArrayTags: $('#jasonArrayTags').val(),
+            sourceSort: $('#sourceSort').val(),
+            sourceUrl: $('#sourceUrl').val()
+        }
+        console.log(data);
+
+        if (validate(data)) {
+            $.ajax({
+                type: 'POST',
+                url: '/admin/person/' + id + '/comment',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data)
+            }).done(function () {
+                if (confirm("등록이 완료 되었습니다.\n계속해서 같은 인물의 발언을 등록하시겠습니까?") == true) {
+                    window.location.href = '/admin/person/' + id + '/comment';
+                } else {
+                    window.location.href = '/admin/comment';
+                }
+            }).fail(function (error) {
+                alert(JSON.stringify(error));
+            });
+        }
+
+    });
+
+    function validate(data) {
+        const blank_pattern = /^\s+|\s+$/g;
+
+        if (!data.content || data.content.replace(blank_pattern,"") == ""){
+            alert("본문 내용을 입력해주세요.")
+            return false;
+        } else if(!data.commentDate){
+            alert("발언 일자를 입력해주세요.")
+            return false;
+        }
+        return true;
+    }
+</script>
+
+
+<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>

@@ -1,0 +1,38 @@
+@media (min-width: 768px) {
+    .container-custom {
+        width: 750px;
+    }
+}
+
+@media (min-width: 992px) {
+    .container-custom {
+        width: 920px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container-custom {
+        width: 920px;
+    }
+}
+
+@media (min-width: 768px) {
+    .container-form {
+        width: 800px;
+    }
+}
+
+@media (min-width: 992px) {
+    .container-form {
+        width: 800px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container-form {
+        width: 800px;
+    }
+}
+
+
+

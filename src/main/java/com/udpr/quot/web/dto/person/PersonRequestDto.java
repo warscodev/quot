@@ -1,0 +1,49 @@
+package com.udpr.quot.web.dto.person;
+
+import com.udpr.quot.domain.person.Birth;
+import com.udpr.quot.domain.person.Person;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.validation.constraints.NotBlank;
+
+
+@Getter
+@Setter
+@NoArgsConstructor
+public class PersonRequestDto {
+
+    private Long id;
+    @NotBlank(message = "인물 이름은 필수입니다.")
+    private String name;
+    private Birth birth;
+    private String gender;
+    private String job;
+    private String summary;
+    private String category;
+
+
+    public Person toEntity(){
+        return Person.builder()
+                .name(name)
+                .birth(birth)
+                .gender(gender)
+                .job(job)
+                .summary(summary)
+                .category(category)
+                .build();
+    }
+
+    public void setBirthDay(){
+            String requestedDay = this.birth.getBirth_day();
+
+            if(requestedDay.length()<2 && !requestedDay.equals("0") && !requestedDay.equals("")) {
+                this.birth.setBirth_day("0" + requestedDay);
+            }else if(requestedDay.equals("0") || requestedDay.equals("00")){
+                this.birth.setBirth_day("");
+            }
+
+        }
+
+}
