@@ -1,9 +1,4 @@
 spring:
-  datasource:
-    url: jdbc:h2:tcp://localhost/~/malzakook;MODE=MYSQL
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
 
   thymeleaf:
     prefix: classpath:/templates/
@@ -18,10 +13,7 @@ spring:
       ddl-auto: create
     properties:
       hibernate:
-        # show_sql: true
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-        format_sql: true
-        use_sql_comment: true
         default_batch_fetch_size: 100
 
   server:
@@ -30,6 +22,6 @@ spring:
         charset: UTF-8
 
 
-logging.level:
-  org.hibernate.SQL: debug
+#logging.level:
+#  org.hibernate.SQL: debug
   # org.hibernate.type: trace
