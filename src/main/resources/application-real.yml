@@ -1,5 +1,4 @@
 spring:
-
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
@@ -14,9 +13,9 @@ spring:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
         default_batch_fetch_size: 100
 
-  server:
-    servlet:
-      encoding:
-        charset: UTF-8
+#  server:
+#    servlet:
+#      encoding:
+#        charset: UTF-8
 
 
