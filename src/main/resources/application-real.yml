@@ -1,5 +1,5 @@
 spring:
-  profiles:
+  profiles: real
     include: real-db
 
   thymeleaf:
