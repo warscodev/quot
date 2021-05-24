@@ -17,9 +17,9 @@ before_install:
   - chmod +x gradlew
 
 before_deploy:
-  - zip -r udpr-quot *
+  - zip -r quot *
   - mkdir -p deploy
-  - mv quot-udpr.zip deploy/udpr-quot.zip
+  - mv quot.zip deploy/quot.zip
 
 deploy:
   - provider: s3
