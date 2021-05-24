@@ -17,10 +17,10 @@ before_install:
   - chmod +x gradlew
 
 before_deploy:
-  - zip -r quot *
+  - zip -r udpr-quot *
   - mkdir -p deploy
-  - mv quot.zip deploy/quot.zip
-  -
+  - mv quot-udpr.zip deploy/udpr-quot.zip
+
 deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY
