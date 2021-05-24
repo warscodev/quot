@@ -26,7 +26,7 @@ deploy:
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
     bucket: udpr-quot-build
-    region: ap-northest-2
+    region: ap-northeast-2
     skip_cleanup: true
     acl: private # zip파일 접근을 private으로
     local_dir: deploy
