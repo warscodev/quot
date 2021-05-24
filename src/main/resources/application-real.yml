@@ -1,6 +1,12 @@
 spring:
-  profiles: real
-    include: real-db
+  profiles:
+    group:
+      "real": "real-db"
+---
+spring:
+  config:
+    activate:
+      on-profile: "real"
 
   thymeleaf:
     prefix: classpath:/templates/
