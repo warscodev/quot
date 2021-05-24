@@ -16,8 +16,25 @@ script: "./gradlew clean build"
 before_install:
   - chmod +x gradlew
 
+before_deploy:
+  - zip -r quot *
+  - mkdir -p deploy
+  - mv quot.zip deploy/quot.zip
+
+deploy:
+  -provider: s3
+   access_key_id: $AWS_ACCESS_KEY
+   secret_access_key: $AWS_SECRET_KEY
+   bucket: udpr-quot-build
+   region: ap-northest-2
+   skip_cleanup: true
+   acl: private # zip파일 접근을 private으로
+   local_dir: deploy
+   wait-until-deployed: true
+
 #CI 실행 완료 시 메일로 알람
 notifications:
   email:
     recipients:
       - warscodev@gmail.com
+
