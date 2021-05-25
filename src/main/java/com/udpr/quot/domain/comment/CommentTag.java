@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class CommentTag {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comment_tag_id")
     private Long id;
 
