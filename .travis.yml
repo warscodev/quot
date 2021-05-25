@@ -36,7 +36,7 @@ deploy:
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
     bucket: udpr-quot-build
-    key: udpr.zip
+    key: quot.zip
     bundle_type: zip
     application: udpr-quot #웹 콘솔에서 등록한 CodeDeploy 애플리케이션
     deployment_group: udpr-quot-group
