@@ -77,10 +77,12 @@ var main = {
                     "<div class='comment-date'><small class='text-muted'>" + comment.commentDate_format + "</small></div>" +
                     <!-- 발언 내용 -->
                     "<div class='comment-content mt-2'>" +
-                    "<pre style='margin-bottom: 0rem'><p>" + comment.content + "</p></pre></div>" +
-                    "<div class='comment-source>'" +
-                    "출처 : <a href='" + comment.sourceUrl + "'>" + comment.sourceSort + "</a>" +
-                    "</div>";
+                    "<pre style='margin-bottom: 0rem'><p>" + comment.content +
+                    <!-- 출처 -->
+                    "<div class='comment-source'>" +
+                    "출처 ☞ <a href='" + comment.sourceUrl + "'  target='_blank'>" + comment.sourceSort + "</a>" +
+                    "</div>" +
+                    "</p></pre></div>";
 
                 <!-- 태그 -->
                 if (comment.tags.length > 0) {

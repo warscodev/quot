@@ -12,6 +12,16 @@ a {
     cursor: pointer;
 }
 
+.comment-source > a{
+    color: rgb(27, 149, 224);
+}
+
+.comment-source > a:hover{
+    color: rgb(27, 149, 224);
+    text-decoration: underline;
+}
+
+
 .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
     color: #174ea6;
     background-color: #ffffff;
@@ -61,8 +71,5 @@ a {
     font-size: 23px;
 }
 
-a {
-    cursor: pointer;
-}
 
 
