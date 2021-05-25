@@ -12,7 +12,7 @@ permission:
     group: ec2-user
 
 hooks:
-  AppicationStart:
+  ApplicationStart:
     - location: deploy.sh
       timeout: 60
       runas: ec2-user
