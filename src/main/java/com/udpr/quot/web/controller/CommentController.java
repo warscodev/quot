@@ -18,6 +18,11 @@ public class CommentController {
     private final CommentService commentService;
     private final PersonService personService;
 
+    @GetMapping("/")
+    public String index(){
+        return "redirect:/admin/comment";
+    }
+
     //코멘트 등록 폼
     @GetMapping("/admin/person/{personId}/comment")
     public String saveForm(@PathVariable("personId") Long personId, Model model) {
