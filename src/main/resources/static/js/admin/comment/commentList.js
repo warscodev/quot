@@ -119,7 +119,8 @@ var main = {
 
                 <!-- 등록일 -->
                 trList +=
-                    "<div class='d-flex justify-content-between pt-2'>" +
+                    "<div class='d-flex justify-content-between pt-2' style='border-top: 0.05rem solid rgba(0,0,0,.125);\n" +
+                    "    margin-top: 1rem;'>" +
                     "<div class='pt-1'>" +
                     "<div class='col-xs-6'><span><small class='text-muted'>" + comment.createdDate + " 등록됨</small></span></div>";
 
