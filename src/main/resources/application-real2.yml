@@ -1,11 +1,11 @@
-server:
-  port: 8082
-
 spring:
   profiles:
     group:
       "real2": "real-db"
 ---
+server:
+  port: 8082
+
 spring:
   config:
     activate:
