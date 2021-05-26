@@ -4,7 +4,7 @@ server:
 spring:
   profiles:
     group:
-      "real": "real-db"
+      "real2": "real-db"
 ---
 spring:
   config:
