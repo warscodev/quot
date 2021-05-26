@@ -109,7 +109,7 @@ var main = {
 
                     <!-- 발언 날짜 -->
                     "<div>" +
-                    "<div class='comment-date' style='margin : 0 1.5rem 0 0;'><span class='text-muted'>" + comment.commentDate_format + "</span></div>" +
+                    "<div class='comment-date d-flex justify-content-end' style='margin : 0 1.5rem 0 0;'><span class='text-muted'>" + comment.commentDate_format + "</span></div>" +
 
                     <!-- 발언인 -->
                     "<div class='comment-person' style='margin : 0 1.5rem 0 0;'>" +
