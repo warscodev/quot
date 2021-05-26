@@ -1,3 +1,8 @@
+body{
+    font-family: Noto Sans KR; font-style: normal; font-weight: normal;
+    background-color: #f8f8f8;
+}
+
 .fieldError {
     border: 2px solid #ff5061
 }
@@ -18,14 +23,13 @@ a {
 
 .comment-source > a:hover{
     color: rgb(27, 149, 224);
-    text-decoration: underline;
 }
 
 
 .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
-    color: #174ea6;
+    color: #4597b8;
     background-color: #ffffff;
-    border-top-color: #174ea6;
+    border-top-color: #6bacce;
     border-top: 3px solid;
 }
 
@@ -33,10 +37,27 @@ a {
     border-top: 3px solid;
 }
 
+.nav-item > a:hover{
+    color: #6bacce;
+}
+
 .person-name {
     color: #212529;
     text-decoration: none;
-    font-weight: 700;
+    font-family: NanumSquareR;
+    font-style: normal;
+    font-weight: bold;
+}
+
+.comment-title > h4{
+    font-family: NanumSquareR; font-style: normal; font-weight: bold;
+    margin-left: 0.5rem;
+}
+.comment-content > pre{
+    font-family: Noto Sans KR; font-style: normal; font-weight: normal; font-size: 1.1rem;
+    overflow: auto;
+    white-space: pre-wrap;
+    word-break: break-all;
 }
 
 #custom-search-input {
@@ -69,6 +90,34 @@ a {
 
 #custom-search-input .glyphicon-search {
     font-size: 23px;
+}
+
+.comment-row {
+    background-color: #fff;
+    background-clip: border-box;
+    /*border: 1px solid rgba(0,0,0,.125);*/
+    border-radius: 1rem;
+    margin: 0 0 2rem 0;
+    box-shadow: 0.5rem 0.5rem 0.5rem rgba(200,200,200,0.19);
+
+}
+
+.listTableBody-search > .comment-row {
+    border-top: 0px;
+    border-top-left-radius: 0rem;
+    border-top-right-radius: 0rem;
+}
+
+
+.comment-tag > a > span{
+    font-family: Noto Sans KR; font-style: normal; font-weight: normal; font-size: 0.9rem;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    padding: 9px 14px;
+    line-height: 1;
+    color: #333;
+    background-color: #f3f5f8;
+    border-radius: 25px;
 }
 
 

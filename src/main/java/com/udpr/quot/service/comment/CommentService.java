@@ -44,6 +44,7 @@ public class CommentService {
         requestDto.setPerson(person);
 
         //코멘트 저장
+        String content = requestDto.getContent();
         Comment savedComment = commentRepository.save(requestDto.toEntity());
 
         //태그 저장

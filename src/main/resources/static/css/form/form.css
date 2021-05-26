@@ -6,13 +6,13 @@
 
 @media (min-width: 992px) {
     .container-custom {
-        width: 920px;
+        width: 750px;
     }
 }
 
 @media (min-width: 1200px) {
     .container-custom {
-        width: 920px;
+        width: 750px;
     }
 }
 

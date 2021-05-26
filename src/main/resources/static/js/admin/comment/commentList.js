@@ -53,7 +53,7 @@ var main = {
             , function (result) {
                 data = result;
                 $(tableBody).empty();
-                $("tbody").append(_this.toTrList(data.commentList));
+                $("#listTableBody").append(_this.toTrList(data.commentList));
                 $(".comment-pagination").empty();
                 $(".comment-pagination").append(_this.pagination(data.pageMetadata));
             }).fail(function (error) {
@@ -68,35 +68,58 @@ var main = {
         if (!list.length == 0) {
             list.forEach(comment => {
 
-                trList +=
-                    "<tr class='comment-row' id='comment-row-" + comment.commentId + "'>" +
-                    "<td class='p-3'>" +
-                    <!-- 발언인 -->
-                    "<div class='comment-person'><a class='person-name' href='/admin/person/" + comment.person.id + "'>" + comment.person.name + "</a></div>" +
-                    <!-- 발언 날짜 -->
-                    "<div class='comment-date'><small class='text-muted'>" + comment.commentDate_format + "</small></div>" +
-                    <!-- 발언 내용 -->
-                    "<div class='comment-content mt-2'>" +
-                    "<pre style='margin-bottom: 0rem'><p>" + comment.content +
-                    <!-- 출처 -->
-                    "<div class='comment-source'>" +
-                    "출처 ☞ <a href='" + comment.sourceUrl + "'  target='_blank'>" + comment.sourceSort + "</a>" +
-                    "</div>" +
-                    "</p></pre></div>";
+                trList += "<div class='comment-row p-4' id='comment-row-" + comment.commentId + "'>";
 
                 <!-- 태그 -->
                 if (comment.tags.length > 0) {
-                    trList += "<div>"
+                    trList += "<div class='comment-tag'>"
                     comment.tags.forEach(tag => {
                         trList +=
-                            "<a href='/admin/comment/search?keyword=" + tag.name + "&tab=3'><span class='badge bg-light text-dark me-1'>" + tag.name + "</span></a>"
+                            "<a href='/admin/comment/search?keyword=" + tag.name + "&tab=3'><span class='me-2'>#" + tag.name + "</span></a>"
                     });
                     trList += "</div>"
                 }
 
+                /*if (comment.tags.length > 0) {
+                    trList += "<div class='comment-tag'>"
+                    comment.tags.forEach(tag => {
+                        trList +=
+                            "<a href='/admin/comment/search?keyword=" + tag.name + "&tab=3'><span class='badge bg-light text-dark me-1'>#" + tag.name + "</span></a>"
+                    });
+                    trList += "</div>"
+                }*/
+
+
+
+                trList +=
+                    <!-- 발언 내용 -->
+                    "<div class='comment-content mt-2'>" +
+                    "<pre style='margin-bottom: 0rem'><p>" + comment.content + "</p></pre></div>" +
+
+                    <!-- 출처 & 발언날짜 컨테이너 -->
+                    "<div class='d-flex justify-content-between'>"+
+
+                    <!-- 출처 -->
+                    "<div class='comment-source d-flex align-items-center'>" +
+                    "<span></span><a href='" + comment.sourceUrl + "'  target='_blank'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-link-45deg' viewBox='0 0 16 16'>\n" +
+                    "  <path d='M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z'/>\n" +
+                    "  <path d='M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z'/>\n" +
+                    "</svg>" + comment.sourceSort + "</a>" +
+                    "</div>" +
+
+                    <!-- 발언 날짜 -->
+                    "<div>" +
+                    "<div class='comment-date' style='margin : 0 1.5rem 0 0;'><span class='text-muted'>" + comment.commentDate_format + "</span></div>" +
+
+                    <!-- 발언인 -->
+                    "<div class='comment-person' style='margin : 0 1.5rem 0 0;'>" +
+                    "<span class='text-muted'>" + comment.person.job + "</span>" +
+                    "<span style='margin : 0 0 0 0.3rem;'><a class='person-name' href='/admin/person/" + comment.person.id + "'>" + comment.person.name + "</a></span></div>"+
+                    "</div></div>";
+
                 <!-- 등록일 -->
                 trList +=
-                    "<div class='d-flex justify-content-between'>" +
+                    "<div class='d-flex justify-content-between pt-2'>" +
                     "<div class='pt-1'>" +
                     "<div class='col-xs-6'><span><small class='text-muted'>" + comment.createdDate + " 등록됨</small></span></div>";
 
@@ -111,18 +134,18 @@ var main = {
                 }
 
                 trList +=
-                    "<div>" +
+                    "<div class='d-flex align-items-center'>" +
                     "<a class='btn btn-outline-secondary btn-sm me-md-2' href='/admin/comment/" + comment.commentId + "'>수정</a>" +
                     "<button class='btn btn-outline-danger btn-sm btn-delete' onclick='main.delete(" + comment.commentId + ")'>삭제</button>" +
                     "<input type='hidden' name='commentId' value='" + comment.commentId + "'></div>" +
-                    "</div></td></tr>";
+                    "</div></div>";
 
 
             });
 
         } else {
             trList +=
-                "<div class='pt-5 pb-5'><h6 class='text-center'> 검색 결과가 없습니다. </h6></div>";
+                "<div class='comment-row pt-5 pb-5'><h6 class='text-center'> 검색 결과가 없습니다. </h6></div>";
         }
 
 

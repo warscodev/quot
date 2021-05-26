@@ -9,7 +9,7 @@
 <div class="container container-custom">
     </br>
     <div class="py-2 d-flex justify-content-between" style="grid-template-columns: 1fr 2fr;">
-        <div>
+        <div class="comment-title">
             <h4>발언 목록</h4>
         </div>
         <div>
@@ -17,56 +17,52 @@
         </div>
     </div>
 
-    <hr class="my-2">
+    <div class="row">
+        <div id="listTableBody">
+            <!--
+                        <tr th:each="comment : ${list}">
+                            <td>
+                                &lt;!&ndash; 발언인 이름 &ndash;&gt;
+                                <div>발언인 : <a href="#" th:href="@{/admin/person/{id} (id=${comment.person.id})}"
+                                              th:text="${comment.person.name}"></a></div>
+                                &lt;!&ndash; 발언 내용 &ndash;&gt;
+                                <div>발언 내용 : <span th:text="${comment.content}"></span></div>
+                                &lt;!&ndash; 발언 날짜 &ndash;&gt;
+                                <div>발언 일자 : <span
+                                        th:text="${#temporals.format(comment.commentDate,'yyyy-MM-dd')}"></span></div>
+                                &lt;!&ndash; 출처 &ndash;&gt;
+                                <div>출처 : <a th:href="${comment.sourceUrl}"><span th:text="${comment.sourceSort}"></span></a></div>
+                                &lt;!&ndash; 태그 목록&ndash;&gt;
+                                <div>
+                                    <th:block th:each="tag : ${comment.tags}">
+                                        <a href="#"><span th:text="${tag.name}" class="badge bg-secondary"></span></a>
+                                    </th:block>
+                                </div>
 
-    <div class="table-responsive">
-        <table class="table table-hover">
-            <tbody id="listTableBody">
-<!--
-            <tr th:each="comment : ${list}">
-                <td>
-                    &lt;!&ndash; 발언인 이름 &ndash;&gt;
-                    <div>발언인 : <a href="#" th:href="@{/admin/person/{id} (id=${comment.person.id})}"
-                                  th:text="${comment.person.name}"></a></div>
-                    &lt;!&ndash; 발언 내용 &ndash;&gt;
-                    <div>발언 내용 : <span th:text="${comment.content}"></span></div>
-                    &lt;!&ndash; 발언 날짜 &ndash;&gt;
-                    <div>발언 일자 : <span
-                            th:text="${#temporals.format(comment.commentDate,'yyyy-MM-dd')}"></span></div>
-                    &lt;!&ndash; 출처 &ndash;&gt;
-                    <div>출처 : <a th:href="${comment.sourceUrl}"><span th:text="${comment.sourceSort}"></span></a></div>
-                    &lt;!&ndash; 태그 목록&ndash;&gt;
-                    <div>
-                        <th:block th:each="tag : ${comment.tags}">
-                            <a href="#"><span th:text="${tag.name}" class="badge bg-secondary"></span></a>
-                        </th:block>
-                    </div>
+                                <div class="d-grid gap-2 d-md-flex justify-content-between">
+                                    &lt;!&ndash; 등록, 수정, 삭제 일자&ndash;&gt;
+                                    <div>
+                                        등록일 : <span
+                                            th:text="${#temporals.format(comment.createdDate,'yyyy-MM-dd HH:mm:ss')}"></span>
+                                        <span th:if="${comment.status.toString.equals('UPDATED') or comment.status.toString.equals('DELETED')}"
+                                              th:text="|${#temporals.format(comment.updatedDate,'yyyy-MM-dd HH:mm:ss')} 최종 수정됨|"></span>
+                                    </div>
 
-                    <div class="d-grid gap-2 d-md-flex justify-content-between">
-                        &lt;!&ndash; 등록, 수정, 삭제 일자&ndash;&gt;
-                        <div>
-                            등록일 : <span
-                                th:text="${#temporals.format(comment.createdDate,'yyyy-MM-dd HH:mm:ss')}"></span>
-                            <span th:if="${comment.status.toString.equals('UPDATED') or comment.status.toString.equals('DELETED')}"
-                                  th:text="|${#temporals.format(comment.updatedDate,'yyyy-MM-dd HH:mm:ss')} 최종 수정됨|"></span>
-                        </div>
+                                    &lt;!&ndash; 수정 삭제 버튼&ndash;&gt;
+                                    <div>
+                                        <a th:href="@{/admin/comment/{commentId}(commentId=${comment.commentId})}"
+                                           class="btn btn-outline-secondary btn-sm me-md-2"
+                                           href="#">수정</a>
+                                        <button class="btn btn-outline-danger btn-sm btn-delete">삭제</button>
+                                        &lt;!&ndash; 발언인 아이디 &ndash;&gt;
+                                        <input type="hidden" name="commentId" th:value="${comment.commentId}">
 
-                        &lt;!&ndash; 수정 삭제 버튼&ndash;&gt;
-                        <div>
-                            <a th:href="@{/admin/comment/{commentId}(commentId=${comment.commentId})}"
-                               class="btn btn-outline-secondary btn-sm me-md-2"
-                               href="#">수정</a>
-                            <button class="btn btn-outline-danger btn-sm btn-delete">삭제</button>
-                            &lt;!&ndash; 발언인 아이디 &ndash;&gt;
-                            <input type="hidden" name="commentId" th:value="${comment.commentId}">
-
-                        </div>
-                    </div>
-                </td>
-            </tr>
--->
-            </tbody>
-        </table>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+            -->
+        </div>
     </div>
 
     <div class="comment-pagination d-flex justify-content-center">
