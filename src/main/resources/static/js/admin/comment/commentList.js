@@ -17,7 +17,6 @@ var main = {
 
     loadComment: async function (page) {
 
-
         const size = 10;
         let _this = this,
             keyword = "",
@@ -68,7 +67,7 @@ var main = {
         if (!list.length == 0) {
             list.forEach(comment => {
 
-                trList += "<div class='comment-row p-4' id='comment-row-" + comment.commentId + "'>";
+                trList += "<div class='comment-row' id='comment-row-" + comment.commentId + "' style='padding: 2rem;'>";
 
                 <!-- 태그 -->
                 if (comment.tags.length > 0) {
@@ -175,12 +174,13 @@ var main = {
         nav += "<nav aria-label='Page navigation'>";
         nav += "<ul class='pagination pagination-sm' id='pagination-ul'>";
 
-        if (!totalElements == 0) {
+        if (!totalElements == 0 && totalPages>1) {
             if (!pageMetadata.first) {
-                nav += "<li class='page-item'><a class='page-link' aria-label='Previous' page='"+ (page - 1) +"'><span aria-hidden='true'>&lt;</span></a></li>";
+                nav += "<li class='page-item'><a class='page-link' aria-label='Previous' page='" + (page - 1) + "'><span aria-hidden='true'>&lt;</span></a></li>";
             } else {
                 nav += "<li class='page-item disabled'><a class='page-link' aria-label='Previous'><span aria-hidden='true'>&lt;</span></a></li>";
             }
+        }
 
             if (!startBlock == 0) {
                 nav += "<li class='page-item'><a class='page-link' page='0'>1</a></li>";
@@ -195,14 +195,16 @@ var main = {
                 }
             }
 
+            if(totalPages>1){
             if (!pageMetadata.last) {
                 nav += "<li class='page-item'><a class='page-link' aria-label='Next' page='"+ (page + 1) +"'><span aria-hidden='true'>&gt;</span></a></li>";
             } else {
                 nav += "<li class='page-item disabled'><a class='page-link' aria-label='Next'><span aria-hidden='true'>&gt;</span></a></li>";
             }
+            }
 
             nav += "</ul></nav>"
-        }
+
 
         return nav;
 
