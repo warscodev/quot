@@ -17,5 +17,5 @@ public interface CommentRepositoryCustom {
 
     Page<Comment> searchByTagName(String searchKeyword, Pageable pageable);
 
-    Page<Comment> searchByContent(String searchKeyword, Pageable pageable);
+    Page<Comment> searchByContentOrPersonName(String searchKeyword, Pageable pageable);
 }

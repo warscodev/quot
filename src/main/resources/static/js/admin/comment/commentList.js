@@ -67,7 +67,7 @@ var main = {
         if (!list.length == 0) {
             list.forEach(comment => {
 
-                trList += "<div class='comment-row' id='comment-row-" + comment.commentId + "' style='padding: 2rem;'>";
+                trList += "<div class='comment-row' id='comment-row-" + comment.commentId + "' style='padding: 1.5rem;'>";
 
                 <!-- 태그 -->
                 if (comment.tags.length > 0) {
@@ -93,7 +93,7 @@ var main = {
                 trList +=
                     <!-- 발언 내용 -->
                     "<div class='comment-content mt-2'>" +
-                    "<pre style='margin-bottom: 0rem'><p>" + comment.content + "</p></pre></div>" +
+                    "<pre style='margin-bottom: 0'><p>" + comment.content + "</p></pre></div>" +
 
                     <!-- 출처 & 발언날짜 컨테이너 -->
                     "<div class='d-flex justify-content-between'>"+
