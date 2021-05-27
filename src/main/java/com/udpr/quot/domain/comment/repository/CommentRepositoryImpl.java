@@ -61,10 +61,12 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom {
     }
 
     @Override
-    public Page<Comment> searchByContent(String searchKeyword, Pageable pageable) {
+    public Page<Comment> searchByContentOrPersonName(String searchKeyword, Pageable pageable) {
         QueryResults<Comment> results = queryFactory
                 .selectFrom(comment)
-                .where(comment.content.like("%" + searchKeyword + "%"))
+                .join(comment.person, person).fetchJoin()
+                .where(comment.content.like("%" + searchKeyword + "%")
+                .or(person.name.like("%" + searchKeyword + "%")))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .orderBy(comment.commentDate.desc())

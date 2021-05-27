@@ -104,7 +104,7 @@ public class CommentService {
         } else {
             switch (tab) {
                 case 1:
-                    comments = commentRepository.searchByContent(keyword, pageable);
+                    comments = commentRepository.searchByContentOrPersonName(keyword, pageable);
                     break;
                 case 2:
                     comments = commentRepository.searchByPersonName(keyword, personId, pageable);
