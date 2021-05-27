@@ -61,7 +61,7 @@ a {
     box-shadow: 0.7rem 0.7rem 0.7rem rgba(190,190,190,0.19);
 }
 
-.listTableBody-search > .comment-row {
+.listTableBody-search > #comment-row-1 {
     border-top: 0;
     border-top-left-radius: 0;
     border-top-right-radius: 0;

@@ -66,9 +66,9 @@ var main = {
         let trList = "";
 
         if (!list.length == 0) {
+            let i =1;
             list.forEach(comment => {
-
-                trList += "<div class='comment-row' id='comment-row-" + comment.commentId + "' style='padding: 1.5rem;'>";
+                trList += "<div class='comment-row' id='comment-row-" + i++ + "' data-comment-id='" + comment.commentId + "' style='padding: 1.5rem;'>";
 
                 <!-- 태그 -->
                 if (comment.tags.length > 0) {
