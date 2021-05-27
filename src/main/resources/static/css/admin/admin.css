@@ -132,15 +132,19 @@ a {
 }
 
 .comment-tag::-webkit-scrollbar{
-    height:0.5rem;
+    height:0.7rem;
 }
 
 .comment-tag::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    background-color: rgba(210, 210, 210, 0.24);
+    background-color: transparent;
+}
+
+.comment-tag::-webkit-scrollbar-thumb:hover{
+    background-color: rgba(210, 210, 210, 0.45);
 }
 .comment-tag::-webkit-scrollbar-track {
-    background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(231, 231, 231, 0.08);
 }
 
 .comment-tag > a > span{
