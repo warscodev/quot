@@ -97,6 +97,7 @@ public class CommentService {
         List<Comment> content = new ArrayList<>();
         Long total_ = 0L;
 
+
         Page<Comment> comments = new PageImpl<>(content, pageable, total_);
 
         if (keyword == null || keyword.isBlank()) {

@@ -61,6 +61,7 @@ var main = {
 
     },
 
+
     toTrList: function (list) {
         let trList = "";
 
@@ -71,10 +72,10 @@ var main = {
 
                 <!-- 태그 -->
                 if (comment.tags.length > 0) {
-                    trList += "<div class='comment-tag'>"
+                    trList += "<div class='comment-tag' style='width: 100%; overflow-x: auto; white-space: nowrap'>"
                     comment.tags.forEach(tag => {
                         trList +=
-                            "<a href='/admin/comment/search?keyword=" + tag.name + "&tab=3'><span class='me-2'>#" + tag.name + "</span></a>"
+                            "<a href='/admin/comment/search?keyword=" + tag.name + "&tab=3' style='width:auto;'><span class='me-2'>#" + tag.name + "</span></a>"
                     });
                     trList += "</div>"
                 }
@@ -99,7 +100,7 @@ var main = {
                     "<div class='d-flex justify-content-between'>"+
 
                     <!-- 출처 -->
-                    "<div class='comment-source d-flex align-items-center' style='margin : 0 0 0 1rem;'>" +
+                    "<div class='comment-source d-flex align-items-center' style='margin : 0 0 0 0.3rem;'>" +
                     "<a href='" + comment.sourceUrl + "'  target='_blank'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-link-45deg' viewBox='0 0 16 16'>\n" +
                     "  <path d='M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z'/>\n" +
                     "  <path d='M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z'/>\n" +
@@ -108,10 +109,10 @@ var main = {
 
                     <!-- 발언 날짜 -->
                     "<div>" +
-                    "<div class='comment-date d-flex justify-content-end' style='margin : 0 1.5rem 0 0;'><span class='text-muted'>" + comment.commentDate_format + "</span></div>" +
+                    "<div class='comment-date d-flex justify-content-end' style='margin : 0 1.2rem 0 0;'><span class='text-muted'>" + comment.commentDate_format + "</span></div>" +
 
                     <!-- 발언인 -->
-                    "<div class='comment-person d-flex justify-content-end' style='margin : 0 1.5rem 0 0;'>" +
+                    "<div class='comment-person d-flex justify-content-end' style='margin : 0 1.2rem 0 0;'>" +
                     "<span class='text-muted'>" + comment.person.job + "</span>" +
                     "<span style='margin : 0 0 0 0.3rem;'><a class='person-name' href='/admin/person/" + comment.person.id + "'>" + comment.person.name + "</a></span></div>"+
                     "</div></div>";
