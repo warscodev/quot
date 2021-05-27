@@ -56,7 +56,7 @@ a {
     font-weight: bold;
 }
 
-.comment-title > h4{
+.comment-title > h4, .person-title > h4{
     font-family: NanumSquareR; font-style: normal; font-weight: bold;
     margin-left: 0.5rem;
 }

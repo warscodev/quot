@@ -9,11 +9,11 @@
 <div class="container container-custom">
     </br>
     <div class="py-2 d-flex justify-content-between" style="grid-template-columns: 1fr 2fr;">
-        <div>
+        <div class="person-title">
             <h4>인물 목록</h4>
         </div>
         <div>
-            <a href="/admin/person/new" class="btn btn-primary">등록</a>
+            <a href="/admin/person/new" class="btn btn-warning btn-sm text-white">인물등록</a>
         </div>
     </div>
     <div class="py-1">
@@ -85,7 +85,7 @@
                 <td>
                     <div class="float-end">
                         <a th:href="@{/admin/person/{id}/comment (id=${person.id})}"
-                           class="btn btn-outline-primary btn-sm">발언 등록</a>
+                           class="btn btn-primary btn-sm">발언 등록</a>
                     </div>
                 </td>
             </tr>

@@ -111,7 +111,7 @@ var main = {
                     "<div class='comment-date d-flex justify-content-end' style='margin : 0 1.5rem 0 0;'><span class='text-muted'>" + comment.commentDate_format + "</span></div>" +
 
                     <!-- 발언인 -->
-                    "<div class='comment-person' style='margin : 0 1.5rem 0 0;'>" +
+                    "<div class='comment-person d-flex justify-content-end' style='margin : 0 1.5rem 0 0;'>" +
                     "<span class='text-muted'>" + comment.person.job + "</span>" +
                     "<span style='margin : 0 0 0 0.3rem;'><a class='person-name' href='/admin/person/" + comment.person.id + "'>" + comment.person.name + "</a></span></div>"+
                     "</div></div>";
