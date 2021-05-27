@@ -72,10 +72,10 @@ var main = {
 
                 <!-- 태그 -->
                 if (comment.tags.length > 0) {
-                    trList += "<div class='comment-tag' style='width: 100%; overflow-x: auto; white-space: nowrap'>"
+                    trList += "<div class='comment-tag'>"
                     comment.tags.forEach(tag => {
                         trList +=
-                            "<a href='/admin/comment/search?keyword=" + tag.name + "&tab=3' style='width:auto;'><span class='me-2'>#" + tag.name + "</span></a>"
+                            "<a href='/admin/comment/search?keyword=" + tag.name + "&tab=3'><span class='me-2'>#" + tag.name + "</span></a>"
                     });
                     trList += "</div>"
                 }
@@ -113,7 +113,7 @@ var main = {
 
                     <!-- 발언인 -->
                     "<div class='comment-person d-flex justify-content-end' style='margin : 0 1.2rem 0 0;'>" +
-                    "<span class='text-muted'>" + comment.person.job + "</span>" +
+                    "<span class='text-muted person-job'>" + comment.person.job + "</span>" +
                     "<span style='margin : 0 0 0 0.3rem;'><a class='person-name' href='/admin/person/" + comment.person.id + "'>" + comment.person.name + "</a></span></div>"+
                     "</div></div>";
 

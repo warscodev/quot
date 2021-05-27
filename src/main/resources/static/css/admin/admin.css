@@ -22,7 +22,7 @@ a {
 }
 
 .comment-source > a:hover{
-    color: rgb(113, 201, 255);
+    color: #71C9FFFF;
 }
 
 
@@ -45,8 +45,25 @@ a {
 }
 
 .nav-item > a:hover{
-    color: #1B95E0FF;
+    color: #71C9FFFF;
 }
+
+/* ------- 코멘트 박스 ------- */
+.comment-row {
+    background-color: #fff;
+    background-clip: border-box;
+    /*border: 1px solid rgba(0,0,0,.125);*/
+    border-radius: 1rem;
+    margin: 0 0 2rem 0;
+    box-shadow: 0.7rem 0.7rem 0.7rem rgba(190,190,190,0.19);
+}
+
+.listTableBody-search > .comment-row {
+    border-top: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+/* ------- 코멘트 박스 끝 ------- */
 
 .person-name {
     color: #212529;
@@ -54,6 +71,10 @@ a {
     font-family: NanumSquareR;
     font-style: normal;
     font-weight: bold;
+}
+
+.person-job{
+    font-size:0.93rem;
 }
 
 .comment-title > h4, .person-title > h4{
@@ -99,21 +120,25 @@ a {
     font-size: 23px;
 }
 
-.comment-row {
-    background-color: #fff;
-    background-clip: border-box;
-    /*border: 1px solid rgba(0,0,0,.125);*/
-    border-radius: 1rem;
-    margin: 0 0 2rem 0;
-    box-shadow: 0.7rem 0.7rem 0.7rem rgba(190,190,190,0.19);
+
+
+/* ------- 태그 시작 ------- */
+.comment-tag {
+    -ms-overflow-style: none;
+    width: 100%; overflow-x: auto; white-space: nowrap
 }
 
-.listTableBody-search > .comment-row {
-    border-top: 0;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+.comment-tag::-webkit-scrollbar{
+    height:0.5rem;
 }
 
+.comment-tag::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: rgba(210, 210, 210, 0.24);
+}
+.comment-tag::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0);
+}
 
 .comment-tag > a > span{
     font-family: Noto Sans KR; font-style: normal; font-weight: normal; font-size: 0.85rem;
@@ -124,7 +149,10 @@ a {
     color: #333;
     background-color: #f3f5f8;
     border-radius: 25px;
+    width:auto;
 }
+/* ------- 태그 끝 ------- */
+
 
 
 
