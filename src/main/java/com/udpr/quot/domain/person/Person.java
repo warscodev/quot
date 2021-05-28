@@ -25,6 +25,8 @@ public class Person extends BaseTimeEntity {
 
     private String name;
 
+    private String alias;
+
     @Embedded
     private Birth birth;
 
@@ -38,6 +40,7 @@ public class Person extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private Status status; //CREATED, DELETED, UPDATED
 
+
     private String category;
 
     @JsonManagedReference(value = "person")
@@ -46,9 +49,10 @@ public class Person extends BaseTimeEntity {
 
 
     @Builder
-    public Person(String name, Birth birth, String job,
+    public Person(String name, String alias, Birth birth, String job,
                   String gender, String summary, String category) {
         this.name = name.trim();
+        this.alias = alias.trim();
         this.birth = birth;
         this.job = job;
         this.gender = gender;
@@ -57,8 +61,9 @@ public class Person extends BaseTimeEntity {
         this.category = category;
     }
 
-    public void update(String name, Birth birth, String job, String gender, String summary, String category){
+    public void update(String name, String alias, Birth birth, String job, String gender, String summary, String category){
         this.name = name.trim();
+        this.alias = alias.trim();
         this.birth = birth;
         this.job = job;
         this.gender = gender;

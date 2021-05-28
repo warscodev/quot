@@ -17,6 +17,7 @@ public class PersonRequestDto {
     private Long id;
     @NotBlank(message = "인물 이름은 필수입니다.")
     private String name;
+    private String alias;
     private Birth birth;
     private String gender;
     private String job;
@@ -27,6 +28,7 @@ public class PersonRequestDto {
     public Person toEntity(){
         return Person.builder()
                 .name(name)
+                .alias(alias)
                 .birth(birth)
                 .gender(gender)
                 .job(job)

@@ -35,6 +35,13 @@
                 <option th:value="'여자'">여자</option>
             </select>
         </div>
+
+        <!-- 본명, 가명, 별명 등-->
+        <div class="col-12">
+            <label th:for="alias" class="form-label">본명,예명,별명 등(검색용)</label>
+            <input type="text" th:field="*{alias}" class="form-control" placeholder="인물의 본명, 예명, 별명 등">
+        </div>
+
         <!-- 생년월일 -->
         <!-- 년 -->
         <label th:for="birthForm">생년월일</label>

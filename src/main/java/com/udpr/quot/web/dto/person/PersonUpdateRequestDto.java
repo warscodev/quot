@@ -12,6 +12,7 @@ import lombok.Setter;
 public class PersonUpdateRequestDto {
 
     private String name;
+    private String alias;
     private Birth birth;
     private String gender;
     private String job;
@@ -19,9 +20,10 @@ public class PersonUpdateRequestDto {
     private Long categoryId;
 
     @Builder
-    public PersonUpdateRequestDto(String name, Birth birth, String gender,
+    public PersonUpdateRequestDto(String name, String alias, Birth birth, String gender,
                                   String job, String summary, Long categoryId) {
         this.name = name;
+        this.alias = alias;
         this.birth = birth;
         this.gender = gender;
         this.job = job;

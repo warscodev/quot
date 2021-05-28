@@ -6,18 +6,17 @@ import com.udpr.quot.domain.comment.search.CommentSearchCondition;
 import com.udpr.quot.domain.person.Person;
 import com.udpr.quot.domain.person.repository.PersonRepository;
 import com.udpr.quot.web.dto.comment.CommentListResponseDto;
-import com.udpr.quot.web.dto.comment.CommentResponseDto;
 import com.udpr.quot.web.dto.comment.CommentRequestDto;
+import com.udpr.quot.web.dto.comment.CommentResponseDto;
 import com.udpr.quot.web.dto.comment.PageMetadata;
 import com.udpr.quot.web.dto.person.PersonResponseDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import lombok.extern.slf4j.Slf4j;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -149,4 +148,5 @@ public class CommentService {
 
 
     }
+
 }

@@ -12,6 +12,7 @@ public class PersonResponseDto {
 
     private Long id;
     private String name;
+    private String alias;
     private Birth birth;
     private String gender;
     private String job;
@@ -24,6 +25,7 @@ public class PersonResponseDto {
     public PersonResponseDto(Person entity) {
         this.id = entity.getId();;
         this.name = entity.getName();
+        this.alias = entity.getAlias();
         this.birth = entity.getBirth();
         this.gender = entity.getGender();
         this.job = entity.getJob();

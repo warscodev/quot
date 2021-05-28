@@ -6,6 +6,8 @@ import com.udpr.quot.domain.person.PersonSearchCondition;
 import com.udpr.quot.domain.common.Status;
 import com.udpr.quot.web.dto.person.PersonListResponseDto;
 import com.udpr.quot.web.dto.person.QPersonListResponseDto;
+import com.udpr.quot.web.dto.search.QSearchPersonResponseDto;
+import com.udpr.quot.web.dto.search.SearchPersonResponseDto;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -26,6 +28,7 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
                 .select(new QPersonListResponseDto(
                         person.id,
                         person.name,
+                        person.alias,
                         person.birth,
                         person.job,
                         person.status,
@@ -42,9 +45,25 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
                 .fetch();
     }
 
+    @Override
+    public List<SearchPersonResponseDto> findByPersonName(String keyword){
+        return queryFactory
+                .select(new QSearchPersonResponseDto(
+                        person.id,
+                        person.name,
+                        person.job,
+                        person.category
+                ))
+                .from(person)
+                .where(person.name.like("%" + keyword + "%")
+                .or(person.alias.like("%" + keyword + "%")))
+                .orderBy(person.birth.birth_year.desc())
+                .fetch();
+    }
+
     private Predicate nameLike(String name) {
         if (name != null && name.length() > 0)
-            return person.name.like("%" + name + "%");
+            return person.name.like("%" + name + "%").or(person.alias.like("%" + name + "%"));
         return null;
     }
 

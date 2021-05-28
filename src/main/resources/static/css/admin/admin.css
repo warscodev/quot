@@ -51,6 +51,35 @@ a {
     color: #1B95E0FF;
 }
 
+
+/* 검색결과 인물 리스트  */
+.person-related>ul{
+    list-style: none;
+    padding-left: 0;
+}
+
+.person-related>ul>li{
+    margin-right: 2rem;
+    border-radius: 0.5rem;
+    background-color: white;
+    display: inline-block;
+    box-shadow: 0.3rem 0.3rem 0.3rem rgba(190,190,190,0.19);
+    border: 1px solid rgba(0,0,0,.1);
+}
+
+.person-related>ul>li>a>.person-related-header{
+    font-size: 0.85rem;
+    color: #ff7f00;
+    margin: 0.5rem;
+}
+
+.person-related>ul>li>a>.person-related-body{
+
+}
+
+
+/* 검색결과 인물 리스트 끝 */
+
 /* ------- 코멘트 박스 ------- */
 .comment-row {
     background-color: #fff;
@@ -61,7 +90,7 @@ a {
     box-shadow: 0.7rem 0.7rem 0.7rem rgba(190,190,190,0.19);
 }
 
-.listTableBody-search > #comment-row-1, .comment-empty {
+.search-comment-table > #comment-row-1, .comment-empty {
     border-top: 0;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -71,8 +100,6 @@ a {
 .person-name {
     color: #212529;
     text-decoration: none;
-    font-family: NanumSquareR;
-    font-style: normal;
     font-weight: bold;
 }
 

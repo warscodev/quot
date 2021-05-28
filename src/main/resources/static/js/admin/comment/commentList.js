@@ -3,19 +3,69 @@ var main = {
         let _this = this,
             page = 0;
 
+        /* 검색결과인 경우 관련 인물 리스트 불러오기 */
+        if (document.getElementById("search-keyword")) {
+            console.log("키워드 있음!")
+            _this.loadPerson();
+        }else{
+            console.log("키워드 없음")
+        }
+
+        /* 코멘트 불러오기 */
         _this.loadComment(page);
 
-        $(document).on("click","#pagination-ul li a",(function (e) {
+        
+        /* 페이징 */
+        $(document).on("click", "#pagination-ul li a", (function (e) {
             let scrollPosition = $("#listTableBody").offset();
-            //e.preventDefault();
             let num = $(this).attr("page");
             _this.loadComment(num);
-            $('html, body').animate({scrollTop : scrollPosition.top}, 300);
+            $('html, body').animate({scrollTop: scrollPosition.top}, 300);
         }));
 
     },
 
+    loadPerson: async function () {
+        let _this = this,
+            data = '',
+            keyword = document.getElementById("search-keyword").value;
+            console.log(keyword);
+            personTable = document.getElementById("person-table");
+
+        await $.get(`/api/personList?keyword=${keyword}`,
+            function (result) {
+                data = result;
+                $(personTable).empty();
+                $(personTable).append(_this.toPersonTable(data));
+            }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+
+    toPersonTable: function (personList) {
+
+        let row = '';
+
+        if (personList.length > 0) {
+                row += "<ul>"
+            personList.forEach(person => {
+                row +=
+                    "<li><a href='/admin/comment/search?keyword=" + person.name + "&personId=" + person.id + "&tab=2'>" +
+                    "<div class='person-related-header'><span class='person-category'>" + person.category + "</span></div>" +
+                    "<div class='person-related-body' '>" +
+                    "<span class='person-name'>" + person.name + "</span>" +
+                    "<span class='person-job'>" + person.job + "</span>" +
+                    "</div>" +
+                    "</a></li>";
+            })
+            row += "</ul>";
+        }
+        return row;
+    },
+
     loadComment: async function (page) {
+        
+        console.log("loadComment 실행")
 
         const size = 10;
         let _this = this,
@@ -24,7 +74,7 @@ var main = {
             personId = 0,
 
             data = '',
-            tableBody = document.getElementById("listTableBody");
+            commentTable = document.getElementById("comment-table");
 
 
         if (document.getElementById("search-tab")) {
@@ -46,13 +96,12 @@ var main = {
                 personId: personId
             };
 
-
         await $.get(`/api/comment?page=${page}&size=${size}`,
             commentSearchCondition
             , function (result) {
                 data = result;
-                $(tableBody).empty();
-                $("#listTableBody").append(_this.toTrList(data.commentList));
+                $(commentTable).empty();
+                $("#comment-table").append(_this.toCommentTable(data.commentList));
                 $(".comment-pagination").empty();
                 $(".comment-pagination").append(_this.pagination(data.pageMetadata));
             }).fail(function (error) {
@@ -61,43 +110,31 @@ var main = {
 
     },
 
-
-    toTrList: function (list) {
-        let trList = "";
+    toCommentTable: function (list) {
+        let row = "";
 
         if (!list.length == 0) {
-            let i =1;
+            let i = 1;
             list.forEach(comment => {
-                trList += "<div class='comment-row' id='comment-row-" + i++ + "' data-comment-id='" + comment.commentId + "' style='padding: 1.5rem;'>";
+                row += "<div class='comment-row' id='comment-row-" + i++ + "' data-comment-id='" + comment.commentId + "' style='padding: 1.5rem;'>";
 
                 <!-- 태그 -->
                 if (comment.tags.length > 0) {
-                    trList += "<div class='comment-tag'>"
+                    row += "<div class='comment-tag'>"
                     comment.tags.forEach(tag => {
-                        trList +=
+                        row +=
                             "<a href='/admin/comment/search?keyword=" + tag.name + "&tab=3'><span class='me-2'>#" + tag.name + "</span></a>"
                     });
-                    trList += "</div>"
+                    row += "</div>"
                 }
 
-                /*if (comment.tags.length > 0) {
-                    trList += "<div class='comment-tag'>"
-                    comment.tags.forEach(tag => {
-                        trList +=
-                            "<a href='/admin/comment/search?keyword=" + tag.name + "&tab=3'><span class='badge bg-light text-dark me-1'>#" + tag.name + "</span></a>"
-                    });
-                    trList += "</div>"
-                }*/
-
-
-
-                trList +=
+                row +=
                     <!-- 발언 내용 -->
                     "<div class='comment-content mt-2'>" +
                     "<pre style='margin-bottom: 0'><p>" + comment.content + "</p></pre></div>" +
 
                     <!-- 출처 & 발언날짜 컨테이너 -->
-                    "<div class='d-flex justify-content-between'>"+
+                    "<div class='d-flex justify-content-between'>" +
 
                     <!-- 출처 -->
                     "<div class='comment-source d-flex align-items-center' style='margin : 0 0 0 0.3rem;'>" +
@@ -114,11 +151,11 @@ var main = {
                     <!-- 발언인 -->
                     "<div class='comment-person d-flex justify-content-end' style='margin : 0 1.2rem 0 0;'>" +
                     "<span class='text-muted person-job'>" + comment.person.job + "</span>" +
-                    "<span style='margin : 0 0 0 0.3rem;'><a class='person-name' href='/admin/person/" + comment.person.id + "'>" + comment.person.name + "</a></span></div>"+
+                    "<span style='margin : 0 0 0 0.3rem;'><a class='person-name' href='/admin/person/" + comment.person.id + "'>" + comment.person.name + "</a></span></div>" +
                     "</div></div>";
 
                 <!-- 등록일 -->
-                trList +=
+                row +=
                     "<div class='d-flex justify-content-between pt-2' style='border-top: 0.05rem solid rgba(0,0,0,.125);\n" +
                     "    margin-top: 1rem;'>" +
                     "<div class='pt-1'>" +
@@ -126,15 +163,15 @@ var main = {
 
                 <!-- 수정일 -->
                 if (comment.status == 'UPDATED') {
-                    trList +=
+                    row +=
                         "<div class='col-xs-6'><span><small class='text-muted'>" + comment.updatedDate + " 수정됨</small></span></div></div>";
 
                 } else {
-                    trList +=
+                    row +=
                         "</div>";
                 }
 
-                trList +=
+                row +=
                     "<div class='d-flex align-items-center'>" +
                     "<a class='btn btn-outline-secondary btn-sm me-md-2' href='/admin/comment/" + comment.commentId + "'>수정</a>" +
                     "<button class='btn btn-outline-danger btn-sm btn-delete' onclick='main.delete(" + comment.commentId + ")'>삭제</button>" +
@@ -145,12 +182,12 @@ var main = {
             });
 
         } else {
-            trList +=
+            row +=
                 "<div class='comment-row comment-empty pt-5 pb-5'><h6 class='text-center'> 검색 결과가 없습니다. </h6></div>";
         }
 
 
-        return trList;
+        return row;
     },
 
 
@@ -175,7 +212,7 @@ var main = {
         nav += "<nav aria-label='Page navigation'>";
         nav += "<ul class='pagination pagination-sm' id='pagination-ul'>";
 
-        if (!totalElements == 0 && totalPages>1) {
+        if (!totalElements == 0 && totalPages > 1) {
             if (!pageMetadata.first) {
                 nav += "<li class='page-item'><a class='page-link' aria-label='Previous' page='" + (page - 1) + "'><span aria-hidden='true'>&lt;</span></a></li>";
             } else {
@@ -183,28 +220,28 @@ var main = {
             }
         }
 
-            if (!startBlock == 0) {
-                nav += "<li class='page-item'><a class='page-link' page='0'>1</a></li>";
-                nav += "<li class='page-item active disabled'><span class='page-link' style='cursor:default'>...</span></li>";
-            }
+        if (!startBlock == 0) {
+            nav += "<li class='page-item'><a class='page-link' page='0'>1</a></li>";
+            nav += "<li class='page-item active disabled'><span class='page-link' style='cursor:default'>...</span></li>";
+        }
 
-            for (let num = startBlock; num < endBlock; num++) {
-                if (num == page) {
-                    nav += "<li class='page-item active'><span class='page-link' style='cursor:default'>" + (num + 1) + "</span></li>";
-                } else {
-                    nav += "<li class='page-item'><a class='page-link' page='"+ num +"'>" + (num + 1) + "</a></li>";
-                }
+        for (let num = startBlock; num < endBlock; num++) {
+            if (num == page) {
+                nav += "<li class='page-item active'><span class='page-link' style='cursor:default'>" + (num + 1) + "</span></li>";
+            } else {
+                nav += "<li class='page-item'><a class='page-link' page='" + num + "'>" + (num + 1) + "</a></li>";
             }
+        }
 
-            if(totalPages>1){
+        if (totalPages > 1) {
             if (!pageMetadata.last) {
-                nav += "<li class='page-item'><a class='page-link' aria-label='Next' page='"+ (page + 1) +"'><span aria-hidden='true'>&gt;</span></a></li>";
+                nav += "<li class='page-item'><a class='page-link' aria-label='Next' page='" + (page + 1) + "'><span aria-hidden='true'>&gt;</span></a></li>";
             } else {
                 nav += "<li class='page-item disabled'><a class='page-link' aria-label='Next'><span aria-hidden='true'>&gt;</span></a></li>";
             }
-            }
+        }
 
-            nav += "</ul></nav>"
+        nav += "</ul></nav>"
 
 
         return nav;
@@ -221,7 +258,7 @@ var main = {
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
             }).done(function () {
-                let row = $('div[data-comment-id='+id+']');
+                let row = $('div[data-comment-id=' + id + ']');
                 row.remove();
                 alert('발언이 삭제되었습니다.');
             }).fail(function (error) {

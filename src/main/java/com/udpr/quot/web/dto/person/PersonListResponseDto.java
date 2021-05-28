@@ -14,6 +14,7 @@ public class PersonListResponseDto {
 
     private Long id;
     private String name;
+    private String alias;
     private Birth birth;
     private String job;
     private Status status;
@@ -22,9 +23,10 @@ public class PersonListResponseDto {
     private String category;
 
     @QueryProjection
-    public PersonListResponseDto(Long id, String name, Birth birth, String job, Status status, LocalDateTime createdDate, LocalDateTime updatedDate, String category) {
+    public PersonListResponseDto(Long id, String name, String alias, Birth birth, String job, Status status, LocalDateTime createdDate, LocalDateTime updatedDate, String category) {
         this.id = id;
         this.name = name;
+        this.alias = alias;
         this.birth = birth;
         this.job = job;
         this.status = status;
