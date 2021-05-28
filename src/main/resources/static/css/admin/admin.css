@@ -61,7 +61,7 @@ a {
     box-shadow: 0.7rem 0.7rem 0.7rem rgba(190,190,190,0.19);
 }
 
-.listTableBody-search > #comment-row-1 {
+.listTableBody-search > #comment-row-1, .comment-empty {
     border-top: 0;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -144,7 +144,7 @@ a {
     background-color: rgba(210, 210, 210, 0.45);
 }
 .comment-tag::-webkit-scrollbar-track {
-    background-color: rgba(231, 231, 231, 0.08);
+    background-color: transparent;
 }
 
 .comment-tag > a > span{

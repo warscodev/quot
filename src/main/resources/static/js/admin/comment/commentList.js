@@ -146,7 +146,7 @@ var main = {
 
         } else {
             trList +=
-                "<div class='comment-row pt-5 pb-5'><h6 class='text-center'> 검색 결과가 없습니다. </h6></div>";
+                "<div class='comment-row comment-empty pt-5 pb-5'><h6 class='text-center'> 검색 결과가 없습니다. </h6></div>";
         }
 
 
@@ -221,9 +221,8 @@ var main = {
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
             }).done(function () {
-                let commentRowId = "comment-row-" + id;
-                let row = document.getElementById(commentRowId);
-                row.parentNode.removeChild(row);
+                let row = $('div[data-comment-id='+id+']');
+                row.remove();
                 alert('발언이 삭제되었습니다.');
             }).fail(function (error) {
                 alert(JSON.stringify(error));
