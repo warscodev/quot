@@ -8,10 +8,13 @@
 <div th:replace="fragments/bodyHeader :: bodyHeader"/>
 <div class="container container-custom">
     </br>
-    <div class="py-2 d-flex justify-content-between" style="grid-template-columns: 1fr 2fr;">
-        <div>
+    <div>
+        <!--<div id="person-related-title"></div>-->
+    </div>
+    <div class="py-2 d-flex justify-content-between align-items-center" style="grid-template-columns: 1fr 2fr;">
+        <div class="search-result-title-wrap">
             <h6>
-                <b th:text="|&#039${keyword}&#039|"></b>에 대한 검색 결과
+                <span class="search-result-keyword" th:text="|&#039${keyword}&#039|"></span> 에 대한 검색 결과
                 <input id="search-keyword" type="hidden" th:value="${keyword}">
                 <input id="search-tab" type="hidden" th:value="${tab}">
                 <input id="search-personId" type="hidden" th:value="${personId}">
@@ -25,6 +28,8 @@
     <!-- 관련 인물 리스트-->
     <div class="person-related" id="person-table">
     </div>
+
+
 
     <!-- 코멘트 리스트 네비바 -->
     <div class="comment-nav-tabs-container">

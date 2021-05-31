@@ -5,10 +5,7 @@ var main = {
 
         /* 검색결과인 경우 관련 인물 리스트 불러오기 */
         if (document.getElementById("search-keyword")) {
-            console.log("키워드 있음!")
             _this.loadPerson();
-        }else{
-            console.log("키워드 없음")
         }
 
         /* 코멘트 불러오기 */
@@ -29,7 +26,6 @@ var main = {
         let _this = this,
             data = '',
             keyword = document.getElementById("search-keyword").value;
-            console.log(keyword);
             personTable = document.getElementById("person-table");
 
         await $.get(`/api/personList?keyword=${keyword}`,
@@ -43,20 +39,28 @@ var main = {
     },
 
     toPersonTable: function (personList) {
+        let titleDiv = document.getElementById("person-related-title"),
+            title = '',
+            row = '';
 
-        let row = '';
+        title += "<h6>관련 인물</h6>"
+        $(titleDiv).append(title);
 
         if (personList.length > 0) {
-                row += "<ul>"
             personList.forEach(person => {
                 row +=
-                    "<li><a href='/admin/comment/search?keyword=" + person.name + "&personId=" + person.id + "&tab=2'>" +
-                    "<div class='person-related-header'><span class='person-category'>" + person.category + "</span></div>" +
+                    "<div><a href='/admin/comment/search?keyword=" + person.name + "&personId=" + person.id + "&tab=2'>" +
+                    "<div class='person-related-header'>" +
+                    "<span class='person-category'>" +
+                    "<svg xmlns='http://www.w3.org/2000/svg' width='13' height='13' fill='currentColor' class='bi bi-tags' viewBox='0 1 16 16'>\n" +
+                    "  <path d='M3 2v4.586l7 7L14.586 9l-7-7H3zM2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586V2z'/>\n" +
+                    "  <path d='M5.5 5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm0 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM1 7.086a1 1 0 0 0 .293.707L8.75 15.25l-.043.043a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 0 7.586V3a1 1 0 0 1 1-1v5.086z'/>\n" +
+                    "</svg>" + person.category + "</span></div>" +
                     "<div class='person-related-body' '>" +
                     "<span class='person-name'>" + person.name + "</span>" +
                     "<span class='person-job'>" + person.job + "</span>" +
                     "</div>" +
-                    "</a></li>";
+                    "</a></div>";
             })
             row += "</ul>";
         }
@@ -64,9 +68,6 @@ var main = {
     },
 
     loadComment: async function (page) {
-        
-        console.log("loadComment 실행")
-
         const size = 10;
         let _this = this,
             keyword = "",
@@ -75,7 +76,6 @@ var main = {
 
             data = '',
             commentTable = document.getElementById("comment-table");
-
 
         if (document.getElementById("search-tab")) {
             tab = document.getElementById("search-tab").value;
@@ -123,7 +123,7 @@ var main = {
                     row += "<div class='comment-tag'>"
                     comment.tags.forEach(tag => {
                         row +=
-                            "<a href='/admin/comment/search?keyword=" + tag.name + "&tab=3'><span class='me-2'>#" + tag.name + "</span></a>"
+                            "<a href='/admin/comment/search?keyword=" + tag.name + "&tab=3'><span>#" + tag.name + "</span></a>"
                     });
                     row += "</div>"
                 }
@@ -137,21 +137,24 @@ var main = {
                     "<div class='d-flex justify-content-between'>" +
 
                     <!-- 출처 -->
-                    "<div class='comment-source d-flex align-items-center' style='margin : 0 0 0 0.3rem;'>" +
-                    "<a href='" + comment.sourceUrl + "'  target='_blank'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-link-45deg' viewBox='0 0 16 16'>\n" +
-                    "  <path d='M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z'/>\n" +
-                    "  <path d='M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z'/>\n" +
+                    "<div class='comment-source d-flex align-items-center' style='margin-left : 0.3rem;'>" +
+                    "<a href='" + comment.sourceUrl + "'  target='_blank'>" +
+                        "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-link-45deg' viewBox='0 0 16 16'>\n" +
+                        "<path d='M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z'/>\n" +
+                        "<path d='M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z'/>\n" +
                     "</svg>" + comment.sourceSort + "</a>" +
                     "</div>" +
 
+                    "<div style='margin-right : 1.2rem;'>" +
                     <!-- 발언 날짜 -->
-                    "<div>" +
-                    "<div class='comment-date d-flex justify-content-end' style='margin : 0 1.2rem 0 0;'><span class='text-muted'>" + comment.commentDate_format + "</span></div>" +
+                    "<div class='comment-date d-flex justify-content-end''><span>" + comment.commentDate_format + "</span></div>" +
 
                     <!-- 발언인 -->
-                    "<div class='comment-person d-flex justify-content-end' style='margin : 0 1.2rem 0 0;'>" +
-                    "<span class='text-muted person-job'>" + comment.person.job + "</span>" +
-                    "<span style='margin : 0 0 0 0.3rem;'><a class='person-name' href='/admin/person/" + comment.person.id + "'>" + comment.person.name + "</a></span></div>" +
+                    "<div class='comment-person d-flex align-items-center justify-content-end'>" +
+                    <!-- 발언인>직업 -->
+                    "<span class='person-job'>" + comment.person.job + "</span>" +
+                    <!-- 발언인>이름 -->
+                    "<a style='margin-left: .3rem;' href='/admin/person/" + comment.person.id + "'><span class='person-name'>" + comment.person.name + "</span></a></div>" +
                     "</div></div>";
 
                 <!-- 등록일 -->
@@ -276,7 +279,6 @@ var main = {
 
     pagingClick: function (num) {
 
-        console.log("온클릭");
         const _this = this;
         _this.loadComment(num);
     }

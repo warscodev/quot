@@ -3,62 +3,56 @@
 <div class="header" th:fragment="bodyHeader">
 
     <!-- 헤더 네비바 -->
-    <header class="py-3" style="background: #325288;">
-        <div class="container-fluid d-grid gap-3 align-items-center" style="grid-template-columns: 1fr 2fr;">
-            <div class="dropdown">
-                <span style="font-family:NanumSquare; font-weight:bold; font-size: 1.6rem; margin-left:0.8rem; color: white;">Quot.</span>
-                <!--<a href="#"
-                   class="d-flex align-items-center col-lg-4 mb-2 mb-lg-0 link-dark text-decoration-none dropdown-toggle"
-                   id="dropdownNavLink" data-bs-toggle="dropdown" aria-expanded="false" style="color: white;">
-
-                </a>
-                &lt;!&ndash; 메인 드롭다운 메뉴 &ndash;&gt;
-                <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownNavLink" style="">
-                    <li><a class="dropdown-item active" href="#">카테고리</a></li>
-                    <li><a class="dropdown-item" href="#">카테고리</a></li>
-                    <li><a class="dropdown-item" href="#">카테고리</a></li>
-                    <li><a class="dropdown-item" href="#">카테고리</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item" href="#">제보하기</a></li>
-                </ul>-->
-            </div>
-
-            <!-- 검색창 -->
-            <div class="d-flex">
-                <form action="/admin/comment/search" method="get" class="d-flex">
-                    <input id="keyword" name="keyword" class="form-control search-bar" placeholder="검색"
-                           th:value="${keyword}">
-                    <input id="tab" name="tab" type="hidden" value="1">
-                    <button id="btn-search" type="submit" class="btn btn-secondary btn-sm">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                             class="bi bi-search" viewBox="0 0 16 16">
-                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
-                        </svg>
-                    </button>
-                </form>
-            </div>
+    <div class="main-header container-fluid d-grid gap-3 align-items-center py-2"
+         style="grid-template-columns: 1.33fr 2fr; background-color: white;">
+        <div class="d-flex">
+            <span style="font-weight:bold; font-size: 1.8rem; margin-left:0.8rem; color: #439ff9;">Quot.</span>
+        </div>
+        <!-- 검색창 -->
+        <div class="d-flex">
+            <form action="/admin/comment/search" method="get" class="d-flex" autocomplete="off" maxlength="255"
+                  onsubmit="return validate(this)">
+                <input id="keyword" name="keyword" class="form-control search-bar" placeholder="검색어를 입력하세요."
+                       th:value="${keyword}">
+                <input id="tab" name="tab" type="hidden" value="1">
+                <button type="submit" class="search-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="25" fill="currentColor"
+                         class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
+                    </svg>
+                </button>
             </form>
         </div>
-    </header>
+    </div>
 
 
     <!-- admin 네비바 -->
-    <div class="p-3 bg-white" style="box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.05), inset 0 -1px 0 rgba(0,0,0,0.15);">
+    <div class="admin-header">
         <div class="container container-custom d-flex justify-content-between">
-            <div><span style="font-size:1.4rem;">Admin Page 0.0.1</span></div>
+            <div><span style="margin-left: 0.5rem;">Admin Page 0.0.1</span></div>
             <div>
-                <a class="btn btn-outline-danger btn-sm d-flex justify-content-end" href="/logout" style="border-radius: 1rem;">로그아웃</a>
+                <a class="btn btn-outline-danger btn-sm d-flex justify-content-end" href="/logout"
+                   style="border-radius: 1rem;">로그아웃</a>
             </div>
         </div>
     </div>
 
     <div class="container container-custom">
         <nav class="nav">
-            <a class="nav-link active" aria-current="page" href="/admin/person">인물 목록</a>
+            <a class="nav-link" aria-current="page" href="/admin/person">인물 목록</a>
             <a class="nav-link" href="/admin/comment">발언 목록</a>
         </nav>
     </div>
 
+
+    <script>
+        function validate(event) {
+            const len = document.getElementById("keyword").value.trim().length;
+            if (len < 1) {
+                return false
+            } else {
+                return true
+            }
+        }
+    </script>
 </div>
