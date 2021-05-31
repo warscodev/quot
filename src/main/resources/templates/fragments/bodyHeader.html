@@ -47,10 +47,13 @@
 
     <script>
         function validate(event) {
-            const len = document.getElementById("keyword").value.trim().length;
+            const input = document.getElementById("keyword");
+            let keyword = input.value;
+            const len = keyword.trim().length;
             if (len < 1) {
                 return false
             } else {
+                input.value = keyword.trim();
                 return true
             }
         }
