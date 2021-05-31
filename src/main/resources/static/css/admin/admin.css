@@ -17,6 +17,10 @@ a {
     cursor: pointer;
 }
 
+a:hover{
+    color: black;
+}
+
 /* --- 헤더 ---*/
 .main-header{
     background: rgba(255, 255, 255, 0.95);
@@ -161,6 +165,11 @@ a {
     box-shadow: 0.25rem 0.7rem 2rem 0.3rem rgba(0,0,0,.1);
 }
 
+.comment-date >span{
+    color: #6c757d;
+    font-size: .9rem;
+}
+
 /* ------- 태그 시작 ------- */
 .comment-tag {
     -ms-overflow-style: none;
@@ -208,7 +217,7 @@ a {
 }
 
 .person-job{
-    font-size:0.93rem;
+    font-size:0.9rem;
 }
 
 .comment-title > h4, .person-title > h4{
@@ -256,7 +265,37 @@ a {
     font-size: 23px;
 }
 
+/* 페이지네이션 */
 
+.comment-pagination{
+    margin-bottom: 2rem;
+}
+
+.page-link {
+    text-align: center;
+    font-weight: 400 !important;
+    color: #696969 !important;
+    background-color: transparent;
+    width: 30px;
+    height: 30px;
+    border-radius: 50% !important;
+    border: none;
+    margin: 0 .1rem !important;
+}
+
+.page-item.active .page-link {
+    font-weight: 500;
+    background-color: #e3e8ef;
+    border: none;
+}
+
+.page-item.disabled .page-link {
+    background-color: transparent;
+    border: none;
+}
+
+.page-link:hover{
+}
 
 
 
