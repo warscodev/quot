@@ -11,7 +11,7 @@
     <div>
         <!--<div id="person-related-title"></div>-->
     </div>
-    <div class="py-2 d-flex justify-content-between align-items-center" style="grid-template-columns: 1fr 2fr;">
+    <div  id="comment-scroll-position" class="py-2 d-flex justify-content-between align-items-center" style="grid-template-columns: 1fr 2fr;">
         <div class="search-result-title-wrap">
             <h6>
                 <span class="search-result-keyword" th:text="|&#039${keyword}&#039|"></span> 에 대한 검색 결과
@@ -32,7 +32,7 @@
 
 
     <!-- 코멘트 리스트 네비바 -->
-    <div class="comment-nav-tabs-container">
+    <div class="comment-nav-tabs-container" id="comment-nav-bar">
         <ul class="nav nav-tabs nav-fill">
             <li class="nav-item">
                 <a class="nav-link" onclick="move_tab(this,1)"

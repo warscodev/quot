@@ -14,10 +14,10 @@ var main = {
         
         /* 페이징 */
         $(document).on("click", "#pagination-ul li a", (function (e) {
-            let scrollPosition = $("#listTableBody").offset();
+            let scrollPosition = $("#comment-scroll-position").offset();
             let num = $(this).attr("page");
             _this.loadComment(num);
-            $('html, body').animate({scrollTop: scrollPosition.top}, 300);
+            $('html, body').animate({scrollTop: (scrollPosition.top-60)}, 300);
         }));
 
     },

@@ -8,7 +8,7 @@
 <div th:replace="fragments/bodyHeader :: bodyHeader"/>
 <div class="container container-custom">
     </br>
-    <div class="py-2 d-flex justify-content-between" style="grid-template-columns: 1fr 2fr;">
+    <div id="comment-scroll-position" class="py-2 d-flex justify-content-between" style="grid-template-columns: 1fr 2fr;">
         <div class="comment-title">
             <h4>발언 목록</h4>
         </div>
@@ -17,7 +17,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" id="comment-table-wrap">
         <div id="comment-table">
             <!--
                         <tr th:each="comment : ${list}">
