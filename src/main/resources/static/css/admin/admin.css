@@ -1,5 +1,5 @@
 body{
-    font-family: NotoSansKR; font-style: normal; font-weight: 350;
+    font-family: Noto Sans KR; font-style: normal; font-weight: 350;
     background-color: #f8f8f8;
 }
 
@@ -225,7 +225,7 @@ a:hover{
     margin-left: 0.5rem;
 }
 .comment-content > pre{
-    font-family: NotoSansKR; font-weight: 400; font-size: 1.1rem;
+    font-family: Noto Sans KR; font-weight: 400; font-size: 1.1rem;
     overflow: auto;
     white-space: pre-wrap;
     word-break: break-all;
