@@ -2,7 +2,7 @@
     font-family: 'NotoSansKR';
     font-style: normal;
     font-weight: 100;
-    src: local('Noto Sans KR'),
+    src:
     local('NotoSansKR'),
     url('fonts/NotoSansKr-Thin.eot'), /* IE9 Compat Modes */
     url('fonts/NotoSansKr-Thin.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
@@ -14,7 +14,7 @@
     font-family: 'NotoSansKR';
     font-style: normal;
     font-weight: 300;
-    src: local('Noto Sans KR'),
+    src:
     local('NotoSansKR'),
     url('fonts/NotoSansKr-Light.eot'), /* IE9 Compat Modes */
     url('fonts/NotoSansKr-Light.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
@@ -26,7 +26,7 @@
     font-family: 'NotoSansKR';
     font-style: normal;
     font-weight: 350;
-    src: local('Noto Sans KR'),
+    src:
     local('NotoSansKR'),
     url('fonts/NotoSansKr-DemiLight.eot'), /* IE9 Compat Modes */
     url('fonts/NotoSansKr-DemiLight.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
@@ -38,7 +38,7 @@
     font-family: 'NotoSansKR';
     font-style: normal;
     font-weight: 400;
-    src: local('Noto Sans KR'),
+    src:
          local('NotoSansKR'),
          url('fonts/NotoSansKr-Regular.eot'), /* IE9 Compat Modes */
          url('fonts/NotoSansKr-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
@@ -50,7 +50,7 @@
     font-family: 'NotoSansKR';
     font-style: normal;
     font-weight: 500;
-    src: local('Noto Sans KR'),
+    src:
          local('NotoSansKR'),
          url('fonts/NotoSansKr-Medium.eot'), /* IE9 Compat Modes */
          url('fonts/NotoSansKr-Medium.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
@@ -62,7 +62,7 @@
     font-family: 'NotoSansKR';
     font-style: normal;
     font-weight: 700;
-    src: local('Noto Sans KR'),
+    src:
          local('NotoSansKR'),
          url('fonts/NotoSansKr-Bold.eot'), /* IE9 Compat Modes */
          url('fonts/NotoSansKr-Bold.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
@@ -74,7 +74,7 @@
     font-family: 'NotoSansKR';
     font-style: normal;
     font-weight: 900;
-    src: local('Noto Sans KR'),
+    src:
          local('NotoSansKR'),
          url('fonts/NotoSansKr-Black.eot'), /* IE9 Compat Modes */
          url('fonts/NotoSansKr-Black.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
