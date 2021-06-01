@@ -1,5 +1,19 @@
-body{
-    font-family: Noto Sans KR, Apple SD Gothic Neo,Malgun Gothic,맑은 고딕,sans-serif; font-style: normal; font-weight: 350;
+@media (max-width: 360px) {
+    html {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 575px) {
+    html {
+        font-size: 14px;
+    }
+}
+
+
+body {
+    font-family: Noto Sans KR, Apple SD Gothic Neo, Malgun Gothic, 맑은 고딕, sans-serif;
+    font-style: normal;
     background-color: #f8f8f8;
 }
 
@@ -17,19 +31,19 @@ a {
     cursor: pointer;
 }
 
-a:hover{
+a:hover {
     color: black;
 }
 
 /* --- 헤더 ---*/
-.main-header{
+.main-header {
     background: rgba(255, 255, 255, 0.95);
     border-bottom: 1px solid #e2e2e2;
     position: fixed;
     z-index: 5;
 }
 
-.search-bar{
+.search-bar {
     font-size: 1.1rem;
     font-weight: 600;
     border: 0;
@@ -40,12 +54,12 @@ a:hover{
     transition: box-shadow .3s;
 }
 
-.search-bar:focus{
+.search-bar:focus {
     box-shadow: none;
     outline: 0 none;
 }
 
-.search-button{
+.search-button {
     background-color: transparent;
     padding: 0;
     border: 0;
@@ -54,35 +68,39 @@ a:hover{
     outline: none;
 }
 
-.search-bar::-webkit-input-placeholder { font-weight: 400; font-size: 1rem;/* Chrome/Opera/Safari */ }
-.search-bar::-moz-placeholder { font-weight: 400; font-size: 1rem; /* Firefox 19+ */ }
-.search-bar:-ms-input-placeholder { font-weight: 400; font-size: 1rem; /* IE 10+ */  }
-.search-bar:-moz-placeholder { font-weight: 400; font-size: 1rem; /* Firefox 18- */  }
+.search-bar::-webkit-input-placeholder {
+    font-weight: 400;
+    font-size: 1rem; /* Chrome/Opera/Safari */
+}
 
-.admin-header{
+.search-bar::-moz-placeholder {
+    font-weight: 400;
+    font-size: 1rem; /* Firefox 19+ */
+}
+
+.search-bar:-ms-input-placeholder {
+    font-weight: 400;
+    font-size: 1rem; /* IE 10+ */
+}
+
+.search-bar:-moz-placeholder {
+    font-weight: 400;
+    font-size: 1rem; /* Firefox 18- */
+}
+
+.admin-header {
     background-color: white;
     padding-top: 70px;
     padding-bottom: 10px;
     /*border-bottom: 1px #e2e2e2;*/
-    box-shadow: 1rem 0.1rem 0.1rem rgba(0,0,0,0.05), inset 0 1px 0 rgba(0,0,0,0.15);
+    box-shadow: 1rem 0.1rem 0.1rem rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(0, 0, 0, 0.15);
 }
 
 /*--- 헤더 끝---*/
 
 
-
-.comment-source > a{
-    color: #1B95E0FF;
-}
-
-
-.comment-source > a:hover{
-    color: #71C9FFFF;
-}
-
-
 /*--- 검색결과 네비바 ---*/
-.nav-tabs .nav-link, nav .nav-link{
+.nav-tabs .nav-link, nav .nav-link {
     position: relative;
     z-index: 2;
     border-top: 0.2rem solid transparent !important;
@@ -102,45 +120,48 @@ a:hover{
     border-bottom: 0 !important;
     border-right: 0 !important;
 }
+
 /*--- 검색결과 네비바 끝 ---*/
 
 
 /* 검색결과 타이틀*/
-.search-result-keyword{
+.search-result-keyword {
     color: #325288;
 }
 
 /* 검색결과 인물 리스트  */
-.person-related>div{
+.person-related > div {
     list-style: none;
     display: inline-block;
 }
 
-.person-related>div>a{
+.person-related > div > a {
     margin: 0 1rem 1.5rem 0;
     border-radius: 0.5rem;
     background-color: white;
     display: inline-block;
-    box-shadow: 0.3rem 0.3rem 0.3rem rgba(190,190,190,0.19);
-    border: 1px solid rgba(0,0,0,.1);
+    box-shadow: 0.3rem 0.3rem 0.3rem rgba(190, 190, 190, 0.19);
+    border: 1px solid rgba(0, 0, 0, .1);
     padding: .5rem 1rem;
 }
 
-.person-related>div>a>.person-related-header{
+.person-related > div > a > .person-related-header {
     font-size: 0.82rem;
     color: #6c757d;
     margin-bottom: -.1rem;
 }
 
-.person-related>div>a>.person-related-header>.person-category{
+.person-related > div > a > .person-related-header > .person-category {
     /*border-radius: 3rem;
     padding: .1rem .4rem;
     border: 1px solid #b5b5b5;*/
 
 }
-.person-related>div>a>.person-related-body>.person-name{
+
+.person-related > div > a > .person-related-body > .person-name {
     margin-right: .2rem;
 }
+
 /* 검색결과 인물 리스트 끝 */
 
 
@@ -153,7 +174,7 @@ a:hover{
     background-clip: border-box;
     border-radius: 1rem;
     margin: 0 0 2rem 0;
-    box-shadow: 0.25rem 0.7rem 2rem 0.3rem rgba(0,0,0,.1);
+    box-shadow: 0.25rem 0.7rem 2rem 0.3rem rgba(0, 0, 0, .1);
 }
 
 .search-comment-table > #comment-row-1, .comment-empty {
@@ -162,10 +183,10 @@ a:hover{
     border-top: 0;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-    box-shadow: 0.25rem 0.7rem 2rem 0.3rem rgba(0,0,0,.1);
+    box-shadow: 0.25rem 0.7rem 2rem 0.3rem rgba(0, 0, 0, .1);
 }
 
-.comment-date >span{
+.comment-date > span {
     color: #6c757d;
     font-size: .9rem;
 }
@@ -173,11 +194,13 @@ a:hover{
 /* ------- 태그 시작 ------- */
 .comment-tag {
     -ms-overflow-style: none;
-    width: 100%; overflow-x: auto; white-space: nowrap
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap
 }
 
-.comment-tag::-webkit-scrollbar{
-    height:.55rem;
+.comment-tag::-webkit-scrollbar {
+    height: .55rem;
 }
 
 .comment-tag::-webkit-scrollbar-thumb {
@@ -185,47 +208,72 @@ a:hover{
     background-color: transparent;
 }
 
-.comment-tag::-webkit-scrollbar-thumb:hover{
+.comment-tag::-webkit-scrollbar-thumb:hover {
     background-color: rgba(210, 210, 210, 0.3);
 }
+
 .comment-tag::-webkit-scrollbar-track {
     background-color: transparent;
 }
 
-.comment-tag > a{
+.comment-tag > a {
     font-size: .8rem;
     display: inline-block;
     margin-bottom: .5rem;
-    margin-right:.5rem;
+    margin-right: .5rem;
     padding: .55rem 1rem;
     line-height: 1;
     color: #333;
     background-color: #f3f5f8;
     border-radius: 25px;
-    width:auto;
+    width: auto;
 }
 
-.comment-tag > a:hover{
+.comment-tag > a:hover {
     background-color: #e3e8ef;
 }
+
 /* ------- 태그 끝 ------- */
 
+@media (max-width: 575px) {
+
+    .comment-right-bottom-wrap {
+        margin-right: 0 !important;
+    }
+
+    .comment-source {
+        margin-left: .2rem !important;
+    }
+}
+
+.comment-source > a {
+    font-size: .95rem;
+    color: #1B95E0FF;
+}
+
+.comment-source > a:hover {
+    color: #71C9FFFF;
+}
 
 .person-name {
     color: #212529;
     font-weight: 500;
 }
 
-.person-job{
-    font-size:0.9rem;
+.person-job {
+    font-size: 0.9rem;
 }
 
-.comment-title > h4, .person-title > h4{
-    font-style: normal; font-weight: bold;
+.comment-title > h4, .person-title > h4 {
+    font-style: normal;
+    font-weight: bold;
     margin-left: 0.5rem;
 }
-.comment-content > pre{
-    font-family: Noto Sans KR; font-weight: 400; font-size: 1.1rem;
+
+.comment-content > pre {
+    font-family: Noto Sans KR;
+    font-weight: 400;
+    font-size: 1.1rem;
     overflow: auto;
     white-space: pre-wrap;
     word-break: break-all;
@@ -267,7 +315,7 @@ a:hover{
 
 /* 페이지네이션 */
 
-.comment-pagination{
+.comment-pagination {
     margin-bottom: 2rem;
 }
 
@@ -294,7 +342,7 @@ a:hover{
     border: none;
 }
 
-.page-link:hover{
+.page-link:hover {
 }
 
 

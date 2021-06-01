@@ -145,7 +145,7 @@ var main = {
                     "</svg>" + comment.sourceSort + "</a>" +
                     "</div>" +
 
-                    "<div style='margin-right : 1.2rem;'>" +
+                    "<div class='comment-right-bottom-wrap' style='margin-right : 1.2rem;'>" +
                     <!-- 발언 날짜 -->
                     "<div class='comment-date d-flex justify-content-end''><span>" + comment.commentDate_format + "</span></div>" +
 
