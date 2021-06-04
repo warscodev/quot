@@ -80,14 +80,16 @@
                 <option th:value="사회">사회</option>
                 <option th:value="연예">연예</option>
                 <option th:value="스포츠">스포츠</option>
+                <option th:value="e스포츠">e스포츠</option>
                 <option th:value="인플루언서">인플루언서</option>
+                <option th:value="창작물">창작물</option>
             </select>
         </div>
 
         <!-- 요약 -->
         <div class="col-12">
             <label th:for="summary" class="form-label">요약</label>
-            <textarea th:field="*{summary}" class="form-control" rows="3"></textarea>
+            <textarea th:field="*{summary}" class="form-control" rows="10"></textarea>
         </div>
 
         <hr class="my-4">

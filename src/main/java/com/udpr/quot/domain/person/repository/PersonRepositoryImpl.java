@@ -41,7 +41,7 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
                         statusEq(condition.getStatus()),
                         jobLike((condition.getJob()))
                         )
-                .orderBy(person.createdDate.desc())
+                .orderBy(person.name.asc())
                 .fetch();
     }
 
@@ -57,7 +57,7 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
                 .from(person)
                 .where(person.name.like("%" + keyword + "%")
                 .or(person.alias.like("%" + keyword + "%")))
-                .orderBy(person.birth.birth_year.desc())
+                .orderBy(person.name.asc())
                 .fetch();
     }
 

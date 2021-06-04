@@ -116,17 +116,31 @@ var main = {
         if (!list.length == 0) {
             let i = 1;
             list.forEach(comment => {
-                row += "<div class='comment-row' id='comment-row-" + i++ + "' data-comment-id='" + comment.commentId + "' style='padding: 1.5rem;'>";
+                row += "<div class='comment-row' id='comment-row-" + i++ + "' data-comment-id='" + comment.commentId + "'>";
+
+                row += "<div class='comment-first-row d-flex justify-content-between align-items-top'>";
 
                 <!-- 태그 -->
+                row += "<div class='comment-tag'>";
                 if (comment.tags.length > 0) {
-                    row += "<div class='comment-tag'>"
                     comment.tags.forEach(tag => {
                         row +=
                             "<a href='/admin/comment/search?keyword=" + tag.name + "&tab=3'><span>#" + tag.name + "</span></a>"
                     });
-                    row += "</div>"
                 }
+                row += "</div>";
+
+                <!-- 공유 버튼 -->
+                row += "<div class='comment-menu dropdown'><span class='comment-menu-icon dropdown-toggle' role='button' data-bs-toggle='dropdown' aria-expanded='false'>•••</span>";
+                row += "<ul class='dropdown-menu dropdown-menu-end' aria-labelledby='dropdownMenuLink'>";
+                row += "<li><a class='dropdown-item'>카카오톡</a></li>";
+                row += "<li><a class='dropdown-item'>페이스북</a></li>";
+                row += "<li><a class='dropdown-item'>트위터</a></li>";
+                row += "<li><hr class='dropdown-divider'></li>";
+                row += "<li><a class='dropdown-item'>링크복사</a></li>";
+                row += "</ul>";
+                row += "</div>";
+                row += "</div>";
 
                 row +=
                     <!-- 발언 내용 -->
