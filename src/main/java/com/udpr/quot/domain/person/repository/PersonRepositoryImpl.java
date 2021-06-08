@@ -41,6 +41,7 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
                         statusEq(condition.getStatus()),
                         jobLike((condition.getJob()))
                         )
+
                 .orderBy(person.name.asc())
                 .fetch();
     }
@@ -55,21 +56,21 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
                         person.category
                 ))
                 .from(person)
-                .where(person.name.like("%" + keyword + "%")
-                .or(person.alias.like("%" + keyword + "%")))
+                .where(person.name.likeIgnoreCase("%" + keyword + "%")
+                .or(person.alias.likeIgnoreCase("%" + keyword + "%")))
                 .orderBy(person.name.asc())
                 .fetch();
     }
 
     private Predicate nameLike(String name) {
         if (name != null && name.length() > 0)
-            return person.name.like("%" + name + "%").or(person.alias.like("%" + name + "%"));
+            return person.name.likeIgnoreCase("%" + name + "%").or(person.alias.likeIgnoreCase("%" + name + "%"));
         return null;
     }
 
     private Predicate jobLike(String job) {
         if (job != null && job.length() > 0)
-            return person.name.like("%" + job + "%");
+            return person.job.like("%" + job + "%");
         return null;
     }
 
