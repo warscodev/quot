@@ -65,8 +65,9 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom {
         QueryResults<Comment> results = queryFactory
                 .selectFrom(comment)
                 .join(comment.person, person).fetchJoin()
-                .where(comment.content.like("%" + searchKeyword + "%")
-                .or(person.name.like("%" + searchKeyword + "%")))
+                .where(comment.content.likeIgnoreCase("%" + searchKeyword + "%")
+                .or(person.name.likeIgnoreCase("%" + searchKeyword + "%"))
+                .or(person.alias.likeIgnoreCase("%" + searchKeyword + "%")))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .orderBy(comment.commentDate.desc())
@@ -83,7 +84,8 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom {
         QueryResults<Comment> results = queryFactory
                 .selectFrom(comment)
                 .join(comment.person, person).fetchJoin()
-                .where(person.name.like("%" + searchKeyword + "%")
+                .where(person.name.likeIgnoreCase("%" + searchKeyword + "%")
+                .or(person.alias.likeIgnoreCase("%" + searchKeyword + "%"))
                 .and(personIdEq(personId)))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
