@@ -25,6 +25,17 @@ body {
 }
 
 
+/* 코멘트 등록 - 인물 자동완성 */
+.close-autocompleted{
+    font-size: 1.1rem;
+    transition: .2s ease-out;
+    cursor: pointer;
+}
+
+.close-autocompleted:hover{
+    color: red;
+}
+
 
 /* tagify 시작 */
 
@@ -140,6 +151,7 @@ a:hover {
 
 /*--- 검색결과 네비바 ---*/
 .nav-tabs .nav-link, nav .nav-link {
+    color: #212529;
     position: relative;
     z-index: 2;
     border-top: 0.2rem solid transparent !important;
@@ -414,7 +426,6 @@ a:hover {
 }
 
 /* 페이지네이션 */
-
 .comment-pagination {
     margin-bottom: 2rem;
 }
@@ -444,6 +455,7 @@ a:hover {
 
 .page-link:hover {
 }
+/* 페이지네이션 끝 */
 
 
 

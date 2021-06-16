@@ -4,19 +4,41 @@
 
 <body>
 <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+<link rel="stylesheet" href="/vendor/jquery-ui/jquery-ui.min.css">
 
 
-<div class="container container-form col-md">
+<div class="container container-custom col-md">
 
     </br>
     <div class="py-2 row">
-        <h4 th:text="|${form.person.name}의 발언 등록|"></h4>
+        <h4>발언 등록</h4>
     </div>
     </br>
 
-    <div class="row g-3">
-        <input type="hidden" id="personId" th:value="${personId}">
 
+    <div class="row g-3">
+
+        <!-- 발언자 -->
+        <div class="col-12">
+            <label for="person-search-input" class="form-label">발언자</label>
+            <div class="row">
+                <div class="col-auto">
+                    <input type="text" class="form-control" id="person-search-input">
+                    <input type="hidden" id="person_id">
+                </div>
+
+                <!-- 인물 선택 취소 버튼-->
+                <div class="col-auto d-flex align-items-center" style="margin-left: -3rem;">
+                    <i class="bi bi-x close-autocompleted" id="close-autocompleted" style="visibility: hidden;"></i>
+                </div>
+
+                <div class="col-auto">
+                    <a class="btn btn-warning" href="/admin/person/new" target="_blank">새 인물 등록</a>
+                </div>
+                <span id="warning-alert" style="color: red; font-size: .9rem; margin-bottom: 0;"> 인물을 선택해 주세요!</span>
+
+            </div>
+        </div>
         <!-- 발언 내용 -->
         <div class="col-12">
             <label for="content" class="form-label">발언 내용</label>
@@ -43,7 +65,7 @@
         <!--소스 sort-->
         <div class="col-4">
             <label for="sourceSort" class="form-label">종류</label>
-            <input type="text" class="form-control" placeholder="ex)유튜브, 기사 등..."
+            <input type="text" class="form-control" placeholder="ex)영상, 기사 등..."
                    id="sourceSort">
         </div>
 
@@ -72,6 +94,8 @@
 <script src="/node_modules/@yaireo/tagify/dist/tagify.min.js"></script>
 <script src="/node_modules/@yaireo/dragsort/dist/dragsort.js"></script>
 
+<!-- autocomplete  -->
+<script src="/vendor/jquery-ui/jquery-ui.min.js"></script>
 
 <script type="application/javascript">
 
@@ -97,7 +121,7 @@
     //저장 이벤트
     $('#btn-save').on('click', function () {
 
-        var id = $('#personId').val();
+        var id = $('#person_id').val();
 
         var data = {
             content: $('#content').val(),
@@ -106,7 +130,6 @@
             sourceSort: $('#sourceSort').val(),
             sourceUrl: $('#sourceUrl').val()
         }
-        console.log(data);
 
         if (validate(data)) {
             $.ajax({
@@ -131,15 +154,69 @@
     function validate(data) {
         const blank_pattern = /^\s+|\s+$/g;
 
-        if (!data.content || data.content.replace(blank_pattern,"") == ""){
+        if (!$('#person_id').val()) {
+            alert("인물을 선택해주세요.")
+            return false;
+        } else if (!data.content || data.content.replace(blank_pattern, "") == "") {
             alert("본문 내용을 입력해주세요.")
             return false;
-        } else if(!data.commentDate){
+        } else if (!data.commentDate) {
             alert("발언 일자를 입력해주세요.")
             return false;
         }
         return true;
     }
+
+
+    $(function () {
+
+
+            $("#person-search-input").autocomplete({
+                minLength: 2,
+                source:
+                    function (request, response) {
+                        $.ajax({
+                            type: 'GET',
+                            url: '/api/autoComplete',
+                            dataType: 'json',
+                            data: {term: request.term},
+                            success: function (data) {
+                                response(
+                                    $.map(data, function (item) {
+                                        return {
+                                            label: item.name + '(' + item.job + ')',
+                                            value: item.name,
+                                            id: item.id
+                                        }
+                                    })
+                                )
+                            }
+                        });
+                    },
+                select: function (event, ui) {
+                    $("#person-search-input").val(ui.item.label);
+                    $("#person_id").val(ui.item.id);
+                    $("#person-search-input").attr("disabled", true);
+                    $("#close-autocompleted").css('visibility', 'visible');
+                    $("#warning-alert").hide();
+                    return false;
+                }
+            });
+
+            //인물 선택 취소 버튼
+            $("#close-autocompleted").click(function (){
+                $("#close-autocompleted").css('visibility', 'hidden');
+                $("#person-search-input").val("");
+                $("#person-search-input").attr("disabled", false);
+                $("#person_id").removeAttr('value');
+                $("#warning-alert").show();
+            });
+
+
+        }
+    );
+
+
 </script>
 
 

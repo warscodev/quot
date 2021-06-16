@@ -6,14 +6,11 @@
 </head>
 <body>
 <div th:replace="fragments/bodyHeader :: bodyHeader"/>
-<div class="container container-form">
+<div class="container container-custom">
     </br>
-    <div class="py-2 d-flex justify-content-between" style="grid-template-columns: 1fr 2fr;">
+    <div class="py-2 d-flex" style="grid-template-columns: 1fr 2fr;">
         <div class="person-title">
             <h4>인물 목록</h4>
-        </div>
-        <div>
-            <a href="/admin/person/new" class="btn btn-warning btn-sm text-white">인물등록</a>
         </div>
     </div>
     <div class="py-1">
@@ -51,7 +48,6 @@
                 <th>등록일</th>
                 <th>마지막 수정일</th>
                 <th>상태</th>
-                <th></th>
             </tr>
             </thead>
             <tbody id="tbody">
@@ -82,12 +78,6 @@
                 <!-- 글 상태 -->
                 <td th:if="${person.status.toString.equals('CREATED')}" th:text=null></td>
                 <td th:unless="${person.status.toString.equals('CREATED')}" th:text="${person.status}"></td>
-                <td>
-                    <div class="float-end">
-                        <a th:href="@{/admin/person/{id}/comment (id=${person.id})}"
-                           class="btn btn-primary btn-sm">발언 등록</a>
-                    </div>
-                </td>
             </tr>
             </tbody>
         </table>

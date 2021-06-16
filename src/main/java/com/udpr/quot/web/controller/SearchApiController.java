@@ -4,10 +4,12 @@ import com.udpr.quot.domain.comment.search.CommentSearchCondition;
 import com.udpr.quot.service.comment.CommentService;
 import com.udpr.quot.service.person.PersonService;
 import com.udpr.quot.web.dto.comment.CommentListResponseDto;
+import com.udpr.quot.web.dto.person.PersonAutoCompleteDto;
 import com.udpr.quot.web.dto.search.SearchPersonResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -24,10 +26,15 @@ public class SearchApiController {
         return commentService.searchComment(condition, pageable);
     }
 
-
     @GetMapping("/api/personList")
     public List<SearchPersonResponseDto> getPersonList(String keyword){
         return personService.searchPerson(keyword);
+    }
+
+
+    @GetMapping("/api/autoComplete")
+    public List<PersonAutoCompleteDto> getPersonListForAutoComplete(String term){
+        return personService.personAutoComplete(term);
     }
 
 

@@ -3,6 +3,7 @@ package com.udpr.quot.service.person;
 import com.udpr.quot.domain.person.Person;
 import com.udpr.quot.domain.person.PersonSearchCondition;
 import com.udpr.quot.domain.person.repository.PersonRepository;
+import com.udpr.quot.web.dto.person.PersonAutoCompleteDto;
 import com.udpr.quot.web.dto.person.PersonListResponseDto;
 import com.udpr.quot.web.dto.person.PersonResponseDto;
 import com.udpr.quot.web.dto.person.PersonRequestDto;
@@ -77,6 +78,9 @@ public class PersonService {
     }
 
 
+    public List<PersonAutoCompleteDto> personAutoComplete(String keyword) {
+        return personRepository.personAutoComplete(keyword);
+    }
 }
 
 

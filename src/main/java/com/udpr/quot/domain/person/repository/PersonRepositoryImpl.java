@@ -4,7 +4,9 @@ import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.udpr.quot.domain.person.PersonSearchCondition;
 import com.udpr.quot.domain.common.Status;
+import com.udpr.quot.web.dto.person.PersonAutoCompleteDto;
 import com.udpr.quot.web.dto.person.PersonListResponseDto;
+import com.udpr.quot.web.dto.person.QPersonAutoCompleteDto;
 import com.udpr.quot.web.dto.person.QPersonListResponseDto;
 import com.udpr.quot.web.dto.search.QSearchPersonResponseDto;
 import com.udpr.quot.web.dto.search.SearchPersonResponseDto;
@@ -61,6 +63,22 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
                 .orderBy(person.name.asc())
                 .fetch();
     }
+
+    @Override
+    public List<PersonAutoCompleteDto> personAutoComplete(String keyword){
+        return queryFactory
+                .select(new QPersonAutoCompleteDto(
+                        person.id,
+                        person.name,
+                        person.job
+                ))
+                .from(person)
+                .where(person.name.likeIgnoreCase("%" + keyword + "%")
+                .or(person.alias.likeIgnoreCase("%" + keyword + "%")))
+                .fetch();
+    }
+
+
 
     private Predicate nameLike(String name) {
         if (name != null && name.length() > 0)

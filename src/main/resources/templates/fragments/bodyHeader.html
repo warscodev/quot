@@ -12,7 +12,7 @@
         <div class="d-flex">
             <form action="/admin/comment/search" method="get" class="d-flex" autocomplete="off" maxlength="255"
                   onsubmit="return validate(this)">
-                <input id="keyword" name="keyword" class="form-control search-bar" placeholder="검색어를 입력하세요."
+                <input id="search-input" name="keyword" class="form-control search-bar" placeholder="검색어를 입력하세요."
                        th:value="${keyword}">
                 <input id="tab" name="tab" type="hidden" value="1">
                 <button type="submit" class="search-button">
@@ -30,18 +30,24 @@
     <div class="admin-header">
         <div class="container container-custom d-flex justify-content-between">
             <div><span style="font-family: NanumSquare; margin-left: 0.5rem;">Admin Page 0.0.2</span></div>
-            <div>
+            <!--<div>
                 <a class="btn btn-outline-danger btn-sm d-flex justify-content-end" href="/logout"
                    style="border-radius: 1rem;">로그아웃</a>
-            </div>
+            </div>-->
         </div>
     </div>
 
     <div class="container container-custom">
-        <nav class="nav">
+        <div class="row">
+        <nav class="nav col">
             <a class="nav-link" aria-current="page" href="/admin/person">인물 목록</a>
             <a class="nav-link" href="/admin/comment">발언 목록</a>
         </nav>
+        <div class="col d-grid gap-2 d-md-flex justify-content-md-end align-items-center mt-2">
+            <a class="btn btn-outline-secondary btn-sm" href="/admin/person/new" style="border-radius: 1rem;">인물 등록</a>
+            <a class="btn btn-primary btn-sm" href="/admin/comment/new" style="border-radius: 1rem;">발언 등록</a>
+        </div>
+        </div>
     </div>
 
 
@@ -57,5 +63,6 @@
                 return true
             }
         }
+
     </script>
 </div>

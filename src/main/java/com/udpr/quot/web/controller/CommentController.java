@@ -24,14 +24,14 @@ public class CommentController {
     }
 
     //코멘트 등록 폼
-    @GetMapping("/admin/person/{personId}/comment")
-    public String saveForm(@PathVariable("personId") Long personId, Model model) {
+    @GetMapping("/admin/comment/new")
+    public String saveForm(Model model) {
 
         CommentRequestDto commentRequestDto = new CommentRequestDto();
-        commentRequestDto.setPerson(personService.findPerson(personId));
+        //commentRequestDto.setPerson(personService.findPerson(personId));
 
         model.addAttribute("form", commentRequestDto);
-        model.addAttribute("personId", personId);
+        //model.addAttribute("personId", personId);
 
         return "admin/comment/commentSave";
 
@@ -62,8 +62,7 @@ public class CommentController {
 
     //코멘트 수정 폼
     @GetMapping("/admin/comment/{commentId}")
-    public String updateForm(@PathVariable("commentId") Long commentId,
-                             Model model) {
+    public String updateForm(@PathVariable("commentId") Long commentId, Model model) {
         model.addAttribute("form", commentService.findById(commentId));
         model.addAttribute("commentId", commentId);
 
