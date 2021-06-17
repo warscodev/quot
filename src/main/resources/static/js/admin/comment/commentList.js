@@ -168,7 +168,7 @@ var main = {
                     <!-- 발언인>직업 -->
                     "<span class='person-job'>" + comment.person.job + "</span>" +
                     <!-- 발언인>이름 -->
-                    "<a style='margin-left: .3rem;' href='/admin/person/" + comment.person.id + "'><span class='person-name'>" + comment.person.name + "</span></a></div>" +
+                    "<a style='margin-left: .3rem;' href='/admin/comment/search?keyword=" + comment.person.name + "&personId=" + comment.person.id + "&tab=2" + "'><span class='person-name'>" + comment.person.name + "</span></a></div>" +
                     "</div></div>";
 
                 <!-- 등록일 -->
