@@ -17,7 +17,7 @@ var main = {
             let scrollPosition = $("#comment-scroll-position").offset();
             let num = $(this).attr("page");
             _this.loadComment(num);
-            $('html, body').animate({scrollTop: (scrollPosition.top-60)}, 300);
+            $('html, body').animate({scrollTop: (scrollPosition.top-60)}, 100);
         }));
 
     },
