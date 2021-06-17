@@ -25,7 +25,7 @@ public class PersonRequestDto {
     private String category;
 
 
-    public Person toEntity(){
+    public Person toEntity() {
         return Person.builder()
                 .name(name)
                 .alias(alias)
@@ -37,15 +37,23 @@ public class PersonRequestDto {
                 .build();
     }
 
-    public void setBirthDay(){
-            String requestedDay = this.birth.getBirth_day();
+    public void setBirthDay() {
+        String requestedDay = this.birth.getBirth_day();
+        String requestedMonth = this.birth.getBirth_month();
 
-            if(requestedDay.length()<2 && !requestedDay.equals("0") && !requestedDay.equals("")) {
-                this.birth.setBirth_day("0" + requestedDay);
-            }else if(requestedDay.equals("0") || requestedDay.equals("00")){
-                this.birth.setBirth_day("");
-            }
-
+        if (requestedDay.length() < 2 && !requestedDay.equals("0") && !requestedDay.equals("")) {
+            this.birth.setBirth_day("0" + requestedDay);
+        } else if (requestedDay.equals("0") || requestedDay.equals("00")) {
+            this.birth.setBirth_day("");
         }
+
+        if (requestedMonth.length() < 2 && !requestedMonth.equals("0") && !requestedMonth.equals("")) {
+            this.birth.setBirth_month("0" + requestedMonth);
+        } else if (requestedMonth.equals("0") || requestedMonth.equals("00")) {
+            this.birth.setBirth_month("");
+        }
+
+
+    }
 
 }

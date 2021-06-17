@@ -5,6 +5,13 @@
 <body>
 
 <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+<style>
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+</style>
 
 <div class="container container-custom">
     </br>
@@ -15,7 +22,8 @@
     <form th:object="${form}" method="post" class="row g-3">
         <input type="hidden" th:field="*{id}"/>
 
-        <a th:href="@{/admin/comment/search(keyword=${form.name},personId=${form.id},tab=2)}" class="btn btn-outline-primary" th:text="|*{name}의 발언 목록 보기|"></a>
+        <a th:href="@{/admin/comment/search(keyword=${form.name},personId=${form.id},tab=2)}"
+           class="btn btn-outline-primary" th:text="|*{name}의 발언 목록 보기|"></a>
         <br>
         <!-- 이름 -->
         <div class="col-6">
@@ -47,22 +55,23 @@
         <label th:for="birthForm">생년월일</label>
         <div class="col-4 birthForm">
             <input type="number" th:field="*{birth.birth_year}" class="form-control"
-                   placeholder="년(4자)" maxlength="4" oninput="yearMaxLength(this);">
+                   placeholder="년(4자)" maxlength="4" min="0" oninput="yearMaxLength(this);">
         </div>
 
         <!-- 월 -->
         <div class="col-4">
-            <select class="form-select" th:field="*{birth.birth_month}">
+            <!--<select class="form-select" th:field="*{birth.birth_month}">
                 <option value="">월</option>
                 <option th:each="i : ${#numbers.sequence(1, 9)}" th:value="'0'+${i}" th:text="'0'+${i}"></option>
                 <option th:each="i : ${#numbers.sequence(10, 12)}" th:value="${i}" th:text="${i}"></option>
-            </select>
+            </select>-->
+            <input type="number" th:field="*{birth.birth_month}" class="form-control" placeholder="월" maxlength="2" min="0" oninput="monthMaxLength(this)">
         </div>
 
         <!-- 일 -->
         <div class="col-4">
             <input type="number" th:field="*{birth.birth_day}" class="form-control"
-                   placeholder="일" maxlength="2" oninput="dayMaxLength(this);">
+                   placeholder="일" maxlength="2" min="0" oninput="dayMaxLength(this);">
         </div>
 
         <!-- 직업 -->
