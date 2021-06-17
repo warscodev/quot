@@ -56,6 +56,7 @@
         <div class="col-12">
             <label class="form-label" th:for="jasonArrayTags">태그</label>
             <input name="jasonArrayTags" id="jasonArrayTags" class='tagify--outside' placeholder='태그입력'>
+            <div id="whitelist" th:text="${whitelist}" hidden></div>
         </div>
 
         <hr class="my-4">
@@ -101,7 +102,12 @@
     var input = document.querySelector('.tagify--outside');
 
     // init Tagify script on the above inputs
-    tagify = new Tagify(input);
+    tagify = new Tagify(input, {
+        pattern: /^.{0,20}$/,
+        whitelist: JSON.parse(document.querySelector("#whitelist").textContent)
+    });
+
+    console.log(JSON.parse(document.querySelector("#whitelist").textContent));
 
     //dragsort
     var dragsort = new DragSort(tagify.DOM.scope, {

@@ -46,7 +46,6 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom {
 
     @Override
     public List<TagDto> getTags(Long commentId) {
-
         return queryFactory
                 .select(new QTagDto(
                         tag.id,
@@ -57,7 +56,6 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom {
                         commentTag.tag.id.eq(tag.id))
                 .orderBy(commentTag.id.asc())
                 .fetch();
-
     }
 
     @Override

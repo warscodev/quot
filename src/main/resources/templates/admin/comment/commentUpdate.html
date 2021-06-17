@@ -36,6 +36,7 @@
             <input th:each="tagName : ${form.tags}" class="hiddenInputTags" th:id="'tagName-'+${tagNameStat.index}"
                    type="hidden"
                    th:value="${tagName.name}">
+            <div id="whitelist" th:text="${whitelist}" hidden></div>
         </div>
 
         <hr class="my-4">
@@ -75,7 +76,6 @@
 <script src="/node_modules/@yaireo/dragsort/dist/dragsort.js"></script>
 
 <script type="application/javascript">
-
     let tagsLength = $(".hiddenInputTags").length;
     let tagNames = [];
 
@@ -84,7 +84,10 @@
 
     // init Tagify script on the above inputs
     var input = document.querySelector('.tagify--outside');
-    tagify = new Tagify(input);
+    tagify = new Tagify(input, {
+        pattern: /^.{0,20}$/,
+        whitelist: JSON.parse(document.querySelector("#whitelist").textContent)
+    });
 
     //dragsort
     var dragsort = new DragSort(tagify.DOM.scope, {

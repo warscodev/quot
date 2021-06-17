@@ -1,5 +1,8 @@
 package com.udpr.quot.web.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.udpr.quot.domain.tag.repository.TagRepository;
 import com.udpr.quot.service.comment.CommentService;
 import com.udpr.quot.service.person.PersonService;
 import com.udpr.quot.web.dto.comment.CommentRequestDto;
@@ -10,13 +13,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Controller
 @RequiredArgsConstructor
 public class CommentController {
 
     private final CommentService commentService;
-    private final PersonService personService;
+    private final TagRepository tagRepository;
+    private final ObjectMapper objectMapper;
 
     @GetMapping("/")
     public String index(){
@@ -25,17 +32,24 @@ public class CommentController {
 
     //코멘트 등록 폼
     @GetMapping("/admin/comment/new")
-    public String saveForm(Model model) {
-
+    public String saveForm(Model model) throws JsonProcessingException {
         CommentRequestDto commentRequestDto = new CommentRequestDto();
-        //commentRequestDto.setPerson(personService.findPerson(personId));
-
         model.addAttribute("form", commentRequestDto);
-        //model.addAttribute("personId", personId);
-
+        List<String> tags = tagRepository.findTagName().stream().collect(Collectors.toList());
+        model.addAttribute("whitelist", objectMapper.writeValueAsString(tags));
         return "admin/comment/commentSave";
-
     }
+
+    //코멘트 수정 폼
+    @GetMapping("/admin/comment/{commentId}")
+    public String updateForm(@PathVariable("commentId") Long commentId, Model model) throws JsonProcessingException{
+        model.addAttribute("form", commentService.findById(commentId));
+        model.addAttribute("commentId", commentId);
+        List<String> tags = tagRepository.findTagName().stream().collect(Collectors.toList());
+        model.addAttribute("whitelist", objectMapper.writeValueAsString(tags));
+        return "admin/comment/commentUpdate";
+    }
+
 
 
     //코멘트 리스트
@@ -58,16 +72,5 @@ public class CommentController {
         }
         return "admin/comment/commentSearch";
     }
-
-
-    //코멘트 수정 폼
-    @GetMapping("/admin/comment/{commentId}")
-    public String updateForm(@PathVariable("commentId") Long commentId, Model model) {
-        model.addAttribute("form", commentService.findById(commentId));
-        model.addAttribute("commentId", commentId);
-
-        return "admin/comment/commentUpdate";
-    }
-
 
 }
