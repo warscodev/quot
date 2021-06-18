@@ -140,7 +140,7 @@
             data: JSON.stringify(data)
         }).done(function () {
             alert('발언이 수정되었습니다.');
-            window.location.href = '/admin/comment';
+            window.history.back();
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });

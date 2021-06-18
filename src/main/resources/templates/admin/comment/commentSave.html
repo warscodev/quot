@@ -149,9 +149,9 @@
                 data: JSON.stringify(data)
             }).done(function () {
                 if (confirm("등록이 완료 되었습니다.\n계속해서 발언을 등록하시겠습니까?") == true) {
-                    window.location.href = '/admin/person/' + id + '/comment';
+                    window.location.href = '/admin/comment/new';
                 } else {
-                    window.location.href = '/admin/comment';
+                    window.history.back();
                 }
             }).fail(function (error) {
                 alert(JSON.stringify(error));
