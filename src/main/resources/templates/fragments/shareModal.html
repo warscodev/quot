@@ -13,7 +13,7 @@
                         <inpu id="comment-share-modal-name" type="hidden"></inpu>
                         <inpu id="comment-share-modal-date" type="hidden"></inpu>
                         <div class="col-auto comment-share-icon">
-                            <a id="kakaoShareBtn" class="kakao" href="javascript:shareKakao();">
+                            <a id="kakaoShareBtn" class="kakao" href="javascript:;">
                                 <img src="/css/images/kakaotalk_logo.png">
                                 <div>카카오톡</div>
                             </a>
@@ -53,6 +53,7 @@
 
             name = e.dataset.name;
             date = e.dataset.date;
+            shareKakao();
         }
 
         function copyUrl() {
@@ -88,6 +89,7 @@
         function shareFacebook() {
             window.open("http://www.facebook.com/sharer/sharer.php?u=" + urlInput.value);
         }
+
 
         function shareKakao() {
             Kakao.init('d98279dd490fad82032e7f644c8af31c');
