@@ -51,7 +51,7 @@ public class Comment extends BaseTimeEntity {
 
     @Builder
     public Comment(String content, LocalDate commentDate, Person person, String sourceSort, String sourceUrl) {
-        this.content = content;
+        this.content = content.trim();
         this.commentDate = commentDate;
         this.status = Status.CREATED;
         this.person = person;
@@ -61,7 +61,7 @@ public class Comment extends BaseTimeEntity {
 
     public void update(String content, LocalDate commentDate, String sourceSort,
                        String sourceUrl) {
-        this.content = content;
+        this.content = content.trim();
         this.commentDate = commentDate;
         this.sourceSort = sourceSort;
         this.sourceUrl = sourceUrl;
