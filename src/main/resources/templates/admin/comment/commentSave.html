@@ -3,7 +3,8 @@
 <head th:replace="fragments/header :: header"/>
 
 <body>
-<div th:replace="fragments/bodyHeader :: bodyHeader"/>
+<div th:replace="fragments/topHeader :: topHeader"/>
+<div th:replace="fragments/subHeader :: subHeader"/>
 <link rel="stylesheet" href="/vendor/jquery-ui/jquery-ui.min.css">
 
 
@@ -70,6 +71,7 @@
                 <option value="영상">영상</option>
                 <option value="SNS">SNS</option>
                 <option value="기사">기사</option>
+                <option value="">없음</option>
             </select>
 
             <!--<input type="text" class="form-control" placeholder="ex)영상, 기사 등..."
@@ -147,11 +149,11 @@
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(data)
-            }).done(function () {
+            }).done(function (result) {
                 if (confirm("등록이 완료 되었습니다.\n계속해서 발언을 등록하시겠습니까?") == true) {
                     window.location.href = '/admin/comment/new';
                 } else {
-                    window.history.back();
+                    window.location.href = '/admin/comment/' + result;
                 }
             }).fail(function (error) {
                 alert(JSON.stringify(error));

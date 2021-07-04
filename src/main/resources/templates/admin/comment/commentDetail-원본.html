@@ -12,24 +12,21 @@
         </br>
 
         <div id="comment-scroll-position" class="py-2 d-flex" style="grid-template-columns: 1fr 2fr;">
+            <div class="comment-title">
+                <div><span th:text="${#temporals.format(comment.commentDate,'yyyy년 MM월 dd일')}" style="font-size: .875rem; margin-left: .6rem"></span></div>
+                <h4 th:text="|${comment.person.name}의 발언|"></h4>
+            </div>
         </div>
 
         <div class="row" id="comment-table-wrap">
             <div id="comment-table" th:object="${comment}">
-                <div class="comment-row comment-detail-row">
-
-                    <!-- 타이틀 -->
-                    <div class="comment-detail-title-wrap">
-                        <div><span class="comment-detail-title-date" th:text="${#temporals.format(comment.commentDate,'yyyy년 MM월 dd일')}"></span></div>
-                        <div class="d-flex"><h3 class="comment-detail-title-main" th:text="|${comment.person.job} ${comment.person.name}의 발언|"></h3><i class="bi bi-chat-quote-fill comment-detail-title-icon"></i></div>
-                    </div>
-
+                <div class="comment-row">
                     <!-- 태그 -->
                     <div class="comment-first-row d-flex align-items-top">
                         <div class="comment-tag">
                             <a th:each="tagName : ${comment.tags}"
                                th:href="@{/admin/comment/search(keyword=${tagName.name},tab=3)}"><span
-                                    th:text="|#${tagName.name}|"></span></a>
+                                    th:text="${tagName.name}"></span></a>
                         </div>
                     </div>
 
@@ -67,11 +64,19 @@
                         <!--우측 하단-->
                         <div class="comment-right-bottom-wrap">
 
-                            <!-- 발언인 검색-->
-                            <div class="comment-detail-person-search d-flex align-items-center justify-content-end">
-                                <a th:href="@{/admin/comment/search(keyword=*{person.name},personId=*{person.id},tab=2)}">
-                                    <span class="" th:text="*{person.name}"></span><span style="font-size: .8125rem; margin: 0 .25rem;">검색</span>
-                                    <i class="bi bi-search comment-detail-person-search-icon"></i>
+                            <!-- 발언 날짜 -->
+                            <div class="comment-date d-flex justify-content-end">
+                                <span th:text="*{#temporals.format(commentDate,'yyyy.MM.dd')}"></span>
+                            </div>
+
+                            <!-- 발언인 -->
+                            <div class="comment-person d-flex align-items-center justify-content-end">
+                                <!-- 발언인>직업 -->
+                                <span class="person-job" th:text="*{person.job}"></span>
+                                <!-- 발언인>이름 -->
+                                <a style="margin-left: .3rem;"
+                                   th:href="@{/admin/comment/search(keyword=*{person.name},personId=*{person.id},tab=2)}">
+                                    <span class="person-name" th:text="*{person.name}"></span>
                                 </a>
                             </div>
                         </div>
@@ -106,9 +111,6 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex justify-content-end" style="margin-bottom: 1rem;">
-                <a class="btn btn-outline-secondary btn-sm" href="javascript:toList();">목록</a>
-        </div>
     </div>
 </div>
 </div>
@@ -132,16 +134,6 @@
         } else {
             return;
         }
-    }
-</script>
-<script>
-    function toList(){
-        window.location.href = '/admin/comment';
-        /*if(history.state != null && history.state.page){
-            history.back();
-        }else {
-            window.location.href = '/admin/comment';
-        }*/
     }
 </script>
 </body>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="sub-header" th:fragment="subHeader">
+    <!-- admin 네비바 -->
+    <div class="admin-header">
+        <div class="container container-custom d-flex justify-content-between">
+            <div><span style="font-family: NanumSquare; margin-left: 0.5rem;">Admin Page 0.0.2</span></div>
+            <!--<div>
+                <a class="btn btn-outline-danger btn-sm d-flex justify-content-end" href="/logout"
+                   style="border-radius: 1rem;">로그아웃</a>
+            </div>-->
+        </div>
+    </div>
+
+    <div class="container container-custom">
+        <div class="row">
+            <nav class="nav col">
+                <a class="nav-link" aria-current="page" href="/admin/person">인물 목록</a>
+                <a class="nav-link" href="/admin/comment">발언 목록</a>
+            </nav>
+            <div class="col gap-2 d-flex justify-content-end align-items-center mt-2">
+                <a class="btn btn-outline-secondary btn-sm" href="/admin/person/new" style="border-radius: 1rem;">인물
+                    등록</a>
+                <a class="btn btn-primary btn-sm" href="/admin/comment/new" style="border-radius: 1rem;">발언 등록</a>
+            </div>
+        </div>
+    </div>
+</div>

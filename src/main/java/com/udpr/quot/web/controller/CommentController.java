@@ -7,6 +7,7 @@ import com.udpr.quot.service.comment.CommentService;
 import com.udpr.quot.service.person.PersonService;
 import com.udpr.quot.web.dto.comment.CommentRequestDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +31,13 @@ public class CommentController {
         return "redirect:/admin/comment";
     }
 
+    @GetMapping("/admin/comment/{commentId}")
+    public String detail(@PathVariable("commentId") Long commentId, Model model) {
+        model.addAttribute("comment", commentService.findById(commentId));
+
+        return "admin/comment/commentDetail";
+    }
+    
     //코멘트 등록 폼
     @GetMapping("/admin/comment/new")
     public String saveForm(Model model) throws JsonProcessingException {
@@ -41,7 +49,7 @@ public class CommentController {
     }
 
     //코멘트 수정 폼
-    @GetMapping("/admin/comment/{commentId}")
+    @GetMapping("/admin/comment/{commentId}/update")
     public String updateForm(@PathVariable("commentId") Long commentId, Model model) throws JsonProcessingException{
         model.addAttribute("form", commentService.findById(commentId));
         model.addAttribute("commentId", commentId);
@@ -54,15 +62,19 @@ public class CommentController {
 
     //코멘트 리스트
     @GetMapping("/admin/comment")
-    public String commentListPage() {
-
+    public String commentListPage(@RequestParam(required = false) Long page, Model model) {
+        if(page == null){
+            model.addAttribute("page", 0L);
+        }else{
+            model.addAttribute("page",page-1);
+        }
         return "admin/comment/commentList";
     }
 
+
     //코멘트 검색결과 페이지
     @GetMapping("/admin/comment/search")
-    public String commentSearchResultPage(@RequestParam String keyword, int tab, Long personId, Model model) {
-
+    public String commentSearchResultPage(@RequestParam String keyword, int tab, Long personId, Long page, Model model) {
         model.addAttribute("keyword", keyword);
         model.addAttribute("tab", tab);
         if (personId == null){
@@ -70,7 +82,16 @@ public class CommentController {
         }else {
             model.addAttribute("personId",personId);
         }
+
+        if(page == null){
+            model.addAttribute("page", 0L);
+        }else{
+            model.addAttribute("page",page-1);
+        }
+
         return "admin/comment/commentSearch";
     }
+
+
 
 }

@@ -1,7 +1,15 @@
 var main = {
     init: function () {
         let _this = this,
-            page = 0;
+            page = 0,
+            oldHstate = history.state;
+        hstate = history.state;
+
+
+        if (document.getElementById("search-pageNum")) {
+            page = document.getElementById("search-pageNum").value;
+        }
+
 
         /* 검색결과인 경우 관련 인물 리스트 불러오기 */
         if (document.getElementById("search-keyword")) {
@@ -9,24 +17,30 @@ var main = {
         }
 
         /* 코멘트 불러오기 */
-        _this.loadComment(page);
+        if (hstate != null && hstate.page) {
+            _this.loadComment(hstate.page);
+        } else {
+            _this.loadComment(page);
+        }
 
-        
         /* 페이징 */
         $(document).on("click", "#pagination-ul li a", (function (e) {
             let scrollPosition = $("#comment-scroll-position").offset();
             let num = $(this).attr("page");
+            $('html, body').animate({scrollTop: (scrollPosition.top - 60)}, "fast");
             _this.loadComment(num);
-            $('html, body').animate({scrollTop: (scrollPosition.top-60)}, "fast");
         }));
 
+        /* 공유 */
+        /*const shareBtn = document.getElementById("share-btn")
+        shareBtn.addEventListener("click", _this.share);*/
     },
 
     loadPerson: async function () {
         let _this = this,
             data = '',
             keyword = document.getElementById("search-keyword").value;
-            personTable = document.getElementById("person-table");
+        personTable = document.getElementById("person-table");
 
         await $.get(`/api/personList?keyword=${keyword}`,
             function (result) {
@@ -73,9 +87,12 @@ var main = {
             keyword = "",
             tab = 1,
             personId = 0,
-
+            url = '',
             data = '',
             commentTable = document.getElementById("comment-table");
+
+        document.getElementById("search-pageNum").value = page;
+
 
         if (document.getElementById("search-tab")) {
             tab = document.getElementById("search-tab").value;
@@ -83,6 +100,9 @@ var main = {
 
         if (document.getElementById("search-keyword")) {
             keyword = document.getElementById("search-keyword").value;
+            url = `/admin/comment/search?keyword=${keyword}&tab=${tab}&page=${parseInt(page) + 1}`;
+        } else {
+            url = `/admin/comment?page=${parseInt(page) + 1}`;
         }
 
         if (document.getElementById("search-personId")) {
@@ -104,6 +124,18 @@ var main = {
                 $("#comment-table").append(_this.toCommentTable(data.commentList));
                 $(".comment-pagination").empty();
                 $(".comment-pagination").append(_this.pagination(data.pageMetadata));
+                $(".comment-page-count").empty();
+
+                if (data.pageMetadata.totalPages > 0) {
+                    $(".comment-page-count").append((data.pageMetadata.number + 1) + " / " + data.pageMetadata.totalPages + " 페이지");
+                }
+
+                main.oldHstate = history.state;
+                /*if (main.oldHstate != null) {
+                } else {
+                }*/
+                history.pushState({'page': page}, '', url);
+
             }).fail(function (error) {
             alert(JSON.stringify(error));
         });
@@ -116,11 +148,30 @@ var main = {
         if (!list.length == 0) {
             let i = 1;
             list.forEach(comment => {
+                <!-- 코멘트 컨테이너 -->
                 row += "<div class='comment-row' id='comment-row-" + i++ + "' data-comment-id='" + comment.commentId + "'>";
 
-                row += "<div class='comment-first-row d-flex justify-content-between align-items-top'>";
+
+                /*
+                                <!-- 좋아요 아이콘 -->
+                                row += "<div class='like-icon-container d-flex align-items-center justify-content-center'><div><a class='like-icon'><i class='bi bi-hand-thumbs-up'></i></a>";
+                                row += "<div class='like-count'>5</div></div>";
+                                row += "</div>";
+
+
+                                <!-- 싫어요 아이콘 -->
+                                row += "<div class='like-icon-container d-flex align-items-center justify-content-center'><div><a class='like-icon'><i class='bi bi-hand-thumbs-down'></i></a>";
+                                row += "<div class='like-count'>5</div></div>";
+                                row += "</div>";
+
+                                row += "</div>";
+                */
+                <!-- 왼쪽 사이드 끝 -->
+
+                <!-- 코멘트 오른쪽 사이드 -->
 
                 <!-- 태그 -->
+                row += "<div class='comment-first-row d-flex align-items-top'>";
                 row += "<div class='comment-tag'>";
                 if (comment.tags.length > 0) {
                     comment.tags.forEach(tag => {
@@ -129,39 +180,47 @@ var main = {
                     });
                 }
                 row += "</div>";
-
-                <!-- 공유 버튼 -->
-                row += "<div class='comment-menu dropdown'><span class='comment-menu-icon dropdown-toggle' role='button' data-bs-toggle='dropdown' aria-expanded='false'>•••</span>";
-                row += "<ul class='dropdown-menu dropdown-menu-end' aria-labelledby='dropdownMenuLink'>";
-                row += "<li><a class='dropdown-item'>카카오톡</a></li>";
-                row += "<li><a class='dropdown-item'>페이스북</a></li>";
-                row += "<li><a class='dropdown-item'>트위터</a></li>";
-                row += "<li><hr class='dropdown-divider'></li>";
-                row += "<li><a class='dropdown-item'>링크복사</a></li>";
-                row += "</ul>";
                 row += "</div>";
+                <!-- 태그 끝 -->
+
+
+                <!-- 발언 내용 -->
+                row += "<div class='comment-content mt-2'><a href='/admin/comment/" + comment.commentId + "'>" +
+                    "<pre style='margin-bottom: 0'><p>" + comment.content + "</p></pre></a></div>";
+
+                <!-- 좋아요 버튼 -->
+                row += "<div class='comment-center-bottom-wrap d-flex justify-content-center'>";
+                row += "<div class='like-icon-container'><a><i class='bi bi-hand-thumbs-up like-icon'></i><span class='like-count'>5</span></a></div>";
+                row += "<div class='like-icon-container'><a><i class='bi bi-hand-thumbs-down like-icon'></i><span class='like-count'>-5</span></a></div>";
                 row += "</div>";
 
+
+                <!-- 출처공유 & 좋아요 & 발언날짜 컨테이너 -->
+                row += "<div class='d-flex justify-content-between align-items-center'>";
+
+
+                <!-- 출처 & 공유 -->
                 row +=
-                    <!-- 발언 내용 -->
-                    "<div class='comment-content mt-2'>" +
-                    "<pre style='margin-bottom: 0'><p>" + comment.content + "</p></pre></div>" +
+                    "<div class='comment-source d-flex'>";
 
-                    <!-- 출처 & 발언날짜 컨테이너 -->
-                    "<div class='d-flex justify-content-between'>" +
+                <!-- 출처 -->
+                if (!comment.sourceSort == "") {
+                    row +=
+                        "<a href='" + comment.sourceUrl + "'  target='_blank' rel='noopener'>" +
+                        "<i class='bi bi-link-45deg'>" +
+                        "</i>" + comment.sourceSort + "</a>";
+                }
+                <!-- 공유 -->
+                row +=
+                    "<a id='share-btn' href='' onclick='openShareModal(this," + comment.commentId + ")' data-name='" + comment.person.name + "' data-date='"+comment.commentDate_format+"' data-bs-toggle='modal' data-bs-target='#shareModal'>" +
+                    "<i class='bi bi-box-arrow-up-right'></i> 공유</a>" +
+                    "</div>";
 
-                    <!-- 출처 -->
-                    "<div class='comment-source d-flex align-items-center' style='margin-left : 0.3rem;'>" +
-                    "<a href='" + comment.sourceUrl + "'  target='_blank'>" +
-                        "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-link-45deg' viewBox='0 0 16 16'>\n" +
-                        "<path d='M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z'/>\n" +
-                        "<path d='M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z'/>\n" +
-                    "</svg>" + comment.sourceSort + "</a>" +
-                    "</div>" +
 
-                    "<div class='comment-right-bottom-wrap' style='margin-right : 1.2rem;'>" +
-                    <!-- 발언 날짜 -->
-                    "<div class='comment-date d-flex justify-content-end''><span>" + comment.commentDate_format + "</span></div>" +
+                row += "<div class='comment-right-bottom-wrap'>";
+
+                <!-- 발언 날짜 -->
+                row += "<div class='comment-date d-flex justify-content-end'><span>" + comment.commentDate_format + "</span></div>" +
 
                     <!-- 발언인 -->
                     "<div class='comment-person d-flex align-items-center justify-content-end'>" +
@@ -170,6 +229,7 @@ var main = {
                     <!-- 발언인>이름 -->
                     "<a style='margin-left: .3rem;' href='/admin/comment/search?keyword=" + comment.person.name + "&personId=" + comment.person.id + "&tab=2" + "'><span class='person-name'>" + comment.person.name + "</span></a></div>" +
                     "</div></div>";
+
 
                 <!-- 등록일 -->
                 row +=
@@ -189,8 +249,8 @@ var main = {
                 }
 
                 row +=
-                    "<div class='d-flex align-items-center'>" +
-                    "<a class='btn btn-outline-secondary btn-sm me-md-2' href='/admin/comment/" + comment.commentId + "'>수정</a>" +
+                    "<div class='comment-delete-and-update-btn-wrap d-flex align-items-center'>" +
+                    "<a class='btn btn-outline-secondary btn-sm me-2' href='/admin/comment/" + comment.commentId + "/update'>수정</a>" +
                     "<button class='btn btn-outline-danger btn-sm btn-delete' onclick='main.delete(" + comment.commentId + ")'>삭제</button>" +
                     "<input type='hidden' name='commentId' value='" + comment.commentId + "'></div>" +
                     "</div></div>";
@@ -230,14 +290,9 @@ var main = {
 
         if (!totalElements == 0 && totalPages > 1) {
             if (!pageMetadata.first) {
-                nav += "<li class='page-item'><a class='page-link' aria-label='Previous' page='" + (page - 1) + "'><span aria-hidden='true'<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-chevron-left' viewBox='0 0 16 16'>\n" +
-                    "  <path fill-rule='evenodd' d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/>\n" +
-                    "</svg>\n</span></a></li>";
-            } /*else {
-                nav += "<li class='page-item disabled'><a class='page-link' aria-label='Previous'><span aria-hidden='true'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-chevron-left' viewBox='0 0 16 16'>\n" +
-                    "  <path fill-rule='evenodd' d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/>\n" +
-                    "</svg>\n</span></a></li>";
-            }*/
+                nav += "<li class='page-item'><a class='page-link' aria-label='Previous' page='" + (page - 1) + "'><span aria-hidden='true'><i class='bi bi-chevron-left'></i>" +
+                    "</svg></span></a></li>";
+            }
         }
 
         if (!startBlock == 0) {
@@ -255,14 +310,9 @@ var main = {
 
         if (totalPages > 1) {
             if (!pageMetadata.last) {
-                nav += "<li class='page-item'><a class='page-link' aria-label='Next' page='" + (page + 1) + "'><span aria-hidden='true'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-chevron-right' viewBox='0 0 16 16'>\n" +
-                    "  <path fill-rule='evenodd' d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/>\n" +
+                nav += "<li class='page-item'><a class='page-link' aria-label='Next' page='" + (page + 1) + "'><span aria-hidden='true'><i class='bi bi-chevron-right'></i>" +
                     "</svg></span></a></li>";
-            } /*else {
-                nav += "<li class='page-item disabled'><a class='page-link' aria-label='Next'><span aria-hidden='true'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-chevron-right' viewBox='0 0 16 16'>\n" +
-                    "  <path fill-rule='evenodd' d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/>\n" +
-                    "</svg></span></a></li>";
-            }*/
+            }
         }
 
         nav += "</ul></nav>"
@@ -291,19 +341,6 @@ var main = {
         } else {
             return;
         }
-    },
-
-    searchKeyword: function (keyword, tab) {
-        $('.comment-content:contains')
-
-    },
-
-    pagingClick: function (num) {
-
-        const _this = this;
-        _this.loadComment(num);
     }
-
-
 }
 main.init();

@@ -3,7 +3,8 @@
 <head th:replace="fragments/header :: header"/>
 
 <body>
-<div th:replace="fragments/bodyHeader :: bodyHeader"/>
+<div th:replace="fragments/topHeader :: topHeader"/>
+<div th:replace="fragments/subHeader :: subHeader"/>
 
 
 <div class="container container-custom col-md">
@@ -50,6 +51,7 @@
                 <option th:value="영상">영상</option>
                 <option th:value="SNS">SNS</option>
                 <option th:value="기사">기사</option>
+                <option value="">없음</option>
             </select>
             <!--<input th:value="${form.sourceSort}" type="text" class="form-control" placeholder="ex)유튜브, 기사 등..."
                    id="sourceSort">-->
@@ -140,7 +142,7 @@
             data: JSON.stringify(data)
         }).done(function () {
             alert('발언이 수정되었습니다.');
-            window.history.back();
+            window.location.href = '/admin/comment/' + id;
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });

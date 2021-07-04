@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="shareModal" th:fragment="shareModal">
+    <div class="modal fade" id="shareModal" tabindex="-1" aria-labelledby="shareModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="shareModalLabel">공유하기</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row justify-content-center">
+                        <inpu id="comment-share-modal-name" type="hidden"></inpu>
+                        <inpu id="comment-share-modal-date" type="hidden"></inpu>
+                        <div class="col-auto comment-share-icon">
+                            <a id="kakaoShareBtn" class="kakao" href="javascript:shareKakao();">
+                                <img src="/css/images/kakaotalk_logo.png">
+                                <div>카카오톡</div>
+                            </a>
+                        </div>
+                        <div class="col-auto comment-share-icon">
+                            <a class="facebook" href="javascript:shareFacebook();">
+                                <img src="/css/images/facebook_logo.png">
+                                <div>페이스북</div>
+                            </a>
+                        </div>
+                        <div class="col-auto comment-share-icon">
+                            <a class="twitter" href="javascript:shareTwitter();">
+                                <img src="/css/images/twitter_logo.png">
+                                <div>트위터</div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="input-group mt-3 mb-3 comment-share-url-wrap">
+                        <input id="comment-share-url" type="text" class="form-control" readonly>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="copyUrl()">
+                            복사
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <script>
+        const urlInput = document.getElementById("comment-share-url");
+        let name = '',
+            date = '';
+
+        function openShareModal(e, id) {
+            let commentUrl = `http://quot.wiki/admin/comment/${id}`;
+            urlInput.value = commentUrl;
+
+            name = e.dataset.name;
+            date = e.dataset.date;
+        }
+
+        function copyUrl() {
+
+            const oldContentEditable = urlInput.contentEditable,
+                oldReadOnly = urlInput.readOnly,
+                range = document.createRange();
+
+            urlInput.contentEditable = "true";
+            urlInput.readOnly = false;
+            range.selectNodeContents(urlInput);
+
+            const s = window.getSelection();
+            s.removeAllRanges();
+            s.addRange(range);
+
+            urlInput.select();
+            urlInput.setSelectionRange(0, 999999);
+
+            urlInput.contentEditable = oldContentEditable;
+            urlInput.readOnly = oldReadOnly;
+
+            document.execCommand("copy");
+
+            alert("주소가 클립보드에 복사되었습니다.");
+        }
+
+        function shareTwitter() {
+            let sendText = "[Quot.wiki] " + date + " " + name + "의 발언 : ";
+            window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + urlInput.value);
+        }
+
+        function shareFacebook() {
+            window.open("http://www.facebook.com/sharer/sharer.php?u=" + urlInput.value);
+        }
+
+        function shareKakao() {
+            Kakao.init('d98279dd490fad82032e7f644c8af31c');
+
+            // 카카오링크 버튼 생성
+            Kakao.Link.createDefaultButton({
+                container: '#kakaoShareBtn',
+                objectType: 'feed',
+                content: {
+                    title: "Quot.wiki",
+                    description: date + " " + name + "의 발언 [Quot.wiki]",
+                    imageUrl: urlInput.value,
+                    link: {
+                        mobileWebUrl: urlInput.value,
+                        webUrl: urlInput.value
+                    }
+                }
+            });
+        }
+    </script>
+
+</div>
+
