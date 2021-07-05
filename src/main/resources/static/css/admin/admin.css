@@ -369,7 +369,6 @@ a:hover {
 
 /* ------- 좋아요 시작 ------- */
 .comment-center-bottom-wrap {
-    gap: 1rem;
     margin-top: 1rem;
 }
 
@@ -379,6 +378,7 @@ a:hover {
     border-radius: 1rem;
     width: 85px;
     height: 34px;
+    margin-left: 1rem;
 }
 
 .like-icon-container > a {
@@ -402,12 +402,12 @@ a:hover {
 @media (max-width: 426px) {
     .comment-center-bottom-wrap {
         margin: .5rem 0;
-        gap: .5rem;
     }
 
     .like-icon-container {
         width: 60px;
         height: 22px;
+        margin-left: .5rem;
     }
 
     .like-icon {
@@ -422,14 +422,15 @@ a:hover {
 /* ------- 좋아요 끝 ------- */
 
 /* ------- 코멘트 좌하단(출처, 공유) 시작 ------- */
-.comment-source {
-    gap: 1rem;
+
+.share-btn{
+    margin-left: .75rem;
 }
 
-@media (max-width: 426px) {
 
-    .comment-source {
-        gap: .5rem;
+@media (max-width: 426px) {
+    .share-btn{
+        margin-left: .7rem;
     }
 
     .comment-right-bottom-wrap {
@@ -570,6 +571,7 @@ a:hover {
 
 
 /* 코멘트 공유 모달 */
+
 .comment-share-icon > a {
     border: 1px solid transparent;
     display: block;
@@ -582,6 +584,8 @@ a:hover {
 }
 
 @media (max-width: 426px) {
+
+
     .comment-share-icon > a > img {
         width: 45px;
         height: 45px;
@@ -653,4 +657,10 @@ a:hover {
 
 .comment-detail-person-search :hover{
     color: #212529;
+}
+
+@media  (max-width: 426px) {
+    .comment-detail-title-icon{
+        margin-top: -.3rem;
+    }
 }

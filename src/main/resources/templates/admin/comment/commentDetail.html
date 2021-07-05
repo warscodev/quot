@@ -59,7 +59,7 @@
                                rel="noopener" th:inline="text">
                                 <i class="bi bi-link-45deg"></i>[[*{sourceSort}]]</a>
                             <!--공유-->
-                            <a href="" th:onclick="|openShareModal(this, *{commentId})|" data-bs-toggle="modal" th:data-name="*{person.name}"
+                            <a class="share-btn" href="" th:onclick="|openShareModal(this, *{commentId})|" data-bs-toggle="modal" th:data-name="*{person.name}"
                                th:data-date="*{#temporals.format(commentDate,'yyyy.MM.dd')}" data-bs-target="#shareModal">
                                 <i class="bi bi-box-arrow-up-right"></i> 공유</a>
                         </div>

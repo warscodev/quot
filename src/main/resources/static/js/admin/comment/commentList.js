@@ -212,7 +212,7 @@ var main = {
                 }
                 <!-- 공유 -->
                 row +=
-                    "<a id='share-btn' href='' onclick='openShareModal(this," + comment.commentId + ")' data-name='" + comment.person.name + "' data-date='"+comment.commentDate_format+"' data-bs-toggle='modal' data-bs-target='#shareModal'>" +
+                    "<a id='share-btn' class='share-btn' href='' onclick='openShareModal(this," + comment.commentId + ")' data-name='" + comment.person.name + "' data-date='"+comment.commentDate_format+"' data-bs-toggle='modal' data-bs-target='#shareModal'>" +
                     "<i class='bi bi-box-arrow-up-right'></i> 공유</a>" +
                     "</div>";
 
