@@ -11,7 +11,8 @@ spring:
 
   mvc:
     hiddenmethod:
-      filter: enabled
+      filter:
+        enabled: true
 
   jpa:
     hibernate:
@@ -24,10 +25,11 @@ spring:
         use_sql_comment: true
         default_batch_fetch_size: 100
 
-  server:
-    servlet:
-      encoding:
-        charset: UTF-8
+server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
 
 
 logging.level:
