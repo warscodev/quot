@@ -26,14 +26,11 @@ var main = {
         /* 페이징 */
         $(document).on("click", "#pagination-ul li a", (function (e) {
             let scrollPosition = $("#comment-scroll-position").offset();
-            let num = $(this).attr("page");
             $('html, body').animate({scrollTop: (scrollPosition.top - 60)}, "fast");
+            let num = $(this).attr("page");
             _this.loadComment(num);
         }));
 
-        /* 공유 */
-        /*const shareBtn = document.getElementById("share-btn")
-        shareBtn.addEventListener("click", _this.share);*/
     },
 
     loadPerson: async function () {
