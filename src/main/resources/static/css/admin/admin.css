@@ -373,19 +373,18 @@ a:hover {
 }
 
 .like-icon-container {
-    text-align: center;
-    border: 1px solid #C6C6C6;
-    border-radius: 1rem;
-    width: 85px;
-    height: 34px;
     margin-left: 1rem;
 }
 
 .like-icon-container > a {
-    display: flex !important;
+    display: flex;
     align-items: center !important;
     justify-content: center !important;
-    display: block;
+    line-height: 34px;
+    width: 85px;
+    height: 34px;
+    border: 1px solid #C6C6C6;
+    border-radius: 1rem;
 }
 
 .like-icon {
@@ -405,9 +404,13 @@ a:hover {
     }
 
     .like-icon-container {
+        margin-left: .5rem;
+    }
+
+    .like-icon-container > a {
         width: 60px;
         height: 22px;
-        margin-left: .5rem;
+        line-height: 22px;
     }
 
     .like-icon {
@@ -524,22 +527,32 @@ a:hover {
     margin-bottom: 2rem;
 }
 
+.page-item{
+    width: 32px;
+    height: 32px;
+    border-radius: 50% !important;
+    border: none;
+    line-height: 32px;
+    background-color: transparent;
+}
+
 .page-link {
     text-align: center;
     font-weight: 400;
     color: #6b6a6a !important;
-    background-color: transparent;
-    width: 30px;
-    height: 30px;
-    border-radius: 50% !important;
+    margin: 0 2px !important;
+    font-size: 16px !important;
     border: none;
-    margin: 0 .1rem !important;
+    padding: 0 !important;
+    background-color: transparent !important;
 }
 
-.page-item.active .page-link {
-    font-weight: 600;
+.page-item.active{
     background-color: #e3e8ef;
-    border: none;
+}
+
+.page-item.active .page-link{
+    font-weight: 600;
 }
 
 .page-item.disabled .page-link {
@@ -550,7 +563,7 @@ a:hover {
 .page-link:hover {
 }
 
-@media all and (max-width: 360px) {
+/*@media all and (max-width: 360px) {
     .page-link {
         width: 22px !important;
         height: 22px !important;
@@ -562,7 +575,16 @@ a:hover {
         width: 28px !important;
         height: 28px !important;
     }
+}*/
+
+
+@media (max-width: 768px) {
+    .page-link {
+        font-size: 14px !important;
+    }
 }
+
+
 
 /* 페이지네이션 끝 */
 
