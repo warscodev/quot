@@ -1,6 +1,8 @@
 package com.udpr.quot.web.controller;
 
 
+import com.udpr.quot.config.auth.LoginUser;
+import com.udpr.quot.config.auth.dto.SessionUser;
 import com.udpr.quot.domain.person.PersonSearchCondition;
 import com.udpr.quot.service.person.PersonService;
 import com.udpr.quot.web.dto.person.PersonListResponseDto;
@@ -23,7 +25,11 @@ public class PersonController {
 
     //인물 리스트
     @GetMapping("/admin/person")
-    public String list(@ModelAttribute PersonSearchCondition condition, Model model){
+    public String list(@ModelAttribute PersonSearchCondition condition, Model model , @LoginUser SessionUser user){
+
+        if(user != null){
+            model.addAttribute("user", user);
+        }
 
         // 검색 form
         if (condition == null)
@@ -38,14 +44,19 @@ public class PersonController {
 
     //인물 등록 폼
     @GetMapping("/admin/person/new")
-    public String saveForm(Model model){
+    public String saveForm(Model model , @LoginUser SessionUser user){
+
+        if(user != null){
+            model.addAttribute("user", user);
+        }
+
         model.addAttribute("form",new PersonRequestDto());
         return "admin/person/personSave";
     }
 
     //저장
     @PostMapping("/admin/person/new")
-    public String save(@ModelAttribute("form") @Valid PersonRequestDto form, BindingResult result) {
+    public String save(@ModelAttribute("form") @Valid PersonRequestDto form, BindingResult result , @LoginUser SessionUser user) {
 
         if(result.hasErrors()){
             return "admin/person/personSave";
@@ -60,7 +71,12 @@ public class PersonController {
 
     //인물 수정 폼
     @GetMapping("/admin/person/{id}")
-    public String updateForm(@PathVariable("id") Long id, Model model){
+    public String updateForm(@PathVariable("id") Long id, Model model , @LoginUser SessionUser user){
+
+        if(user != null){
+            model.addAttribute("user", user);
+        }
+
         PersonResponseDto responseDto= personService.findById(id);
         model.addAttribute("form", responseDto);
         return "admin/person/personUpdate";
@@ -69,7 +85,7 @@ public class PersonController {
     
     //인물 수정
     @PostMapping("/admin/person/{id}")
-    public String update(@ModelAttribute("form") @Valid PersonRequestDto form, BindingResult result) {
+    public String update(@ModelAttribute("form") @Valid PersonRequestDto form, BindingResult result , @LoginUser SessionUser user) {
 
         if(result.hasErrors()){
             return "admin/person/personUpdate";
@@ -83,7 +99,7 @@ public class PersonController {
 
     //인물 삭제
     @PostMapping("/admin/person/{id}/delete")
-    public String delete(@PathVariable Long id){
+    public String delete(@PathVariable Long id , @LoginUser SessionUser user){
         personService.delete(id);
         return "redirect:/admin/person";
     }

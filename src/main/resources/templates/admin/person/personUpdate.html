@@ -23,7 +23,7 @@
     <form th:object="${form}" method="post" class="row g-3">
         <input type="hidden" th:field="*{id}"/>
 
-        <a th:href="@{/admin/comment/search(keyword=${form.name},personId=${form.id},tab=2)}"
+        <a th:href="@{/comment/search(keyword=${form.name},personId=${form.id},tab=2)}"
            class="btn btn-outline-primary" th:text="|*{name}의 발언 목록 보기|"></a>
         <br>
         <!-- 이름 -->

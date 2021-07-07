@@ -29,7 +29,7 @@
                 </div>
 
                 <!-- 인물 선택 취소 버튼-->
-                <div class="col-auto d-flex align-items-center" style="margin-left: -3rem; visibility: hidden;">
+                <div class="col-auto d-flex align-items-center" style="margin-left: -3.5rem; visibility: hidden;">
                     <i class="bi bi-x close-autocompleted" id="close-autocompleted"></i>
                 </div>
 
@@ -145,15 +145,15 @@
         if (validate(data)) {
             $.ajax({
                 type: 'POST',
-                url: '/admin/person/' + id + '/comment',
+                url: '/api/person/' + id + '/comment',
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(data)
             }).done(function (result) {
                 if (confirm("등록이 완료 되었습니다.\n계속해서 발언을 등록하시겠습니까?") == true) {
-                    window.location.href = '/admin/comment/new';
+                    window.location.href = '/comment/new';
                 } else {
-                    window.location.href = '/admin/comment/' + result;
+                    window.location.href = '/comment/' + result;
                 }
             }).fail(function (error) {
                 alert(JSON.stringify(error));

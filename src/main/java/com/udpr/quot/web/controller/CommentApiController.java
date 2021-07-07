@@ -16,7 +16,7 @@ public class CommentApiController {
 
 
     //코멘트 저장
-    @PostMapping("/admin/person/{personId}/comment")
+    @PostMapping("/api/person/{personId}/comment")
     public Long save(@PathVariable("personId") Long personId, @RequestBody CommentRequestDto requestDto)
             throws JsonProcessingException {
 
@@ -27,7 +27,7 @@ public class CommentApiController {
     }
 
     //삭제
-    @DeleteMapping("/admin/comment/{commentId}")
+    @DeleteMapping("/api/comment/{commentId}")
     public Long delete(@PathVariable Long commentId){
 
         commentService.delete(commentId);
@@ -36,7 +36,7 @@ public class CommentApiController {
     }
 
     //수정
-    @PutMapping("/admin/comment/{commentId}")
+    @PutMapping("/api/comment/{commentId}")
     public Long update(@PathVariable("commentId") Long commentId,
                        @RequestBody CommentRequestDto requestDto) throws JsonProcessingException{
         //json형태의 태그값들을 변환하여 dto에 set타입으로 저장하는 메서드

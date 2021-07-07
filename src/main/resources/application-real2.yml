@@ -1,7 +1,7 @@
 spring:
   profiles:
     group:
-      "real2": "real-db"
+      "real2": "real-db", "ouath"
 ---
 server:
   port: 8082
@@ -15,6 +15,9 @@ spring:
   config:
     activate:
       on-profile: "real2"
+
+  session:
+    store-type: jdbc
 
   thymeleaf:
     prefix: classpath:/templates/

@@ -21,12 +21,12 @@ public class SearchApiController {
     private final CommentService commentService;
     private final PersonService personService;
 
-    @GetMapping("/api/comment")
+    @GetMapping("/api/search/comment")
     public CommentListResponseDto getCommentList(Pageable pageable, CommentSearchCondition condition) {
         return commentService.searchComment(condition, pageable);
     }
 
-    @GetMapping("/api/personList")
+    @GetMapping("/api/search/personList")
     public List<SearchPersonResponseDto> getPersonList(String keyword){
         return personService.searchPerson(keyword);
     }

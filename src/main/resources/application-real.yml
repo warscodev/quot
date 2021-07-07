@@ -1,12 +1,15 @@
 spring:
   profiles:
     group:
-      "real": "real-db"
+      "real": "real-db", "ouath"
 ---
 spring:
   config:
     activate:
       on-profile: "real"
+
+  session:
+    store-type: jdbc
 
   thymeleaf:
     prefix: classpath:/templates/

@@ -136,13 +136,13 @@
         if(validate(data)){
         $.ajax({
             type: 'PUT',
-            url: '/admin/comment/' + id,
+            url: '/api/comment/' + id,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function () {
             alert('발언이 수정되었습니다.');
-            window.location.href = '/admin/comment/' + id;
+            window.location.href = '/comment/' + id;
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });

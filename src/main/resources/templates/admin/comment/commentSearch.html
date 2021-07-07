@@ -69,7 +69,7 @@
 <script>
     function move_tab(e, tab) {
         let keyword = document.getElementById("search-keyword").value,
-            url = '/admin/comment/search?keyword=' + keyword + '&tab=' + tab;
+            url = '/comment/search?keyword=' + keyword + '&tab=' + tab;
 
         //url 변경
         history.pushState('', '', url);

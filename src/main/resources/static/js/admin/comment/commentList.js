@@ -42,7 +42,7 @@ var main = {
             keyword = document.getElementById("search-keyword").value;
         personTable = document.getElementById("person-table");
 
-        await $.get(`/api/personList?keyword=${keyword}`,
+        await $.get(`/api/search/personList?keyword=${keyword}`,
             function (result) {
                 data = result;
                 $(personTable).empty();
@@ -63,7 +63,7 @@ var main = {
         if (personList.length > 0) {
             personList.forEach(person => {
                 row +=
-                    "<div><a href='/admin/comment/search?keyword=" + person.name + "&personId=" + person.id + "&tab=2'>" +
+                    "<div><a href='/comment/search?keyword=" + person.name + "&personId=" + person.id + "&tab=2'>" +
                     "<div class='person-related-header'>" +
                     "<span class='person-category'>" +
                     "<svg xmlns='http://www.w3.org/2000/svg' width='13' height='13' fill='currentColor' class='bi bi-tags' viewBox='0 1 16 16'>\n" +
@@ -100,9 +100,9 @@ var main = {
 
         if (document.getElementById("search-keyword")) {
             keyword = document.getElementById("search-keyword").value;
-            url = `/admin/comment/search?keyword=${keyword}&tab=${tab}&page=${parseInt(page) + 1}`;
+            url = `/comment/search?keyword=${keyword}&tab=${tab}&page=${parseInt(page) + 1}`;
         } else {
-            url = `/admin/comment?page=${parseInt(page) + 1}`;
+            url = `/comment?page=${parseInt(page) + 1}`;
         }
 
         if (document.getElementById("search-personId")) {
@@ -116,7 +116,7 @@ var main = {
                 personId: personId
             };
 
-        await $.get(`/api/comment?page=${page}&size=${size}`,
+        await $.get(`/api/search/comment?page=${page}&size=${size}`,
             commentSearchCondition
             , function (result) {
                 data = result;
@@ -176,7 +176,7 @@ var main = {
                 if (comment.tags.length > 0) {
                     comment.tags.forEach(tag => {
                         row +=
-                            "<a href='/admin/comment/search?keyword=" + tag.name + "&tab=3'><span>#" + tag.name + "</span></a>"
+                            "<a href='/comment/search?keyword=" + tag.name + "&tab=3'><span>#" + tag.name + "</span></a>"
                     });
                 }
                 row += "</div>";
@@ -185,7 +185,7 @@ var main = {
 
 
                 <!-- 발언 내용 -->
-                row += "<div class='comment-content mt-2'><a href='/admin/comment/" + comment.commentId + "'>" +
+                row += "<div class='comment-content mt-2'><a href='/comment/" + comment.commentId + "'>" +
                     "<pre style='margin-bottom: 0'><p>" + comment.content + "</p></pre></a></div>";
 
                 <!-- 좋아요 버튼 -->
@@ -227,7 +227,7 @@ var main = {
                     <!-- 발언인>직업 -->
                     "<span class='person-job'>" + comment.person.job + "</span>" +
                     <!-- 발언인>이름 -->
-                    "<a style='margin-left: .3rem;' href='/admin/comment/search?keyword=" + comment.person.name + "&personId=" + comment.person.id + "&tab=2" + "'><span class='person-name'>" + comment.person.name + "</span></a></div>" +
+                    "<a style='margin-left: .3rem;' href='/comment/search?keyword=" + comment.person.name + "&personId=" + comment.person.id + "&tab=2" + "'><span class='person-name'>" + comment.person.name + "</span></a></div>" +
                     "</div></div>";
 
 
@@ -248,12 +248,14 @@ var main = {
                         "</div>";
                 }
 
-                row +=
+                /*row +=
                     "<div class='comment-delete-and-update-btn-wrap d-flex align-items-center'>" +
-                    "<a class='btn btn-outline-secondary btn-sm me-2' href='/api/comment/" + comment.commentId + "/update'>수정</a>" +
+                    "<a class='btn btn-outline-secondary btn-sm me-2' href='/comment/" + comment.commentId + "/update'>수정</a>" +
                     "<button class='btn btn-outline-danger btn-sm btn-delete' onclick='main.delete(" + comment.commentId + ")'>삭제</button>" +
-                    "<input type='hidden' name='commentId' value='" + comment.commentId + "'></div>" +
-                    "</div></div>";
+                    "<input type='hidden' name='commentId' value='" + comment.commentId + "'></div>";
+                    */
+
+                row += "</div></div>";
 
 
             });

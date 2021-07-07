@@ -38,6 +38,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+	implementation 'org.springframework.session:spring-session-jdbc'
 
 	//lombok, h2
 	compileOnly 'org.projectlombok:lombok'
@@ -55,12 +56,11 @@ dependencies {
 	}
 }
 
-
 test {
 	useJUnitPlatform()
 }
 
-//querydsl 추가 시작
+/** querydsl start  */
 def querydslDir = "$buildDir/generated/querydsl"
 querydsl {
 	jpa = true
@@ -75,12 +75,10 @@ configurations {
 compileQuerydsl {
 	options.annotationProcessorPath = configurations.querydsl
 }
-//querydsl 추가 끝
+/** querydsl end  */
 
 
-/**
- * npm install start
- */
+/** npm install start  */
 node {
 	version = '12.13.1'
 	download = true
@@ -94,7 +92,4 @@ task copyFrontLib(type: Copy) {
 
 copyFrontLib.dependsOn npmInstall
 compileJava.dependsOn copyFrontLib
-
-/**
- * npm install end
- */
+/** npm install end  */

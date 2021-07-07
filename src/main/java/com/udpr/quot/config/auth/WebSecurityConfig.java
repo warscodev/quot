@@ -16,10 +16,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final AdminService adminService;
+    private final CustomOAuth2UserService customOAuth2UserService;
 
     @Override
     public void configure(WebSecurity web) {
-        web.ignoring().antMatchers("/css/**", "/js/**", "/node_modules/**");
+        web.ignoring().antMatchers("/css/**", "/js/**", "/node_modules/**","/vendor/**");
     }
 
     @Override
@@ -29,9 +30,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable()
                 .and()
                     .authorizeRequests()
-                    .antMatchers("/login", "/api/**", "/profile").permitAll() // 누구나 접근 허용
-                    //.antMatchers("/").hasRole("USER") // USER, ADMIN만 접근 가능
-                    .antMatchers("/**").hasRole("ADMIN") // ADMIN만 접근 가능
+                    .antMatchers("/comment","/","/comment/search", "/api/search/**","/oauth2/**","/comment/**").permitAll() // 누구나 접근 허용
+                    //.antMatchers("/").hasRole("USER") // USER만 접근 가능
+                    .antMatchers("/profile", "/api/**","/comment/**/update","/comment/new", "/admin/**").hasRole("ADMIN") // ADMIN만 접근 가능
                     .anyRequest().authenticated() // 나머지 요청들은 권한의 종류에 상관 없이 권한이 있어야 접근 가능
                 .and()
                     .formLogin()
@@ -39,8 +40,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .defaultSuccessUrl("/") // 로그인 성공 후 리다이렉트 주소
                 .and()
                     .logout()
-                        .logoutSuccessUrl("/login") // 로그아웃 성공시 리다이렉트 주소
-                        .invalidateHttpSession(true); // 세션 날리기
+                        .logoutSuccessUrl("/") // 로그아웃 성공시 리다이렉트 주소
+                        .invalidateHttpSession(true) // 세션 날리기
+                .and()
+                    .oauth2Login()
+                        .userInfoEndpoint()
+                            .userService(customOAuth2UserService);
     }
 
 

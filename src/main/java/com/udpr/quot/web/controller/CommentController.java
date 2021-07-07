@@ -2,6 +2,8 @@ package com.udpr.quot.web.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.udpr.quot.config.auth.LoginUser;
+import com.udpr.quot.config.auth.dto.SessionUser;
 import com.udpr.quot.domain.tag.repository.TagRepository;
 import com.udpr.quot.service.comment.CommentService;
 import com.udpr.quot.service.person.PersonService;
@@ -28,29 +30,45 @@ public class CommentController {
 
     @GetMapping("/")
     public String index(){
-        return "redirect:/admin/comment";
+        return "redirect:/comment";
     }
 
-    @GetMapping("/admin/comment/{commentId}")
-    public String detail(@PathVariable("commentId") Long commentId, Model model) {
+    
+    //코멘트 디테일 폼
+    @GetMapping("/comment/{commentId}")
+    public String detail(@PathVariable("commentId") Long commentId, Model model, @LoginUser SessionUser user) {
         model.addAttribute("comment", commentService.findById(commentId));
+
+        if(user != null){
+            model.addAttribute("user", user);
+        }
 
         return "admin/comment/commentDetail";
     }
     
     //코멘트 등록 폼
-    @GetMapping("/admin/comment/new")
-    public String saveForm(Model model) throws JsonProcessingException {
+    @GetMapping("/comment/new")
+    public String saveForm(Model model, @LoginUser SessionUser user) throws JsonProcessingException {
         CommentRequestDto commentRequestDto = new CommentRequestDto();
         model.addAttribute("form", commentRequestDto);
         List<String> tags = tagRepository.findTagName().stream().collect(Collectors.toList());
         model.addAttribute("whitelist", objectMapper.writeValueAsString(tags));
+
+        if(user != null){
+            model.addAttribute("user", user);
+        }
+
         return "admin/comment/commentSave";
     }
 
     //코멘트 수정 폼
-    @GetMapping("/admin/comment/{commentId}/update")
-    public String updateForm(@PathVariable("commentId") Long commentId, Model model) throws JsonProcessingException{
+    @GetMapping("/comment/{commentId}/update")
+    public String updateForm(@PathVariable("commentId") Long commentId, Model model, @LoginUser SessionUser user) throws JsonProcessingException{
+
+        if(user != null){
+            model.addAttribute("user", user);
+        }
+
         model.addAttribute("form", commentService.findById(commentId));
         model.addAttribute("commentId", commentId);
         List<String> tags = tagRepository.findTagName().stream().collect(Collectors.toList());
@@ -61,8 +79,13 @@ public class CommentController {
 
 
     //코멘트 리스트
-    @GetMapping("/admin/comment")
-    public String commentListPage(@RequestParam(required = false) Long page, Model model) {
+    @GetMapping("/comment")
+    public String commentListPage(@RequestParam(required = false) Long page, Model model, @LoginUser SessionUser user) {
+
+        if(user != null){
+            model.addAttribute("user", user);
+        }
+
         if(page == null){
             model.addAttribute("page", 0L);
         }else{
@@ -73,10 +96,15 @@ public class CommentController {
 
 
     //코멘트 검색결과 페이지
-    @GetMapping("/admin/comment/search")
-    public String commentSearchResultPage(@RequestParam String keyword, int tab, Long personId, Long page, Model model) {
+    @GetMapping("/comment/search")
+    public String commentSearchResultPage(@RequestParam String keyword, int tab, Long personId, Long page, Model model, @LoginUser SessionUser user) {
         model.addAttribute("keyword", keyword);
         model.addAttribute("tab", tab);
+
+        if(user != null){
+            model.addAttribute("user", user);
+        }
+
         if (personId == null){
             model.addAttribute("personId", 0L);
         }else {
