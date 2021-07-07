@@ -523,6 +523,12 @@ a:hover {
 }
 
 /* 페이지네이션 */
+
+.pagination{
+    display: flex;
+    justify-content: center;
+}
+
 .comment-pagination {
     margin-bottom: 2rem;
 }
@@ -534,6 +540,7 @@ a:hover {
     border: none;
     line-height: 32px;
     background-color: transparent;
+    margin-left: .5rem;
 }
 
 .page-link {
@@ -560,7 +567,13 @@ a:hover {
     border: none;
 }
 
-.page-link:hover {
+.page-item.active.disabled, .page-item.active.disabled>.page-link {
+    background-color: transparent;
+    font-weight: 400;
+}
+
+.page-item:hover {
+    background-color: #e3e8ef;
 }
 
 /*@media all and (max-width: 360px) {
@@ -578,7 +591,11 @@ a:hover {
 }*/
 
 
-@media (max-width: 768px) {
+@media (max-width: 575px) {
+    .pagination{
+        justify-content: space-between !important;
+    }
+
     .page-link {
         font-size: 14px !important;
     }
