@@ -38,6 +38,9 @@ body {
 
 /* 코멘트 등록 - 인물 자동완성 */
 .close-autocompleted {
+    text-align: center;
+    width: 30px;
+    line-height: 30px;
     font-size: 1.125rem;
     transition: .2s ease-out;
     cursor: pointer;
