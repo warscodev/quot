@@ -10,13 +10,14 @@
     }
 }
 
-html{
-    height: 100%!important;
+html {
+    height: 100% !important;
 }
+
 body {
-    height: 100%!important;
-    flex-direction: column!important;
-    display: flex!important;
+    height: 100% !important;
+    flex-direction: column !important;
+    display: flex !important;
 
     font-family: Noto Sans KR, Apple SD Gothic Neo, Malgun Gothic, 맑은 고딕, sans-serif;
     font-style: normal;
@@ -31,7 +32,8 @@ body {
     color: red;
 }
 
-.comment-page-wrap{
+
+.comment-page-wrap {
 }
 
 /* 코멘트 등록 - 인물 자동완성 */
@@ -152,6 +154,22 @@ a:hover {
     font-size: 1rem; /* Firefox 18- */
 }
 
+#login-btn {
+    min-width: 50px;
+    border-color: #439ff9 !important;
+    margin-left: 1rem;
+}
+
+#login-btn:hover {
+    background-color: #439ff9 !important;
+    border-color: #439ff9 !important;
+}
+
+.main-header-profile{
+ margin-left: 1rem;
+}
+
+
 .admin-header {
     background-color: white;
     padding-top: 70px;
@@ -160,8 +178,6 @@ a:hover {
 }
 
 /*--- 헤더 끝---*/
-
-
 /*--- 검색결과 네비바 ---*/
 .nav-tabs .nav-link, nav .nav-link {
     color: #212529;
@@ -186,8 +202,6 @@ a:hover {
 }
 
 /*--- 검색결과 네비바 끝 ---*/
-
-
 /* 검색결과 타이틀*/
 .search-result-keyword {
     color: #325288;
@@ -250,8 +264,6 @@ a:hover {
 }
 
 /* 검색결과 인물 리스트 끝 */
-
-
 .search-comment-table > #comment-row-1, .search-comment-table > .comment-empty {
     position: relative;
     z-index: 1;
@@ -281,7 +293,7 @@ a:hover {
 
 @media (max-width: 426px) {
     .comment-row, .comment-detail-row {
-        padding: 2rem 1.75rem!important;
+        padding: 2rem 1.75rem !important;
     }
 
 
@@ -345,7 +357,6 @@ a:hover {
 }
 
 /* ------- 태그 끝 ------- */
-
 /* 코멘트 본문 */
 .comment-content pre {
     font-family: Noto Sans KR;
@@ -423,10 +434,8 @@ a:hover {
 }
 
 /* ------- 좋아요 끝 ------- */
-
 /* ------- 코멘트 좌하단(출처, 공유) 시작 ------- */
-
-.share-btn{
+.share-btn {
     margin-left: .75rem;
 }
 
@@ -452,8 +461,6 @@ a:hover {
 }
 
 /* ------- 코멘트 좌하단(출처, 공유) 끝 ------- */
-
-
 /* ------- 코멘트 우하단(발언 날짜, 발언인) 시작 ------- */
 .comment-right-bottom-wrap {
     margin-right: .5rem;
@@ -486,10 +493,7 @@ a:hover {
 
 
 /* ------- 코멘트 우하단(발언 날짜, 발언인) 끝 ------- */
-
-
 /* ------- 코멘트 박스 끝 ------- */
-
 #custom-search-input {
     padding: 3px;
     border: solid 1px #E4E4E4;
@@ -523,8 +527,7 @@ a:hover {
 }
 
 /* 페이지네이션 */
-
-.pagination{
+.pagination {
     display: flex;
     justify-content: center;
 }
@@ -533,7 +536,7 @@ a:hover {
     margin-bottom: 2rem;
 }
 
-.page-item{
+.page-item {
     width: 32px;
     height: 32px;
     border-radius: 50% !important;
@@ -554,11 +557,11 @@ a:hover {
     background-color: transparent !important;
 }
 
-.page-item.active{
+.page-item.active {
     background-color: #e3e8ef;
 }
 
-.page-item.active .page-link{
+.page-item.active .page-link {
     font-weight: 600;
 }
 
@@ -567,7 +570,7 @@ a:hover {
     border: none;
 }
 
-.page-item.active.disabled, .page-item.active.disabled>.page-link {
+.page-item.active.disabled, .page-item.active.disabled > .page-link {
     background-color: transparent;
     font-weight: 400;
 }
@@ -589,10 +592,8 @@ a:hover {
         height: 28px !important;
     }
 }*/
-
-
 @media (max-width: 575px) {
-    .pagination{
+    .pagination {
         justify-content: space-between !important;
     }
 
@@ -602,12 +603,8 @@ a:hover {
 }
 
 
-
 /* 페이지네이션 끝 */
-
-
 /* 코멘트 공유 모달 */
-
 .comment-share-icon > a {
     border: 1px solid transparent;
     display: block;
@@ -655,22 +652,21 @@ a:hover {
     background-image: url(/css/images/twitter_logo.png); background-repeat: no-repeat;
 }
 */
-
 /* 코멘트 세부 페이지 */
-.comment-detail-title-wrap{
+.comment-detail-title-wrap {
     margin: 1rem 0;
 }
 
-.comment-detail-title-date{
+.comment-detail-title-date {
     font-size: .9375rem;
     color: #6c757d;
 }
 
-.comment-detail-title-main{
+.comment-detail-title-main {
     margin-left: 0;
 }
 
-.comment-detail-title-icon{
+.comment-detail-title-icon {
     font-size: 1.375rem;
     margin-left: .5rem;
     color: #C6C6C6;
@@ -681,22 +677,22 @@ a:hover {
     padding: 1.5rem 2.5rem;
 }
 
-.comment-detail-person-search > a{
+.comment-detail-person-search > a {
     border-bottom: 1px solid #dddddd;
     padding: .3rem .5rem;
     color: #6c757d;
 }
 
-.comment-detail-person-search-icon{
+.comment-detail-person-search-icon {
     color: #1B95E0FF;
 }
 
-.comment-detail-person-search :hover{
+.comment-detail-person-search :hover {
     color: #212529;
 }
 
-@media  (max-width: 426px) {
-    .comment-detail-title-icon{
+@media (max-width: 426px) {
+    .comment-detail-title-icon {
         margin-top: -.3rem;
     }
 }
