@@ -212,7 +212,7 @@ var main = {
                 }
                 <!-- 공유 -->
                 row +=
-                    "<a id='share-btn' class='share-btn' href='' onclick='openShareModal(this," + comment.commentId + ")' data-name='" + comment.person.name + "' data-date='"+comment.commentDate_format+"' data-bs-toggle='modal' data-bs-target='#shareModal'>" +
+                    "<a id='share-btn' class='share-btn' href='' onclick='openShareModal(this," + comment.commentId + ")' data-name='" + comment.person.name + "' data-date='" + comment.commentDate_format + "' data-bs-toggle='modal' data-bs-target='#shareModal'>" +
                     "<i class='bi bi-box-arrow-up-right'></i> 공유</a>" +
                     "</div>";
 
@@ -250,7 +250,7 @@ var main = {
 
                 row +=
                     "<div class='comment-delete-and-update-btn-wrap d-flex align-items-center'>" +
-                    "<a class='btn btn-outline-secondary btn-sm me-2' href='/admin/comment/" + comment.commentId + "/update'>수정</a>" +
+                    "<a class='btn btn-outline-secondary btn-sm me-2' href='/api/comment/" + comment.commentId + "/update'>수정</a>" +
                     "<button class='btn btn-outline-danger btn-sm btn-delete' onclick='main.delete(" + comment.commentId + ")'>삭제</button>" +
                     "<input type='hidden' name='commentId' value='" + comment.commentId + "'></div>" +
                     "</div></div>";
@@ -286,13 +286,15 @@ var main = {
         }
 
         nav += "<nav aria-label='Page navigation'>";
-        nav += "<ul class='pagination pagination-sm' id='pagination-ul'>";
+        nav += "<ul class='pagination pagination-sm d-flex' id='pagination-ul'>";
 
-        if (!totalElements == 0 && totalPages > 1) {
-            if (!pageMetadata.first) {
-                nav += "<li class='page-item'><a class='page-link' aria-label='Previous' page='" + (page - 1) + "'><span aria-hidden='true'><i class='bi bi-chevron-left'></i>" +
-                    "</svg></span></a></li>";
-            }
+
+        if (!pageMetadata.first) {
+            nav += "<li class='page-item'><a class='page-link' aria-label='Previous' page='" + (page - 1) + "'><span aria-hidden='true'><i class='bi bi-chevron-left'></i>" +
+                "</svg></span></a></li>";
+        } else {
+            nav += "<li class='page-item disabled'><a class='page-link' aria-label='Previous' page='" + (page - 1) + "'><span aria-hidden='true'><i class='bi bi-chevron-left'></i>" +
+                "</svg></span></a></li>";
         }
 
         if (!startBlock == 0) {
@@ -308,11 +310,13 @@ var main = {
             }
         }
 
-        if (totalPages > 1) {
-            if (!pageMetadata.last) {
-                nav += "<li class='page-item'><a class='page-link' aria-label='Next' page='" + (page + 1) + "'><span aria-hidden='true'><i class='bi bi-chevron-right'></i>" +
-                    "</svg></span></a></li>";
-            }
+        if (!pageMetadata.last) {
+            nav += "<li class='page-item'><a class='page-link' aria-label='Next' page='" + (page + 1) + "'><span aria-hidden='true'><i class='bi bi-chevron-right'></i>" +
+                "</svg></span></a></li>";
+        }else {
+            nav += "<li class='page-item disabled'><a class='page-link' aria-label='Next' page='" + (page + 1) + "'><span aria-hidden='true'><i class='bi bi-chevron-right'></i>" +
+                "</svg></span></a></li>";
+
         }
 
         nav += "</ul></nav>"
@@ -328,7 +332,7 @@ var main = {
 
             $.ajax({
                 type: 'DELETE',
-                url: '/admin/comment/' + id,
+                url: '/api/comment/' + id,
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
             }).done(function () {
