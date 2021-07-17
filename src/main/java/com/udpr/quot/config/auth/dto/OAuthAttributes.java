@@ -4,6 +4,7 @@ import com.udpr.quot.domain.user.Role;
 import com.udpr.quot.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
+import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.Map;
 
@@ -15,27 +16,29 @@ public class OAuthAttributes {
     private String name;
     private String email;
     private String picture;
+    private String nickname;
+
 
     @Builder
-    public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String name, String email, String picture) {
+    public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String name, String email, String picture, String nickname) {
         this.attributes = attributes;
         this.nameAttributeKey = nameAttributeKey;
         this.name = name;
         this.email = email;
         this.picture = picture;
+        this.nickname = nickname;
     }
 
     public static OAuthAttributes of(String registrationId, String userNameAttributeName,
-                                     Map<String, Object> attributes){
+                                     Map<String, Object> attributes) {
 
-        System.out.println("registration id : " + registrationId);
-        if("naver".equals(registrationId)){
+        if ("naver".equals(registrationId)) {
             return ofNaver("id", attributes);
         }
         return ofGoogle(userNameAttributeName, attributes);
     }
 
-    private static OAuthAttributes ofGoogle(String userNameAttributeName, Map<String, Object> attributes){
+    private static OAuthAttributes ofGoogle(String userNameAttributeName, Map<String, Object> attributes) {
         return OAuthAttributes.builder()
                 .name((String) attributes.get("name"))
                 .email((String) attributes.get("email"))
@@ -45,7 +48,7 @@ public class OAuthAttributes {
                 .build();
     }
 
-    public static OAuthAttributes ofNaver(String userNameAttributeName, Map<String, Object> attributes){
+    public static OAuthAttributes ofNaver(String userNameAttributeName, Map<String, Object> attributes) {
         Map<String, Object> response = (Map<String, Object>) attributes.get("response");
 
 
@@ -58,11 +61,13 @@ public class OAuthAttributes {
                 .build();
     }
 
-    public User toEntity(){
+    public User toEntity() {
+        String random = RandomStringUtils.random(6, true, true);
         return User.builder().
                 name(name)
                 .email(email)
                 .picture(picture)
+                .nickname(name + "-" + random)
                 .role(Role.USER)
                 .build();
     }

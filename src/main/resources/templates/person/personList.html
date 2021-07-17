@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="py-1">
-        <form th:action="@{/admin/person}" th:object="${searchCondition}" class="row g-1">
+        <form th:action="@{/templates/person}" th:object="${searchCondition}" class="row g-1">
             <div class="col-2">
                 <select class="form-select" th:field="*{status}">
                     <option th:value=null selected="selected">상태</option>
@@ -55,7 +55,7 @@
             <tr th:each="person : ${list}">
                 <!--이름-->
                 <td scope="row">
-                    <a href="#" class="person-name" th:href="@{/admin/person/{id} (id=${person.id})}" th:text="${person.name}"></a>
+                    <a href="#" class="person-name" th:href="@{/templates/person/{id} (id=${person.id})}" th:text="${person.name}"></a>
                 </td>
                 <!--생년월일-->
                 <td>

@@ -5,8 +5,9 @@
     <div class="container d-flex justify-content-between main-header-container align-items-center">
         <!-- 로고 -->
         <div>
-            <a href="/"><span
-                    style="font-weight:bold; font-size: 1.8rem; margin-right:2rem; color: #439ff9;">Quot.</span></a>
+            <a href="/">
+                <span style="font-weight:bold; font-size: 1.8rem; margin-right:2rem; color: #439ff9;">Quot.</span>
+            </a>
         </div>
 
         <!-- 검색창 -->
@@ -25,7 +26,7 @@
 
         <div>
             <div th:if="${user==null}">
-                <a href="/login" id="login-btn" class="btn btn-sm btn-outline-primary btn-quot flex-shrink-0">로그인</a>
+                <a href="/menu/login" id="login-btn" class="btn btn-sm btn-outline-primary btn-quot flex-shrink-0">로그인</a>
             </div>
 
             <div th:if="${user!=null}" class="main-header-profile flex-shrink-0 dropdown">

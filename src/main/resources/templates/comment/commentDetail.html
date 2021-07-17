@@ -21,14 +21,14 @@
                     <!-- 타이틀 -->
                     <div class="comment-detail-title-wrap">
                         <div><span class="comment-detail-title-date" th:text="${#temporals.format(comment.commentDate,'yyyy년 MM월 dd일')}"></span></div>
-                        <div class="d-flex"><h3 class="comment-detail-title-main" th:text="|${comment.person.job} ${comment.person.name}의 발언|"></h3><i class="bi bi-chat-quote-fill comment-detail-title-icon"></i></div>
+                        <div class="d-flex"><h3 class="comment-detail-title-main" th:text="|${comment.person.job} ${comment.person.name}|"></h3><i class="bi bi-chat-quote-fill comment-detail-title-icon"></i></div>
                     </div>
 
                     <!-- 태그 -->
                     <div class="comment-first-row d-flex align-items-top">
                         <div class="comment-tag">
                             <a th:each="tagName : ${comment.tags}"
-                               th:href="@{/admin/comment/search(keyword=${tagName.name},tab=3)}"><span
+                               th:href="@{/templates/comment/search(keyword=${tagName.name},tab=3)}"><span
                                     th:text="|#${tagName.name}|"></span></a>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                     <!-- 좋아요 버튼 -->
                     <div class="comment-center-bottom-wrap d-flex justify-content-center">
                         <!--좋아요-->
-                        <div class="like-icon-container">
+                        <div class="like-icon-container" style="margin-left: 0">
                             <a><i class="bi bi-hand-thumbs-up like-icon"></i><span class="like-count">5</span></a>
                         </div>
                         <!--싫어요-->
@@ -69,7 +69,7 @@
 
                             <!-- 발언인 검색-->
                             <div class="comment-detail-person-search d-flex align-items-center justify-content-end">
-                                <a th:href="@{/admin/comment/search(keyword=*{person.name},personId=*{person.id},tab=2)}">
+                                <a th:href="@{/templates/comment/search(keyword=*{person.name},personId=*{person.id},tab=2)}">
                                     <span class="" th:text="*{person.name}"></span><span style="font-size: .8125rem; margin: 0 .25rem;">검색</span>
                                     <i class="bi bi-search comment-detail-person-search-icon"></i>
                                 </a>

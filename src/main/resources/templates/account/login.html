@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:replace="fragments/header :: header"/>
+<meta charset="UTF-8">
+<title>Quot - 로그인</title>
+<style>
+    .form-signin {
+        width: 100%;
+        max-width: 330px;
+        padding: 15px;
+        margin: auto;
+    }
+</style>
+</head>
+<body class="text-center">
+<div class="main-header py-2 fixed-top d-flex align-items-center">
+    <div class="container d-flex justify-content-center main-header-container align-items-center">
+        <!-- 로고 -->
+        <div>
+            <a href="/">
+                <span style="font-weight:bold; font-size: 2rem; color: #439ff9;">Quot.</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<main class="form-signin text-center">
+    <h3 class="mb-4" style="font-weight: bold">로그인</h3>
+    <div class="my-3">
+        <a id="naver-login-btn" href="/oauth2/authorization/naver">
+            <img src="/css/images/naver_login_btn.png" width="270px"></a>
+    </div>
+    <div class="my-3">
+        <a id="google-login-btn" href="/oauth2/authorization/google">
+            <img src="/css/images/google_login-btn.png" width="270px"></a>
+    </div>
+
+    <!--<p class="mt-5 mb-3 text-muted">© 2021 Quot. </p>-->
+</main>
+<div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>

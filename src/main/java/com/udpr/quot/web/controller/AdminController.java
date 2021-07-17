@@ -18,7 +18,7 @@ public class AdminController {
     @GetMapping("/admin/join")
     public String joinForm(Model model){
         model.addAttribute("form",new AdminDto());
-        return "admin/account/join";
+        return "account/join";
     }
 
     @PostMapping("/admin/join")

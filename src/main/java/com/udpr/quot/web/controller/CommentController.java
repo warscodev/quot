@@ -43,7 +43,7 @@ public class CommentController {
             model.addAttribute("user", user);
         }
 
-        return "admin/comment/commentDetail";
+        return "comment/commentDetail";
     }
     
     //코멘트 등록 폼
@@ -58,7 +58,7 @@ public class CommentController {
             model.addAttribute("user", user);
         }
 
-        return "admin/comment/commentSave";
+        return "comment/commentSave";
     }
 
     //코멘트 수정 폼
@@ -73,7 +73,7 @@ public class CommentController {
         model.addAttribute("commentId", commentId);
         List<String> tags = tagRepository.findTagName().stream().collect(Collectors.toList());
         model.addAttribute("whitelist", objectMapper.writeValueAsString(tags));
-        return "admin/comment/commentUpdate";
+        return "comment/commentUpdate";
     }
 
 
@@ -91,7 +91,7 @@ public class CommentController {
         }else{
             model.addAttribute("page",page-1);
         }
-        return "admin/comment/commentList";
+        return "comment/commentList";
     }
 
 
@@ -117,7 +117,7 @@ public class CommentController {
             model.addAttribute("page",page-1);
         }
 
-        return "admin/comment/commentSearch";
+        return "comment/commentSearch";
     }
 
 

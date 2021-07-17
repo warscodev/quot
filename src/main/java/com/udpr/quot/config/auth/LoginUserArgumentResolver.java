@@ -21,12 +21,15 @@ public class LoginUserArgumentResolver implements HandlerMethodArgumentResolver 
     public boolean supportsParameter(MethodParameter parameter){
         boolean isLoginUserAnnotation = parameter.getParameterAnnotation(LoginUser.class) != null;
         boolean isUserClass = SessionUser.class.equals(parameter.getParameterType());
+        System.out.println("supportsParameter");
+
         return  isLoginUserAnnotation && isUserClass;
     }
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
                                   NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws  Exception {
+        System.out.println("resolveArgument");
         return httpSession.getAttribute("user");
     }
 }

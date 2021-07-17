@@ -24,9 +24,9 @@ var main = {
         }
 
         /* 페이징 */
-        $(document).on("click", "#pagination-ul li a", (function (e) {
+        $(document).on("click", ".page-item a", (function (e) {
             let scrollPosition = $("#comment-scroll-position").offset();
-            $('html, body').animate({scrollTop: (scrollPosition.top - 60)}, "fast");
+            $('html, body').animate({scrollTop: (scrollPosition.top - 60)});
             let num = $(this).attr("page");
             _this.loadComment(num);
         }));
@@ -124,7 +124,7 @@ var main = {
                 $(".comment-page-count").empty();
 
                 if (data.pageMetadata.totalPages > 0) {
-                    $(".comment-page-count").append((data.pageMetadata.number + 1) + " / " + data.pageMetadata.totalPages + " 페이지");
+                    $(".comment-page-count").append(_this.subPagination(data.pageMetadata));
                 }
 
                 main.oldHstate = history.state;
@@ -148,25 +148,6 @@ var main = {
                 <!-- 코멘트 컨테이너 -->
                 row += "<div class='comment-row' id='comment-row-" + i++ + "' data-comment-id='" + comment.commentId + "'>";
 
-
-                /*
-                                <!-- 좋아요 아이콘 -->
-                                row += "<div class='like-icon-container d-flex align-items-center justify-content-center'><div><a class='like-icon'><i class='bi bi-hand-thumbs-up'></i></a>";
-                                row += "<div class='like-count'>5</div></div>";
-                                row += "</div>";
-
-
-                                <!-- 싫어요 아이콘 -->
-                                row += "<div class='like-icon-container d-flex align-items-center justify-content-center'><div><a class='like-icon'><i class='bi bi-hand-thumbs-down'></i></a>";
-                                row += "<div class='like-count'>5</div></div>";
-                                row += "</div>";
-
-                                row += "</div>";
-                */
-                <!-- 왼쪽 사이드 끝 -->
-
-                <!-- 코멘트 오른쪽 사이드 -->
-
                 <!-- 태그 -->
                 row += "<div class='comment-first-row d-flex align-items-top'>";
                 row += "<div class='comment-tag'>";
@@ -187,7 +168,7 @@ var main = {
 
                 <!-- 좋아요 버튼 -->
                 row += "<div class='comment-center-bottom-wrap d-flex justify-content-center'>";
-                row += "<div class='like-icon-container'><a><i class='bi bi-hand-thumbs-up like-icon'></i><span class='like-count'>5</span></a></div>";
+                row += "<div class='like-icon-container' style='margin-left: 0'><a><i class='bi bi-hand-thumbs-up like-icon'></i><span class='like-count'>5</span></a></div>";
                 row += "<div class='like-icon-container'><a><i class='bi bi-hand-thumbs-down like-icon'></i><span class='like-count'>-5</span></a></div>";
                 row += "</div>";
 
@@ -288,17 +269,19 @@ var main = {
         nav += "<ul class='pagination pagination-sm d-flex' id='pagination-ul'>";
 
 
-        if (!pageMetadata.first) {
+        if (!pageMetadata.first && totalElements != 0) {
             nav += "<li class='page-item'><a class='page-link' aria-label='Previous' page='" + (page - 1) + "'><span aria-hidden='true'><i class='bi bi-chevron-left'></i>" +
                 "</svg></span></a></li>";
-        } else {
+        } else if(pageMetadata.first && totalElements != 0){
             nav += "<li class='page-item disabled'><a class='page-link' aria-label='Previous' page='" + (page - 1) + "'><span aria-hidden='true'><i class='bi bi-chevron-left'></i>" +
                 "</svg></span></a></li>";
+        } else{
+
         }
 
         if (!startBlock == 0) {
             nav += "<li class='page-item'><a class='page-link' page='0'>1</a></li>";
-            nav += "<li class='page-item active disabled'><span class='page-link' style='cursor:default'>...</span></li>";
+            nav += "<li class='page-item disabled'><span class='page-link' style='cursor:default'>...</span></li>";
         }
 
         for (let num = startBlock; num < endBlock; num++) {
@@ -309,10 +292,10 @@ var main = {
             }
         }
 
-        if (!pageMetadata.last) {
+        if (!pageMetadata.last && totalElements != 0) {
             nav += "<li class='page-item'><a class='page-link' aria-label='Next' page='" + (page + 1) + "'><span aria-hidden='true'><i class='bi bi-chevron-right'></i>" +
                 "</svg></span></a></li>";
-        }else {
+        }else if(pageMetadata.last && totalElements != 0){
             nav += "<li class='page-item disabled'><a class='page-link' aria-label='Next' page='" + (page + 1) + "'><span aria-hidden='true'><i class='bi bi-chevron-right'></i>" +
                 "</svg></span></a></li>";
 
@@ -322,6 +305,34 @@ var main = {
 
 
         return nav;
+
+    },
+
+    subPagination: function(pageMetadata){
+        let nav = "";
+        let page = main.page;
+
+        if (!pageMetadata.first && pageMetadata.totalElements != 0) {
+            nav += "<a class='page-link' aria-label='Previous' page='" + (page - 1) + "'><i class='bi bi-chevron-left'></i>" +
+                "</a>";
+        } else if(pageMetadata.first && pageMetadata.totalElements != 0){
+            nav += "<span class='page-link' aria-label='Previous'><i class='bi bi-chevron-left'></i>" +
+                "</span>";
+        }
+
+        nav += (pageMetadata.number + 1) + " / " + pageMetadata.totalPages + " 페이지";
+
+        if (!pageMetadata.last && pageMetadata.totalElements != 0) {
+            nav += "<a class='page-link' aria-label='Next' page='" + (page + 1) + "'><i class='bi bi-chevron-right'></i>" +
+                "</a>";
+        }else if(pageMetadata.last && pageMetadata.totalElements != 0){
+            nav += "<span class='page-link' aria-label='Next'><i class='bi bi-chevron-right'></i>" +
+                "</span>";
+        }
+
+
+        return nav;
+
 
     },
 

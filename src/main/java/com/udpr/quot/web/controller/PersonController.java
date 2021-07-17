@@ -39,7 +39,7 @@ public class PersonController {
 
         List<PersonListResponseDto> list = personService.search(condition);
         model.addAttribute("list", list);
-        return "admin/person/personList";
+        return "person/personList";
     }
 
     //인물 등록 폼
@@ -59,7 +59,7 @@ public class PersonController {
     public String save(@ModelAttribute("form") @Valid PersonRequestDto form, BindingResult result , @LoginUser SessionUser user) {
 
         if(result.hasErrors()){
-            return "admin/person/personSave";
+            return "person/personSave";
         }
 
         //생일
@@ -79,7 +79,7 @@ public class PersonController {
 
         PersonResponseDto responseDto= personService.findById(id);
         model.addAttribute("form", responseDto);
-        return "admin/person/personUpdate";
+        return "person/personUpdate";
 
     }
     
@@ -88,7 +88,7 @@ public class PersonController {
     public String update(@ModelAttribute("form") @Valid PersonRequestDto form, BindingResult result , @LoginUser SessionUser user) {
 
         if(result.hasErrors()){
-            return "admin/person/personUpdate";
+            return "person/personUpdate";
         }
         //생일
         form.setBirthDay();

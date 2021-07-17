@@ -35,7 +35,7 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom {
                 .leftJoin(comment.person).fetchJoin()
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
-                .orderBy(comment.commentDate.desc())
+                .orderBy(comment.commentDate.desc(), comment.createdDate.desc())
                 .fetchResults();
 
         List<Comment> content = results.getResults();
@@ -68,7 +68,7 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom {
                 .or(person.alias.likeIgnoreCase("%" + searchKeyword + "%")))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
-                .orderBy(comment.commentDate.desc())
+                .orderBy(comment.commentDate.desc(), comment.createdDate.desc())
                 .fetchResults();
 
         List<Comment> content = results.getResults();
@@ -87,7 +87,7 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom {
                 .and(personIdEq(personId)))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
-                .orderBy(comment.commentDate.desc())
+                .orderBy(comment.commentDate.desc(), comment.createdDate.desc())
                 .fetchResults();
 
         List<Comment> content = results.getResults();
@@ -105,7 +105,7 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom {
                 .on(commentTag.tag.name.eq(searchKeyword))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
-                .orderBy(comment.commentDate.desc())
+                .orderBy(comment.commentDate.desc(), comment.createdDate.desc())
                 .fetchResults();
 
         List<Comment> content = results.getResults();

@@ -150,11 +150,7 @@
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(data)
             }).done(function (result) {
-                if (confirm("등록이 완료 되었습니다.\n계속해서 발언을 등록하시겠습니까?") == true) {
-                    window.location.href = '/comment/new';
-                } else {
-                    window.location.href = '/comment/' + result;
-                }
+                window.location.href = '/comment/' + result;
             }).fail(function (error) {
                 alert(JSON.stringify(error));
             });
@@ -179,10 +175,10 @@
 </script>
 
 <script type="application/javascript">
-    /* 인물 자동완성 */
+    /* 자동완성 */
     $(function () {
             $("#person-search-input").autocomplete({
-                minLength: 2,
+                minLength: 1,
                 source:
                     function (request, response) {
                         $.ajax({
@@ -204,11 +200,14 @@
                         });
                     },
                 select: function (event, ui) {
-                    $("#person-search-input").val(ui.item.label);
+                    $("#person-search-input").val(ui.item.value);
                     $("#person_id").val(ui.item.id);
                     $("#person-search-input").attr("disabled", true);
                     $("#close-autocompleted").parent().css('visibility', 'visible');
                     $("#warning-alert").hide();
+                    return false;
+                },
+                focus: function (event, ui){
                     return false;
                 }
             });
