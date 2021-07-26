@@ -8,7 +8,6 @@ plugins {
 	id "com.github.node-gradle.node" version "2.2.3"
 }
 
-
 group = 'com.udpr'
 version = '0.0.2-SNAPSHOT-'+new Date().format("yyyyMMddHHmmss")
 sourceCompatibility = '11'
@@ -53,6 +52,11 @@ dependencies {
 	//RandomStringUtils
 	implementation group: 'org.apache.commons', name: 'commons-text', version: '1.9'
 
+	//lucy-xss
+	implementation 'com.navercorp.lucy:lucy-xss-servlet:2.0.0'
+
+
+
 	//JUnit4 추가
 	testImplementation("org.junit.vintage:junit-vintage-engine") {
 		exclude group: "org.hamcrest", module: "hamcrest-core"
@@ -64,7 +68,7 @@ test {
 }
 
 /** querydsl start  */
-def querydslDir = "$buildDir/generated/querydsl"
+def querydslDir = "$buildDir/generated-source"
 querydsl {
 	jpa = true
 	querydslSourcesDir = querydslDir

@@ -1,9 +1,8 @@
 package com.udpr.quot.domain.user;
 
-import com.udpr.quot.domain.comment.Comment;
-import com.udpr.quot.domain.comment.CommentLike;
+import com.udpr.quot.domain.remark.Remark;
+import com.udpr.quot.domain.remark.RemarkLike;
 import com.udpr.quot.domain.common.BaseTimeEntity;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +18,7 @@ public class User extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long id;
 
     @Column(nullable = false)
@@ -37,11 +37,14 @@ public class User extends BaseTimeEntity {
     @Column(nullable = false)
     private Role role;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<CommentLike> commentLikeList = new ArrayList<>();
+    /*@OneToMany(fetch = FetchType.LAZY)
+    private List<Remark> remarkList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Comment> scrapCommentList = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<RemarkLike> remarkLikeList = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<UserScrap> userScrapList = new ArrayList<>();*/
 
     @Builder
     public User(String name, String email, String picture, Role role, String nickname) {

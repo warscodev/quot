@@ -7,12 +7,12 @@
         <div class="row">
             <nav class="nav col">
                 <a th:if="${user!=null && user.role.toString().equals('ADMIN')}" class="nav-link" aria-current="page" href="/admin/person">인물 목록</a>
-                <a class="nav-link" href="/comment">발언 목록</a>
+                <a class="nav-link" href="/remark">발언 목록</a>
             </nav>
             <div th:if="${user!=null}" class="col d-flex justify-content-end align-items-center mt-2">
                 <a th:if="${user.role.toString().equals('ADMIN')}" class="btn btn-outline-secondary btn-sm" href="/admin/person/new" style="border-radius: 1rem;">인물
                     등록</a>
-                <a th:if="${user.role.toString().equals('ADMIN')}" class="btn btn-primary btn-sm" href="/comment/new" style="border-radius: 1rem; margin-left: .5rem;">발언 등록</a>
+                <a th:if="${user.role.toString().equals('ADMIN')}" class="btn btn-primary btn-sm" href="/remark/new" style="border-radius: 1rem; margin-left: .5rem;">발언 등록</a>
             </div>
         </div>
     </div>

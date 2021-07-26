@@ -1,7 +1,7 @@
 package com.udpr.quot.domain.tag;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.udpr.quot.domain.comment.CommentTag;
+import com.udpr.quot.domain.remark.RemarkTag;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,7 +25,7 @@ public class Tag {
 
     @JsonManagedReference(value = "tag")
     @OneToMany(mappedBy = "tag", fetch = FetchType.LAZY)
-    private List<CommentTag> commentTagList = new ArrayList<>();
+    private List<RemarkTag> remarkTagList = new ArrayList<>();
 
 
     @Builder

@@ -1,7 +1,7 @@
 package com.udpr.quot.domain.person;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.udpr.quot.domain.comment.Comment;
+import com.udpr.quot.domain.remark.Remark;
 import com.udpr.quot.domain.common.BaseTimeEntity;
 import com.udpr.quot.domain.common.Status;
 import lombok.AccessLevel;
@@ -45,7 +45,7 @@ public class Person extends BaseTimeEntity {
 
     @JsonManagedReference(value = "person")
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Comment> commentList = new ArrayList<>();
+    private List<Remark> remarkList = new ArrayList<>();
 
 
     @Builder

@@ -10,29 +10,29 @@
                 </div>
                 <div class="modal-body">
                     <div class="row justify-content-center">
-                        <inpu id="comment-share-modal-name" type="hidden"></inpu>
-                        <inpu id="comment-share-modal-date" type="hidden"></inpu>
-                        <div class="col-auto comment-share-icon">
+                        <inpu id="remark-share-modal-name" type="hidden"></inpu>
+                        <inpu id="remark-share-modal-date" type="hidden"></inpu>
+                        <div class="col-auto remark-share-icon">
                             <a id="kakaoShareBtn" class="kakao" href="javascript:;">
                                 <img src="/css/images/kakaotalk_logo.png">
                                 <div>카카오톡</div>
                             </a>
                         </div>
-                        <div class="col-auto comment-share-icon">
+                        <div class="col-auto remark-share-icon">
                             <a class="facebook" href="javascript:shareFacebook();">
                                 <img src="/css/images/facebook_logo.png">
                                 <div>페이스북</div>
                             </a>
                         </div>
-                        <div class="col-auto comment-share-icon">
+                        <div class="col-auto remark-share-icon">
                             <a class="twitter" href="javascript:shareTwitter();">
                                 <img src="/css/images/twitter_logo.png">
                                 <div>트위터</div>
                             </a>
                         </div>
                     </div>
-                    <div class="input-group mt-3 mb-3 comment-share-url-wrap">
-                        <input id="comment-share-url" type="text" class="form-control" readonly>
+                    <div class="input-group mt-3 mb-3 remark-share-url-wrap">
+                        <input id="remark-share-url" type="text" class="form-control" readonly>
                         <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="copyUrl()">
                             복사
                         </button>
@@ -43,13 +43,13 @@
     </div>
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <script>
-        const urlInput = document.getElementById("comment-share-url");
+        const urlInput = document.getElementById("remark-share-url");
         let name = '',
             date = '';
 
         function openShareModal(e, id) {
-            let commentUrl = `http://quot.wiki/comment/${id}`;
-            urlInput.value = commentUrl;
+            let remarkUrl = `http://quot.wiki/remark/${id}`;
+            urlInput.value = remarkUrl;
 
             name = e.dataset.name;
             date = e.dataset.date;

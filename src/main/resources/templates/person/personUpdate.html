@@ -23,7 +23,7 @@
     <form th:object="${form}" method="post" class="row g-3">
         <input type="hidden" th:field="*{id}"/>
 
-        <a th:href="@{/comment/search(keyword=${form.name},personId=${form.id},tab=2)}"
+        <a th:href="@{/remark/search(keyword=${form.name},personId=${form.id},tab=2)}"
            class="btn btn-outline-primary" th:text="|*{name}의 발언 목록 보기|"></a>
         <br>
         <!-- 이름 -->
@@ -110,7 +110,7 @@
             <a href="javascript:history.back();" class="btn btn-outline-secondary me-md-2">취소</a>
     </form>
     <!-- 삭제 버튼 -->
-    <form th:object="${form}" th:action="@{/templates/person/{id}/delete (id=${form.id.toString()})}" method="post"
+    <form th:object="${form}" th:action="@{/admin/person/{id}/delete (id=${form.id.toString()})}" method="post"
           onsubmit="return confirm('정말 삭제하시겠습니까? \n인물 정보를 삭제하는 경우, 해당 인물의 모든 발언 또한 삭제되고\n복원할 수 없습니다.');">
         <input type="hidden" th:field="*{id}"/>
         <button type="submit" class="btn btn-danger" id="btn-delete">삭제</button>

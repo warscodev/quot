@@ -4,10 +4,13 @@ import com.udpr.quot.domain.user.Role;
 import com.udpr.quot.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.Map;
+import java.util.Optional;
 
+@NoArgsConstructor
 @Getter
 public class OAuthAttributes {
 
@@ -39,6 +42,7 @@ public class OAuthAttributes {
     }
 
     private static OAuthAttributes ofGoogle(String userNameAttributeName, Map<String, Object> attributes) {
+
         return OAuthAttributes.builder()
                 .name((String) attributes.get("name"))
                 .email((String) attributes.get("email"))
@@ -49,22 +53,24 @@ public class OAuthAttributes {
     }
 
     public static OAuthAttributes ofNaver(String userNameAttributeName, Map<String, Object> attributes) {
+
         Map<String, Object> response = (Map<String, Object>) attributes.get("response");
 
 
         return OAuthAttributes.builder()
-                .name((String) response.get("name"))
-                .email((String) response.get("email"))
-                .picture((String) response.get("profile_image"))
-                .attributes(response)
-                .nameAttributeKey(userNameAttributeName)
-                .build();
+                    .name((String) response.get("name"))
+                    .email((String) response.get("email"))
+                    .picture((String) response.get("profile_image"))
+                    .attributes(response)
+                    .nameAttributeKey(userNameAttributeName)
+                    .build();
+
     }
 
     public User toEntity() {
         String random = RandomStringUtils.random(6, true, true);
-        return User.builder().
-                name(name)
+        return User.builder()
+                .name(name)
                 .email(email)
                 .picture(picture)
                 .nickname(name + "-" + random)

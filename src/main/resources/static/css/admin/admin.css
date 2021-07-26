@@ -33,7 +33,7 @@ body {
 }
 
 
-.comment-page-wrap {
+.remark-page-wrap {
 }
 
 /* 코멘트 등록 - 인물 자동완성 */
@@ -267,7 +267,7 @@ a:hover {
 }
 
 /* 검색결과 인물 리스트 끝 */
-.search-comment-table > #comment-row-1, .search-comment-table > .comment-empty {
+.search-remark-table > #remark-row-1, .search-remark-table > .remark-empty {
     position: relative;
     z-index: 1;
     border-top: 0;
@@ -277,18 +277,18 @@ a:hover {
 }
 
 /* 서브 페이지 네비게이션 */
-.comment-page-count {
+.remark-page-count {
     font-size: .85rem;
     color: #6c757d;
 }
 
-.comment-page-count * {
+.remark-page-count * {
     font-size: .85rem !important;
     margin: 0 .5rem !important;
 }
 
 /* ------- 코멘트 박스 ------- */
-.comment-row {
+.remark-row {
     position: relative;
     z-index: 1;
     padding: 2.25rem 2.5rem;
@@ -300,7 +300,7 @@ a:hover {
 }
 
 @media (max-width: 426px) {
-    .comment-row, .comment-detail-row {
+    .remark-row, .remark-detail-row {
         padding: 2rem 1.75rem !important;
     }
 
@@ -308,7 +308,7 @@ a:hover {
 }
 
 /* 코멘트 타이틀 */
-.comment-title > h4, .person-title > h4 {
+.remark-title > h4, .person-title > h4 {
     font-style: normal;
     font-weight: bold;
     margin-left: 0.5rem;
@@ -317,36 +317,36 @@ a:hover {
 
 /* ------- 태그 시작 ------- */
 @media (max-width: 426px) {
-    .comment-tag {
+    .remark-tag {
         -ms-overflow-style: none;
         width: 100% !important;
         overflow-x: auto;
         white-space: nowrap
     }
 
-    .comment-tag > a {
+    .remark-tag > a {
         margin-right: .25rem !important;
     }
 
-    .comment-tag::-webkit-scrollbar {
+    .remark-tag::-webkit-scrollbar {
         height: .5rem;
     }
 
-    .comment-tag::-webkit-scrollbar-thumb {
+    .remark-tag::-webkit-scrollbar-thumb {
         border-radius: 10px;
         background-color: transparent;
     }
 
-    .comment-tag::-webkit-scrollbar-thumb:hover {
+    .remark-tag::-webkit-scrollbar-thumb:hover {
         background-color: rgba(210, 210, 210, 0.3);
     }
 }
 
-.comment-tag {
+.remark-tag {
     width: 95%;
 }
 
-.comment-tag > a {
+.remark-tag > a {
     font-size: .8125rem;
     display: inline-block;
     margin-bottom: .5rem;
@@ -359,34 +359,35 @@ a:hover {
     width: auto;
 }
 
-.comment-tag > a:hover {
+.remark-tag > a:hover {
     background-color: #e3e8ef;
 }
 
 /* ------- 태그 끝 ------- */
 /* 코멘트 본문 */
-.comment-content pre {
+.remark-content pre {
     font-family: Noto Sans KR;
     font-weight: 400;
-    font-size: 1.125rem;
+    font-size: 1rem;
     overflow: auto;
     white-space: pre-wrap;
     word-break: break-all;
+    margin-bottom: 0;
 }
 
-.comment-content p {
-    margin-bottom: .5rem;
+.remark-content p {
+    margin-bottom: 0;
 }
 
 @media all and (min-width: 1px) and (max-width: 360px) {
-    .comment-content pre {
+    .remark-content pre {
         font-size: 14px;
     }
 }
 
 
 /* ------- 좋아요 시작 ------- */
-.comment-center-bottom-wrap {
+.remark-center-bottom-wrap {
     margin: 1rem 0;
 }
 
@@ -397,43 +398,22 @@ a:hover {
 .like-icon-container > a {
     display: flex;
     align-items: center !important;
-    justify-content: center !important;
-    line-height: 34px;
-    width: 85px;
-    height: 30px;
-    border: 1px solid #C6C6C6;
-    border-radius: 1rem;
 }
 
 .like-icon {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     color: #C6C6C6;
 }
 
 .like-count {
-    font-weight: 400;
+    font-weight: 500;
+    font-size: .95rem;
     color: #6c757d;
     margin-left: .5rem;
+    letter-spacing: .02rem;
 }
 
 @media (max-width: 426px) {
-    .like-icon-container {
-        margin-left: 1rem;
-    }
-
-    .like-icon-container > a {
-        width: 60px;
-        height: 22px;
-        line-height: 22px;
-    }
-
-    .like-icon {
-        font-size: 1rem;
-    }
-
-    .like-count {
-        font-size: .9375rem;
-    }
 }
 
 /* ------- 좋아요 끝 ------- */
@@ -445,31 +425,31 @@ a:hover {
 
 @media (max-width: 426px) {
 
-    .comment-right-bottom-wrap {
+    .remark-right-bottom-wrap {
         margin-right: 0 !important;
     }
 
-    .comment-source {
+    .remark-source {
         margin-left: .25rem !important;
     }
 }
 
-.comment-source > a {
+.remark-source > a {
     font-size: .9375rem;
     color: #1B95E0FF;
 }
 
-.comment-source > a:hover {
+.remark-source > a:hover {
     color: #71C9FFFF;
 }
 
 /* ------- 코멘트 좌하단(출처, 공유) 끝 ------- */
 /* ------- 코멘트 우하단(발언 날짜, 발언인) 시작 ------- */
-.comment-right-bottom-wrap {
+.remark-right-bottom-wrap {
     margin-right: .5rem;
 }
 
-.comment-date > span {
+.remark-date > span {
     color: #6c757d;
     font-size: .875rem;
 }
@@ -480,16 +460,16 @@ a:hover {
 }
 
 .person-name {
-    color: #212529;
+        color: #212529;
     font-weight: 600;
 }
 
-.comment-delete-and-update-btn-wrap {
+.remark-delete-and-update-btn-wrap {
     margin-top: .5rem;
 }
 
 @media (max-width: 426px) {
-    .comment-right-bottom-wrap {
+    .remark-right-bottom-wrap {
         margin-right: 0 !important;
     }
 }
@@ -535,7 +515,7 @@ a:hover {
     justify-content: center;
 }
 
-.comment-pagination {
+.remark-pagination {
     margin-bottom: 2rem;
 }
 
@@ -607,12 +587,12 @@ a:hover {
 
 /* 페이지네이션 끝 */
 /* 코멘트 공유 모달 */
-.comment-share-icon > a {
+.remark-share-icon > a {
     border: 1px solid transparent;
     display: block;
 }
 
-.comment-share-icon > a > img {
+.remark-share-icon > a > img {
     width: 60px;
     height: 60px;
     margin: 1rem 1rem .3rem 1rem;
@@ -621,80 +601,80 @@ a:hover {
 @media (max-width: 426px) {
 
 
-    .comment-share-icon > a > img {
+    .remark-share-icon > a > img {
         width: 45px;
         height: 45px;
     }
 }
 
-.comment-share-icon > a > div {
+.remark-share-icon > a > div {
     text-align: center;
     padding-bottom: .3rem;
 }
 
-.comment-share-icon > a:active {
+.remark-share-icon > a:active {
     background-color: #eee;
     border: 1px solid #eee;
 }
 
-.comment-share-url-wrap {
+.remark-share-url-wrap {
     padding: 0 2rem;
 }
 
 /*
-.comment-share-icon .kakao{
+.remark-share-icon .kakao{
     background-image: url(/css/images/kakaotalk_logo.png); background-repeat: no-repeat;
 }
 
-.comment-share-icon .facebook{
+.remark-share-icon .facebook{
     background-image: url(/css/images/facebook_logo.png); background-repeat: no-repeat;
 }
 
-.comment-share-icon .twitter{
+.remark-share-icon .twitter{
     background-image: url(/css/images/twitter_logo.png); background-repeat: no-repeat;
 }
 */
 /* 코멘트 세부 페이지 */
-.comment-detail-title-wrap {
+.remark-detail-title-wrap {
     margin: 1rem 0;
 }
 
-.comment-detail-title-date {
+.remark-detail-title-date {
     font-size: .9375rem;
     color: #6c757d;
 }
 
-.comment-detail-title-main {
+.remark-detail-title-main {
     margin-left: 0;
 }
 
-.comment-detail-title-icon {
+.remark-detail-title-icon {
     font-size: 1.375rem;
     margin-left: .5rem;
     color: #C6C6C6;
     margin-top: -.2rem;
 }
 
-.comment-detail-row {
+.remark-detail-row {
     padding: 1.5rem 2.5rem;
 }
 
-.comment-detail-person-search > a {
+.remark-detail-person-search > a {
     border-bottom: 1px solid #dddddd;
     padding: .3rem .5rem;
     color: #6c757d;
 }
 
-.comment-detail-person-search-icon {
+.remark-detail-person-search-icon {
     color: #1B95E0FF;
 }
 
-.comment-detail-person-search :hover {
+.remark-detail-person-search :hover {
     color: #212529;
 }
 
 @media (max-width: 426px) {
-    .comment-detail-title-icon {
+    .remark-detail-title-icon {
         margin-top: -.3rem;
     }
 }

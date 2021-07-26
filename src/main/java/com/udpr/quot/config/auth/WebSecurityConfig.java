@@ -15,7 +15,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 /*@Configuration*/
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    /*private final AdminService adminService;*/
     private final CustomOAuth2UserService customOAuth2UserService;
 
     @Override
@@ -30,15 +29,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable()
                 .and()
                     .authorizeRequests()
-                    .antMatchers("/comment","/","/comment/search", "/api/search/**","/oauth2/**","/menu/login").permitAll() // 누구나 접근 허용
+                    .antMatchers("/api/person/**","/api/remark/**","/h2-console/**","/person/new","/remark/new","/remark/**/update").hasRole("ADMIN") // ADMIN만 접근 가능
+                    .antMatchers("/remark","/remark/**/","/","/remark/search", "/api/search/**","/oauth2/**","/menu/login").permitAll() // 누구나 접근 허용
                     //.antMatchers("/").hasRole("USER") // USER만 접근 가능
-                    .antMatchers("/api/person/**","/api/comment/**","/h2-console/**","/person/new","/comment/new").hasRole("ADMIN") // ADMIN만 접근 가능
                     .anyRequest().authenticated() // 나머지 요청들은 권한의 종류에 상관 없이 권한이 있어야 접근 가능
 
                 .and()
-                    .formLogin()
-                    .loginPage("/menu/login") // 로그인 페이지 링크
+                    /*.formLogin()
+                    .loginPage("/login") // 로그인 페이지 링크
                     .defaultSuccessUrl("/") // 로그인 성공 후 리다이렉트 주소
+                    .failureUrl("/login?error")
+                    .permitAll()*/
+                    .oauth2Login()
+                        .loginPage("/login")
+                        .failureUrl("/login?error")
+                        .permitAll()
+
+
 
                 .and()
                     .logout()
@@ -49,6 +56,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .oauth2Login()
                         .userInfoEndpoint()
                             .userService(customOAuth2UserService);
+
+
     }
 
 

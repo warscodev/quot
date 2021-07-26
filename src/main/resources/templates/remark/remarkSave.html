@@ -1,0 +1,230 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:replace="fragments/header :: header"/>
+
+<body>
+<div th:replace="fragments/topHeader :: topHeader"/>
+<div th:replace="fragments/subHeader :: subHeader"/>
+<link rel="stylesheet" href="/vendor/jquery-ui/jquery-ui.min.css">
+
+
+<div class="container container-custom col-md">
+
+    </br>
+    <div class="py-2 row">
+        <h4>발언 등록</h4>
+    </div>
+    </br>
+
+
+    <div class="row g-3">
+
+        <!-- 발언자 -->
+        <div class="col-12">
+            <label for="person-search-input" class="form-label">발언자</label>
+            <div class="row">
+                <div class="col-auto">
+                    <input type="text" class="form-control" id="person-search-input">
+                    <input type="hidden" id="person_id">
+                </div>
+
+                <!-- 인물 선택 취소 버튼-->
+                <div class="col-auto d-flex align-items-center" style="margin-left: -3.5rem; visibility: hidden;">
+                    <i class="bi bi-x close-autocompleted" id="close-autocompleted"></i>
+                </div>
+
+                <div class="col-auto">
+                    <a class="btn btn-warning" href="/admin/person/new" target="_blank">새 인물 등록</a>
+                </div>
+                <span id="warning-alert" style="color: red; font-size: .9rem; margin-bottom: 0;"> 인물을 선택해 주세요!</span>
+
+            </div>
+        </div>
+        <!-- 발언 내용 -->
+        <div class="col-12">
+            <label for="content" class="form-label">발언 내용</label>
+            <textarea name="content" id="content" class="form-control" rows="10"></textarea>
+        </div>
+
+        <!-- 발언 날짜 -->
+        <div class="col-12">
+            <label class="form-label">발언 날짜</label>
+            <input type="date" name="remarkDate" id="remarkDate" class="form-control">
+        </div>
+
+
+        <!-- 태그 -->
+        <div class="col-12">
+            <label class="form-label" th:for="jasonArrayTags">키워드</label>
+            <input name="jasonArrayTags" id="jasonArrayTags" class='tagify--outside'>
+            <div id="whitelist" th:text="${whitelist}" hidden></div>
+        </div>
+
+        <hr class="my-4">
+        <h5>출처</h5>
+
+        <!-- 소스 -->
+        <!--소스 sort-->
+        <div class="col-4">
+            <label for="sourceSort" class="form-label">종류</label>
+            <select class="form-select" id="sourceSort">
+                <option value="영상">영상</option>
+                <option value="SNS">SNS</option>
+                <option value="기사">기사</option>
+                <option value="">없음</option>
+            </select>
+
+            <!--<input type="text" class="form-control" placeholder="ex)영상, 기사 등..."
+                   id="sourceSort">-->
+        </div>
+
+        <!--소스 url-->
+        <div class="col-8 ">
+            <label for="sourceUrl" class="form-label">URL</label>
+            <input type="text" name="sourceUrl" class="form-control" placeholder="링크"
+                   id="sourceUrl">
+        </div>
+
+        <hr class="my-4">
+
+        <!-- 버튼 -->
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="button" class="btn btn-primary me-md-2" id="btn-save">저장</button>
+            <a href="javascript:history.back();" class="btn btn-outline-secondary">취소</a>
+            <div></div>
+        </div>
+    </div>
+    <!--</form>-->
+</div>
+<br/>
+
+
+<!-- tagify js-->
+<script src="/node_modules/@yaireo/tagify/dist/tagify.min.js"></script>
+<script src="/node_modules/@yaireo/dragsort/dist/dragsort.js"></script>
+
+<!-- autocomplete  -->
+<script src="/vendor/jquery-ui/jquery-ui.min.js"></script>
+
+<script type="application/javascript">
+    var input = document.querySelector('.tagify--outside');
+
+    // init Tagify script on the above inputs
+    tagify = new Tagify(input, {
+        pattern: /^.{0,20}$/,
+        whitelist: JSON.parse(document.querySelector("#whitelist").textContent),
+        maxTags: 4
+    });
+
+
+    //dragsort
+    var dragsort = new DragSort(tagify.DOM.scope, {
+        selector: '.' + tagify.settings.classNames.tag,
+        callbacks: {
+            dragEnd: onDragEnd
+        }
+    })
+
+    function onDragEnd(elm) {
+        tagify.updateValueByDOMTags()
+    }
+
+    //저장 이벤트
+    $('#btn-save').on('click', function () {
+
+        var id = $('#person_id').val();
+
+        var data = {
+            content: $('#content').val(),
+            remarkDate: $('#remarkDate').val(),
+            jasonArrayTags: $('#jasonArrayTags').val(),
+            sourceSort: $('#sourceSort').val(),
+            sourceUrl: $('#sourceUrl').val()
+        }
+
+        if (validate(data)) {
+            $.ajax({
+                type: 'POST',
+                url: '/api/person/' + id + '/remark',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data)
+            }).done(function (result) {
+                window.location.href = '/remark/' + result;
+            }).fail(function (error) {
+                alert(JSON.stringify(error));
+            });
+        }
+
+    });
+
+    function validate(data) {
+        const blank_pattern = /^\s+|\s+$/g;
+        if (!$('#person_id').val()) {
+            alert("인물을 선택해주세요.")
+            return false;
+        } else if (!data.content || data.content.replace(blank_pattern, "") == "") {
+            alert("본문 내용을 입력해주세요.")
+            return false;
+        } else if (!data.remarkDate) {
+            alert("발언 일자를 입력해주세요.")
+            return false;
+        }
+        return true;
+    }
+</script>
+
+<script type="application/javascript">
+    /* 자동완성 */
+    $(function () {
+            $("#person-search-input").autocomplete({
+                minLength: 1,
+                source:
+                    function (request, response) {
+                        $.ajax({
+                            type: 'GET',
+                            url: '/api/autoComplete',
+                            dataType: 'json',
+                            data: {term: request.term},
+                            success: function (data) {
+                                response(
+                                    $.map(data, function (item) {
+                                        return {
+                                            label: item.name + '(' + item.job + ')',
+                                            value: item.name,
+                                            id: item.id
+                                        }
+                                    })
+                                )
+                            }
+                        });
+                    },
+                select: function (event, ui) {
+                    $("#person-search-input").val(ui.item.value);
+                    $("#person_id").val(ui.item.id);
+                    $("#person-search-input").attr("disabled", true);
+                    $("#close-autocompleted").parent().css('visibility', 'visible');
+                    $("#warning-alert").hide();
+                    return false;
+                },
+                focus: function (event, ui){
+                    return false;
+                }
+            });
+
+            //인물 선택 취소 버튼
+            $("#close-autocompleted").click(function () {
+                $("#close-autocompleted").parent().css('visibility', 'hidden');
+                $("#person-search-input").val("");
+                $("#person-search-input").attr("disabled", false);
+                $("#person_id").removeAttr('value');
+                $("#warning-alert").show();
+            });
+        }
+    );
+</script>
+
+
+<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>

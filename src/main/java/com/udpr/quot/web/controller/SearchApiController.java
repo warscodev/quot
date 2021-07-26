@@ -1,15 +1,14 @@
 package com.udpr.quot.web.controller;
 
-import com.udpr.quot.domain.comment.search.CommentSearchCondition;
-import com.udpr.quot.service.comment.CommentService;
+import com.udpr.quot.domain.remark.search.RemarkSearchCondition;
+import com.udpr.quot.service.remark.RemarkService;
 import com.udpr.quot.service.person.PersonService;
-import com.udpr.quot.web.dto.comment.CommentListResponseDto;
+import com.udpr.quot.web.dto.remark.RemarkListResponseDto;
 import com.udpr.quot.web.dto.person.PersonAutoCompleteDto;
 import com.udpr.quot.web.dto.search.SearchPersonResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -18,12 +17,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SearchApiController {
 
-    private final CommentService commentService;
+    private final RemarkService remarkService;
     private final PersonService personService;
 
-    @GetMapping("/api/search/comment")
-    public CommentListResponseDto getCommentList(Pageable pageable, CommentSearchCondition condition) {
-        return commentService.searchComment(condition, pageable);
+    @GetMapping("/api/search/remark")
+    public RemarkListResponseDto getRemarkList(Pageable pageable, RemarkSearchCondition condition) {
+        return remarkService.searchRemark(condition, pageable);
     }
 
     @GetMapping("/api/search/personList")

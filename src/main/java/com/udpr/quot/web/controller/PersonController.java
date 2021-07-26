@@ -51,7 +51,7 @@ public class PersonController {
         }
 
         model.addAttribute("form",new PersonRequestDto());
-        return "admin/person/personSave";
+        return "person/personSave";
     }
 
     //저장
