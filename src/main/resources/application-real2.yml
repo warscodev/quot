@@ -1,7 +1,7 @@
 spring:
   profiles:
     group:
-      "real2": "real-db", "ouath"
+      "real2": "real-db,ouath"
 ---
 server:
   port: 8082

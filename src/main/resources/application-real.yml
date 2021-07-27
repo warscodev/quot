@@ -1,7 +1,7 @@
 spring:
   profiles:
     group:
-      "real": "real-db", "ouath"
+      "real": "real-db,ouath"
 ---
 spring:
   config:
