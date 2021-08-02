@@ -210,7 +210,7 @@ var main = {
 
 
                 <!-- 등록일 -->
-                row +=
+                /*row +=
                     "<div class='d-flex justify-content-between pt-2' style='border-top: 0.05rem solid rgba(0,0,0,.125);\n" +
                     "    margin-top: 1rem;'>" +
                     "<div class='pt-1'>" +
@@ -224,7 +224,7 @@ var main = {
                 } else {
                     row +=
                         "</div>";
-                }
+                }*/
 
                 /*row +=
                     "<div class='remark-delete-and-update-btn-wrap d-flex align-items-center'>" +
@@ -233,7 +233,7 @@ var main = {
                     "<input type='hidden' name='remarkId' value='" + remark.remarkId + "'></div>";
                     */
 
-                row += "</div></div>";
+                row += "</div></div></div>";
 
 
             });

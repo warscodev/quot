@@ -291,7 +291,7 @@ a:hover {
 .remark-row {
     position: relative;
     z-index: 1;
-    padding: 2.25rem 2.5rem;
+    padding: 2rem;
     background-color: #fff;
     background-clip: border-box;
     border-radius: 1rem;
@@ -301,7 +301,7 @@ a:hover {
 
 @media (max-width: 426px) {
     .remark-row, .remark-detail-row {
-        padding: 2rem 1.75rem !important;
+        padding: 1.75rem !important;
     }
 
 
@@ -347,11 +347,11 @@ a:hover {
 }
 
 .remark-tag > a {
-    font-size: .8125rem;
+    font-size: .8rem;
     display: inline-block;
-    margin-bottom: .5rem;
+    margin-bottom: .25rem;
     margin-right: .5rem;
-    padding: .5rem 1rem;
+    padding: .475rem .875rem;
     line-height: 1;
     color: #333;
     background-color: #f3f5f8;
@@ -401,7 +401,7 @@ a:hover {
 }
 
 .like-icon {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     color: #C6C6C6;
 }
 
@@ -636,11 +636,11 @@ a:hover {
 */
 /* 코멘트 세부 페이지 */
 .remark-detail-title-wrap {
-    margin: 1rem 0;
+    margin: .5rem 0;
 }
 
 .remark-detail-title-date {
-    font-size: .9375rem;
+    font-size: .875rem;
     color: #6c757d;
 }
 
