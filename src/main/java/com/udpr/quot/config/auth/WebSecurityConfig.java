@@ -14,7 +14,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) {
-        web.ignoring().antMatchers("/css/**", "/js/**", "/node_modules/**","/vendor/**","/package.json","/package-lock.json");
+        web.ignoring().antMatchers("/css/**","/css/images/**", "/js/**", "/node_modules/**","/vendor/**","/package.json","/package-lock.json");
     }
 
     @Override
