@@ -7,10 +7,9 @@ spring:
 #    jdbc.initialize-schema: always
 
   datasource:
-    url: jdbc:h2:tcp://localhost/~/malzakook;MODE=MYSQL
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+    hikari:
+      jdbc-url: jdbc:h2:tcp://localhost/~/malzakook;MODE=MYSQL
+      username: sa
 
   thymeleaf:
     prefix: classpath:/templates/
@@ -27,7 +26,7 @@ spring:
     properties:
       hibernate:
         # show_sql: true
-        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        dialect: org.hibernate.dialect.MySQL57Dialect
         format_sql: true
         use_sql_comment: true
         default_batch_fetch_size: 100
