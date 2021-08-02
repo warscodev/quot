@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@popperjs/core": "^2.9.2",
     "@yaireo/dragsort": "^1.1.0",
     "@yaireo/tagify": "^4.2.0",
     "bootstrap": "^5.0.1",
