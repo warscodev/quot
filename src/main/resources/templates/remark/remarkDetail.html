@@ -28,7 +28,7 @@
                     <div class="remark-first-row d-flex align-items-top">
                         <div class="remark-tag">
                             <a th:each="tagName : ${remark.tags}"
-                               th:href="@{/templates/remark/search(keyword=${tagName.name},tab=3)}"><span
+                               th:href="@{/remark/search(keyword=${tagName.name},tab=3)}"><span
                                     th:text="|#${tagName.name}|"></span></a>
                         </div>
                     </div>
