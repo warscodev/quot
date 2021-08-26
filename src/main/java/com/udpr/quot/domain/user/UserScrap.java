@@ -16,11 +16,13 @@ public class UserScrap {
     @Column(name = "user_scrap_id")
     private Long id;
 
-   /* @ManyToOne
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
-    private Remark remark;*/
+    @JoinColumn(name = "remark_id")
+    private Remark remark;
 
 
 }

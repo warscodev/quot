@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
 <!-- 헤더 네비바 -->
 <header class="main-header py-2 fixed-top d-flex align-items-center" th:fragment="topHeader">
     <div class="container d-flex justify-content-between main-header-container align-items-center">
@@ -29,7 +31,7 @@
                 <a href="/login" id="login-btn" class="btn btn-sm btn-outline-primary btn-quot flex-shrink-0">로그인</a>
             </div>
 
-            <div th:if="${user!=null}" class="main-header-profile flex-shrink-0 dropdown">
+            <div sec:authorize="isAuthenticated()" class="main-header-profile flex-shrink-0 dropdown">
                  <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser2"
                     data-bs-toggle="dropdown" aria-expanded="false">
                      <img th:src="${user.picture}" alt="mdo" width="32" height="32" class="rounded-circle">
@@ -44,6 +46,10 @@
                      <li><a class="dropdown-item" href="/logout">로그아웃</a></li>
                  </ul>
              </div>
+
+            <div sec:authorize="isAuthenticated()">
+                <input type="hidden" th:value="${user.id}" id="user_id">
+            </div>
         </div>
 
         <script>

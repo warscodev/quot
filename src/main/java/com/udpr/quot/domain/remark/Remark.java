@@ -92,18 +92,23 @@ public class Remark extends BaseTimeEntity {
         return tagList;
     }
 
-    public List<Tag> toTagList(){
-
-        System.out.println("toTagList 작동");
-        List<Tag> tagList = new ArrayList<>();
-
-        this.getRemarkTagList().stream().forEach(
-                remarkTag -> tagList.add(remarkTag.getTag())
-        );
-
-        return tagList;
-
+    public void increaseLikeCount(int isLike){
+        if(isLike == 1) {
+            this.likeCount++;
+        }else{
+            this.dislikeCount++;
+        }
     }
+
+    public void decreaseLikeCount(int isLike){
+        if(isLike == 1) {
+            this.likeCount--;
+        }else{
+            this.dislikeCount--;
+        }
+    }
+
+
 
 
 }

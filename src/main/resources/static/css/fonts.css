@@ -46,13 +46,54 @@
 }
 
 @font-face {
-    font-family: 'NanumSquare';
-    font-style: normal;
-    font-weight: bold;
+    font-family: 'Pretendard';
+    font-display: swap;
+    font-weight: 900;
     src: local("@"),
-    url('fonts/NanumSquareB.woff2') format('woff2'),
-    url("fonts/NanumSquareB.woff") format('woff'),
-    url("fonts/NanumSquareB.ttf") format('ttf');
+    url('fonts/Pretendard-Black.subset.woff2') format('woff2');
 }
+
+@font-face {
+    font-family: 'Pretendard';
+    font-display: swap;
+    font-weight: 700;
+    src:local("@"),
+    url('fonts/Pretendard-Bold.subset.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    font-display: swap;
+    font-weight: 500;
+    src: local("@"),
+    url('fonts/Pretendard-Medium.subset.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    font-display: swap;
+    font-weight: 400;
+    src: local("@"),
+    url('fonts/Pretendard-Regular.subset.woff2') format('woff2'); /* Modern Browsers */
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    font-display: swap;
+    font-weight: 300;
+    src: local("@"),
+    url('fonts/Pretendard-Light.subset.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    font-display: swap;
+    font-weight: 100;
+    src: local("@"),
+    url('fonts/Pretendard-Thin.subset.woff2') format('woff2');
+}
+
+
+
 
 

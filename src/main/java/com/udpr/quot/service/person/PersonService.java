@@ -27,7 +27,6 @@ public class PersonService {
         return personRepository.save(requestDto.toEntity()).getId();
     }
 
-
     //수정
     @Transactional
     public Long update(Long id, PersonRequestDto requestDto) {

@@ -1,10 +1,12 @@
 package com.udpr.quot.config.auth;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @RequiredArgsConstructor
 @EnableWebSecurity
@@ -24,9 +26,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable()
                 .and()
                     .authorizeRequests()
-                    .antMatchers("/api/person/**","/api/remark/**","/h2-console/**","/person/new","/remark/new","/remark/**/update").hasRole("ADMIN") // ADMIN만 접근 가능
+                    .antMatchers("/api/remark/**/like/**","/api/remark/loginCheck").hasAnyRole("USER","ADMIN")
+                    .antMatchers("/api/person/**","/api/remark/","/h2-console/**","/person/new","/remark/new","/remark/**/update").hasRole("ADMIN") // ADMIN만 접근 가능
                     .antMatchers("/remark","/remark/**/","/","/remark/search", "/api/search/**","/oauth2/**","/profile","/login/**").permitAll() // 누구나 접근 허용
-                    //.antMatchers("/").hasRole("USER") // USER만 접근 가능
                     .anyRequest().authenticated() // 나머지 요청들은 권한의 종류에 상관 없이 권한이 있어야 접근 가능
 
                 .and()
@@ -37,6 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .permitAll()*/
                     .oauth2Login()
                         .loginPage("/login")
+                        .successHandler(successHandler())
                         .failureUrl("/login?error")
                         .permitAll()
 
@@ -54,6 +57,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     }
+
+
+    @Bean
+    public AuthenticationSuccessHandler successHandler() {
+        return new CustomLoginSuccessHandler("/defaultUrl");
+    }
+
 
 
     /*@Override

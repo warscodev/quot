@@ -37,14 +37,14 @@ public class User extends BaseTimeEntity {
     @Column(nullable = false)
     private Role role;
 
-    /*@OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Remark> remarkList = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<RemarkLike> remarkLikeList = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<UserScrap> userScrapList = new ArrayList<>();*/
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<UserScrap> userScrapList = new ArrayList<>();
 
     @Builder
     public User(String name, String email, String picture, Role role, String nickname) {

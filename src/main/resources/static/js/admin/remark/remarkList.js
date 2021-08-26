@@ -25,10 +25,9 @@ var main = {
 
         /* 페이징 */
         $(document).on("click", ".page-item a", (function (e) {
-            let scrollPosition = $("#remark-scroll-position").offset();
-            $('html, body').animate({scrollTop: (0)});
             let num = $(this).attr("page");
             _this.loadRemark(num);
+
         }));
 
     },
@@ -36,8 +35,8 @@ var main = {
     loadPerson: async function () {
         let _this = this,
             data = '',
-            keyword = document.getElementById("search-keyword").value;
-        personTable = document.getElementById("person-table");
+            keyword = document.getElementById("search-keyword").value,
+            personTable = document.getElementById("person-table");
 
         await $.get(`/api/search/personList?keyword=${keyword}`,
             function (result) {
@@ -148,6 +147,27 @@ var main = {
                 <!-- 코멘트 컨테이너 -->
                 row += "<div class='remark-row' id='remark-row-" + i++ + "' data-remark-id='" + remark.remarkId + "'>";
 
+                <!-- 타이틀 -->
+                row += "<div class='remark-detail-title-wrap'>";
+
+                <!-- 발언 날짜 -->
+                row += "<div class='remark-detail-title-date-wrap d-flex'>";
+                row += "<span class='remark-detail-title-date remark-detail-title-date-list'>" + remark.remarkDate_format+" </span></div>";
+
+                <!-- 발언인 -->
+                row += "<div class='remark-detail-title-person-wrap d-flex align-items-baseline mb-1'>";
+                row += "<a href='/remark/search?keyword=" + remark.person.name + "&personId=" + remark.person.id + "&tab=2'>";
+                row += "<span class='remark-detail-title-person-name-list'>" + remark.person.name + "</span></a>";
+                row += "<span class='remark-detail-title-person-job-list'>&nbsp;" + remark.person.job + "</span>";
+                row += "<i class='bi bi-chat-quote-fill remark-detail-title-icon remark-detail-title-icon-list'></i></div>";
+
+                /*row += "<h5><span class='remark-detail-title-person-job'>" + remark.person.job + "&nbsp;</span>";
+                row += "<span class='remark-detail-title-person-name'>" + remark.person.name + "</span></h5>";
+                row += "<i class='bi bi-chat-quote-fill remark-detail-title-icon remark-detail-title-icon-list'></i></div>";*/
+
+                row += "</div>";
+
+
                 <!-- 태그 -->
                 row += "<div class='remark-first-row d-flex align-items-top'>";
                 row += "<div class='remark-tag'>";
@@ -163,77 +183,50 @@ var main = {
 
 
                 <!-- 발언 내용 -->
-                row += "<div class='remark-content mt-2'><a href='/remark/" + remark.remarkId + "'>" +
-                    "<pre style='margin-bottom: 0'><p>" + remark.content + "</p></pre></a></div>";
+                row += "<div class='remark-content'><a href='/remark/" + remark.remarkId + "'>" +
+                    "<pre style='margin-bottom: 0'><p><i class='fas fa-quote-left remark-quote-icon'></i>" + remark.content + "<i class='fas fa-quote-right remark-quote-icon'></i></p></pre></a></div>";
 
-                <!-- 좋아요 버튼 -->
-                row += "<div class='remark-center-bottom-wrap d-flex justify-content-center'>";
-                row += "<div class='like-icon-container' style='margin-left: 0;'><a class='btn''><i class='bi bi-hand-thumbs-up-fill like-icon' style='color: #439ff9;'></i><span class='like-count' style='color: #439ff9;'>101</span></a></div>";
-                row += "<div class='like-icon-container'><a class='btn'><i class='bi bi-hand-thumbs-down-fill like-icon'></i><span class='like-count'>5</span></a></div>";
+                <!-- 좋아요 싫어요 버튼 -->
+                row += "<div class='remark-center-bottom-wrap d-flex justify-content-end'>";
+
+                row += "<div class='like-icon-container remark-bottom-icon-containers'>";
+                row += "<a href='javascript:;' class='btn like-btn' data-islike='1' onclick='main.like(this," + remark.remarkId + ")'>";
+                row += "<i class='fas fa-grin like-icon remark-bottom-icon'></i>";
+                row += "<span id='like-count-" + remark.remarkId + "' class='like-count remark-bottom-icon-text'>" + remark.likeCount + "</span></a></div>";
+
+                row += "<div class='like-icon-container remark-bottom-icon-containers'>";
+                row += "<a href='javascript:;' class='btn dislike-btn' data-islike='-1' onclick='main.like(this," + remark.remarkId + ")'>";
+                row += "<i class='fas fa-frown dislike-icon remark-bottom-icon'></i>";
+                row += "<span id='dislike-count-" + remark.remarkId + "' class='dislike-count remark-bottom-icon-text'>" + remark.dislikeCount + "</span></a></div>";
+
+                <!-- 출처 -->
+
+                if (!remark.sourceSort == "") {
+                    row += "<div class='source-icon-container remark-bottom-icon-containers'>";
+                    row += "<a class='btn source-btn' href='" + remark.sourceUrl + "'  target='_blank' rel='noopener'>";
+                    row += "<div class='d-flex align-items-center'>"
+                    if (remark.sourceSort == "영상") {
+                        row += "<i class='remark-bottom-icon fas fa-play-circle'></i>";
+                    } else if (remark.sourceSort == "SNS") {
+                        row += "<i class='remark-bottom-icon fas fa-mobile-alt'></i>";
+                    } else if (remark.sourceSort == "기사") {
+                        row += "<i class='remark-bottom-icon fas fa-newspaper'></i>";
+                    }
+                    row += "<span class='remark-bottom-icon-text'>" + remark.sourceSort + "</span></div></a>";
+                    row += "</div>";
+                }
+
+                <!-- 공유 -->
+                row += "<div class='share-icon-container remark-bottom-icon-containers'>";
+                row += "<a id='share-btn' class='btn share-btn' href='' onclick='openShareModal(this," + remark.remarkId + ")' data-name='" + remark.person.name + "' data-date='" + remark.remarkDate_format + "' data-bs-toggle='modal' data-bs-target='#shareModal'>";
+                row += "<div class='d-flex align-items-center'>"
+                row += "<i class='remark-bottom-icon fas fa-share-alt'></i><span class='remark-bottom-icon-text'>공유</span></div></a></div>";
+
+
                 row += "</div>";
 
 
-                <!-- 출처공유 & 좋아요 & 발언날짜 컨테이너 -->
-                row += "<div class='d-flex justify-content-between align-items-center'>";
-
-
-                <!-- 출처 & 공유 -->
-                row +=
-                    "<div class='remark-source d-flex'>";
-
-                <!-- 출처 -->
-                if (!remark.sourceSort == "") {
-                    row +=
-                        "<a href='" + remark.sourceUrl + "'  target='_blank' rel='noopener'>" +
-                        "<i class='bi bi-link-45deg'>" +
-                        "</i>" + remark.sourceSort + "</a>";
-                }
-                <!-- 공유 -->
-                row +=
-                    "<a id='share-btn' class='share-btn' href='' onclick='openShareModal(this," + remark.remarkId + ")' data-name='" + remark.person.name + "' data-date='" + remark.remarkDate_format + "' data-bs-toggle='modal' data-bs-target='#shareModal'>" +
-                    "<i class='bi bi-box-arrow-up-right'></i> 공유</a>" +
-                    "</div>";
-
-
-                row += "<div class='remark-right-bottom-wrap'>";
-
-                <!-- 발언 날짜 -->
-                row += "<div class='remark-date d-flex justify-content-end'><span>" + remark.remarkDate_format + "</span></div>" +
-
-                    <!-- 발언인 -->
-                    "<div class='remark-person d-flex align-items-center justify-content-end'>" +
-                    <!-- 발언인>직업 -->
-                    "<span class='person-job'>" + remark.person.job + "</span>" +
-                    <!-- 발언인>이름 -->
-                    "<a style='margin-left: .3rem;' href='/remark/search?keyword=" + remark.person.name + "&personId=" + remark.person.id + "&tab=2" + "'><span class='person-name'>" + remark.person.name + "</span></a></div>" +
-                    "</div></div>";
-
-
-                <!-- 등록일 -->
-                /*row +=
-                    "<div class='d-flex justify-content-between pt-2' style='border-top: 0.05rem solid rgba(0,0,0,.125);\n" +
-                    "    margin-top: 1rem;'>" +
-                    "<div class='pt-1'>" +
-                    "<div class='col-xs-6'><span><small class='text-muted'>" + remark.createdDate + " 등록됨</small></span></div>";
-
-                <!-- 수정일 -->
-                if (remark.status == 'UPDATED') {
-                    row +=
-                        "<div class='col-xs-6'><span><small class='text-muted'>" + remark.updatedDate + " 수정됨</small></span></div></div>";
-
-                } else {
-                    row +=
-                        "</div>";
-                }*/
-
-                /*row +=
-                    "<div class='remark-delete-and-update-btn-wrap d-flex align-items-center'>" +
-                    "<a class='btn btn-outline-secondary btn-sm me-2' href='/remark/" + remark.remarkId + "/update'>수정</a>" +
-                    "<button class='btn btn-outline-danger btn-sm btn-delete' onclick='main.delete(" + remark.remarkId + ")'>삭제</button>" +
-                    "<input type='hidden' name='remarkId' value='" + remark.remarkId + "'></div>";
-                    */
-
-                row += "</div></div></div>";
+                row += "</div>";
 
 
             });
@@ -272,10 +265,10 @@ var main = {
         if (!pageMetadata.first && totalElements != 0) {
             nav += "<li class='page-item'><a class='page-link' aria-label='Previous' page='" + (page - 1) + "'><span aria-hidden='true'><i class='bi bi-chevron-left'></i>" +
                 "</svg></span></a></li>";
-        } else if(pageMetadata.first && totalElements != 0){
+        } else if (pageMetadata.first && totalElements != 0) {
             nav += "<li class='page-item disabled'><a class='page-link' aria-label='Previous' page='" + (page - 1) + "'><span aria-hidden='true'><i class='bi bi-chevron-left'></i>" +
                 "</svg></span></a></li>";
-        } else{
+        } else {
 
         }
 
@@ -295,7 +288,7 @@ var main = {
         if (!pageMetadata.last && totalElements != 0) {
             nav += "<li class='page-item'><a class='page-link' aria-label='Next' page='" + (page + 1) + "'><span aria-hidden='true'><i class='bi bi-chevron-right'></i>" +
                 "</svg></span></a></li>";
-        }else if(pageMetadata.last && totalElements != 0){
+        } else if (pageMetadata.last && totalElements != 0) {
             nav += "<li class='page-item disabled'><a class='page-link' aria-label='Next' page='" + (page + 1) + "'><span aria-hidden='true'><i class='bi bi-chevron-right'></i>" +
                 "</svg></span></a></li>";
 
@@ -308,14 +301,14 @@ var main = {
 
     },
 
-    subPagination: function(pageMetadata){
+    subPagination: function (pageMetadata) {
         let nav = "";
         let page = main.page;
 
         if (!pageMetadata.first && pageMetadata.totalElements != 0) {
             nav += "<a class='page-link' aria-label='Previous' page='" + (page - 1) + "'><i class='bi bi-chevron-left'></i>" +
                 "</a>";
-        } else if(pageMetadata.first && pageMetadata.totalElements != 0){
+        } else if (pageMetadata.first && pageMetadata.totalElements != 0) {
             nav += "<span class='page-link' aria-label='Previous'><i class='bi bi-chevron-left'></i>" +
                 "</span>";
         }
@@ -325,7 +318,7 @@ var main = {
         if (!pageMetadata.last && pageMetadata.totalElements != 0) {
             nav += "<a class='page-link' aria-label='Next' page='" + (page + 1) + "'><i class='bi bi-chevron-right'></i>" +
                 "</a>";
-        }else if(pageMetadata.last && pageMetadata.totalElements != 0){
+        } else if (pageMetadata.last && pageMetadata.totalElements != 0) {
             nav += "<span class='page-link' aria-label='Next'><i class='bi bi-chevron-right'></i>" +
                 "</span>";
         }
@@ -355,6 +348,33 @@ var main = {
         } else {
             return;
         }
+    },
+
+    like: function (e, remarkId) {
+        if (document.getElementById("user_id")) {
+
+            let isLike = parseInt(e.dataset.islike),
+                /*userId = document.getElementById("user_id").value,*/
+                likeCountDom = document.getElementById("like-count-" + remarkId),
+                dislikeCountDom = document.getElementById("dislike-count-" + remarkId);
+
+            $.ajax({
+                type: 'PUT',
+                url: `/api/remark/${remarkId}/like/${isLike}`,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8'
+            }).done(function (result) {
+                let likeInfo = result;
+                likeCountDom.innerText = likeInfo.likeCount;
+                dislikeCountDom.innerText = likeInfo.dislikeCount;
+            }).fail(function (error) {
+                alert(JSON.stringify(error));
+            });
+        } else {
+            location.replace("/login");
+        }
     }
+
+
 }
 main.init();

@@ -1,6 +1,8 @@
 package com.udpr.quot.domain.remark;
 
+import com.udpr.quot.domain.common.BaseTimeEntity;
 import com.udpr.quot.domain.user.User;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +12,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
-public class RemarkLike {
+public class RemarkLike extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,8 +29,14 @@ public class RemarkLike {
 
     private int isLike;
 
+    @Builder
+    public RemarkLike(Remark remark, User user, int isLike) {
+        this.remark = remark;
+        this.user = user;
+        this.isLike = isLike;
+    }
 
-
-
-
+    public void update(int isLike){
+        this.isLike = isLike;
+    }
 }

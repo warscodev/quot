@@ -1,6 +1,7 @@
 package com.udpr.quot.domain.remark.repository;
 
 import com.udpr.quot.domain.remark.Remark;
+import com.udpr.quot.web.dto.remark.RemarkTestDto;
 import com.udpr.quot.web.dto.tag.TagDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,4 +19,6 @@ public interface RemarkRepositoryCustom {
     Page<Remark> searchByTagName(String searchKeyword, Pageable pageable);
 
     Page<Remark> searchByContentOrPersonName(String searchKeyword, Pageable pageable);
+
+
 }

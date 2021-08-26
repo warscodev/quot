@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <div class="sub-header" th:fragment="subHeader">
     <!-- sub 네비바 -->
 
     <div class="container container-custom" style="padding-top: 60px">
         <div class="row">
             <nav class="nav col">
-                <a th:if="${user!=null && user.role.toString().equals('ADMIN')}" class="nav-link" aria-current="page" href="/admin/person">인물 목록</a>
+                <a sec:authorize="hasRole('ADMIN')" class="nav-link" aria-current="page" href="/admin/person">인물 목록</a>
                 <a class="nav-link" href="/remark">발언 목록</a>
             </nav>
-            <div th:if="${user!=null}" class="col d-flex justify-content-end align-items-center mt-2">
-                <a th:if="${user.role.toString().equals('ADMIN')}" class="btn btn-outline-secondary btn-sm" href="/admin/person/new" style="border-radius: 1rem;">인물
+            <div sec:authorize="hasRole('ADMIN')" class="col d-flex justify-content-end align-items-center mt-2">
+                <a class="btn btn-outline-secondary btn-sm" href="/admin/person/new" style="border-radius: 1rem;">인물
                     등록</a>
-                <a th:if="${user.role.toString().equals('ADMIN')}" class="btn btn-primary btn-sm" href="/remark/new" style="border-radius: 1rem; margin-left: .5rem;">발언 등록</a>
+                <a class="btn btn-primary btn-sm" href="/remark/new" style="border-radius: 1rem; margin-left: .5rem;">발언 등록</a>
             </div>
         </div>
     </div>

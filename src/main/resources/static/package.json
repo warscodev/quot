@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.4",
     "@popperjs/core": "^2.9.2",
     "@yaireo/dragsort": "^1.1.0",
     "@yaireo/tagify": "^4.2.0",

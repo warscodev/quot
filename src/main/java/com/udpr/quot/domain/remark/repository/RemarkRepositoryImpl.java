@@ -3,9 +3,10 @@ package com.udpr.quot.domain.remark.repository;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.StringExpressions;
+import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.udpr.quot.domain.remark.Remark;
+import com.udpr.quot.web.dto.remark.RemarkTestDto;
 import com.udpr.quot.web.dto.tag.QTagDto;
 import com.udpr.quot.web.dto.tag.TagDto;
 import org.springframework.data.domain.Page;
@@ -30,6 +31,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
     public RemarkRepositoryImpl(EntityManager em) {
         this.queryFactory = new JPAQueryFactory(em);
     }
+
 
     @Override
     public Page<Remark> searchAll(Pageable pageable) {
@@ -116,8 +118,8 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
         long total = results.getTotal();
 
         return new PageImpl<>(content, pageable, total);
-
     }
+
 
     private BooleanExpression personIdEq(Long personId) {
         return isEmpty(personId) || personId == 0L ? null : remark.person.id.eq(personId);
@@ -150,6 +152,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
     private BooleanExpression contentLike(String content) {
         return isEmpty(content) ? null : remark.content.like("%" + content + "%");
     }
+
 
 
 }

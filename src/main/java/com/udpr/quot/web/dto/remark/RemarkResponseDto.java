@@ -29,12 +29,17 @@ public class RemarkResponseDto {
     private Status status;
     private String createdDate;
     private String updatedDate;
+    private int isLike;
+    private int likeCount;
+    private int dislikeCount;
+
     @JsonIgnore
     private List<RemarkTag> remarkTagList = new ArrayList<>();
     private PersonResponseDto person;
     private List<TagDto> tags = new ArrayList<>();
     private String sourceSort;
     private String sourceUrl;
+    private List<RemarkTag> tagTest = new ArrayList<>();
 
 
     /*@QueryProjection
@@ -58,7 +63,7 @@ public class RemarkResponseDto {
     public RemarkResponseDto(Long remarkId, String content, LocalDate remarkDate, LocalDate remarkDate_format, Status status,
                              LocalDateTime createdDate, LocalDateTime updatedDate,
                              List<RemarkTag> remarkTagList, PersonResponseDto person,
-                             String sourceSort, String sourceUrl, List<TagDto> tags) {
+                             String sourceSort, String sourceUrl, List<TagDto> tags, int isLike, int likeCount, int dislikeCount) {
         this.remarkId = remarkId;
         this.content = content;
         this.remarkDate = remarkDate;
@@ -71,6 +76,9 @@ public class RemarkResponseDto {
         this.person = person;
         this.sourceSort = sourceSort;
         this.sourceUrl = sourceUrl;
+        this.isLike = isLike;
+        this.likeCount = likeCount;
+        this.dislikeCount = dislikeCount;
     }
 
     public RemarkResponseDto(Remark entity) {
@@ -85,6 +93,8 @@ public class RemarkResponseDto {
         this.sourceSort = entity.getSourceSort();
         this.sourceUrl = entity.getSourceUrl();
         this.tags = setTagsList();
+        this.likeCount = entity.getLikeCount();
+        this.dislikeCount = entity.getDislikeCount();
     }
 
     public List<TagDto> setTagsList() {
@@ -102,7 +112,7 @@ public class RemarkResponseDto {
     }
 
     public String remarkDateFormat(LocalDate localDate){
-        return localDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+        return localDate.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"));
     }
 
 

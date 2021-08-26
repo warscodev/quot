@@ -1,5 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
 <head th:replace="fragments/header :: header">
     <title>Hello</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -20,8 +22,11 @@
 
                     <!-- 타이틀 -->
                     <div class="remark-detail-title-wrap">
-                        <div><span class="remark-detail-title-date" th:text="${#temporals.format(remark.remarkDate,'yyyy년 MM월 dd일')}"></span></div>
-                        <div class="d-flex"><h4 class="remark-detail-title-main" th:text="|${remark.person.job} ${remark.person.name}|"></h4><i class="bi bi-chat-quote-fill remark-detail-title-icon"></i></div>
+                        <div><span class="remark-detail-title-date"
+                                   th:text="${#temporals.format(remark.remarkDate,'yyyy년 MM월 dd일')}"></span></div>
+                        <div class="d-flex"><h4 class="remark-detail-title-main"
+                                                th:text="|${remark.person.job} ${remark.person.name}|"></h4><i
+                                class="bi bi-chat-quote-fill remark-detail-title-icon"></i></div>
                     </div>
 
                     <!-- 태그 -->
@@ -35,79 +40,108 @@
 
                     <!-- 발언 내용 -->
                     <div class="remark-content mt-2">
-                        <pre><p th:text="*{content}"></p></pre>
+                        <pre><i class='fas fa-quote-left remark-quote-icon'></i>[[*{content}]]<i class='fas fa-quote-right remark-quote-icon'></i></pre>
                     </div>
 
-                    <!-- 좋아요 버튼 -->
-                    <div class="remark-center-bottom-wrap d-flex justify-content-center">
+                    <!-- 하단 버튼 -->
+                    <div class='remark-center-bottom-wrap d-flex justify-content-end'>
                         <!--좋아요-->
-                        <div class="like-icon-container" style="margin-left: 0;">
-                            <a class="btn"><i class="bi bi-hand-thumbs-up-fill like-icon" style='color: #439ff9;'></i><span class="like-count" style='color: #439ff9;'>102</span></a>
+                        <div class='like-icon-container remark-bottom-icon-containers'>
+                            <a href='javascript:;' class='btn like-btn' data-islike='1'
+                               th:onclick="|like(this, *{remarkId})|">
+                                <i class='fas fa-grin like-icon remark-bottom-icon'></i>
+                                <span th:id=|like-count-*{remarkId}| th:text="*{likeCount}" class='like-count remark-bottom-icon-text'></span>
+                            </a>
                         </div>
                         <!--싫어요-->
-                        <div class="like-icon-container">
-                            <a class="btn"><i class="bi bi-hand-thumbs-down-fill like-icon"></i><span class="like-count">5</span></a>
+                        <div class='like-icon-container remark-bottom-icon-containers'>
+                            <a href='javascript:;' class='btn dislike-btn' data-islike='-1'
+                               th:onclick="|like(this, *{remarkId})|">
+                                <i class='fas fa-frown dislike-icon remark-bottom-icon'></i>
+                                <span th:id=|dislike-count-*{remarkId}| th:text="*{dislikeCount}"
+                                      class='dislike-count remark-bottom-icon-text'></span>
+                            </a>
+                        </div>
+
+                        <!-- 출처 -->
+                        <div th:if="*{not #strings.isEmpty(sourceSort)}" class='source-icon-container remark-bottom-icon-containers'>
+                            <a class='btn source-btn' th:href="*{sourceUrl}" target='_blank' rel='noopener'>
+                                <div class='d-flex align-items-center'>
+                                    <i th:if="*{sourceSort.toString().equals('영상')}"
+                                       class='remark-bottom-icon fas fa-play-circle'></i>
+                                    <i th:if="*{sourceSort.toString().equals('SNS')}"
+                                       class='remark-bottom-icon fas fa-mobile-alt'></i>
+                                    <i th:if="*{sourceSort.toString().equals('기사')}"
+                                       class='remark-bottom-icon fas fa-newspaper'></i>
+                                    <span th:text="*{sourceSort}" class='remark-bottom-icon-text'></span>
+                                </div>
+                            </a>
+                        </div>
+
+
+                        <!-- 공유 -->
+                        <div class='share-icon-container remark-bottom-icon-containers'>
+                            <a id='share-btn' class='btn share-btn' href=''
+                               th:onclick="|openShareModal(this, *{remarkId})|" data-bs-toggle="modal"
+                               th:data-name="*{person.name}"
+                               th:data-date="*{#temporals.format(remarkDate,'yyyy.MM.dd')}"
+                               data-bs-target="#shareModal">
+                                <div class='d-flex align-items-center'>
+                                    <i class='remark-bottom-icon fas fa-share-alt'></i><span
+                                        class='remark-bottom-icon-text'>공유</span>
+                                </div>
+                            </a>
                         </div>
                     </div>
 
-                    <!-- 하단 컨테이너(출처,공유,발언일,발언자 -->
-                    <div class="d-flex justify-content-between align-items-center">
+                    <!-- 하단 컨테이너 -->
+                    <div class="d-flex justify-content-between align-items-center" style="border-top: 1px solid #eee; margin-top: 1rem;">
                         <!--좌측 하단-->
-                        <div class="remark-source d-flex">
-                            <!--출처-->
-                            <a th:if="*{not #strings.isEmpty(sourceSort)}" th:href="*{sourceUrl}" target="_blank"
-                               rel="noopener" th:inline="text">
-                                <i class="bi bi-link-45deg"></i>[[*{sourceSort}]]</a>
-                            <!--공유-->
-                            <a class="share-btn" href="" th:onclick="|openShareModal(this, *{remarkId})|" data-bs-toggle="modal" th:data-name="*{person.name}"
-                               th:data-date="*{#temporals.format(remarkDate,'yyyy.MM.dd')}" data-bs-target="#shareModal">
-                                <i class="bi bi-box-arrow-up-right"></i> 공유</a>
+                        <div class="remark-left-bottom-wrap" style="margin-top: 1rem;">
+                            <!--등록일-->
+                            <div class="col-xs-6">
+                                <span><small class="text-muted" th:text="*{createdDate}"></small></span>
+                            </div>
+                            <!--수정일-->
+                            <!--<div class="col-xs-6">
+                                <span><small class="text-muted" th:text="|수정 : *{createdDate}|"></small></span>
+                            </div>-->
                         </div>
-
                         <!--우측 하단-->
                         <div class="remark-right-bottom-wrap">
 
                             <!-- 발언인 검색-->
-                            <div class="remark-detail-person-search d-flex align-items-center justify-content-end">
+                            <div class="remark-detail-person-search d-flex align-items-center justify-content-end"
+                            style="margin-top: 1rem;">
                                 <a th:href="@{/remark/search(keyword=*{person.name},personId=*{person.id},tab=2)}">
-                                    <span class="" th:text="*{person.name}"></span><span style="font-size: .8125rem; margin: 0 .25rem;">검색</span>
-                                    <i class="bi bi-search remark-detail-person-search-icon"></i>
+                                    <span class="" th:text="|*{person.name}의 발언 보러가기|"></span>
+                                    <i class="fas fa-arrow-circle-right remark-detail-person-search-icon"></i>
                                 </a>
                             </div>
+                            <!--<div class="remark-detail-person-search d-flex align-items-center justify-content-end">
+                                <a th:href="@{/remark/search(keyword=*{person.name},personId=*{person.id},tab=2)}">
+                                    <span class="" th:text="*{person.name}"></span><span
+                                        style="font-size: .8125rem; margin: 0 .25rem;">검색</span>
+                                    <i class="bi bi-search remark-detail-person-search-icon"></i>
+                                </a>
+                            </div>-->
                         </div>
                     </div>
-
-                    <!-- 등록,수정일 & 수정삭제버튼 -->
-                    <div class="d-flex justify-content-between pt-2"
-                         style="border-top: 1px solid #eee; margin-top: 1rem;">
-
-                        <div class="pt-1">
-                            <!--등록일-->
-                            <div class="col-xs-6">
-                                <span><small class="text-muted" th:text="|등록 : *{createdDate}|"></small></span>
-                            </div>
-                            <!--수정일-->
-                            <div class="col-xs-6">
-                                <span><small class="text-muted" th:text="|수정 : *{createdDate}|"></small></span>
-                            </div>
-                        </div>
-
-                        <div th:if="${user!=null && user.role.toString().equals('ADMIN')}" class="remark-delete-and-update-btn-wrap d-flex align-items-center">
-                            <!-- 수정 버튼 -->
-                            <a class="btn btn-outline-secondary btn-sm me-2"
-                               th:href="@{/remark/{remarkId}/update(remarkId=*{remarkId})}">수정</a>
-                            <!-- 삭제 버튼 -->
-                            <button class="btn btn-outline-danger btn-sm btn-delete"
-                                    th:onclick="|deleteRemark(*{remarkId})|">삭제
-                            </button>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>
         <div class="d-flex justify-content-end" style="margin-bottom: 1rem;">
-                <a class="btn btn-outline-secondary btn-sm" href="javascript:toList();">목록</a>
+            <div sec:authorize="hasRole('ADMIN')"
+                 class="remark-delete-and-update-btn-wrap d-flex align-items-center">
+                <!-- 수정 버튼 -->
+                <a class="btn btn-outline-secondary btn-sm me-2"
+                   th:href="@{/remark/{remarkId}/update(remarkId=*{remarkId})}">수정</a>
+                <!-- 삭제 버튼 -->
+                <button class="btn btn-outline-danger btn-sm btn-delete me-2"
+                        th:onclick="|deleteRemark(*{remarkId})|">삭제
+                </button>
+            </div>
+                <a class="btn btn-outline-secondary btn-sm me-2" href="javascript:toList();">목록</a>
         </div>
     </div>
 </div>
@@ -135,7 +169,7 @@
     }
 </script>
 <script>
-    function toList(){
+    function toList() {
         window.location.href = '/remark';
         /*if(history.state != null && history.state.page){
             history.back();
@@ -144,5 +178,30 @@
         }*/
     }
 </script>
+<script>
+    function like(e, remarkId) {
+        if (document.getElementById("user_id")) {
+
+            let isLike = parseInt(e.dataset.islike),
+                /*userId = document.getElementById("user_id").value,*/
+                likeCountDom = document.getElementById("like-count-" + remarkId),
+                dislikeCountDom = document.getElementById("dislike-count-" + remarkId);
+
+            $.ajax({
+                type: 'PUT',
+                url: `/api/remark/${remarkId}/like/${isLike}`,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8'
+            }).done(function (result) {
+                let likeInfo = result;
+                likeCountDom.innerText = likeInfo.likeCount;
+                dislikeCountDom.innerText = likeInfo.dislikeCount;
+            }).fail(function (error) {
+                alert(JSON.stringify(error));
+            });
+        } else {
+            location.replace("/login");
+        }
+    }</script>
 </body>
 </html>

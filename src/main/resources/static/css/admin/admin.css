@@ -19,7 +19,7 @@ body {
     flex-direction: column !important;
     display: flex !important;
 
-    font-family: Noto Sans KR, Apple SD Gothic Neo, Malgun Gothic, 맑은 고딕, sans-serif;
+    font-family: Pretendard ,Noto Sans KR, Apple SD Gothic Neo, Malgun Gothic, 맑은 고딕, sans-serif;
     font-style: normal;
     background-color: #f8f8f8;
 }
@@ -291,7 +291,7 @@ a:hover {
 .remark-row {
     position: relative;
     z-index: 1;
-    padding: 2rem;
+    padding: .5rem 2rem;
     background-color: #fff;
     background-clip: border-box;
     border-radius: 1rem;
@@ -301,7 +301,7 @@ a:hover {
 
 @media (max-width: 426px) {
     .remark-row, .remark-detail-row {
-        padding: 1.75rem !important;
+        padding: .5rem 1.75rem !important;
     }
 
 
@@ -347,11 +347,11 @@ a:hover {
 }
 
 .remark-tag > a {
-    font-size: .8rem;
+    font-size: .813rem;
     display: inline-block;
-    margin-bottom: .25rem;
+    margin-bottom: .5rem;
     margin-right: .5rem;
-    padding: .475rem .875rem;
+    padding: .4rem .8rem;
     line-height: 1;
     color: #333;
     background-color: #f3f5f8;
@@ -366,13 +366,18 @@ a:hover {
 /* ------- 태그 끝 ------- */
 /* 코멘트 본문 */
 .remark-content pre {
-    font-family: Noto Sans KR;
-    font-weight: 400;
+    font-family: Pretendard;
+    font-weight: 300;
     font-size: 1rem;
     overflow: auto;
     white-space: pre-wrap;
     word-break: break-all;
     margin-bottom: 0;
+}
+
+.remark-quote-icon{
+    color: #c0c0c0;
+    margin: 0 .3rem;
 }
 
 .remark-content p {
@@ -388,11 +393,11 @@ a:hover {
 
 /* ------- 좋아요 시작 ------- */
 .remark-center-bottom-wrap {
-    margin: 1rem 0;
+    margin: .5rem 0;
 }
 
 .like-icon-container {
-    margin-left: 2rem;
+    margin: 0 .5rem;
 }
 
 .like-icon-container > a {
@@ -400,50 +405,41 @@ a:hover {
     align-items: center !important;
 }
 
-.like-icon {
+.like-icon, .dislike-icon {
     font-size: 1.3rem;
-    color: #C6C6C6;
+    color: #999999;
 }
 
-.like-count {
+.like-count, .dislike-count {
     font-weight: 500;
     font-size: .95rem;
-    color: #6c757d;
+    color: #999999;
     margin-left: .5rem;
     letter-spacing: .02rem;
 }
 
-@media (max-width: 426px) {
+.remark-bottom-icon-containers:hover .remark-bottom-icon-text{
+    color: #439ff9;
 }
+
+.remark-bottom-icon-containers:hover .remark-bottom-icon{
+    color: #439ff9;
+}
+
+.remark-bottom-icon{
+    font-size: 1.3rem;
+    color: #999999;
+}
+
+.remark-bottom-icon-text{
+    margin-left: .5rem;
+    color: #808080;
+    font-size: .95rem;
+}
+
 
 /* ------- 좋아요 끝 ------- */
-/* ------- 코멘트 좌하단(출처, 공유) 시작 ------- */
-.share-btn {
-    margin-left: .75rem;
-}
 
-
-@media (max-width: 426px) {
-
-    .remark-right-bottom-wrap {
-        margin-right: 0 !important;
-    }
-
-    .remark-source {
-        margin-left: .25rem !important;
-    }
-}
-
-.remark-source > a {
-    font-size: .9375rem;
-    color: #1B95E0FF;
-}
-
-.remark-source > a:hover {
-    color: #71C9FFFF;
-}
-
-/* ------- 코멘트 좌하단(출처, 공유) 끝 ------- */
 /* ------- 코멘트 우하단(발언 날짜, 발언인) 시작 ------- */
 .remark-right-bottom-wrap {
     margin-right: .5rem;
@@ -464,9 +460,6 @@ a:hover {
     font-weight: 600;
 }
 
-.remark-delete-and-update-btn-wrap {
-    margin-top: .5rem;
-}
 
 @media (max-width: 426px) {
     .remark-right-bottom-wrap {
@@ -621,22 +614,10 @@ a:hover {
     padding: 0 2rem;
 }
 
-/*
-.remark-share-icon .kakao{
-    background-image: url(/css/images/kakaotalk_logo.png); background-repeat: no-repeat;
-}
 
-.remark-share-icon .facebook{
-    background-image: url(/css/images/facebook_logo.png); background-repeat: no-repeat;
-}
-
-.remark-share-icon .twitter{
-    background-image: url(/css/images/twitter_logo.png); background-repeat: no-repeat;
-}
-*/
 /* 코멘트 세부 페이지 */
 .remark-detail-title-wrap {
-    margin: .5rem 0;
+    margin-top: .5rem;
 }
 
 .remark-detail-title-date {
@@ -644,8 +625,22 @@ a:hover {
     color: #6c757d;
 }
 
+.remark-detail-title-date-list {
+    font-size: .8rem;
+}
+
 .remark-detail-title-main {
     margin-left: 0;
+}
+
+.remark-detail-title-person-name-list{
+    font-size: 1.063rem;
+    font-weight: 700;
+}
+
+.remark-detail-title-person-job-list{
+    color: #696969;
+    font-size: .938rem;
 }
 
 .remark-detail-title-icon {
@@ -655,26 +650,33 @@ a:hover {
     margin-top: -.2rem;
 }
 
+.remark-detail-title-icon-list {
+    font-size: 1.25rem !important;
+    margin-top: -3rem;
+    margin-left: .25rem;
+}
+
 .remark-detail-row {
     padding: 1.5rem 2.5rem;
 }
 
 .remark-detail-person-search > a {
-    border-bottom: 1px solid #dddddd;
-    padding: .3rem .5rem;
+    /*border-bottom: 1px solid #dddddd;*/
+    /*padding: .3rem .5rem;*/
     color: #6c757d;
 }
 
-.remark-detail-person-search-icon {
-    color: #1B95E0FF;
-}
-
-.remark-detail-person-search :hover {
-    color: #212529;
+.remark-detail-person-search>a:hover{
+    color: #439ff9 !important;
 }
 
 @media (max-width: 426px) {
     .remark-detail-title-icon {
         margin-top: -.3rem;
+    }
+
+    .remark-detail-title-icon-list{
+        margin-top: -.2rem !important;
+
     }
 }

@@ -1,14 +1,15 @@
 package com.udpr.quot.service.remark;
 
 import com.udpr.quot.domain.remark.Remark;
+import com.udpr.quot.domain.remark.RemarkLike;
+import com.udpr.quot.domain.remark.repository.RemarkLikeRepository;
 import com.udpr.quot.domain.remark.repository.RemarkRepository;
 import com.udpr.quot.domain.remark.search.RemarkSearchCondition;
 import com.udpr.quot.domain.person.Person;
 import com.udpr.quot.domain.person.repository.PersonRepository;
-import com.udpr.quot.web.dto.remark.RemarkListResponseDto;
-import com.udpr.quot.web.dto.remark.RemarkRequestDto;
-import com.udpr.quot.web.dto.remark.RemarkResponseDto;
-import com.udpr.quot.web.dto.remark.PageMetadata;
+import com.udpr.quot.domain.user.User;
+import com.udpr.quot.domain.user.repository.UserRepository;
+import com.udpr.quot.web.dto.remark.*;
 import com.udpr.quot.web.dto.person.PersonResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +31,9 @@ public class RemarkService {
 
     private final PersonRepository personRepository;
     private final RemarkRepository remarkRepository;
+    private final RemarkLikeRepository remarkLikeRepository;
+    private final UserRepository userRepository;
+
     private final RemarkTagService remarkTagService;
 
     //코멘트 저장
@@ -117,7 +121,7 @@ public class RemarkService {
 
         List<RemarkResponseDto> responseDtoList = remarks.stream()
                 .map(remark -> RemarkResponseDto.builder()
-                    .remarkId(remark.getId())
+                        .remarkId(remark.getId())
                         .content(remark.getContent())
                         .remarkDate(remark.getRemarkDate())
                         .remarkDate_format(remark.getRemarkDate())
@@ -128,14 +132,15 @@ public class RemarkService {
                         .sourceSort(remark.getSourceSort())
                         .person(new PersonResponseDto(remark.getPerson()))
                         .tags(remarkRepository.getTags(remark.getId()))
-                    .build())
+                        .likeCount(remark.getLikeCount())
+                        .dislikeCount(remark.getDislikeCount())
+                        .build())
                 .collect(Collectors.toList());
 
         PageMetadata pageMetadata = new PageMetadata(remarks);
 
-        return new RemarkListResponseDto(responseDtoList,pageMetadata);
+        return new RemarkListResponseDto(responseDtoList, pageMetadata);
     }
-
 
 
     public RemarkResponseDto findById(Long id) {
@@ -144,8 +149,46 @@ public class RemarkService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 코멘트 정보가 없습니다. id = " + id));
 
         return new RemarkResponseDto(entity);
+    }
 
+    //좋아요
+    @Transactional
+    public LikeInfo remarkLike(Long remarkId, Long userId, int isLike) {
+        Remark remark = remarkRepository.findById(remarkId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 발언 정보가 없습니다. id = " + remarkId));
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 유저 정보가 없습니다. id = " + userId));
+
+        //좋아요 기록이 없는경우
+        if (hasNotLiked(remark, user)) {
+            remarkLikeRepository.save(RemarkLike.builder()
+                    .remark(remark)
+                    .user(user)
+                    .isLike(isLike).build());
+            remark.increaseLikeCount(isLike);
+
+        //좋아요 기록이 있는 경우
+        } else {
+            int savedIsLike = remarkLikeRepository.getIsLike(remark, user);
+
+            if (isLike == savedIsLike) {
+                remarkLikeRepository.deleteByRemarkAndUser(remark, user);
+                remark.decreaseLikeCount(isLike);
+            } else {
+                remarkLikeRepository.update(remark, user, isLike);
+                remark.increaseLikeCount(isLike);
+                remark.decreaseLikeCount(savedIsLike);
+            }
+        }
+
+        return new LikeInfo(remark.getLikeCount(),remark.getDislikeCount(),isLike);
 
     }
+
+    public Boolean hasNotLiked(Remark remark, User user) {
+        return remarkLikeRepository.findByRemarkAndUser(remark, user).isEmpty();
+    }
+
 
 }
