@@ -16,8 +16,6 @@ spring:
     activate:
       on-profile: "real1"
 
-  session:
-    store-type: jdbc
 
   thymeleaf:
     prefix: classpath:/templates/

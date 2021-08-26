@@ -8,9 +8,6 @@ spring:
     activate:
       on-profile: "real"
 
-  session:
-    store-type: jdbc
-
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
