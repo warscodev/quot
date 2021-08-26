@@ -367,7 +367,7 @@ a:hover {
 /* 코멘트 본문 */
 .remark-content pre {
     font-family: Pretendard;
-    font-weight: 300;
+    font-weight: 400;
     font-size: 1rem;
     overflow: auto;
     white-space: pre-wrap;
