@@ -43,12 +43,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         .failureUrl("/login?error")
                         .permitAll()
 
+                /*.and()
+                    .rememberMe()
+                    .key("remember")
+                    .rememberMeParameter("remember-login")
+                    .tokenValiditySeconds(86400 * 30)
+                    .authenticationSuccessHandler(successHandler())*/
 
 
                 .and()
                     .logout()
                         .logoutSuccessUrl("/") // 로그아웃 성공시 리다이렉트 주소
-                        .invalidateHttpSession(true) // 세션 날리기
+                        /*.invalidateHttpSession(true)*/ // 세션 날리기
 
                 .and()
                     .oauth2Login()

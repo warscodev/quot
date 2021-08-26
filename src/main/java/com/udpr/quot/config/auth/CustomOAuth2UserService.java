@@ -43,10 +43,6 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails()
                 .getUserInfoEndpoint().getUserNameAttributeName();
 
-        System.out.println("registrationId : " + registrationId);
-        System.out.println("userNameAttributeName : " + userNameAttributeName);
-
-
         if (registrationId.equals("naver")) {
             Map<String, Object> response = (Map<String, Object>) oAuth2User.getAttributes().get("response");
 

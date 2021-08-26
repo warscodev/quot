@@ -19,7 +19,6 @@ public class LoginController {
         if(!referrer.contains("/login")){
             request.getSession().setAttribute("prevPage", referrer);
         }
-        System.out.println(referrer);
         return "account/login";
 
     }

@@ -10,7 +10,6 @@ import org.apache.commons.lang3.RandomStringUtils;
 import java.util.Map;
 import java.util.Optional;
 
-@NoArgsConstructor
 @Getter
 public class OAuthAttributes {
 

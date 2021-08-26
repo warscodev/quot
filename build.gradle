@@ -37,7 +37,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
-	/*implementation 'org.springframework.session:spring-session-jdbc'*/
+	implementation 'org.springframework.session:spring-session-jdbc'
 
 	//lombok, h2
 	compileOnly 'org.projectlombok:lombok'

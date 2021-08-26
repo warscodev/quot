@@ -32,6 +32,11 @@ spring:
         default_batch_fetch_size: 100
     open-in-view: false
 
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: always
+
 server:
   servlet:
     encoding:
