@@ -25,9 +25,10 @@ var main = {
 
         /* 페이징 */
         $(document).on("click", ".page-item a", (function (e) {
+            let scrollPosition = $("#remark-scroll-position").offset();
+            $('html, body').animate({scrollTop: (0)});
             let num = $(this).attr("page");
             _this.loadRemark(num);
-
         }));
 
     },
