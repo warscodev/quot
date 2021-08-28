@@ -28,3 +28,4 @@ server:
     encoding:
       charset: UTF-8
       force: true
+  forward-headers-strategy: native
