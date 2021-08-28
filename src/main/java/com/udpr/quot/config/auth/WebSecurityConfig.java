@@ -32,8 +32,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .anyRequest().authenticated() // 나머지 요청들은 권한의 종류에 상관 없이 권한이 있어야 접근 가능
 
                 .and()
-                    .portMapper()
-                    .http(8080).mapsTo(443)
+                    .requiresChannel()
+                    .antMatchers("/login*").requiresSecure()
 
 
                 .and()
