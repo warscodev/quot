@@ -33,6 +33,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                     .portMapper()
+                    .http(8080).mapsTo(443)
+
 
                 .and()
                     /*.formLogin()
