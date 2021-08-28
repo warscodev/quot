@@ -418,12 +418,18 @@ a:hover {
     letter-spacing: .02rem;
 }
 
-.remark-bottom-icon-containers:hover .remark-bottom-icon-text{
+
+
+.like-icon-container:hover .remark-bottom-icon-text{
     color: #439ff9;
 }
 
-.remark-bottom-icon-containers:hover .remark-bottom-icon{
+.like-icon-container:hover .remark-bottom-icon{
     color: #439ff9;
+}
+
+.remark-bottom-icon-containers:hover .remark-bottom-icon-text{
+    color: #000000;
 }
 
 .remark-bottom-icon{
@@ -435,6 +441,10 @@ a:hover {
     margin-left: .5rem;
     color: #808080;
     font-size: .95rem;
+}
+
+.remark-bottom-icon-text-right{
+    margin-left: .3rem !important;
 }
 
 

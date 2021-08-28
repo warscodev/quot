@@ -46,7 +46,7 @@
                     <!-- 하단 버튼 -->
                     <div class='remark-center-bottom-wrap d-flex justify-content-end'>
                         <!--좋아요-->
-                        <div class='like-icon-container remark-bottom-icon-containers'>
+                        <div class='like-icon-container'>
                             <a href='javascript:;' class='btn like-btn' data-islike='1'
                                th:onclick="|like(this, *{remarkId})|">
                                 <i class='fas fa-grin like-icon remark-bottom-icon'></i>
@@ -54,7 +54,7 @@
                             </a>
                         </div>
                         <!--싫어요-->
-                        <div class='like-icon-container remark-bottom-icon-containers'>
+                        <div class='like-icon-container'>
                             <a href='javascript:;' class='btn dislike-btn' data-islike='-1'
                                th:onclick="|like(this, *{remarkId})|">
                                 <i class='fas fa-frown dislike-icon remark-bottom-icon'></i>
@@ -68,12 +68,12 @@
                             <a class='btn source-btn' th:href="*{sourceUrl}" target='_blank' rel='noopener'>
                                 <div class='d-flex align-items-center'>
                                     <i th:if="*{sourceSort.toString().equals('영상')}"
-                                       class='remark-bottom-icon fas fa-play-circle'></i>
+                                       class='remark-bottom-icon fas fa-play-circle' style='color: #ff7e7e'></i>
                                     <i th:if="*{sourceSort.toString().equals('SNS')}"
-                                       class='remark-bottom-icon fas fa-mobile-alt'></i>
+                                       class='remark-bottom-icon fas fa-mobile-alt' style='color: #1c9bf9'></i>
                                     <i th:if="*{sourceSort.toString().equals('기사')}"
-                                       class='remark-bottom-icon fas fa-newspaper'></i>
-                                    <span th:text="*{sourceSort}" class='remark-bottom-icon-text'></span>
+                                       class='remark-bottom-icon fas fa-newspaper' style='color: #ba85f1'></i>
+                                    <span th:text="*{sourceSort}" class='remark-bottom-icon-text remark-bottom-icon-text-right'></span>
                                 </div>
                             </a>
                         </div>
@@ -87,8 +87,8 @@
                                th:data-date="*{#temporals.format(remarkDate,'yyyy.MM.dd')}"
                                data-bs-target="#shareModal">
                                 <div class='d-flex align-items-center'>
-                                    <i class='remark-bottom-icon fas fa-share-alt'></i><span
-                                        class='remark-bottom-icon-text'>공유</span>
+                                    <i class='remark-bottom-icon fas fa-share'></i><span
+                                        class='remark-bottom-icon-text remark-bottom-icon-text-right'>공유</span>
                                 </div>
                             </a>
                         </div>

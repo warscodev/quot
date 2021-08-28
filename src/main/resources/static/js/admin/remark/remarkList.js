@@ -128,9 +128,6 @@ var main = {
                 }
 
                 main.oldHstate = history.state;
-                /*if (main.oldHstate != null) {
-                } else {
-                }*/
                 history.pushState({'page': page}, '', url);
 
             }).fail(function (error) {
@@ -190,12 +187,12 @@ var main = {
                 <!-- 좋아요 싫어요 버튼 -->
                 row += "<div class='remark-center-bottom-wrap d-flex justify-content-end'>";
 
-                row += "<div class='like-icon-container remark-bottom-icon-containers'>";
+                row += "<div class='like-icon-container'>";
                 row += "<a href='javascript:;' class='btn like-btn' data-islike='1' onclick='main.like(this," + remark.remarkId + ")'>";
                 row += "<i class='fas fa-grin like-icon remark-bottom-icon'></i>";
                 row += "<span id='like-count-" + remark.remarkId + "' class='like-count remark-bottom-icon-text'>" + remark.likeCount + "</span></a></div>";
 
-                row += "<div class='like-icon-container remark-bottom-icon-containers'>";
+                row += "<div class='like-icon-container'>";
                 row += "<a href='javascript:;' class='btn dislike-btn' data-islike='-1' onclick='main.like(this," + remark.remarkId + ")'>";
                 row += "<i class='fas fa-frown dislike-icon remark-bottom-icon'></i>";
                 row += "<span id='dislike-count-" + remark.remarkId + "' class='dislike-count remark-bottom-icon-text'>" + remark.dislikeCount + "</span></a></div>";
@@ -207,13 +204,13 @@ var main = {
                     row += "<a class='btn source-btn' href='" + remark.sourceUrl + "'  target='_blank' rel='noopener'>";
                     row += "<div class='d-flex align-items-center'>"
                     if (remark.sourceSort == "영상") {
-                        row += "<i class='remark-bottom-icon fas fa-play-circle'></i>";
+                        row += "<i class='remark-bottom-icon fas fa-play-circle' style='color: #ff7e7e'></i>";
                     } else if (remark.sourceSort == "SNS") {
-                        row += "<i class='remark-bottom-icon fas fa-mobile-alt'></i>";
+                        row += "<i class='remark-bottom-icon fas fa-mobile-alt' style='color: #1c9bf9'></i>";
                     } else if (remark.sourceSort == "기사") {
-                        row += "<i class='remark-bottom-icon fas fa-newspaper'></i>";
+                        row += "<i class='remark-bottom-icon fas fa-newspaper' style='color: #ba85f1'></i>";
                     }
-                    row += "<span class='remark-bottom-icon-text'>" + remark.sourceSort + "</span></div></a>";
+                    row += "<span class='remark-bottom-icon-text remark-bottom-icon-text-right'>" + remark.sourceSort + "</span></div></a>";
                     row += "</div>";
                 }
 
@@ -221,7 +218,7 @@ var main = {
                 row += "<div class='share-icon-container remark-bottom-icon-containers'>";
                 row += "<a id='share-btn' class='btn share-btn' href='' onclick='openShareModal(this," + remark.remarkId + ")' data-name='" + remark.person.name + "' data-date='" + remark.remarkDate_format + "' data-bs-toggle='modal' data-bs-target='#shareModal'>";
                 row += "<div class='d-flex align-items-center'>"
-                row += "<i class='remark-bottom-icon fas fa-share-alt'></i><span class='remark-bottom-icon-text'>공유</span></div></a></div>";
+                row += "<i class='remark-bottom-icon fas fa-share'></i><span class='remark-bottom-icon-text remark-bottom-icon-text-right'>공유</span></div></a></div>";
 
 
                 row += "</div>";
