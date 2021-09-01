@@ -349,7 +349,14 @@ var main = {
     },
 
     like: function (e, remarkId) {
+
+        let isRun = false;
+        if(isRun==true){
+            return false;
+        }
+
         if (document.getElementById("user_id")) {
+
 
             let isLike = parseInt(e.dataset.islike),
                 /*userId = document.getElementById("user_id").value,*/
@@ -362,6 +369,7 @@ var main = {
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8'
             }).done(function (result) {
+                isRun =true;
                 let likeInfo = result;
                 likeCountDom.innerText = likeInfo.likeCount;
                 dislikeCountDom.innerText = likeInfo.dislikeCount;

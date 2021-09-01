@@ -95,7 +95,7 @@
                     </div>
 
                     <!-- 하단 컨테이너 -->
-                    <div class="d-flex justify-content-between align-items-center" style="border-top: 1px solid #eee; margin-top: 1rem;">
+                    <div class="d-flex justify-content-between align-items-baseline" style="border-top: 1px solid #eee; margin-top: 1rem;">
                         <!--좌측 하단-->
                         <div class="remark-left-bottom-wrap" style="margin-top: 1rem;">
                             <!--등록일-->
@@ -180,6 +180,12 @@
 </script>
 <script>
     function like(e, remarkId) {
+
+        let isRun = false;
+        if(isRun==true){
+            return false;
+        }
+
         if (document.getElementById("user_id")) {
 
             let isLike = parseInt(e.dataset.islike),
@@ -193,6 +199,7 @@
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8'
             }).done(function (result) {
+                isRun = true;
                 let likeInfo = result;
                 likeCountDom.innerText = likeInfo.likeCount;
                 dislikeCountDom.innerText = likeInfo.dislikeCount;
