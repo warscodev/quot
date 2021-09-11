@@ -343,7 +343,7 @@ a:hover {
 
 @media (max-width: 575px) {
 
-    .remark-profile-icon-wrap {
+    .remark-profile-icon-link {
         width: 42px;
         height: 42px;
     }
@@ -355,7 +355,7 @@ a:hover {
 
 @media (max-width: 360px) {
 
-    .remark-profile-icon-wrap {
+    .remark-profile-icon-link {
         width: 35px;
         height: 35px;
     }
