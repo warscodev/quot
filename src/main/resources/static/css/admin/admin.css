@@ -734,6 +734,16 @@ a:hover {
     font-weight: 700;
 }
 
+@media (max-width: 575px) {
+    .remark-detail-title-person-name-list{
+        font-size: 1.068rem;
+    }
+
+}
+
+
+
+
 .remark-detail-title-person-job-list{
     color: #696969;
     font-size: .875rem;
