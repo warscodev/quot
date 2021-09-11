@@ -143,31 +143,41 @@ var main = {
             let i = 1;
             list.forEach(remark => {
                 <!-- 코멘트 컨테이너 -->
-                row += "<div class='remark-row' id='remark-row-" + i++ + "' data-remark-id='" + remark.remarkId + "'>";
+                row += "<div class='remark-row container' id='remark-row-" + i++ + "' data-remark-id='" + remark.remarkId + "'>";
 
+
+
+                /* 코멘트 1열 프로필 - 발언자 - 태그 */
+                row +="<div class='row remark-row-first'>";
+
+                row +="<div class='col-1 remark-col-first d-flex justify-content-end'>";
+                /* 프로필 이미지 */
+                row +="<div class='remark-profile-icon-wrap'>";
+                row +="<a class='remark-profile-icon-link d-flex align-items-center justify-content-center' href='/remark/search?keyword=" + remark.person.name + "&personId=" + remark.person.id + "&tab=2'>";
+                row +="<i class='fas fa-user-alt remark-profile-icon' style='font-size: 1.4rem; color: white'></i>";
+                row +="</a>";
+                row +="</div>";
+
+                row +="</div>";
+
+                /* 임시 */
+                row += "<div class='col'>";
                 <!-- 타이틀 -->
                 row += "<div class='remark-detail-title-wrap'>";
-
-                <!-- 발언 날짜 -->
-                row += "<div class='remark-detail-title-date-wrap d-flex'>";
-                row += "<span class='remark-detail-title-date remark-detail-title-date-list'>" + remark.remarkDate_format+" </span></div>";
 
                 <!-- 발언인 -->
                 row += "<div class='remark-detail-title-person-wrap d-flex align-items-baseline mb-1'>";
                 row += "<a href='/remark/search?keyword=" + remark.person.name + "&personId=" + remark.person.id + "&tab=2'>";
                 row += "<span class='remark-detail-title-person-name-list'>" + remark.person.name + "</span></a>";
-                row += "<span class='remark-detail-title-person-job-list'>&nbsp;" + remark.person.job + "</span>";
-                row += "<i class='bi bi-chat-quote-fill remark-detail-title-icon remark-detail-title-icon-list'></i></div>";
-
-                /*row += "<h5><span class='remark-detail-title-person-job'>" + remark.person.job + "&nbsp;</span>";
-                row += "<span class='remark-detail-title-person-name'>" + remark.person.name + "</span></h5>";
-                row += "<i class='bi bi-chat-quote-fill remark-detail-title-icon remark-detail-title-icon-list'></i></div>";*/
+                row += "<span class='remark-detail-title-person-job-list'>" + remark.person.job + "</span>";
+                row += "<span class='' style='font-size: .813rem;'>｜</span>";
+                row += "<span class='remark-detail-title-date remark-detail-title-date-list'>" + remark.remarkDate_format+" </span></div>";
 
                 row += "</div>";
 
 
                 <!-- 태그 -->
-                row += "<div class='remark-first-row d-flex align-items-top'>";
+                row += "<div class='d-flex align-items-top'>";
                 row += "<div class='remark-tag'>";
                 if (remark.tags.length > 0) {
                     remark.tags.forEach(tag => {
@@ -179,46 +189,85 @@ var main = {
                 row += "</div>";
                 <!-- 태그 끝 -->
 
+                row += "</div>";
+
+                row += "</div>";
+                <!-- 1열 끝 -->
+
+
+
+                /* 코멘트 2열 따옴표 - 본문 */
+                row +="<div class='row remark-row-second''>";
+
+                row += "<div class='col-1 d-flex remark-col-first justify-content-end'>";
+
+                row += "<div>"
+                row += "<i class='fas fa-quote-left remark-quote-icon' style='margin-right: 0'></i>"
+                row += "</div>";
+
+                row += "</div>";
+
+
+                row += "<div class='col'>";
 
                 <!-- 발언 내용 -->
                 row += "<div class='remark-content'><a href='/remark/" + remark.remarkId + "'>" +
-                    "<pre style='margin-bottom: 0'><p><i class='fas fa-quote-left remark-quote-icon'></i>" + remark.content + "<i class='fas fa-quote-right remark-quote-icon'></i></p></pre></a></div>";
+                    "<pre style='margin-bottom: 0'><p>" + remark.content + "<i class='fas fa-quote-right remark-quote-icon'></i></p></pre></a></div>";
 
-                <!-- 좋아요 싫어요 버튼 -->
-                row += "<div class='remark-center-bottom-wrap d-flex justify-content-end'>";
+                row += "</div>";
+                row += "</div>";
 
-                row += "<div class='like-icon-container'>";
+
+                <!-- 하단 버튼 -->
+                /*row += "<div class='row remark-row-third'>";
+                row += "<div class='col-1 remark-col-first'>";
+                row += "</div>";
+
+                row += "<div class='col'>";*/
+
+                row += "<div class='remark-center-bottom-wrap d-flex justify-content-center'>";
+
+                row += "<div class='like-icon-container remark-bottom-icon-containers' style='margin-left: 0rem;'>";
                 row += "<a href='javascript:;' class='btn like-btn' data-islike='1' onclick='main.like(this," + remark.remarkId + ")'>";
-                row += "<i class='fas fa-grin like-icon remark-bottom-icon'></i>";
+                row += "<i class='far fa-thumbs-up like-icon remark-bottom-icon'></i>";
+                /*row += "<img src='/css/icon/smile.png' width='25px' height='25px'>";*/
+
                 row += "<span id='like-count-" + remark.remarkId + "' class='like-count remark-bottom-icon-text'>" + remark.likeCount + "</span></a></div>";
 
-                row += "<div class='like-icon-container'>";
+                row += "<div class='like-icon-container remark-bottom-icon-containers'>";
                 row += "<a href='javascript:;' class='btn dislike-btn' data-islike='-1' onclick='main.like(this," + remark.remarkId + ")'>";
-                row += "<i class='fas fa-frown dislike-icon remark-bottom-icon'></i>";
+                row += "<i class='far fa-thumbs-down dislike-icon remark-bottom-icon'></i>";
+                /*row += "<img src='/css/icon/angry.png' width='25px' height='25px'>";*/
                 row += "<span id='dislike-count-" + remark.remarkId + "' class='dislike-count remark-bottom-icon-text'>" + remark.dislikeCount + "</span></a></div>";
 
-                <!-- 출처 -->
-
-                if (!remark.sourceSort == "") {
-                    row += "<div class='source-icon-container remark-bottom-icon-containers'>";
-                    row += "<a class='btn source-btn' href='" + remark.sourceUrl + "'  target='_blank' rel='noopener'>";
-                    row += "<div class='d-flex align-items-center'>"
-                    if (remark.sourceSort == "영상") {
-                        row += "<i class='remark-bottom-icon fas fa-play-circle' style='color: #ff7e7e'></i>";
-                    } else if (remark.sourceSort == "SNS") {
-                        row += "<i class='remark-bottom-icon fas fa-mobile-alt' style='color: #1c9bf9'></i>";
-                    } else if (remark.sourceSort == "기사") {
-                        row += "<i class='remark-bottom-icon fas fa-newspaper' style='color: #ba85f1'></i>";
-                    }
-                    row += "<span class='remark-bottom-icon-text remark-bottom-icon-text-right'>" + remark.sourceSort + "</span></div></a>";
-                    row += "</div>";
-                }
 
                 <!-- 공유 -->
-                row += "<div class='share-icon-container remark-bottom-icon-containers'>";
+                row += "<div class='share-icon-container remark-bottom-icon-containers d-flex align-items-center'>";
                 row += "<a id='share-btn' class='btn share-btn' href='' onclick='openShareModal(this," + remark.remarkId + ")' data-name='" + remark.person.name + "' data-date='" + remark.remarkDate_format + "' data-bs-toggle='modal' data-bs-target='#shareModal'>";
                 row += "<div class='d-flex align-items-center'>"
                 row += "<i class='remark-bottom-icon fas fa-share'></i><span class='remark-bottom-icon-text remark-bottom-icon-text-right'>공유</span></div></a></div>";
+
+
+                <!-- 출처 -->
+                if (!remark.sourceSort == "") {
+                    row += "<div class='source-icon-container remark-bottom-icon-containers d-flex align-items-center'>";
+                    row += "<a class='btn source-btn' href='" + remark.sourceUrl + "'  target='_blank' rel='noopener'>";
+                    row += "<div class='d-flex align-items-center'>"
+                    if (remark.sourceSort == "영상") {
+                        row += "<i class='remark-bottom-icon fas fa-play-circle'></i>";
+                    } else if (remark.sourceSort == "SNS") {
+                        row += "<i class='remark-bottom-icon fas fa-mobile-alt'></i>";
+                    } else if (remark.sourceSort == "기사") {
+                        row += "<i class='remark-bottom-icon fas fa-newspaper'></i>";
+                    }
+                    row += "<span class='remark-bottom-icon-text remark-bottom-icon-text-right'>출처</span></div></a>";
+                    row += "</div>";
+                }
+
+
+
+                /*row += "</div>";
+                row += "</div>";*/
 
 
                 row += "</div>";
@@ -304,20 +353,20 @@ var main = {
         let page = main.page;
 
         if (!pageMetadata.first && pageMetadata.totalElements != 0) {
-            nav += "<a class='page-link' aria-label='Previous' page='" + (page - 1) + "'><i class='bi bi-chevron-left'></i>" +
+            nav += "<a class='page-link d-inline' aria-label='Previous' page='" + (page - 1) + "'><i class='bi bi-caret-left-square'></i>" +
                 "</a>";
         } else if (pageMetadata.first && pageMetadata.totalElements != 0) {
-            nav += "<span class='page-link' aria-label='Previous'><i class='bi bi-chevron-left'></i>" +
+            nav += "<span class='page-link d-inline' aria-label='Previous'><i class='bi bi-caret-left-square'></i>" +
                 "</span>";
         }
 
-        nav += (pageMetadata.number + 1) + " / " + pageMetadata.totalPages + " 페이지";
+        nav += "<span style='margin: 0 !important;'>" + (pageMetadata.number + 1) + " / " + pageMetadata.totalPages + " 페이지</span>";
 
         if (!pageMetadata.last && pageMetadata.totalElements != 0) {
-            nav += "<a class='page-link' aria-label='Next' page='" + (page + 1) + "'><i class='bi bi-chevron-right'></i>" +
+            nav += "<a class='page-link d-inline' aria-label='Next' page='" + (page + 1) + "'><i class='bi bi-caret-right-square'></i>" +
                 "</a>";
         } else if (pageMetadata.last && pageMetadata.totalElements != 0) {
-            nav += "<span class='page-link' aria-label='Next'><i class='bi bi-chevron-right'></i>" +
+            nav += "<span class='page-link d-inline' aria-label='Next'><i class='bi bi-caret-right-square'></i>" +
                 "</span>";
         }
 

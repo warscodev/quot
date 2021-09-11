@@ -247,6 +247,11 @@ a:hover {
     box-shadow: 0.25rem 0.25rem 0.25rem rgba(190, 190, 190, 0.19);
     border: 1px solid rgba(0, 0, 0, .1);
     padding: .5rem 1rem;
+    transition: background-color .15s ease-in-out,border-color .3s ease-in-out;
+}
+
+.person-related > div > a:hover{
+    border-color: rgb(161, 161, 161);
 }
 
 .person-related > div > a > .person-related-header {
@@ -273,17 +278,24 @@ a:hover {
     border-top: 0;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-    box-shadow: 0.25rem 0.5rem 2rem 0.5rem rgba(0, 0, 0, .1);
+    box-shadow: 0 20px 20px 0 rgb(0 0 0 / 10%);
+    padding-top: 1.5rem;
 }
 
 /* 서브 페이지 네비게이션 */
 .remark-page-count {
-    font-size: .85rem;
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+
+    font-size: .875rem;
     color: #6c757d;
 }
 
 .remark-page-count * {
-    font-size: .85rem !important;
+    font-size: .875rem !important;
     margin: 0 .5rem !important;
 }
 
@@ -291,19 +303,66 @@ a:hover {
 .remark-row {
     position: relative;
     z-index: 1;
-    padding: .5rem 2rem;
+    padding: 1rem 1.3rem;
     background-color: #fff;
     background-clip: border-box;
     border-radius: 1rem;
     margin: 0 0 2rem 0;
-    box-shadow: 0.25rem 0.5rem 2rem 0.5rem rgba(0, 0, 0, .1);
+    box-shadow: 0 20px 20px 0 rgb(0 0 0 / 10%);
 }
 
 @media (max-width: 426px) {
     .remark-row, .remark-detail-row {
-        padding: .5rem 1.75rem !important;
+        padding: 1rem;
+    }
+}
+
+
+
+.remark-col-first{
+    padding: 0;
+    flex-basis: 58px;
+}
+
+
+/* 프로필 이미지 */
+.remark-profile-icon-wrap{
+}
+
+.remark-profile-icon-link{
+    width: 48px;
+    height: 48px;
+    background-color: #C6C6C6;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    transition: background-color .3s;
+    border-radius: 50%;
+}
+.remark-profile-icon-link:hover{
+    background-color: #818181;
+}
+
+@media (max-width: 575px) {
+
+    .remark-profile-icon-wrap {
+        width: 42px;
+        height: 42px;
     }
 
+    .remark-col-first{
+        flex-basis: 50px;
+    }
+}
+
+@media (max-width: 360px) {
+
+    .remark-profile-icon-wrap {
+        width: 38px;
+        height: 38px;
+    }
+
+    .remark-col-first{
+        flex-basis: 46px;
+    }
 
 }
 
@@ -317,12 +376,12 @@ a:hover {
 
 /* ------- 태그 시작 ------- */
 @media (max-width: 426px) {
-    .remark-tag {
+    /*.remark-tag {
         -ms-overflow-style: none;
         width: 100% !important;
         overflow-x: auto;
         white-space: nowrap
-    }
+    }*/
 
     .remark-tag > a {
         margin-right: .25rem !important;
@@ -349,21 +408,30 @@ a:hover {
 .remark-tag > a {
     font-size: .813rem;
     display: inline-block;
-    margin-bottom: .5rem;
-    margin-right: .5rem;
-    padding: .4rem .8rem;
+    margin-bottom: .3rem;
+    margin-right: .3rem;
+    padding: .3rem .6rem;
     line-height: 1;
-    color: #333;
-    background-color: #f3f5f8;
+    color: #fff;
+    background-color: #f6a396;
     border-radius: 25px;
     width: auto;
 }
 
 .remark-tag > a:hover {
-    background-color: #e3e8ef;
+    background-color: #ff8772;
 }
 
 /* ------- 태그 끝 ------- */
+
+.remark-row-first, .remark-row-second{
+    padding: 0;
+}
+
+.remark-row-second{
+    margin-top: .25rem;
+}
+
 /* 코멘트 본문 */
 .remark-content pre {
     font-family: Pretendard;
@@ -377,7 +445,9 @@ a:hover {
 
 .remark-quote-icon{
     color: #c0c0c0;
-    margin: 0 .3rem;
+    margin: 0 .4rem;
+    font-size: 1.118rem;
+
 }
 
 .remark-content p {
@@ -393,11 +463,10 @@ a:hover {
 
 /* ------- 좋아요 시작 ------- */
 .remark-center-bottom-wrap {
-    margin: .5rem 0;
+    margin: 1rem 0 0 0;
 }
 
 .like-icon-container {
-    margin: 0 .5rem;
 }
 
 .like-icon-container > a {
@@ -411,41 +480,59 @@ a:hover {
 }
 
 .like-count, .dislike-count {
+    width: 31px;
     font-weight: 500;
     font-size: .95rem;
     color: #999999;
-    margin-left: .5rem;
     letter-spacing: .02rem;
+    margin: 0!important;
 }
 
 
-
-.like-icon-container:hover .remark-bottom-icon-text{
-    color: #439ff9;
-}
-
-.like-icon-container:hover .remark-bottom-icon{
-    color: #439ff9;
-}
 
 .remark-bottom-icon-containers:hover .remark-bottom-icon-text{
-    color: #000000;
+    color: #439ff9;
+}
+
+.remark-bottom-icon-containers:hover .remark-bottom-icon{
+    color: #439ff9;
 }
 
 .remark-bottom-icon{
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     color: #999999;
+    transition: color .3s ease-in-out,background-color .3s ease-in-out,border-color .3s ease-in-out;;
+
 }
 
 .remark-bottom-icon-text{
     margin-left: .5rem;
     color: #808080;
     font-size: .95rem;
+    transition: color .3s ease-in-out,background-color .3s ease-in-out,border-color .3s ease-in-out;;
+
 }
 
 .remark-bottom-icon-text-right{
     margin-left: .3rem !important;
 }
+
+
+.remark-bottom-icon-containers{
+    margin-left: 1.25rem;
+}
+
+@media (max-width: 426px) {
+    .remark-bottom-icon-containers{
+        margin-left: 0rem;
+    }
+
+    .like-count, .dislike-count{
+        width: 27px;
+    }
+}
+
+
 
 
 /* ------- 좋아요 끝 ------- */
@@ -627,7 +714,6 @@ a:hover {
 
 /* 코멘트 세부 페이지 */
 .remark-detail-title-wrap {
-    margin-top: .5rem;
 }
 
 .remark-detail-title-date {
@@ -636,7 +722,7 @@ a:hover {
 }
 
 .remark-detail-title-date-list {
-    font-size: .8rem;
+    font-size: .813rem;
 }
 
 .remark-detail-title-main {
@@ -644,13 +730,14 @@ a:hover {
 }
 
 .remark-detail-title-person-name-list{
-    font-size: 1.063rem;
+    font-size: 1.188rem;
     font-weight: 700;
 }
 
 .remark-detail-title-person-job-list{
     color: #696969;
-    font-size: .938rem;
+    font-size: .875rem;
+    margin-left: .45rem;
 }
 
 .remark-detail-title-icon {

@@ -40,10 +40,10 @@ public class User extends BaseTimeEntity {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Remark> remarkList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<RemarkLike> remarkLikeList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<UserScrap> userScrapList = new ArrayList<>();
 
     @Builder

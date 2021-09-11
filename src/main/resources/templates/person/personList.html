@@ -48,7 +48,6 @@
                 <th>직업</th>
                 <th>등록일</th>
                 <th>마지막 수정일</th>
-                <th>상태</th>
             </tr>
             </thead>
             <tbody id="tbody">
@@ -76,9 +75,6 @@
                 <td th:unless="${person.status.toString.equals('UPDATED') or person.status.toString.equals('DELETED')}"
                     th:text=null>
                 </td>
-                <!-- 글 상태 -->
-                <td th:if="${person.status.toString.equals('CREATED')}" th:text=null></td>
-                <td th:unless="${person.status.toString.equals('CREATED')}" th:text="${person.status}"></td>
             </tr>
             </tbody>
         </table>

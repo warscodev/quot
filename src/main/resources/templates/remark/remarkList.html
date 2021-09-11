@@ -15,12 +15,12 @@
             <div class="remark-title d-flex">
                 <h4>발언 목록</h4>
             </div>
-            <div class="remark-page-count d-flex page-item"></div>
+            <div class="remark-page-count d-inline align-items-center page-item"></div>
         </div>
 
         <input id="search-pageNum" type="hidden" th:value="${page}">
         <!-- 코멘트테이블 -->
-        <div class="row" id="remark-table-wrap">
+        <div id="remark-table-wrap">
             <div id="remark-table">
             </div>
         </div>
@@ -35,7 +35,7 @@
 
 
 <!-- 공유 Modal -->
-<script src="/js/admin/remark/remarkList.js?ver=2021_09_01_001"></script>
+<script src="/js/admin/remark/remarkList.js?ver=2021_09_12_001"></script>
 <script>
     window.onpopstate = function (event) {
         if (main.oldHstate != null && main.oldHstate.page) {

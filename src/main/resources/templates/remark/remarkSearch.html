@@ -9,28 +9,28 @@
 <div th:replace="fragments/subHeader :: subHeader"/>
 <div class="container container-custom">
     <div class="remark-page-wrap">
-        </br>
         <div>
             <!--<div id="person-related-title"></div>-->
         </div>
         <div id="remark-scroll-position" class="py-2 d-flex justify-content-between align-items-center"
              style="grid-template-columns: 1fr 2fr;">
             <div class="search-result-title-wrap d-flex">
-                <h6>
-                    <span class="search-result-keyword" th:text="|&#039${keyword}&#039|"></span> 에 대한 검색 결과
+                    <!--<span class="search-result-keyword" th:text="|&#039${keyword}&#039|"></span> 에 대한 검색 결과-->
                     <input id="search-keyword" type="hidden" th:value="${keyword}">
                     <input id="search-tab" type="hidden" th:value="${tab}">
                     <input id="search-personId" type="hidden" th:value="${personId}">
                     <input id="search-pageNum" type="hidden" th:value="${page}">
-                </h6>
             </div>
-            <div class="remark-page-count d-flex page-item"></div>
         </div>
 
         <!-- 관련 인물 리스트-->
         <div class="person-related" id="person-table">
         </div>
 
+        <!-- 서브 페이지네이션-->
+        <div class="d-flex justify-content-end mb-2">
+            <div class="remark-page-count d-flex align-items-center page-item"></div>
+        </div>
 
         <!-- 코멘트 리스트 네비바 -->
         <div class="remark-nav-tabs-container" id="remark-nav-bar">
@@ -54,7 +54,7 @@
         <!--<hr class="my-2">-->
 
         <!-- 테이블 -->
-        <div class="row">
+        <div>
             <div id="remark-table" class="search-remark-table">
             </div>
         </div>
@@ -65,7 +65,7 @@
     </div>
 
 </div>
-<script src="/js/admin/remark/remarkList.js?ver=2021_09_01_001"></script>
+<script src="/js/admin/remark/remarkList.js?ver=2021_09_12_001"></script>
 <script>
     function move_tab(e, tab) {
         let keyword = document.getElementById("search-keyword").value,
