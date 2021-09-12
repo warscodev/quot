@@ -166,7 +166,7 @@ var main = {
                 row += "<div class='remark-detail-title-wrap'>";
 
                 <!-- 발언인 -->
-                row += "<div class='remark-detail-title-person-wrap d-flex align-items-baseline mb-1'>";
+                row += "<div class='remark-detail-title-person-wrap d-flex align-items-baseline mb-1' style='flex-wrap : wrap;'>";
                 row += "<a href='/remark/search?keyword=" + remark.person.name + "&personId=" + remark.person.id + "&tab=2'>";
                 row += "<span class='remark-detail-title-person-name-list'>" + remark.person.name + "</span></a>";
                 row += "<span class='remark-detail-title-person-job-list'>" + remark.person.job + "</span>";
