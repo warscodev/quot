@@ -46,6 +46,13 @@ body {
     cursor: pointer;
 }
 
+@media (max-width: 360px) {
+    .close-autocompleted {
+        line-height: 23.75px;
+    }
+
+    }
+
 .close-autocompleted:hover {
     color: red;
 }
@@ -413,9 +420,11 @@ a:hover {
     padding: .3rem .6rem;
     line-height: 1;
     color: #fff;
-    background-color: #f6a396;
+    background-color: #faa99d;
     border-radius: 25px;
     width: auto;
+    transition: background-color .15s ease-in-out;
+
 }
 
 .remark-tag > a:hover {
@@ -429,7 +438,7 @@ a:hover {
 }
 
 .remark-row-second{
-    margin-top: .25rem;
+    margin-top:.25rem;
 }
 
 /* 코멘트 본문 */
@@ -446,7 +455,7 @@ a:hover {
 .remark-quote-icon{
     color: #c0c0c0;
     margin: 0 .4rem;
-    font-size: 1.118rem;
+    font-size: 1rem;
 
 }
 
@@ -746,8 +755,8 @@ a:hover {
 
 .remark-detail-title-person-job-list{
     color: #696969;
-    font-size: .875rem;
-    margin-left: .4rem;
+    font-size: .938rem;
+    margin-left: .3rem;
 }
 
 .remark-detail-title-icon {
