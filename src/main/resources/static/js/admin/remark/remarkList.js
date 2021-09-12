@@ -219,11 +219,6 @@ var main = {
 
 
                 <!-- 하단 버튼 -->
-                /*row += "<div class='row remark-row-third'>";
-                row += "<div class='col-1 remark-col-first'>";
-                row += "</div>";
-
-                row += "<div class='col'>";*/
 
                 row += "<div class='remark-center-bottom-wrap d-flex justify-content-center'>";
 
