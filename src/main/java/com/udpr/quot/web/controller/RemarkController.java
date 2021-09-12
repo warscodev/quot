@@ -36,7 +36,6 @@ public class RemarkController {
     @GetMapping("/remark/{remarkId}")
     public String detail(@PathVariable("remarkId") Long remarkId, Model model, @LoginUser SessionUser user) {
         model.addAttribute("remark", remarkService.findById(remarkId));
-
         if(user != null){
             model.addAttribute("user", user);
         }
@@ -47,10 +46,11 @@ public class RemarkController {
     //코멘트 등록 폼
     @GetMapping("/remark/new")
     public String saveForm(Model model, @LoginUser SessionUser user) throws JsonProcessingException {
-        RemarkRequestDto remarkRequestDto = new RemarkRequestDto();
-        model.addAttribute("form", remarkRequestDto);
+        /*RemarkRequestDto remarkRequestDto = new RemarkRequestDto();
+        model.addAttribute("form", remarkRequestDto);*/
         List<String> tags = tagRepository.findTagName().stream().collect(Collectors.toList());
         model.addAttribute("whitelist", objectMapper.writeValueAsString(tags));
+        System.out.println("user : " + user.getId());
 
         if(user != null){
             model.addAttribute("user", user);

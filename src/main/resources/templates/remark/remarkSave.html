@@ -18,13 +18,40 @@
 
 
     <div class="row g-3">
+        <!-- 소스 -->
+        <hr class="my-1">
+        <!--소스 sort-->
+        <div class="col-4">
+            <label for="sourceSort" class="form-label">출처 분류</label>
+            <select class="form-select form-select-sm" id="sourceSort">
+                <option value="영상">영상</option>
+                <option value="SNS">SNS</option>
+                <option value="기사">기사</option>
+                <option value="">없음</option>
+            </select>
+        </div>
+
+        <!--소스 url-->
+        <div class="col-8 ">
+            <label for="sourceUrl" class="form-label">출처 URL</label>
+            <input type="text" name="sourceUrl" class="form-control form-control-sm" placeholder="링크"
+                   id="sourceUrl">
+        </div>
+
+        <hr class="my-4">
+
+        <!-- 발언 날짜 -->
+        <div class="col-12" style="margin-top: 0">
+            <label class="form-label">발언 날짜</label>
+            <input type="date" name="remarkDate" id="remarkDate" class="form-control form-control-sm">
+        </div>
 
         <!-- 발언자 -->
         <div class="col-12">
             <label for="person-search-input" class="form-label">발언자</label>
             <div class="row">
                 <div class="col-auto">
-                    <input type="text" class="form-control" id="person-search-input">
+                    <input type="text" class="form-control form-control-sm" id="person-search-input">
                     <input type="hidden" id="person_id">
                 </div>
 
@@ -34,7 +61,7 @@
                 </div>
 
                 <div class="col-auto">
-                    <a class="btn btn-warning" href="/admin/person/new" target="_blank">새 인물 등록</a>
+                    <a class="btn btn-warning btn-sm" href="/admin/person/new" target="_blank">새 인물 등록</a>
                 </div>
                 <span id="warning-alert" style="color: red; font-size: .9rem; margin-bottom: 0;"> 인물을 선택해 주세요!</span>
 
@@ -46,11 +73,6 @@
             <textarea name="content" id="content" class="form-control" rows="10"></textarea>
         </div>
 
-        <!-- 발언 날짜 -->
-        <div class="col-12">
-            <label class="form-label">발언 날짜</label>
-            <input type="date" name="remarkDate" id="remarkDate" class="form-control">
-        </div>
 
 
         <!-- 태그 -->
@@ -60,35 +82,11 @@
             <div id="whitelist" th:text="${whitelist}" hidden></div>
         </div>
 
-        <hr class="my-4">
-        <h5>출처</h5>
-
-        <!-- 소스 -->
-        <!--소스 sort-->
-        <div class="col-4">
-            <label for="sourceSort" class="form-label">종류</label>
-            <select class="form-select" id="sourceSort">
-                <option value="영상">영상</option>
-                <option value="SNS">SNS</option>
-                <option value="기사">기사</option>
-                <option value="">없음</option>
-            </select>
-
-            <!--<input type="text" class="form-control" placeholder="ex)영상, 기사 등..."
-                   id="sourceSort">-->
-        </div>
-
-        <!--소스 url-->
-        <div class="col-8 ">
-            <label for="sourceUrl" class="form-label">URL</label>
-            <input type="text" name="sourceUrl" class="form-control" placeholder="링크"
-                   id="sourceUrl">
-        </div>
-
-        <hr class="my-4">
+        <hr class="my-2">
 
         <!-- 버튼 -->
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <input id="sessionId" type="hidden" th:value="${user.id}">
             <button type="button" class="btn btn-primary me-md-2" id="btn-save">저장</button>
             <a href="javascript:history.back();" class="btn btn-outline-secondary">취소</a>
             <div></div>
@@ -132,14 +130,25 @@
     //저장 이벤트
     $('#btn-save').on('click', function () {
 
-        var id = $('#person_id').val();
+        let id = $('#person_id').val(),
+        userId;
 
-        var data = {
+        if(document.getElementById("sessionId")){
+            userId = document.getElementById("sessionId").value;
+        }else {
+            alert("로그인 정보가 없습니다.")
+            return false;
+        }
+
+        console.log(userId);
+
+        let data = {
             content: $('#content').val(),
             remarkDate: $('#remarkDate').val(),
             jasonArrayTags: $('#jasonArrayTags').val(),
             sourceSort: $('#sourceSort').val(),
-            sourceUrl: $('#sourceUrl').val()
+            sourceUrl: $('#sourceUrl').val(),
+            userId: userId
         }
 
         if (validate(data)) {
@@ -168,6 +177,12 @@
             return false;
         } else if (!data.remarkDate) {
             alert("발언 일자를 입력해주세요.")
+            return false;
+        } else if(!data.jasonArrayTags){
+            alert("태그는 한개 이상 입력되어야 합니다.")
+            return false;
+        }else if(!data.sourceSort == "" && (data.sourceUrl.replace(blank_pattern, "") == "" || !data.sourceUrl)){
+            alert("출처 링크를 바르게 입력해주세요.")
             return false;
         }
         return true;

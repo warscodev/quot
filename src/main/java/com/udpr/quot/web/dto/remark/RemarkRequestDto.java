@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.udpr.quot.domain.remark.Remark;
 import com.udpr.quot.domain.person.Person;
 import com.udpr.quot.domain.tag.TagName;
+import com.udpr.quot.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,6 +34,8 @@ public class RemarkRequestDto {
     private List<String> tags = new ArrayList<>();
     private String jasonArrayTags;
     private Person person;
+    private User user;
+    private Long userId;
 
 
     public Remark toEntity(){
@@ -42,6 +45,7 @@ public class RemarkRequestDto {
                 .person(person)
                 .sourceSort(sourceSort)
                 .sourceUrl(sourceUrl)
+                .user(user)
                 .build();
     }
 

@@ -43,8 +43,14 @@ public class RemarkService {
         Person person = personRepository.findById(personId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 인물정보가 없습니다. id = " + personId));
 
+        User user = userRepository.findById(requestDto.getUserId())
+                .orElseThrow(() -> new IllegalArgumentException("유저 정보가 없습니다. id = " + personId));
+
         //인물 정보 저장
         requestDto.setPerson(person);
+
+        //유저 정보 저장
+        requestDto.setUser(user);
 
         //코멘트 저장
         Remark savedRemark = remarkRepository.save(requestDto.toEntity());

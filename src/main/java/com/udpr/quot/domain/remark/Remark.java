@@ -63,11 +63,12 @@ public class Remark extends BaseTimeEntity {
 
 
     @Builder
-    public Remark(String content, LocalDate remarkDate, Person person, String sourceSort, String sourceUrl) {
+    public Remark(String content, LocalDate remarkDate, Person person, User user, String sourceSort, String sourceUrl) {
         this.content = content.trim();
         this.remarkDate = remarkDate;
         this.status = Status.CREATED;
         this.person = person;
+        this.user = user;
         this.sourceSort = sourceSort;
         this.sourceUrl = sourceUrl;
     }

@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
+
 @RequiredArgsConstructor
 @Slf4j
 @RestController
@@ -21,10 +23,16 @@ public class RemarkApiController {
 
     //코멘트 저장
     @PostMapping("/api/person/{personId}/remark")
-    public Long save(@PathVariable("personId") Long personId, @RequestBody RemarkRequestDto requestDto)
+    public Long save(@PathVariable("personId") Long personId, @RequestBody RemarkRequestDto requestDto,
+                     @LoginUser SessionUser user)
             throws JsonProcessingException {
 
-        //json형태의 태그값들을 변환하여 dto에 set타입으로 저장하는 메서드
+
+        if(!Objects.equals(user.getId(), requestDto.getUserId())){
+            throw new IllegalArgumentException("로그인 정보가 일치하지 않습니다.");
+        }
+
+        //json형태의 태그값들을 변환하여 dto에 set타입으로 저장
         requestDto.jsonArrayToSet();
 
         return remarkService.save(requestDto, personId);
