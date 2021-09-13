@@ -46,7 +46,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         if (registrationId.equals("naver")) {
             Map<String, Object> response = (Map<String, Object>) oAuth2User.getAttributes().get("response");
 
-            if (response.get("name") == null || response.get("email") == null || response.get("profile_image") == null) {
+            if (response.get("nickname") == null || response.get("email") == null || response.get("profile_image") == null) {
 
                 String error_uri = "";
 
