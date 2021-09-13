@@ -509,34 +509,55 @@ a:hover {
     align-items: center !important;
 }
 
+.like-icon-container > a , .share-btn, .source-btn{
+    box-shadow: none !important;
+    border-radius: 2rem;
+}
+
+.like-icon-container > a :focus , .share-btn :focus, .source-btn :focus{
+    box-shadow: none !important;
+}
+
+
+
+.remark-bottom-icon-containers{
+    transition: background-color .3s ease-in-out;
+    border-radius: 2rem;
+}
+
 .like-icon, .dislike-icon {
     font-size: 1.3rem;
     color: #999999;
 }
 
 .like-count, .dislike-count {
-    width: 31px;
+    display: flex;
+    justify-content: center;
+    width: 26px;
     font-weight: 500;
     font-size: .95rem;
     color: #999999;
     letter-spacing: .02rem;
-    margin: 0!important;
+    margin-left: .25rem !important;
 }
 
 
 
-.remark-bottom-icon-containers:hover .remark-bottom-icon-text{
-    color: #439ff9;
+.remark-bottom-icon-containers:hover{
+    background-color : #eeeeee;
 }
 
 .remark-bottom-icon-containers:hover .remark-bottom-icon{
-    color: #439ff9;
+    color: #383838;
+}
+.remark-bottom-icon-containers:hover .remark-bottom-icon-text{
+    color: #383838;
 }
 
 .remark-bottom-icon{
     font-size: 1.3rem;
     color: #717171;
-    transition: color .3s ease-in-out,background-color .3s ease-in-out,border-color .3s ease-in-out;;
+    transition: color .3s ease-in-out, background-color .3s ease-in-out,border-color .3s ease-in-out;;
 
 }
 
@@ -571,7 +592,7 @@ a:hover {
     }
 
     .like-count, .dislike-count{
-        width: 27px;
+        width: 17px;
     }
 }
 
