@@ -306,6 +306,10 @@ a:hover {
     margin: 0 .5rem !important;
 }
 
+#remark-sorting{
+    box-shadow: none;
+}
+
 /* ------- 코멘트 박스 ------- */
 .remark-row {
     position: relative;
