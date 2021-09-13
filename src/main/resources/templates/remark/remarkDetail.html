@@ -98,13 +98,13 @@
 
 
                     <!-- 하단 컨테이너 -->
-                    <div class="d-flex justify-content-between align-items-baseline"
+                    <div class="remark-detail-bottom-wrap d-flex justify-content-between align-items-baseline"
                          style="border-top: 1px solid #eee; margin-top: 1rem;">
                         <!--좌측 하단-->
                         <div class="remark-left-bottom-wrap" style="margin-top: 1rem;">
                             <!--등록일-->
                             <div class="col-xs-6">
-                                <span><small class="text-muted" th:text="*{createdDate}"></small></span>
+                                <span><small class="text-muted" th:text="|*{createdDate} 등록됨|"></small></span>
                             </div>
                             <!--수정일-->
                             <!--<div class="col-xs-6">

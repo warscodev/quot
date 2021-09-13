@@ -84,9 +84,12 @@ var main = {
             keyword = "",
             tab = 1,
             personId = 0,
+            sort="",
             url = '',
             data = '',
             remarkTable = document.getElementById("remark-table");
+
+
 
         document.getElementById("search-pageNum").value = page;
 
@@ -106,11 +109,16 @@ var main = {
             personId = document.getElementById("search-personId").value;
         }
 
+        if (document.getElementById("remark-sorting")){
+            sort = document.getElementById("remark-sorting").value;
+        }
+
         let remarkSearchCondition =
             {
                 keyword: keyword,
                 tab: tab,
-                personId: personId
+                personId: personId,
+                sort: sort
             };
 
         await $.get(`/api/search/remark?page=${page}&size=${size}`,
@@ -130,6 +138,13 @@ var main = {
                 main.oldHstate = history.state;
                 history.pushState({'page': page}, '', url);
 
+                /* 툴팁 활성화 */
+                const tooltips = document.querySelectorAll(".tt")
+                tooltips.forEach(t => {
+                    new bootstrap.Tooltip(t)
+                })
+
+
             }).fail(function (error) {
             alert(JSON.stringify(error));
         });
@@ -138,6 +153,8 @@ var main = {
 
     toRemarkTable: function (list) {
         let row = "";
+
+
 
         if (!list.length == 0) {
             let i = 1;
@@ -167,7 +184,7 @@ var main = {
 
                 <!-- 발언인 -->
                 row += "<div class='remark-detail-title-person-wrap d-flex align-items-baseline mb-1' style='flex-wrap : wrap;'>";
-                row += "<a href='/remark/search?keyword=" + remark.person.name + "&personId=" + remark.person.id + "&tab=2'>";
+                row += "<a class='remark-detail-title-person-name-link' href='/remark/search?keyword=" + remark.person.name + "&personId=" + remark.person.id + "&tab=2'>";
                 row += "<span class='remark-detail-title-person-name-list'>" + remark.person.name + "</span></a>";
                 row += "<span class='remark-detail-title-person-job-list'>" + remark.person.job + "</span>";
                 row += "<span class='' style='font-size: .813rem;'>｜</span>";
@@ -189,6 +206,12 @@ var main = {
                 row += "</div>";
                 <!-- 태그 끝 -->
 
+                row += "</div>";
+
+                <!-- 글 정보 시작 -->
+                row += "<div class='col-1 d-flex justify-content-end'>";
+                row += "<span class='remark-info tt' data-bs-html='true' data-bs-placement='bottom' title='<div class= \"d-flex align-items-center justify-content-center\"><img src=" + remark.user.picture + " width=20 height=20 class=\"rounded-circle remark-info-picture\"><span class=\"remark-info-nickname\">" + remark.user.nickname + "</span></div> <div><span class=remark-info-date>" + remark.createdDate + " 등록됨</span></div>'>";
+                row += "<i class='remark-info-icon fas fa-info-circle'></i></span>";
                 row += "</div>";
 
                 row += "</div>";
@@ -213,6 +236,11 @@ var main = {
                 <!-- 발언 내용 -->
                 row += "<div class='remark-content'><a href='/remark/" + remark.remarkId + "'>" +
                     "<pre style='margin-bottom: 0'><p>" + remark.content + "<i class='fas fa-quote-right remark-quote-icon'></i></p></pre></a></div>";
+
+                /* 등록일 */
+                /*row += "<div class='remark-created-date-wrap d-flex justify-content-end'>";
+                row += "<span class='remark-created-date'>" + remark.createdDate + " 등록됨</span>";
+                row += "</div>";*/
 
                 row += "</div>";
                 row += "</div>";
@@ -348,20 +376,20 @@ var main = {
         let page = main.page;
 
         if (!pageMetadata.first && pageMetadata.totalElements != 0) {
-            nav += "<a class='page-link d-inline' aria-label='Previous' page='" + (page - 1) + "'><i class='bi bi-caret-left-square'></i>" +
+            nav += "<a class='page-link d-inline' aria-label='Previous' page='" + (page - 1) + "'><i class='fas fa-chevron-left'></i>" +
                 "</a>";
         } else if (pageMetadata.first && pageMetadata.totalElements != 0) {
-            nav += "<span class='page-link d-inline' aria-label='Previous'><i class='bi bi-caret-left-square'></i>" +
+            nav += "<span class='page-link d-inline' aria-label='Previous'><i class='fas fa-chevron-left'></i>" +
                 "</span>";
         }
 
         nav += "<span style='margin: 0 !important;'>" + (pageMetadata.number + 1) + " / " + pageMetadata.totalPages + " 페이지</span>";
 
         if (!pageMetadata.last && pageMetadata.totalElements != 0) {
-            nav += "<a class='page-link d-inline' aria-label='Next' page='" + (page + 1) + "'><i class='bi bi-caret-right-square'></i>" +
+            nav += "<a class='page-link d-inline' aria-label='Next' page='" + (page + 1) + "'><i class='fas fa-chevron-right'></i>" +
                 "</a>";
         } else if (pageMetadata.last && pageMetadata.totalElements != 0) {
-            nav += "<span class='page-link d-inline' aria-label='Next'><i class='bi bi-caret-right-square'></i>" +
+            nav += "<span class='page-link d-inline' aria-label='Next'><i class='fas fa-chevron-right'></i>" +
                 "</span>";
         }
 

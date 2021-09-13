@@ -1,11 +1,14 @@
 package com.udpr.quot.domain.remark.repository;
 
+import com.google.common.collect.ImmutableList;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.QueryResults;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.udpr.quot.domain.remark.Remark;
+import com.udpr.quot.domain.remark.search.RemarkSearchCondition;
 import com.udpr.quot.web.dto.remark.RemarkTestDto;
 import com.udpr.quot.web.dto.tag.QTagDto;
 import com.udpr.quot.web.dto.tag.TagDto;
@@ -13,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
+import javax.annotation.Nullable;
 import javax.persistence.EntityManager;
 import java.util.Arrays;
 import java.util.List;
@@ -34,14 +38,44 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
 
 
     @Override
-    public Page<Remark> searchAll(Pageable pageable) {
-        QueryResults<Remark> results = queryFactory
-                .selectFrom(remark)
-                .leftJoin(remark.person).fetchJoin()
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .orderBy(remark.remarkDate.desc(), remark.createdDate.desc())
-                .fetchResults();
+    public Page<Remark> searchAll(RemarkSearchCondition condition, Pageable pageable) {
+
+        QueryResults<Remark> results = new QueryResults<Remark>(
+                ImmutableList.of(), Long.MAX_VALUE, 0L, 0L);
+
+        switch (condition.getSort()){
+
+            case "cd_d" :
+                results = queryFactory
+                        .selectFrom(remark)
+                        .leftJoin(remark.person).fetchJoin()
+                        .offset(pageable.getOffset())
+                        .limit(pageable.getPageSize())
+                        .orderBy(remark.createdDate.desc())
+                        .fetchResults();
+                break;
+
+            case "rm_d" :
+                results = queryFactory
+                        .selectFrom(remark)
+                        .leftJoin(remark.person).fetchJoin()
+                        .offset(pageable.getOffset())
+                        .limit(pageable.getPageSize())
+                        .orderBy(remark.remarkDate.desc())
+                        .fetchResults();
+                break;
+
+            case "rm_a" :
+                results = queryFactory
+                        .selectFrom(remark)
+                        .leftJoin(remark.person).fetchJoin()
+                        .offset(pageable.getOffset())
+                        .limit(pageable.getPageSize())
+                        .orderBy(remark.remarkDate.asc())
+                        .fetchResults();
+                break;
+        }
+
 
         List<Remark> content = results.getResults();
         long total = results.getTotal();
@@ -64,17 +98,50 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
     }
 
     @Override
-    public Page<Remark> searchByContentOrPersonName(String searchKeyword, Pageable pageable) {
-        QueryResults<Remark> results = queryFactory
-                .selectFrom(remark)
-                .join(remark.person, person).fetchJoin()
-                .where(keywordLike(searchKeyword)
-                        .or(person.name.likeIgnoreCase("%" + searchKeyword + "%"))
-                        .or(person.alias.likeIgnoreCase("%" + searchKeyword + "%")))
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .orderBy(remark.remarkDate.desc(), remark.createdDate.desc())
-                .fetchResults();
+    public Page<Remark> searchByContentOrPersonName(RemarkSearchCondition condition, Pageable pageable) {
+        QueryResults<Remark> results = new QueryResults<Remark>(
+                ImmutableList.of(), Long.MAX_VALUE, 0L, 0L);
+
+        switch (condition.getSort()) {
+            case "cd_d":
+                results = queryFactory
+                        .selectFrom(remark)
+                        .join(remark.person, person).fetchJoin()
+                        .where(keywordLike(condition.getKeyword())
+                                .or(person.name.likeIgnoreCase("%" + condition.getKeyword() + "%"))
+                                .or(person.alias.likeIgnoreCase("%" + condition.getKeyword() + "%")))
+                        .offset(pageable.getOffset())
+                        .limit(pageable.getPageSize())
+                        .orderBy(remark.createdDate.desc())
+                        .fetchResults();
+                break;
+
+            case "rm_d":
+                results = queryFactory
+                        .selectFrom(remark)
+                        .join(remark.person, person).fetchJoin()
+                        .where(keywordLike(condition.getKeyword())
+                                .or(person.name.likeIgnoreCase("%" + condition.getKeyword() + "%"))
+                                .or(person.alias.likeIgnoreCase("%" + condition.getKeyword() + "%")))
+                        .offset(pageable.getOffset())
+                        .limit(pageable.getPageSize())
+                        .orderBy(remark.remarkDate.desc())
+                        .fetchResults();
+                break;
+
+            case "rm_a":
+                results = queryFactory
+                        .selectFrom(remark)
+                        .join(remark.person, person).fetchJoin()
+                        .where(keywordLike(condition.getKeyword())
+                                .or(person.name.likeIgnoreCase("%" + condition.getKeyword() + "%"))
+                                .or(person.alias.likeIgnoreCase("%" + condition.getKeyword() + "%")))
+                        .offset(pageable.getOffset())
+                        .limit(pageable.getPageSize())
+                        .orderBy(remark.remarkDate.asc())
+                        .fetchResults();
+                break;
+        }
 
         List<Remark> content = results.getResults();
         long total = results.getTotal();
@@ -83,17 +150,48 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
     }
 
     @Override
-    public Page<Remark> searchByPersonName(String searchKeyword, Long personId, Pageable pageable) {
-        QueryResults<Remark> results = queryFactory
-                .selectFrom(remark)
-                .join(remark.person, person).fetchJoin()
-                .where(person.name.likeIgnoreCase("%" + searchKeyword + "%")
-                        .or(person.alias.likeIgnoreCase("%" + searchKeyword + "%"))
-                        .and(personIdEq(personId)))
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .orderBy(remark.remarkDate.desc(), remark.createdDate.desc())
-                .fetchResults();
+    public Page<Remark> searchByPersonName(RemarkSearchCondition condition, Pageable pageable) {
+        QueryResults<Remark> results = new QueryResults<Remark>(
+                ImmutableList.of(), Long.MAX_VALUE, 0L, 0L);
+
+        switch (condition.getSort()){
+            case "cd_d":
+                results = queryFactory
+                        .selectFrom(remark)
+                        .join(remark.person, person).fetchJoin()
+                        .where(person.name.likeIgnoreCase("%" + condition.getKeyword() + "%")
+                                .or(person.alias.likeIgnoreCase("%" + condition.getKeyword() + "%"))
+                                .and(personIdEq(condition.getPersonId())))
+                        .offset(pageable.getOffset())
+                        .limit(pageable.getPageSize())
+                        .orderBy(remark.createdDate.desc())
+                        .fetchResults();
+                break;
+            case "rm_d":
+                results = queryFactory
+                        .selectFrom(remark)
+                        .join(remark.person, person).fetchJoin()
+                        .where(person.name.likeIgnoreCase("%" + condition.getKeyword() + "%")
+                                .or(person.alias.likeIgnoreCase("%" + condition.getKeyword() + "%"))
+                                .and(personIdEq(condition.getPersonId())))
+                        .offset(pageable.getOffset())
+                        .limit(pageable.getPageSize())
+                        .orderBy(remark.remarkDate.desc())
+                        .fetchResults();
+                break;
+            case "rm_a":
+                results = queryFactory
+                        .selectFrom(remark)
+                        .join(remark.person, person).fetchJoin()
+                        .where(person.name.likeIgnoreCase("%" + condition.getKeyword() + "%")
+                                .or(person.alias.likeIgnoreCase("%" + condition.getKeyword() + "%"))
+                                .and(personIdEq(condition.getPersonId())))
+                        .offset(pageable.getOffset())
+                        .limit(pageable.getPageSize())
+                        .orderBy(remark.remarkDate.asc())
+                        .fetchResults();
+                break;
+        }
 
 
         List<Remark> content = results.getResults();
@@ -103,16 +201,47 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
     }
 
     @Override
-    public Page<Remark> searchByTagName(String searchKeyword, Pageable pageable) {
-        QueryResults<Remark> results = queryFactory
-                .select(remark)
-                .from(remarkTag)
-                .join(remarkTag.remark, remark)
-                .on(remarkTag.tag.name.eq(searchKeyword))
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .orderBy(remark.remarkDate.desc(), remark.createdDate.desc())
-                .fetchResults();
+    public Page<Remark> searchByTagName(RemarkSearchCondition condition, Pageable pageable) {
+
+        QueryResults<Remark> results = new QueryResults<Remark>(
+                ImmutableList.of(), Long.MAX_VALUE, 0L, 0L);
+
+        switch (condition.getSort()){
+            case "cd_d":
+                results = queryFactory
+                        .select(remark)
+                        .from(remarkTag)
+                        .join(remarkTag.remark, remark)
+                        .on(remarkTag.tag.name.eq(condition.getKeyword()))
+                        .offset(pageable.getOffset())
+                        .limit(pageable.getPageSize())
+                        .orderBy(remark.createdDate.desc())
+                        .fetchResults();
+                break;
+
+            case "rm_d":
+                results = queryFactory
+                        .select(remark)
+                        .from(remarkTag)
+                        .join(remarkTag.remark, remark)
+                        .on(remarkTag.tag.name.eq(condition.getKeyword()))
+                        .offset(pageable.getOffset())
+                        .limit(pageable.getPageSize())
+                        .orderBy(remark.remarkDate.desc())
+                        .fetchResults();
+                break;
+            case "rm_a":
+                results = queryFactory
+                        .select(remark)
+                        .from(remarkTag)
+                        .join(remarkTag.remark, remark)
+                        .on(remarkTag.tag.name.eq(condition.getKeyword()))
+                        .offset(pageable.getOffset())
+                        .limit(pageable.getPageSize())
+                        .orderBy(remark.remarkDate.asc())
+                        .fetchResults();
+                break;
+        }
 
         List<Remark> content = results.getResults();
         long total = results.getTotal();
@@ -143,6 +272,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
             return builder;
         }
     }
+
 
 
     private BooleanExpression personNameLike(String name) {

@@ -13,4 +13,6 @@ public class RemarkSearchCondition {
     int tab;
 
     long personId = 0L;
+
+    String sort;
 }

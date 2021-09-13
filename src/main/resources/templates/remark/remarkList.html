@@ -8,14 +8,17 @@
 <div th:replace="fragments/subHeader :: subHeader"/>
 <div class="container container-custom">
     <div class="remark-page-wrap">
-        </br>
 
         <div id="remark-scroll-position" class="py-2 d-flex justify-content-between align-items-center"
              style="grid-template-columns: 1fr 2fr;">
-            <div class="remark-title d-flex">
-                <h4>발언 목록</h4>
+            <div class="remark-page-count d-flex align-items-baseline page-item"></div>
+            <div class="remark-title d-flex align-items-center">
+                <select class="form-select form-select-sm" id="remark-sorting" th:onchange="|main.loadRemark(${page})|">
+                    <option value="cd_d">등록순</option>
+                    <option value="rm_d">최근 발언순</option>
+                    <option value="rm_a">과거 발언순</option>
+                </select>
             </div>
-            <div class="remark-page-count d-inline align-items-center page-item"></div>
         </div>
 
         <input id="search-pageNum" type="hidden" th:value="${page}">
@@ -35,13 +38,15 @@
 
 
 <!-- 공유 Modal -->
-<script src="/js/admin/remark/remarkList.js?ver=2021_09_13_001"></script>
+<script src="/js/admin/remark/remarkList.js?ver=2021_09_14_001"></script>
 <script>
     window.onpopstate = function (event) {
         if (main.oldHstate != null && main.oldHstate.page) {
             main.loadRemark(main.oldHstate.page);
         }
     }
+</script>
+<script>
 </script>
 <div th:replace="fragments/shareModal :: shareModal"/>
 <div th:replace="fragments/footer :: footer"/>

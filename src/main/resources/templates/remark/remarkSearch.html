@@ -27,9 +27,16 @@
         <div class="person-related" id="person-table">
         </div>
 
-        <!-- 서브 페이지네이션-->
-        <div class="d-flex justify-content-end mb-2">
+        <!-- 서브 페이지네이션 & 정렬 -->
+        <div class="d-flex justify-content-between mb-2">
             <div class="remark-page-count d-flex align-items-center page-item"></div>
+            <div class="remark-title d-flex align-items-center">
+                <select class="form-select form-select-sm" id="remark-sorting" th:onchange="|main.loadRemark(${page})|">
+                    <option value="cd_d">등록순</option>
+                    <option value="rm_d">최근 발언순</option>
+                    <option value="rm_a">과거 발언순</option>
+                </select>
+            </div>
         </div>
 
         <!-- 코멘트 리스트 네비바 -->
@@ -65,7 +72,7 @@
     </div>
 
 </div>
-<script src="/js/admin/remark/remarkList.js?ver=2021_09_13_001"></script>
+<script src="/js/admin/remark/remarkList.js?ver=2021_09_14_001"></script>
 <script>
     function move_tab(e, tab) {
         let keyword = document.getElementById("search-keyword").value,

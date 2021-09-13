@@ -5,8 +5,10 @@ import com.udpr.quot.domain.remark.Remark;
 import com.udpr.quot.domain.remark.RemarkTag;
 import com.udpr.quot.domain.common.Status;
 import com.udpr.quot.domain.tag.Tag;
+import com.udpr.quot.domain.user.User;
 import com.udpr.quot.web.dto.person.PersonResponseDto;
 import com.udpr.quot.web.dto.tag.TagDto;
+import com.udpr.quot.web.dto.user.UserResponseDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,6 +38,7 @@ public class RemarkResponseDto {
     @JsonIgnore
     private List<RemarkTag> remarkTagList = new ArrayList<>();
     private PersonResponseDto person;
+    private UserResponseDto user;
     private List<TagDto> tags = new ArrayList<>();
     private String sourceSort;
     private String sourceUrl;
@@ -62,7 +65,7 @@ public class RemarkResponseDto {
     @Builder
     public RemarkResponseDto(Long remarkId, String content, LocalDate remarkDate, LocalDate remarkDate_format, Status status,
                              LocalDateTime createdDate, LocalDateTime updatedDate,
-                             List<RemarkTag> remarkTagList, PersonResponseDto person,
+                             List<RemarkTag> remarkTagList, PersonResponseDto person, UserResponseDto user,
                              String sourceSort, String sourceUrl, List<TagDto> tags, int isLike, int likeCount, int dislikeCount) {
         this.remarkId = remarkId;
         this.content = content;
@@ -74,6 +77,7 @@ public class RemarkResponseDto {
         this.remarkTagList = remarkTagList;
         this.tags = tags;
         this.person = person;
+        this.user = user;
         this.sourceSort = sourceSort;
         this.sourceUrl = sourceUrl;
         this.isLike = isLike;
@@ -88,6 +92,7 @@ public class RemarkResponseDto {
         this.createdDate = formatDate(entity.getCreatedDate());
         this.updatedDate = formatDate(entity.getUpdatedDate());
         this.person = new PersonResponseDto(entity.getPerson());
+        this.user = new UserResponseDto(entity.getUser());
         this.status = entity.getStatus();
         this.remarkTagList = entity.getRemarkTagList();
         this.sourceSort = entity.getSourceSort();
@@ -108,7 +113,7 @@ public class RemarkResponseDto {
 
     public String formatDate(LocalDateTime localDateTime){
 
-        return localDateTime.format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss"));
+        return localDateTime.format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
     }
 
     public String remarkDateFormat(LocalDate localDate){

@@ -11,6 +11,7 @@ import com.udpr.quot.domain.user.User;
 import com.udpr.quot.domain.user.repository.UserRepository;
 import com.udpr.quot.web.dto.remark.*;
 import com.udpr.quot.web.dto.person.PersonResponseDto;
+import com.udpr.quot.web.dto.user.UserResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -109,17 +110,18 @@ public class RemarkService {
         Page<Remark> remarks = new PageImpl<>(content, pageable, total_);
 
         if (keyword == null || keyword.isBlank()) {
-            remarks = remarkRepository.searchAll(pageable);
+            remarks = remarkRepository.searchAll(condition, pageable);
         } else {
             switch (tab) {
                 case 1:
-                    remarks = remarkRepository.searchByContentOrPersonName(keyword, pageable);
+                    remarks = remarkRepository.searchByContentOrPersonName(condition, pageable);
                     break;
                 case 2:
-                    remarks = remarkRepository.searchByPersonName(keyword, personId, pageable);
+                    remarks = remarkRepository.searchByPersonName(condition, pageable);
                     break;
                 case 3:
-                    remarks = remarkRepository.searchByTagName(keyword, pageable);
+                    System.out.println("----------------" + condition.getKeyword());
+                    remarks = remarkRepository.searchByTagName(condition, pageable);
                     break;
             }
         }
@@ -137,6 +139,7 @@ public class RemarkService {
                         .sourceUrl(remark.getSourceUrl())
                         .sourceSort(remark.getSourceSort())
                         .person(new PersonResponseDto(remark.getPerson()))
+                        .user(new UserResponseDto(remark.getUser()))
                         .tags(remarkRepository.getTags(remark.getId()))
                         .likeCount(remark.getLikeCount())
                         .dislikeCount(remark.getDislikeCount())

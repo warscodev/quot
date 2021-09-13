@@ -310,7 +310,7 @@ a:hover {
 .remark-row {
     position: relative;
     z-index: 1;
-    padding: 1rem 1.3rem;
+    padding: 1.3rem;
     background-color: #fff;
     background-clip: border-box;
     border-radius: 1rem;
@@ -339,13 +339,13 @@ a:hover {
 .remark-profile-icon-link{
     width: 48px;
     height: 48px;
-    background-color: #C6C6C6;
+    background-color: #c1c8d0;
     border: 1px solid rgba(0, 0, 0, 0.04);
     transition: background-color .3s;
     border-radius: 50%;
 }
 .remark-profile-icon-link:hover{
-    background-color: #818181;
+    background-color: #637286;
 }
 
 @media (max-width: 575px) {
@@ -371,6 +371,28 @@ a:hover {
         flex-basis: 46px;
     }
 
+}
+
+.remark-info{
+    display: table;
+}
+
+.remark-info-icon{
+    font-size: 1.25rem;
+    color: #d0d0d0;
+}
+
+.remark-info-picture{
+    margin: .2rem .3rem 0 0;
+    border: 1px solid gray
+}
+
+.remark-info-nickname{
+    margin-top: .1rem;
+}
+
+.remark-info-date{
+    font-size: .75rem !important;
 }
 
 /* 코멘트 타이틀 */
@@ -469,6 +491,10 @@ a:hover {
     }
 }
 
+.remark-created-date{
+    font-size: .813rem;
+    color: #6c757d;
+}
 
 /* ------- 좋아요 시작 ------- */
 .remark-center-bottom-wrap {
@@ -509,7 +535,7 @@ a:hover {
 
 .remark-bottom-icon{
     font-size: 1.3rem;
-    color: #909090;
+    color: #717171;
     transition: color .3s ease-in-out,background-color .3s ease-in-out,border-color .3s ease-in-out;;
 
 }
@@ -746,10 +772,19 @@ a:hover {
     margin-left: 0;
 }
 
+.remark-detail-title-person-name-link{
+    transition: .2s ease-in-out;
+}
+
 .remark-detail-title-person-name-list{
     font-size: 1.188rem;
     font-weight: 700;
 }
+
+.remark-detail-title-person-name-link:hover{
+    text-decoration: underline;
+}
+
 
 @media (max-width: 575px) {
     .remark-detail-title-person-name-list{
@@ -785,13 +820,16 @@ a:hover {
 }
 
 .remark-detail-person-search > a {
-    /*border-bottom: 1px solid #dddddd;*/
-    /*padding: .3rem .5rem;*/
     color: #6c757d;
+    transition: color .2s ease-in-out;
 }
 
 .remark-detail-person-search>a:hover{
     color: #439ff9 !important;
+}
+
+.remark-detail-bottom-wrap{
+    flex-wrap: wrap;
 }
 
 @media (max-width: 426px) {
