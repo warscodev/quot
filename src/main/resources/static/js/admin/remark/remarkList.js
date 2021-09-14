@@ -2,8 +2,8 @@ var main = {
     init: function () {
         let _this = this,
             page = 0,
-            oldHstate = history.state;
-        hstate = history.state;
+            oldHstate = history.state,
+            hstate = history.state;
 
 
         if (document.getElementById("search-pageNum")) {
@@ -154,8 +154,6 @@ var main = {
     toRemarkTable: function (list) {
         let row = "";
 
-
-
         if (!list.length == 0) {
             let i = 1;
             list.forEach(remark => {
@@ -170,7 +168,7 @@ var main = {
                 row +="<div class='col-1 remark-col-first d-flex justify-content-end'>";
                 /* 프로필 이미지 */
                 row +="<div class='remark-profile-icon-wrap'>";
-                row +="<a class='remark-profile-icon-link d-flex align-items-center justify-content-center' href='/remark/search?keyword=" + remark.person.name + "&personId=" + remark.person.id + "&tab=2'>";
+                row +="<a class='remark-profile-icon-link d-flex align-items-center justify-content-center' href='/remark/search?keyword=" + remark.name + "&personId=" + remark.personId + "&tab=2'>";
                 row +="<i class='fas fa-user-alt remark-profile-icon' style='font-size: 1.4rem; color: white'></i>";
                 row +="</a>";
                 row +="</div>";
@@ -184,11 +182,11 @@ var main = {
 
                 <!-- 발언인 -->
                 row += "<div class='remark-detail-title-person-wrap d-flex align-items-baseline mb-1' style='flex-wrap : wrap;'>";
-                row += "<a class='remark-detail-title-person-name-link' href='/remark/search?keyword=" + remark.person.name + "&personId=" + remark.person.id + "&tab=2'>";
-                row += "<span class='remark-detail-title-person-name-list'>" + remark.person.name + "</span></a>";
-                row += "<span class='remark-detail-title-person-job-list'>" + remark.person.job + "</span>";
+                row += "<a class='remark-detail-title-person-name-link' href='/remark/search?keyword=" + remark.name + "&personId=" + remark.personId + "&tab=2'>";
+                row += "<span class='remark-detail-title-person-name-list'>" + remark.name + "</span></a>";
+                row += "<span class='remark-detail-title-person-job-list'>" + remark.job + "</span>";
                 row += "<span class='' style='font-size: .813rem;'>｜</span>";
-                row += "<span class='remark-detail-title-date remark-detail-title-date-list'>" + remark.remarkDate_format+" </span></div>";
+                row += "<span class='remark-detail-title-date remark-detail-title-date-list'>" + remark.remarkDate+" </span></div>";
 
                 row += "</div>";
 
@@ -196,8 +194,8 @@ var main = {
                 <!-- 태그 -->
                 row += "<div class='d-flex align-items-top'>";
                 row += "<div class='remark-tag'>";
-                if (remark.tags.length > 0) {
-                    remark.tags.forEach(tag => {
+                if (remark.remarkTagList!=null) {
+                    remark.remarkTagList.forEach(tag => {
                         row +=
                             "<a href='/remark/search?keyword=" + tag.name + "&tab=3'><span>#" + tag.name + "</span></a>"
                     });
@@ -210,7 +208,7 @@ var main = {
 
                 <!-- 글 정보 시작 -->
                 row += "<div class='col-1 d-flex justify-content-end'>";
-                row += "<span class='remark-info tt' data-bs-html='true' data-bs-placement='bottom' title='<div class= \"d-flex align-items-center justify-content-center\"><img src=" + remark.user.picture + " width=20 height=20 class=\"rounded-circle remark-info-picture\"><span class=\"remark-info-nickname\">" + remark.user.nickname + "</span></div> <div><span class=remark-info-date>" + remark.createdDate + " 등록됨</span></div>'>";
+                row += "<span class='remark-info tt' data-bs-html='true' data-bs-placement='bottom' title='<div class= \"d-flex align-items-center justify-content-center\"><img src=" + remark.picture + " width=20 height=20 class=\"rounded-circle remark-info-picture\"><span class=\"remark-info-nickname\">" + remark.nickname + "</span></div> <div><span class=remark-info-date>" + remark.createdDate + " 등록됨</span></div>'>";
                 row += "<i class='remark-info-icon fas fa-info-circle'></i></span>";
                 row += "</div>";
 
@@ -266,7 +264,7 @@ var main = {
 
                 <!-- 공유 -->
                 row += "<div class='share-icon-container remark-bottom-icon-containers d-flex align-items-center'>";
-                row += "<a id='share-btn' class='btn share-btn' href='' onclick='openShareModal(this," + remark.remarkId + ")' data-name='" + remark.person.name + "' data-date='" + remark.remarkDate_format + "' data-bs-toggle='modal' data-bs-target='#shareModal'>";
+                row += "<a id='share-btn' class='btn share-btn' href='' onclick='openShareModal(this," + remark.remarkId + ")' data-name='" + remark.name + "' data-date='" + remark.remarkDate + "' data-bs-toggle='modal' data-bs-target='#shareModal'>";
                 row += "<div class='d-flex align-items-center'>"
                 row += "<i class='remark-bottom-icon fas fa-share'></i><span class='remark-bottom-icon-text remark-bottom-icon-text-right'>공유</span></div></a></div>";
 
@@ -289,8 +287,6 @@ var main = {
 
 
 
-                /*row += "</div>";
-                row += "</div>";*/
 
 
                 row += "</div>";

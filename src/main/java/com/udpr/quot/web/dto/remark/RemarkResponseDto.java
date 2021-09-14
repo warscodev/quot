@@ -1,6 +1,8 @@
 package com.udpr.quot.web.dto.remark;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.querydsl.core.annotations.QueryProjection;
+import com.udpr.quot.domain.person.Person;
 import com.udpr.quot.domain.remark.Remark;
 import com.udpr.quot.domain.remark.RemarkTag;
 import com.udpr.quot.domain.common.Status;
@@ -35,6 +37,10 @@ public class RemarkResponseDto {
     private int likeCount;
     private int dislikeCount;
 
+    private LocalDateTime createdDateTest;
+    private LocalDateTime updatedDateTest;
+
+
     @JsonIgnore
     private List<RemarkTag> remarkTagList = new ArrayList<>();
     private PersonResponseDto person;
@@ -45,9 +51,9 @@ public class RemarkResponseDto {
     private List<RemarkTag> tagTest = new ArrayList<>();
 
 
-    /*@QueryProjection
+    @QueryProjection
     public RemarkResponseDto(Long remarkId, String content, LocalDate remarkDate, Status status,
-                              LocalDateTime createdDate, LocalDateTime updatedDate, Person person,
+                              LocalDateTime createdDate, LocalDateTime updatedDate, PersonResponseDto person,
                               List<RemarkTag> remarkTagList,
                               String sourceSort, String sourceUrl) {
         this.remarkId = remarkId;
@@ -55,12 +61,12 @@ public class RemarkResponseDto {
         this.remarkDate = remarkDate;
         this.person = person;
         this.status = status;
-        this.createdDate = createdDate;
-        this.updatedDate = updatedDate;
-        //this.remarkTagList = remarkTagList;
+        this.createdDateTest = createdDate;
+        this.updatedDateTest = updatedDate;
+        this.remarkTagList = remarkTagList;
         this.sourceSort = sourceSort;
         this.sourceUrl = sourceUrl;
-    }*/
+    }
 
     @Builder
     public RemarkResponseDto(Long remarkId, String content, LocalDate remarkDate, LocalDate remarkDate_format, Status status,

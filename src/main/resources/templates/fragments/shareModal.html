@@ -47,6 +47,8 @@
         let name = '',
             date = '';
 
+        Kakao.init('d98279dd490fad82032e7f644c8af31c');
+
         function openShareModal(e, id) {
             let remarkUrl = `https://quot.wiki/remark/${id}`;
             urlInput.value = remarkUrl;
@@ -92,7 +94,7 @@
 
 
         function shareKakao() {
-            Kakao.init('d98279dd490fad82032e7f644c8af31c');
+
 
             // 카카오링크 버튼 생성
             Kakao.Link.createDefaultButton({

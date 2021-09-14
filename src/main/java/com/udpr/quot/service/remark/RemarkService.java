@@ -10,10 +10,8 @@ import com.udpr.quot.domain.person.repository.PersonRepository;
 import com.udpr.quot.domain.user.User;
 import com.udpr.quot.domain.user.repository.UserRepository;
 import com.udpr.quot.web.dto.remark.*;
-import com.udpr.quot.web.dto.person.PersonResponseDto;
-import com.udpr.quot.web.dto.user.UserResponseDto;
+import com.udpr.quot.web.dto.remark.query.RemarkQueryDto;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -22,10 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-@Slf4j
 @Service
 @Transactional(readOnly = true)
 public class RemarkService {
@@ -101,13 +97,12 @@ public class RemarkService {
 
         String keyword = condition.getKeyword();
         int tab = condition.getTab();
-        Long personId = condition.getPersonId();
-
-        List<Remark> content = new ArrayList<>();
+        List<RemarkQueryDto> content = new ArrayList<>();
         Long total_ = 0L;
 
 
-        Page<Remark> remarks = new PageImpl<>(content, pageable, total_);
+        Page<RemarkQueryDto> remarks = new PageImpl<>(content, pageable, total_);
+
 
         if (keyword == null || keyword.isBlank()) {
             remarks = remarkRepository.searchAll(condition, pageable);
@@ -120,42 +115,23 @@ public class RemarkService {
                     remarks = remarkRepository.searchByPersonName(condition, pageable);
                     break;
                 case 3:
-                    System.out.println("----------------" + condition.getKeyword());
                     remarks = remarkRepository.searchByTagName(condition, pageable);
                     break;
             }
         }
 
-
-        List<RemarkResponseDto> responseDtoList = remarks.stream()
-                .map(remark -> RemarkResponseDto.builder()
-                        .remarkId(remark.getId())
-                        .content(remark.getContent())
-                        .remarkDate(remark.getRemarkDate())
-                        .remarkDate_format(remark.getRemarkDate())
-                        .status(remark.getStatus())
-                        .createdDate(remark.getCreatedDate())
-                        .updatedDate(remark.getUpdatedDate())
-                        .sourceUrl(remark.getSourceUrl())
-                        .sourceSort(remark.getSourceSort())
-                        .person(new PersonResponseDto(remark.getPerson()))
-                        .user(new UserResponseDto(remark.getUser()))
-                        .tags(remarkRepository.getTags(remark.getId()))
-                        .likeCount(remark.getLikeCount())
-                        .dislikeCount(remark.getDislikeCount())
-                        .build())
-                .collect(Collectors.toList());
+        List<RemarkQueryDto> dtoList = remarks.getContent();
 
         PageMetadata pageMetadata = new PageMetadata(remarks);
 
-        return new RemarkListResponseDto(responseDtoList, pageMetadata);
+        return new RemarkListResponseDto(dtoList, pageMetadata);
     }
 
 
     public RemarkResponseDto findById(Long id) {
 
         Remark entity = remarkRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 코멘트 정보가 없습니다. id = " + id));
+                .orElseThrow(() -> new IllegalArgumentException("해당 발언 정보가 없습니다. id = " + id));
 
         return new RemarkResponseDto(entity);
     }
