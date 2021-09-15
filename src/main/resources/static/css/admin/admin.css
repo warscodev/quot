@@ -565,16 +565,12 @@ a:hover {
 .remark-bottom-icon{
     font-size: 1.3rem;
     color: #919191;
-    transition: color .3s ease-in-out, background-color .3s ease-in-out,border-color .3s ease-in-out;;
-
 }
 
 .remark-bottom-icon-text{
     margin-left: .5rem;
     color: #808080;
     font-size: .95rem;
-    transition: color .3s ease-in-out,background-color .3s ease-in-out,border-color .3s ease-in-out;;
-
 }
 
 .remark-bottom-icon-text-right{

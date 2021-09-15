@@ -261,11 +261,12 @@ var main = {
 
                 if(document.getElementById("user_id") && remark.isLike==1){
                     row += "<a href='javascript:;' id='like-btn-" + remark.remarkId + "' class='btn like-btn like-active' data-islike='1' onclick='main.like(this," + remark.remarkId + ")'>";
+                    row += "<i class='far fa-thumbs-up like-icon remark-bottom-icon fas'></i>";
                 }else{
                     row += "<a href='javascript:;' id='like-btn-" + remark.remarkId + "'class='btn like-btn' data-islike='1' onclick='main.like(this," + remark.remarkId + ")'>";
+                    row += "<i class='far fa-thumbs-up like-icon remark-bottom-icon'></i>";
                 }
 
-                row += "<i class='far fa-thumbs-up like-icon remark-bottom-icon'></i>";
 
                 row += "<span id='like-count-" + remark.remarkId + "' class='like-count remark-bottom-icon-text'>" + remark.likeCount + "</span></a></div>";
 
@@ -273,10 +274,11 @@ var main = {
 
                 if(document.getElementById("user_id") && remark.isLike==-1) {
                     row += "<a href='javascript:;' id='dislike-btn-" + remark.remarkId + "'class='btn dislike-btn like-active' data-islike='-1' onclick='main.like(this," + remark.remarkId + ")'>";
+                    row += "<i class='far fa-thumbs-down dislike-icon remark-bottom-icon fas'></i>";
                 }else{
                     row += "<a href='javascript:;' id='dislike-btn-" + remark.remarkId + "'class='btn dislike-btn' data-islike='-1' onclick='main.like(this," + remark.remarkId + ")'>";
+                    row += "<i class='far fa-thumbs-down dislike-icon remark-bottom-icon'></i>";
                 }
-                row += "<i class='far fa-thumbs-down dislike-icon remark-bottom-icon'></i>";
                 row += "<span id='dislike-count-" + remark.remarkId + "' class='dislike-count remark-bottom-icon-text'>" + remark.dislikeCount + "</span></a></div>";
 
 
@@ -449,9 +451,10 @@ var main = {
             otherBtn = document.getElementById("like-btn-"+remarkId);
         }
 
-
+        e.firstChild.classList.toggle("fas");
         e.classList.toggle("like-active");
         if(otherBtn.classList.contains("like-active")){
+            otherBtn.firstChild.classList.toggle("fas");
             otherBtn.classList.toggle("like-active")
         }
 
