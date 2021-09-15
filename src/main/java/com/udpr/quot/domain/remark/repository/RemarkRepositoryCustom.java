@@ -14,8 +14,6 @@ public interface RemarkRepositoryCustom {
 
     Page<RemarkQueryDto> searchAll(RemarkSearchCondition condition, Pageable pageable);
 
-    List<TagDto> getTags(Long remarkId);
-
     Page<RemarkQueryDto> searchByPersonName(RemarkSearchCondition condition, Pageable pageable);
 
     Page<RemarkQueryDto> searchByTagName(RemarkSearchCondition condition, Pageable pageable);

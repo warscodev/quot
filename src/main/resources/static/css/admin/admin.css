@@ -505,6 +505,10 @@ a:hover {
     margin: 1rem 0 0 0;
 }
 
+.like-active > *{
+    color: #439ff9 !important;
+}
+
 .like-icon-container {
 }
 

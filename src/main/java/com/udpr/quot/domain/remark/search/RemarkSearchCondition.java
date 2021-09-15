@@ -15,4 +15,6 @@ public class RemarkSearchCondition {
     long personId = 0L;
 
     String sort;
+
+    Long sid;
 }

@@ -9,10 +9,7 @@ import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.udpr.quot.domain.remark.Remark;
 import com.udpr.quot.domain.remark.search.RemarkSearchCondition;
-import com.udpr.quot.web.dto.remark.query.QRemarkQueryDto;
-import com.udpr.quot.web.dto.remark.query.QRemarkTagQueryDto;
-import com.udpr.quot.web.dto.remark.query.RemarkQueryDto;
-import com.udpr.quot.web.dto.remark.query.RemarkTagQueryDto;
+import com.udpr.quot.web.dto.remark.query.*;
 import com.udpr.quot.web.dto.tag.QTagDto;
 import com.udpr.quot.web.dto.tag.TagDto;
 import org.springframework.data.domain.Page;
@@ -28,6 +25,7 @@ import java.util.stream.Collectors;
 
 import static com.udpr.quot.domain.remark.QRemark.remark;
 import static com.udpr.quot.domain.remark.QRemarkTag.remarkTag;
+import static com.udpr.quot.domain.remark.QRemarkLike.remarkLike;
 import static com.udpr.quot.domain.person.QPerson.person;
 import static com.udpr.quot.domain.user.QUser.user;
 import static org.springframework.util.ObjectUtils.isEmpty;
@@ -55,6 +53,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                         .from(remark)
                         .leftJoin(remark.person, person)
                         .leftJoin(remark.user, user)
+
                         .offset(pageable.getOffset())
                         .limit(pageable.getPageSize())
                         .orderBy(getOrderSpecifier(condition.getSort()).stream().toArray(OrderSpecifier[]::new))
@@ -62,7 +61,8 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
 
         List<Long> remarkIdList = toRemarkIdList(results);
         Map<Long, List<RemarkTagQueryDto>> tagMap = findTagMap(remarkIdList);
-        results.getResults().forEach(r -> r.setRemarkTagList(tagMap.get(r.getRemarkId())));
+
+        setCollections(condition, results, remarkIdList, tagMap);
 
         List<RemarkQueryDto> content = results.getResults();
         long total = results.getTotal();
@@ -70,41 +70,6 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
         return new PageImpl<>(content, pageable, total);
     }
 
-    private Map<Long, List<RemarkTagQueryDto>> findTagMap(List<Long> remarkIdList) {
-        List<RemarkTagQueryDto> tagList = queryFactory
-                .select(new QRemarkTagQueryDto(
-                        remarkTag.remark.id, tag.id, tag.name
-                ))
-                .from(remarkTag)
-                .leftJoin(remarkTag.tag, tag)
-                .where(remarkTag.remark.id.in(remarkIdList))
-                .fetch();
-
-        Map<Long, List<RemarkTagQueryDto>> tagMap =
-                tagList.stream().collect(Collectors.groupingBy(RemarkTagQueryDto::getRemarkId));
-        return tagMap;
-    }
-
-    private List<Long> toRemarkIdList(QueryResults<RemarkQueryDto> results) {
-        List<Long> remarkIdList = results.getResults().stream()
-                .map(r->r.getRemarkId())
-                .collect(Collectors.toList());
-        return remarkIdList;
-    }
-
-    @Override
-    public List<TagDto> getTags(Long remarkId) {
-        return queryFactory
-                .select(new QTagDto(
-                        tag.id,
-                        tag.name))
-                .from(remarkTag)
-                .join(tag)
-                .on(remarkTag.remark.id.eq(remarkId),
-                        remarkTag.tag.id.eq(tag.id))
-                .orderBy(remarkTag.id.asc())
-                .fetch();
-    }
 
     @Override
     public Page<RemarkQueryDto> searchByContentOrPersonName(RemarkSearchCondition condition, Pageable pageable) {
@@ -130,7 +95,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
         List<Long> remarkIdList = toRemarkIdList(results);
 
         Map<Long, List<RemarkTagQueryDto>> tagMap = findTagMap(remarkIdList);
-        results.getResults().forEach(r -> r.setRemarkTagList(tagMap.get(r.getRemarkId())));
+        setCollections(condition, results, remarkIdList, tagMap);
 
         List<RemarkQueryDto> content = results.getResults();
         long total = results.getTotal();
@@ -163,7 +128,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
         List<Long> remarkIdList = toRemarkIdList(results);
 
         Map<Long, List<RemarkTagQueryDto>> tagMap = findTagMap(remarkIdList);
-        results.getResults().forEach(r -> r.setRemarkTagList(tagMap.get(r.getRemarkId())));
+        setCollections(condition, results, remarkIdList, tagMap);
 
         List<RemarkQueryDto> content = results.getResults();
         long total = results.getTotal();
@@ -194,13 +159,66 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
         List<Long> remarkIdList = toRemarkIdList(results);
 
         Map<Long, List<RemarkTagQueryDto>> tagMap = findTagMap(remarkIdList);
-        results.getResults().forEach(r -> r.setRemarkTagList(tagMap.get(r.getRemarkId())));
+        setCollections(condition, results, remarkIdList, tagMap);
 
         List<RemarkQueryDto> content = results.getResults();
         long total = results.getTotal();
 
         return new PageImpl<>(content, pageable, total);
     }
+
+    private Map<Long, List<RemarkTagQueryDto>> findTagMap(List<Long> remarkIdList) {
+        List<RemarkTagQueryDto> tagList = queryFactory
+                .select(new QRemarkTagQueryDto(
+                        remarkTag.remark.id, tag.id, tag.name
+                ))
+                .from(remarkTag)
+                .leftJoin(remarkTag.tag, tag)
+                .where(remarkTag.remark.id.in(remarkIdList))
+                .fetch();
+
+        Map<Long, List<RemarkTagQueryDto>> tagMap =
+                tagList.stream().collect(Collectors.groupingBy(RemarkTagQueryDto::getRemarkId));
+        return tagMap;
+    }
+
+    private Map<Long, List<RemarkLikeQueryDto>> findLikeMap(List<Long> remarkIdList, Long sid) {
+        List<RemarkLikeQueryDto> likeList = queryFactory
+                .select(new QRemarkLikeQueryDto(
+                        remarkLike.remark.id, remarkLike.isLike
+                ))
+                .from(remarkLike)
+                .where(remarkLike.remark.id.in(remarkIdList).and(remarkLike.user.id.eq(sid)))
+                .fetch();
+
+        Map<Long, List<RemarkLikeQueryDto>> likeMap =
+                likeList.stream().collect(Collectors.groupingBy(RemarkLikeQueryDto::getRemarkId));
+        return likeMap;
+    }
+
+    private List<Long> toRemarkIdList(QueryResults<RemarkQueryDto> results) {
+        List<Long> remarkIdList = results.getResults().stream()
+                .map(r->r.getRemarkId())
+                .collect(Collectors.toList());
+        return remarkIdList;
+    }
+
+    private void setCollections(RemarkSearchCondition condition, QueryResults<RemarkQueryDto> results, List<Long> remarkIdList, Map<Long, List<RemarkTagQueryDto>> tagMap) {
+        if(condition.getSid()!=null){
+            Map<Long, List<RemarkLikeQueryDto>> likeMap = findLikeMap(remarkIdList, condition.getSid());
+            results.getResults().forEach(r -> {
+                r.setRemarkTagList(tagMap.get(r.getRemarkId()));
+                if(likeMap.get(r.getRemarkId())!=null) {
+                    r.setIsLike(likeMap.get(r.getRemarkId()).get(0).getIsLike());
+                }
+            });
+        }else{
+            results.getResults().forEach(r -> {
+                r.setRemarkTagList(tagMap.get(r.getRemarkId()));
+            });
+        }
+    }
+
 
 
     private BooleanExpression personIdEq(Long personId) {

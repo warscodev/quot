@@ -27,6 +27,10 @@ public class RemarkQueryDto {
 
     private List<RemarkTagQueryDto> remarkTagList;
 
+    private List<RemarkLikeQueryDto> remarkLikeList;
+
+    private int isLike;
+
     private Long personId;
     private String name;
     private String job;

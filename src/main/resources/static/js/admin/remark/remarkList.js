@@ -87,6 +87,7 @@ var main = {
             sort="",
             url = '',
             data = '',
+
             remarkTable = document.getElementById("remark-table");
 
 
@@ -113,6 +114,7 @@ var main = {
             sort = document.getElementById("remark-sorting").value;
         }
 
+
         let remarkSearchCondition =
             {
                 keyword: keyword,
@@ -120,6 +122,13 @@ var main = {
                 personId: personId,
                 sort: sort
             };
+
+
+        if (document.getElementById("user_id")){
+            let sid = document.getElementById("user_id").value;
+            remarkSearchCondition.sid = sid;
+        }
+
 
         await $.get(`/api/search/remark?page=${page}&size=${size}`,
             remarkSearchCondition
@@ -249,16 +258,25 @@ var main = {
                 row += "<div class='remark-center-bottom-wrap d-flex justify-content-center'>";
 
                 row += "<div class='like-icon-container remark-bottom-icon-containers' style='margin-left: 0rem;'>";
-                row += "<a href='javascript:;' class='btn like-btn' data-islike='1' onclick='main.like(this," + remark.remarkId + ")'>";
+
+                if(document.getElementById("user_id") && remark.isLike==1){
+                    row += "<a href='javascript:;' id='like-btn-" + remark.remarkId + "' class='btn like-btn like-active' data-islike='1' onclick='main.like(this," + remark.remarkId + ")'>";
+                }else{
+                    row += "<a href='javascript:;' id='like-btn-" + remark.remarkId + "'class='btn like-btn' data-islike='1' onclick='main.like(this," + remark.remarkId + ")'>";
+                }
+
                 row += "<i class='far fa-thumbs-up like-icon remark-bottom-icon'></i>";
-                /*row += "<img src='/css/icon/smile.png' width='25px' height='25px'>";*/
 
                 row += "<span id='like-count-" + remark.remarkId + "' class='like-count remark-bottom-icon-text'>" + remark.likeCount + "</span></a></div>";
 
                 row += "<div class='like-icon-container remark-bottom-icon-containers'>";
-                row += "<a href='javascript:;' class='btn dislike-btn' data-islike='-1' onclick='main.like(this," + remark.remarkId + ")'>";
+
+                if(document.getElementById("user_id") && remark.isLike==-1) {
+                    row += "<a href='javascript:;' id='dislike-btn-" + remark.remarkId + "'class='btn dislike-btn like-active' data-islike='-1' onclick='main.like(this," + remark.remarkId + ")'>";
+                }else{
+                    row += "<a href='javascript:;' id='dislike-btn-" + remark.remarkId + "'class='btn dislike-btn' data-islike='-1' onclick='main.like(this," + remark.remarkId + ")'>";
+                }
                 row += "<i class='far fa-thumbs-down dislike-icon remark-bottom-icon'></i>";
-                /*row += "<img src='/css/icon/angry.png' width='25px' height='25px'>";*/
                 row += "<span id='dislike-count-" + remark.remarkId + "' class='dislike-count remark-bottom-icon-text'>" + remark.dislikeCount + "</span></a></div>";
 
 
@@ -423,11 +441,25 @@ var main = {
             return false;
         }
 
+        let otherBtn='';
+
+        if(e.classList.contains("like-btn")){
+            otherBtn = document.getElementById("dislike-btn-"+remarkId);
+        }else{
+            otherBtn = document.getElementById("like-btn-"+remarkId);
+        }
+
+
+        e.classList.toggle("like-active");
+        if(otherBtn.classList.contains("like-active")){
+            otherBtn.classList.toggle("like-active")
+        }
+
+
+
         if (document.getElementById("user_id")) {
 
-
             let isLike = parseInt(e.dataset.islike),
-                /*userId = document.getElementById("user_id").value,*/
                 likeCountDom = document.getElementById("like-count-" + remarkId),
                 dislikeCountDom = document.getElementById("dislike-count-" + remarkId);
 

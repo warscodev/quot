@@ -1,5 +1,6 @@
 package com.udpr.quot.config.auth;
 
+import com.udpr.quot.config.auth.handler.CustomLoginSuccessHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -31,10 +32,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/remark","/remark/**/","/","/remark/search", "/api/search/**","/oauth2/**","/profile","/login/**").permitAll() // 누구나 접근 허용
                     .anyRequest().authenticated() // 나머지 요청들은 권한의 종류에 상관 없이 권한이 있어야 접근 가능
 
+
+
                 .and()
                     .portMapper()
                     .http(8080).mapsTo(443)
-
 
 
 
