@@ -139,13 +139,13 @@
 
                 <div class="r-l-t-second-row-container d-flex">
 
-                    <div class="r-l-t-quote-icon-container r-l-t-first-col">
+                    <div class="r-l-t-quote-icon-container r-l-t-first-col col">
                         <div class="r-l-t-quote-icon-wrap">
                             <i class="r-l-t-quote-icon fas fa-quote-left" style="margin-right: 0"></i>
                         </div>
                     </div>
 
-                    <div class="r-l-t-content-container r-l-t-second-col col">
+                    <div class="r-l-t-content-container r-l-t-second-col">
                         <a th:href="@{/remark/{id}(id=${r.remarkId})}">
                             <pre class="r-l-t-content"
                                  th:utext="|${r.content} <i class='r-l-t-quote-icon fas fa-quote-right'></i>|"></pre>
