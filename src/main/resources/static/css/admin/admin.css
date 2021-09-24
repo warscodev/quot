@@ -490,6 +490,7 @@ box-shadow: none
 .r-l-t-first-col{
     display: table;
     width: 48px;
+    flex-basis: 48px;
 }
 
 .r-l-t-picture-link{
@@ -514,6 +515,7 @@ box-shadow: none
     }
     .r-l-t-first-col{
         width: 42px;
+        flex-basis: 42px;
     }
 }
 
@@ -524,6 +526,7 @@ box-shadow: none
     }
     .r-l-t-first-col{
         width: 35px;
+        flex-basis: 35px;
     }
 
     .r-l-t-second-col{
