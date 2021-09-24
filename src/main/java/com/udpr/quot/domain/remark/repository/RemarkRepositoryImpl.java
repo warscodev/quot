@@ -90,7 +90,6 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                 .from(remark)
                 .leftJoin(remark.person, person)
                 .leftJoin(remark.user, user)
-                .leftJoin(remark.remarkLikeList, remarkLike)
                 .where(remark.id.eq(remarkId))
                 .fetchOne();
 
