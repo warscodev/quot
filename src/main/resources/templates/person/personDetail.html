@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/header :: header">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+
+<body>
+
+<div th:replace="fragments/topHeader :: topHeader"/>
+<!--<div th:replace="fragments/subHeader :: subHeader"/>-->
+
+<div th:object="${info}">
+    <div class="p-d-header-container">
+        <div class="p-d-header container container-custom">
+            <div class="p-d-row-container d-flex align-items-to" th:object="${info.person}">
+                <div class="p-d-profile-icon-container d-flex justify-content-end">
+                    <div class="p-d-profile-icon-wrapper d-flex align-items-center justify-content-center">
+                        <i class="p-d-profile-icon fas fa-user-alt"></i>
+                    </div>
+                </div>
+                <div class="p-d-info-container">
+                    <div class="p-d-name">
+                        <span th:text="*{name}"></span>
+                    </div>
+                    <div class="p-d-job">
+                        <span th:if="*{not #strings.isEmpty(alias)}" th:text="|*{alias} ｜|"></span>
+                        <span th:text="*{job}"></span>
+                    </div>
+
+                    <div class="p-d-etc table-responsive">
+                        <table class="table table-borderless table-sm">
+                            <tbody>
+                            <tr th:if="*{not #strings.isEmpty(birth.birth_year)
+                                and not #strings.isEmpty(birth.birth_month)
+                                and not #strings.isEmpty(birth.birth_day)}">
+                                <th>출생</th>
+                                <td>
+                                    <span th:if="*{not #strings.isEmpty(birth.birth_year)}" th:text="|*{birth.birth_year}년 |"></span>
+                                    <span th:if="*{not #strings.isEmpty(birth.birth_month)}" th:text="|*{birth.birth_month}월 |"></span>
+                                    <span th:if="*{not #strings.isEmpty(birth.birth_day)}" th:text="|*{birth.birth_day}일 |"></span>
+                                </td>
+                            </tr>
+                            <tr th:if="*{not #strings.isEmpty(summary)}">
+                                <th>기타</th>
+                                <td><pre class="p-d-etc-summary" th:text="*{summary}"></pre></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="p-d-body-container container container-custom">
+        <div class="p-d-body">
+            <div class="p-d-r-row-container" th:each="r : *{remarkList}">
+                <div class="p-d-r-first-row-container d-flex">
+                    <div class="p-d-r-date-wrap">
+                        <span class="p-d-r-date" th:text="${r.remarkDate}"></span>
+                    </div>
+                    <span style="font-size: .938rem; margin:0 .25rem; display: flex; align-items: flex-end;">｜</span>
+                    <div class="p-d-r-icons-container d-flex">
+                        <div class="p-d-r-icons-like"><i class="far fa-thumbs-up"></i>&nbsp;<span th:text="${r.likeCount}"></span></div>
+                        <div class="p-d-r-icons-dislike"><i class="far fa-thumbs-down"></i>&nbsp;<span th:text="${r.dislikeCount}"></span></div>
+                    </div>
+                </div>
+
+                <div class="p-d-r-tags-wrap">
+                    <a class="p-d-r-tags" th:each="tag : ${r.remarkTagList}">
+                        <span th:text="|#${tag.name}|"></span>
+                    </a>
+                </div>
+
+                <div class="p-d-r-content-wrap d-flex">
+                    <span class="p-d-r-content-hyphen">-&nbsp</span>
+                    <a th:href="@{/remark/{id} (id=${r.remarkId})}">
+                        <pre class="p-d-r-content" th:text="${r.content}"></pre>
+                    </a>
+                </div>
+
+                <div class="p-d-r-footer-container d-flex align-items-center justify-content-end">
+                    <div class="p-d-r-footer-creator-container">
+                        <span>작성자 :&nbsp;</span>
+                        <img class="p-d-r-footer-creator-picture rounded-circle" width="20" height="20" th:src="${r.picture}">
+                        &nbsp;
+                        <span th:text="${r.nickname}"></span>
+                    </div>
+                    <div class="p-d-r-footer-cd-wrap">
+                        <span class="p-d-r-footer-cd" th:text="|등록일 : ${r.createdDate}|"></span>
+                    </div>
+                    <div class="">
+
+                    </div>
+                </div>
+
+                <hr th:class="|p-d-r-content-border-last-${rStat.last}|">
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+</body>
+<div th:replace="fragments/footer :: footer"/>
+</html>

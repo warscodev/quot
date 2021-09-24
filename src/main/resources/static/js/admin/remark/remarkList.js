@@ -1,10 +1,20 @@
-var main = {
+let main = {
     init: function () {
         let _this = this,
-            page = 0,
+            page = document.getElementById("search-pageNum").value,
             oldHstate = history.state,
-            hstate = history.state;
+            hstate = history.state,
+            url ='';
 
+        if (document.getElementById("search-keyword")) {
+            let keyword = document.getElementById("search-keyword").value;
+            let tab = document.getElementById("search-tab").value;
+            url = `/remark/search?keyword=${keyword}&tab=${tab}&page=${parseInt(page) + 1}`;
+        } else {
+            url = `/remark?page=${parseInt(page) + 1}`;
+        }
+
+        history.pushState({'page': page}, '', url)
 
         if (document.getElementById("search-pageNum")) {
             page = document.getElementById("search-pageNum").value;
@@ -25,9 +35,23 @@ var main = {
 
         /* 페이징 */
         $(document).on("click", ".page-item a", (function (e) {
-            let scrollPosition = $("#remark-scroll-position").offset();
+            /*let scrollPosition = $("#remark-scroll-position").offset();*/
             $('html, body').animate({scrollTop: (0)});
-            let num = $(this).attr("page");
+            let num = $(this).attr("page"),
+                url = '',
+                tab =1;
+
+            if (document.getElementById("search-keyword")) {
+                let keyword = document.getElementById("search-keyword").value;
+                let tab = document.getElementById("search-tab").value;
+                url = `/remark/search?keyword=${keyword}&tab=${tab}&page=${parseInt(num) + 1}`;
+            } else {
+                url = `/remark?page=${parseInt(num) + 1}`;
+            }
+
+            oldHstate = history.state;
+            history.pushState({'page': num}, '', url);
+            document.getElementById("search-pageNum").value = num;
             _this.loadRemark(num);
         }));
 
@@ -144,8 +168,6 @@ var main = {
                     $(".remark-page-count").append(_this.subPagination(data.pageMetadata));
                 }
 
-                main.oldHstate = history.state;
-                history.pushState({'page': page}, '', url);
 
                 /* 툴팁 활성화 */
                 const tooltips = document.querySelectorAll(".tt")
@@ -191,7 +213,10 @@ var main = {
 
                 <!-- 발언인 -->
                 row += "<div class='remark-detail-title-person-wrap d-flex align-items-baseline mb-1' style='flex-wrap : wrap;'>";
+/*
                 row += "<a class='remark-detail-title-person-name-link' href='/remark/search?keyword=" + remark.name + "&personId=" + remark.personId + "&tab=2'>";
+*/
+                row += "<a class='remark-detail-title-person-name-link' href='/person/" + remark.personId +"'>";
                 row += "<span class='remark-detail-title-person-name-list'>" + remark.name + "</span></a>";
                 row += "<span class='remark-detail-title-person-job-list'>" + remark.job + "</span>";
                 row += "<span class='' style='font-size: .813rem;'>｜</span>";
@@ -244,11 +269,6 @@ var main = {
                 row += "<div class='remark-content'><a href='/remark/" + remark.remarkId + "'>" +
                     "<pre style='margin-bottom: 0'><p>" + remark.content + "<i class='fas fa-quote-right remark-quote-icon'></i></p></pre></a></div>";
 
-                /* 등록일 */
-                /*row += "<div class='remark-created-date-wrap d-flex justify-content-end'>";
-                row += "<span class='remark-created-date'>" + remark.createdDate + " 등록됨</span>";
-                row += "</div>";*/
-
                 row += "</div>";
                 row += "</div>";
 
@@ -263,14 +283,14 @@ var main = {
                     row += "<a href='javascript:;' id='like-btn-" + remark.remarkId + "' class='btn like-btn like-active' data-islike='1' onclick='main.like(this," + remark.remarkId + ")'>";
                     row += "<i class='far fa-thumbs-up like-icon remark-bottom-icon fas'></i>";
                 }else{
-                    row += "<a href='javascript:;' id='like-btn-" + remark.remarkId + "'class='btn like-btn' data-islike='1' onclick='main.like(this," + remark.remarkId + ")'>";
+                    row += "<a href='javascript:;' id='like-btn-" + remark.remarkId + "' class='btn like-btn' data-islike='1' onclick='main.like(this," + remark.remarkId + ")'>";
                     row += "<i class='far fa-thumbs-up like-icon remark-bottom-icon'></i>";
                 }
 
 
                 row += "<span id='like-count-" + remark.remarkId + "' class='like-count remark-bottom-icon-text'>" + remark.likeCount + "</span></a></div>";
 
-                row += "<div class='like-icon-container remark-bottom-icon-containers'>";
+                row += "<div class='like-icon-container remark-bottom-icon-containers align-'>";
 
                 if(document.getElementById("user_id") && remark.isLike==-1) {
                     row += "<a href='javascript:;' id='dislike-btn-" + remark.remarkId + "'class='btn dislike-btn like-active' data-islike='-1' onclick='main.like(this," + remark.remarkId + ")'>";
@@ -439,25 +459,9 @@ var main = {
     like: function (e, remarkId) {
 
         let isRun = false;
-        if(isRun==true){
+        if(isRun==true) {
             return false;
         }
-
-        let otherBtn='';
-
-        if(e.classList.contains("like-btn")){
-            otherBtn = document.getElementById("dislike-btn-"+remarkId);
-        }else{
-            otherBtn = document.getElementById("like-btn-"+remarkId);
-        }
-
-        e.firstChild.classList.toggle("fas");
-        e.classList.toggle("like-active");
-        if(otherBtn.classList.contains("like-active")){
-            otherBtn.firstChild.classList.toggle("fas");
-            otherBtn.classList.toggle("like-active")
-        }
-
 
 
         if (document.getElementById("user_id")) {
@@ -476,13 +480,35 @@ var main = {
                 let likeInfo = result;
                 likeCountDom.innerText = likeInfo.likeCount;
                 dislikeCountDom.innerText = likeInfo.dislikeCount;
+                changeLikeIcon();
             }).fail(function (error) {
                 alert(JSON.stringify(error));
             });
         } else {
-            location.replace("/login");
+            location.href= "/login";
         }
+
+
+        function changeLikeIcon(){
+            let otherBtn='';
+            if(e.classList.contains("like-btn")){
+                otherBtn = document.getElementById("dislike-btn-"+remarkId);
+            }else{
+                otherBtn = document.getElementById("like-btn-"+remarkId);
+            }
+
+            e.firstChild.classList.toggle("fas");
+            e.classList.toggle("like-active");
+            if(otherBtn.classList.contains("like-active")){
+                otherBtn.firstChild.classList.toggle("fas");
+                otherBtn.classList.toggle("like-active")
+            }
+        }
+
+
     }
+
+
 
 
 }

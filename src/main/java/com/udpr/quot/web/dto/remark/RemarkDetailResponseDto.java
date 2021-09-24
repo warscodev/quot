@@ -1,6 +1,5 @@
 package com.udpr.quot.web.dto.remark;
 
-import com.udpr.quot.domain.common.Status;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

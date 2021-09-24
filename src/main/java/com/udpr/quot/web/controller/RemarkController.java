@@ -4,13 +4,17 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.udpr.quot.config.auth.LoginUser;
 import com.udpr.quot.config.auth.dto.SessionUser;
+import com.udpr.quot.domain.remark.search.RemarkSearchCondition;
 import com.udpr.quot.domain.tag.repository.TagRepository;
 import com.udpr.quot.service.remark.RemarkService;
-import com.udpr.quot.web.dto.remark.RemarkRequestDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -35,9 +39,12 @@ public class RemarkController {
     //코멘트 디테일 폼
     @GetMapping("/remark/{remarkId}")
     public String detail(@PathVariable("remarkId") Long remarkId, Model model, @LoginUser SessionUser user) {
-        model.addAttribute("remark", remarkService.findById(remarkId));
+
         if(user != null){
             model.addAttribute("user", user);
+            model.addAttribute("remark", remarkService.getDetail(remarkId, user.getId()));
+        }else{
+            model.addAttribute("remark", remarkService.getDetail(remarkId));
         }
 
         return "remark/remarkDetail";
@@ -46,8 +53,6 @@ public class RemarkController {
     //코멘트 등록 폼
     @GetMapping("/remark/new")
     public String saveForm(Model model, @LoginUser SessionUser user) throws JsonProcessingException {
-        /*RemarkRequestDto remarkRequestDto = new RemarkRequestDto();
-        model.addAttribute("form", remarkRequestDto);*/
         List<String> tags = tagRepository.findTagName().stream().collect(Collectors.toList());
         model.addAttribute("whitelist", objectMapper.writeValueAsString(tags));
         System.out.println("user : " + user.getId());
@@ -78,17 +83,23 @@ public class RemarkController {
 
     //코멘트 리스트
     @GetMapping("/remark")
-    public String remarkListPage(@RequestParam(required = false) Long page, Model model, @LoginUser SessionUser user) {
+    public String remarkListPage(@ModelAttribute("cond") RemarkSearchCondition condition,
+                                 Model model, @LoginUser SessionUser user) {
+
+        if(condition.getKeyword() != null){
+            model.addAttribute("keyword",condition.getKeyword());
+        }
+
+        if(condition.getTab() > 1){
+            model.addAttribute("tab", condition.getTab());
+        }
 
         if(user != null){
             model.addAttribute("user", user);
+            condition.setSid(user.getId());
         }
 
-        if(page == null){
-            model.addAttribute("page", 0L);
-        }else{
-            model.addAttribute("page",page-1);
-        }
+        model.addAttribute("dto",remarkService.searchRemark(condition));
         return "remark/remarkList";
     }
 

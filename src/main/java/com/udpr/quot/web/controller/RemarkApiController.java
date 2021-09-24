@@ -3,7 +3,6 @@ package com.udpr.quot.web.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.udpr.quot.config.auth.LoginUser;
 import com.udpr.quot.config.auth.dto.SessionUser;
-import com.udpr.quot.domain.user.User;
 import com.udpr.quot.service.remark.RemarkService;
 import com.udpr.quot.web.dto.remark.LikeInfo;
 import com.udpr.quot.web.dto.remark.RemarkRequestDto;

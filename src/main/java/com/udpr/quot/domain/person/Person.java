@@ -15,7 +15,6 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-//@SQLDelete(sql = "UPDATE person SET status = 'DELETED' WHERE person_id = ?")
 @Entity
 public class Person extends BaseTimeEntity {
 
@@ -56,7 +55,7 @@ public class Person extends BaseTimeEntity {
         this.birth = birth;
         this.job = job;
         this.gender = gender;
-        this.summary = summary;
+        this.summary = summary.trim();
         this.status = Status.CREATED;
         this.category = category;
     }
@@ -67,7 +66,7 @@ public class Person extends BaseTimeEntity {
         this.birth = birth;
         this.job = job;
         this.gender = gender;
-        this.summary = summary;
+        this.summary = summary.trim();
         this.status = Status.UPDATED;
         this.category = category;
     }

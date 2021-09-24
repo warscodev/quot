@@ -2,12 +2,10 @@ package com.udpr.quot.web.dto.remark;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.querydsl.core.annotations.QueryProjection;
-import com.udpr.quot.domain.person.Person;
+import com.udpr.quot.domain.common.Status;
 import com.udpr.quot.domain.remark.Remark;
 import com.udpr.quot.domain.remark.RemarkTag;
-import com.udpr.quot.domain.common.Status;
 import com.udpr.quot.domain.tag.Tag;
-import com.udpr.quot.domain.user.User;
 import com.udpr.quot.web.dto.person.PersonResponseDto;
 import com.udpr.quot.web.dto.tag.TagDto;
 import com.udpr.quot.web.dto.user.UserResponseDto;

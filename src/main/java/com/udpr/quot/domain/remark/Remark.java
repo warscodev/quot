@@ -3,9 +3,8 @@ package com.udpr.quot.domain.remark;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.udpr.quot.domain.common.BaseTimeEntity;
-import com.udpr.quot.domain.person.Person;
 import com.udpr.quot.domain.common.Status;
-import com.udpr.quot.domain.tag.Tag;
+import com.udpr.quot.domain.person.Person;
 import com.udpr.quot.domain.user.User;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -49,6 +48,9 @@ public class Remark extends BaseTimeEntity {
     @JsonManagedReference(value = "remark")
     @OneToMany(mappedBy = "remark", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RemarkTag> remarkTagList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "remark", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<RemarkLike> remarkLikeList = new ArrayList<>();
 
     @ColumnDefault("0")
     private int likeCount;

@@ -4,6 +4,7 @@ package com.udpr.quot.web.controller;
 import com.udpr.quot.config.auth.LoginUser;
 import com.udpr.quot.config.auth.dto.SessionUser;
 import com.udpr.quot.domain.person.PersonSearchCondition;
+import com.udpr.quot.domain.person.search.RemarkForPersonDetailSearchCondition;
 import com.udpr.quot.service.person.PersonService;
 import com.udpr.quot.web.dto.person.PersonListResponseDto;
 import com.udpr.quot.web.dto.person.PersonRequestDto;
@@ -102,6 +103,21 @@ public class PersonController {
     public String delete(@PathVariable Long id , @LoginUser SessionUser user){
         personService.delete(id);
         return "redirect:/admin/person";
+    }
+
+    //인물 디테일 폼
+    @GetMapping("/person/{id}")
+    public String detail(@PathVariable Long id, Model model, @LoginUser SessionUser user, @ModelAttribute RemarkForPersonDetailSearchCondition condition){
+
+        if(user != null){
+            model.addAttribute("user", user);
+        }
+
+
+        model.addAttribute("cond", condition);
+        model.addAttribute("info",personService.getDetail(condition,id));
+
+        return "person/personDetail";
     }
 
 

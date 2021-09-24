@@ -11,9 +11,11 @@ import com.udpr.quot.domain.user.User;
 import com.udpr.quot.domain.user.repository.UserRepository;
 import com.udpr.quot.web.dto.remark.*;
 import com.udpr.quot.web.dto.remark.query.RemarkQueryDto;
+import com.udpr.quot.web.dto.search.SearchPersonResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -93,7 +95,9 @@ public class RemarkService {
 
 
     //코멘트 목록
-    public RemarkListResponseDto searchRemark(RemarkSearchCondition condition, Pageable pageable) {
+    public RemarkListResponseDto searchRemark(RemarkSearchCondition condition) {
+
+        Pageable pageable = PageRequest.of(condition.getPage()-1,10);
 
         String keyword = condition.getKeyword();
         int tab = condition.getTab();
@@ -102,11 +106,14 @@ public class RemarkService {
 
 
         Page<RemarkQueryDto> remarks = new PageImpl<>(content, pageable, total_);
-
+        List<SearchPersonResponseDto> personList = new ArrayList<>();
 
         if (keyword == null || keyword.isBlank()) {
             remarks = remarkRepository.searchAll(condition, pageable);
         } else {
+
+            personList = personRepository.findByPersonName(condition.getKeyword());
+
             switch (tab) {
                 case 1:
                     remarks = remarkRepository.searchByContentOrPersonName(condition, pageable);
@@ -124,9 +131,21 @@ public class RemarkService {
 
         PageMetadata pageMetadata = new PageMetadata(remarks);
 
-        return new RemarkListResponseDto(dtoList, pageMetadata);
+        if(personList.size() !=0){
+            return new RemarkListResponseDto(personList, dtoList, pageMetadata);
+        }else{
+            return new RemarkListResponseDto(dtoList, pageMetadata);
+
+        }
     }
 
+    public RemarkQueryDto getDetail(Long remarkId, Long SessionId) {
+        return remarkRepository.getDetail(remarkId, SessionId);
+    }
+
+    public RemarkQueryDto getDetail(Long remarkId) {
+        return remarkRepository.getDetail(remarkId);
+    }
 
     public RemarkResponseDto findById(Long id) {
 

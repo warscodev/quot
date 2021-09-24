@@ -3,10 +3,9 @@ package com.udpr.quot.service.person;
 import com.udpr.quot.domain.person.Person;
 import com.udpr.quot.domain.person.PersonSearchCondition;
 import com.udpr.quot.domain.person.repository.PersonRepository;
-import com.udpr.quot.web.dto.person.PersonAutoCompleteDto;
-import com.udpr.quot.web.dto.person.PersonListResponseDto;
-import com.udpr.quot.web.dto.person.PersonResponseDto;
-import com.udpr.quot.web.dto.person.PersonRequestDto;
+import com.udpr.quot.domain.person.search.RemarkForPersonDetailSearchCondition;
+import com.udpr.quot.web.dto.person.*;
+import com.udpr.quot.web.dto.remark.RemarkForPersonDetailQueryDto;
 import com.udpr.quot.web.dto.search.SearchPersonResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -79,6 +78,16 @@ public class PersonService {
 
     public List<PersonAutoCompleteDto> personAutoComplete(String keyword) {
         return personRepository.personAutoComplete(keyword);
+    }
+
+    public PersonDetailDto getDetail(RemarkForPersonDetailSearchCondition condition, Long id){
+
+        PersonQueryDto getDetail = personRepository.getDetail(id);
+        List<RemarkForPersonDetailQueryDto> remarkList = personRepository.getRemarkListForPersonDetail(condition, id);
+
+        PersonDetailDto result = new PersonDetailDto(getDetail, remarkList);
+
+        return result;
     }
 }
 

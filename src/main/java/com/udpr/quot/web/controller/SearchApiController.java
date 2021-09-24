@@ -20,10 +20,10 @@ public class SearchApiController {
     private final RemarkService remarkService;
     private final PersonService personService;
 
-    @GetMapping("/api/search/remark")
+    /*@GetMapping("/api/search/remark")
     public RemarkListResponseDto getRemarkList(Pageable pageable, RemarkSearchCondition condition) {
         return remarkService.searchRemark(condition, pageable);
-    }
+    }*/
 
     @GetMapping("/api/search/personList")
     public List<SearchPersonResponseDto> getPersonList(String keyword){
