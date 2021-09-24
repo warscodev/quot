@@ -100,15 +100,15 @@
     margin-right: .3rem;
     padding: .3rem .6rem;
     line-height: 1;
-    color: #fff;
-    background-color: #faa99d;
+    color: #8193a8;
+    background-color: #f4f7fa;
     border-radius: 25px;
     width: auto;
     transition: background-color .15s ease-in-out;
 }
 
 .p-d-r-tags:hover{
-    background-color: #ff8772;
+    background-color: #0067b8;
 }
 
 .p-d-r-tags:hover > span{
@@ -127,7 +127,7 @@
 }
 
 .p-d-r-icons-like > i {
-    color: #76b3ee;
+    color: #338ebf;
 }
 .p-d-r-icons-dislike > i {
     color: #fc7b7b;
