@@ -712,6 +712,14 @@ box-shadow: none
     color: #96a0a5;
 }
 
+@media (max-width: 767px) {
+    .r-l-t-last-row-btn-icon{
+        font-size: 1rem;
+    }
+}
+
+
+
 .r-l-t-last-row-btn-text{
     margin-left: .5rem;
     color: #808080;
