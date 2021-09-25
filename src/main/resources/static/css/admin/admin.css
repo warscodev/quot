@@ -23,6 +23,8 @@ body {
     font-family: Pretendard ,Noto Sans KR, Apple SD Gothic Neo, Malgun Gothic, 맑은 고딕, sans-serif;
     font-style: normal;
     background-color: #f7fafc;
+
+    overflow: scroll;
 }
 
 .fieldError {
@@ -666,7 +668,7 @@ box-shadow: none
     padding: 0;
     margin: 0;
     font-family: Pretendard;
-    font-weight: 300;
+    font-weight: 400;
     font-size: 1rem;
     overflow: auto;
     white-space: pre-wrap;
@@ -750,7 +752,7 @@ box-shadow: none
 .like-active > .like-count {
     /*color: #6ab5ff !important;*/
     /*color: #76b3ee !important;*/
-    color: #5db9eb !important;
+    color: #338ebf !important;
 }
 
 .like-active > .dislike-icon,
@@ -837,12 +839,8 @@ box-shadow: none
         margin-left: 0rem;
     }
 
-    .r-l-t-last-row-btn-icon{
-        font-size: 1.2rem;
-    }
-
     .r-l-t-last-row-like-count, .r-l-t-last-row-dislike-count{
-        width: 22px;
+        width: 20px;
     }
 }
 

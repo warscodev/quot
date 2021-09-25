@@ -1,17 +1,13 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head th:replace="fragments/header :: header">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-</head>
-
 <body>
-
 <div th:replace="fragments/topHeader :: topHeader"/>
-<!--<div th:replace="fragments/subHeader :: subHeader"/>-->
 
 <div th:object="${info}">
-    <div class="p-d-header-container">
+    <div class="p-d-header-container" >
         <div class="p-d-header container container-custom">
             <div class="p-d-row-container d-flex align-items-to" th:object="${info.person}">
                 <div class="p-d-profile-icon-container d-flex justify-content-end">
@@ -78,9 +74,9 @@
                 </div>
 
                 <div class="p-d-r-content-wrap d-flex">
-                    <span class="p-d-r-content-hyphen">-&nbsp</span>
+                    <span class="p-d-r-content-quotation">&ldquo;&nbsp;</span>
                     <a th:href="@{/remark/{id} (id=${r.remarkId})}">
-                        <pre class="p-d-r-content" th:text="${r.content}"></pre>
+                        <pre class="p-d-r-content" th:utext="|${r.content} <span class='p-d-r-content-quotation'>&rdquo;</span>|"></pre>
                     </a>
                 </div>
 
@@ -108,6 +104,7 @@
     </div>
 
 </div>
-</body>
+
 <div th:replace="fragments/footer :: footer"/>
+</body>
 </html>

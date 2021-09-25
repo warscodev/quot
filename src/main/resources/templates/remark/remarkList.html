@@ -7,8 +7,7 @@
 </head>
 <body>
 <div th:replace="fragments/topHeader :: topHeader"/>
-<!--<div th:replace="fragments/subHeader :: subHeader"/>-->
-
+<div>
 <div class="r-l-page-container container container-custom" th:object="${dto}">
 
     <div th:if="*{personList}" class="r-l-navigator-container r-l-related-person-container d-flex">
@@ -360,8 +359,9 @@
     </div>
 
     <div th:replace="fragments/shareModal :: shareModal"/>
-    <div th:replace="fragments/footer :: footer"/>
 
 </div>
+</div>
+<div th:replace="fragments/footer :: footer"/>
 </body>
 </html>
