@@ -108,11 +108,11 @@
 }
 
 .p-d-r-tags:hover{
-    background-color: #0067b8;
+    /*background-color: #0067b8;*/
 }
 
 .p-d-r-tags:hover > span{
-    color: #fff;
+    color: #0067b8 !important;
 }
 
 .p-d-r-icons-container{
