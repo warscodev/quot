@@ -102,7 +102,7 @@
                         <div class="r-l-t-person-and-date-container d-flex align-items-baseline mb-1">
                             <!-- 이름 -->
                             <a class="r-l-t-person-name-link"
-                               th:href="@{/remark(keyword=${r.name},personId=${r.personId})}">
+                               th:href="@{/person/{personId}(personId=${r.personId})}">
                                 <span class="r-l-t-person-name" th:text="${r.name}"></span>
                             </a>
                             <!-- 다른이름, 직업 -->

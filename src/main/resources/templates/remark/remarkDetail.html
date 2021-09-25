@@ -28,7 +28,7 @@
                                 <!-- 이름 -->
                                 <div>
                                 <a class="r-d-t-person-name-link"
-                                   th:href="@{/remark(keyword=*{name},personId=*{personId})}">
+                                   th:href="@{/person/{personId}(personId=*{personId})}">
                                     <span class="r-l-t-person-name r-d-t-person-name" th:text="*{name}"></span>
                                 </a>
                                 </div>
