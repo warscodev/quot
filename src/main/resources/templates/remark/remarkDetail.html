@@ -35,8 +35,6 @@
                                 <!-- 다른이름, 직업, 날짜 -->
                                 <div class="d-flex align-items-center" style="flex-wrap: wrap;">
                                 <div class="r-d-t-person-alias-and-job-container">
-                                    <span class="r-d-t-person-alias " th:if="*{not #strings.isEmpty(alias)}"
-                                      th:text="|*{alias},|"></span>
                                     <span class="r-d-t-person-job" th:text="*{job}"></span>
                                 </div>
                                     <div class="r-d-t-date-container" style="margin: 0 .25rem;">
