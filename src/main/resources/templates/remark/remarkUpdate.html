@@ -4,7 +4,6 @@
 
 <body>
 <div th:replace="fragments/topHeader :: topHeader"/>
-<!--<div th:replace="fragments/subHeader :: subHeader"/>-->
 
 
 <div class="container container-custom col-md">
@@ -21,7 +20,7 @@
         <!-- 발언 내용 -->
         <div class="col-12">
             <label for="content" class="form-label">발언 내용</label>
-            <textarea th:text="${form.content}" name="content" id="content" class="form-control" rows="10x"></textarea>
+            <textarea th:text="${form.content}" name="content" id="content" class="form-control" rows="10" maxlength="400"></textarea>
         </div>
 
         <!-- 발언 날짜 -->
