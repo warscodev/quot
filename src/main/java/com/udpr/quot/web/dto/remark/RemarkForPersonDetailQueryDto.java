@@ -47,11 +47,11 @@ public class RemarkForPersonDetailQueryDto {
     }
 
     public String createdAndUpdatedDateFormat(LocalDateTime localDateTime){
-        return localDateTime.format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
+        return localDateTime.format(DateTimeFormatter.ofPattern("yyyy.MM.dd. HH:mm"));
     }
 
     public String remarkDateFormat(LocalDate localDate){
-        return localDate.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"));
+        return localDate.format(DateTimeFormatter.ofPattern("yyyy. MM. dd"));
     }
 
 
