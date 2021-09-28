@@ -55,7 +55,6 @@ public class RemarkController {
     public String saveForm(Model model, @LoginUser SessionUser user) throws JsonProcessingException {
         List<String> tags = tagRepository.findTagName().stream().collect(Collectors.toList());
         model.addAttribute("whitelist", objectMapper.writeValueAsString(tags));
-        System.out.println("user : " + user.getId());
 
         if(user != null){
             model.addAttribute("user", user);

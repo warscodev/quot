@@ -55,13 +55,6 @@ public class OAuthAttributes {
 
         Map<String, Object> response = (Map<String, Object>) attributes.get("response");
 
-        if(response.get("nickname")==null){
-            System.out.println("@@@@@@@@@@@@null입니다");
-        }else{
-            System.out.println("null아님!!!!!!!!!!!!!");
-        }
-
-
         return OAuthAttributes.builder()
                     .name((String) response.get("nickname"))
                     .email((String) response.get("email"))
@@ -69,7 +62,6 @@ public class OAuthAttributes {
                     .attributes(response)
                     .nameAttributeKey(userNameAttributeName)
                     .build();
-
     }
 
     public User toEntity() {

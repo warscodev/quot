@@ -1,47 +1,49 @@
 function like(e, remarkId, isLike) {
 
     let isRun = false;
-    if(isRun==true) {
+    if (isRun == true) {
         return false;
     }
 
-    if (document.getElementById("user_id")) {
+    let likeCountDom = document.getElementById("like-count-" + remarkId),
+        dislikeCountDom = document.getElementById("dislike-count-" + remarkId);
 
 
-        let likeCountDom = document.getElementById("like-count-" + remarkId),
-            dislikeCountDom = document.getElementById("dislike-count-" + remarkId);
-
-        $.ajax({
-            type: 'PUT',
-            url: `/api/remark/${remarkId}/like/${isLike}`,
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8'
-        }).done(function (result) {
-            isRun =true;
-            let likeInfo = result;
-            likeCountDom.innerText = likeInfo.likeCount;
-            dislikeCountDom.innerText = likeInfo.dislikeCount;
-            changeLikeIcon();
-        }).fail(function (error) {
-            alert(JSON.stringify(error));
-        });
-    } else {
-        location.href= "/login";
-    }
-
-
-    function changeLikeIcon(){
-        let otherBtn='';
-
-        if(e.classList.contains("like-btn")){
-            otherBtn = document.getElementById("dislike-btn-"+remarkId);
+    $.ajax({
+        type: 'PUT',
+        url: `/api/remark/${remarkId}/like/${isLike}`,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        beforeSend: function (xhr){
+            xhr.setRequestHeader("XMLHttpRequest" ,"true");
+        }
+    }).done(function (result) {
+        isRun = true;
+        let likeInfo = result;
+        likeCountDom.innerText = likeInfo.likeCount;
+        dislikeCountDom.innerText = likeInfo.dislikeCount;
+        changeLikeIcon();
+    }).fail(function (error) {
+        if(error.status == 403){
+            location.href = "/oauth_login";
         }else{
-            otherBtn = document.getElementById("like-btn-"+remarkId);
+            alert(JSON.stringify(error));
+        }
+    });
+
+
+    function changeLikeIcon() {
+        let otherBtn = '';
+
+        if (e.classList.contains("like-btn")) {
+            otherBtn = document.getElementById("dislike-btn-" + remarkId);
+        } else {
+            otherBtn = document.getElementById("like-btn-" + remarkId);
         }
 
         getFirstChild(e).classList.toggle("fas");
         e.classList.toggle("like-active");
-        if(otherBtn.classList.contains("like-active")){
+        if (otherBtn.classList.contains("like-active")) {
             getFirstChild(otherBtn).classList.toggle("fas");
             otherBtn.classList.toggle("like-active")
         }

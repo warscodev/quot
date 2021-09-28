@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import javax.naming.AuthenticationException;
 import java.util.Objects;
 
 @RequiredArgsConstructor
@@ -59,17 +60,11 @@ public class RemarkApiController {
     //좋아요
     @PutMapping("/api/remark/{remarkId}/like/{isLike}")
     public LikeInfo like(@PathVariable("remarkId") Long remarkId,
-                         @PathVariable("isLike") int isLike, @LoginUser SessionUser user)throws Exception{
+                         @PathVariable("isLike") int isLike, @LoginUser SessionUser user) throws AuthenticationException {
         if(user != null){
             return remarkService.remarkLike(remarkId, user.getId(), isLike);
-        }else throw new Exception();
-
+        }else
+            throw new AuthenticationException();
     }
 
-    //로그인 체크
-    @GetMapping("/api/remark/loginCheck")
-    public String loginCheck(){
-        System.out.println("loginCheck");
-        return "OK";
-    }
 }
