@@ -68,15 +68,14 @@
                 </div>
 
                 <div class="p-d-r-tags-wrap">
-                    <a class="p-d-r-tags" th:each="tag : ${r.remarkTagList}">
-                        <span th:text="|#${tag.name}|"></span>
+                    <a th:each="tag : ${r.remarkTagList}" th:href="@{/remark(keyword=${tag.name}, tab=3)}" th:text="|#${tag.name}|" class="p-d-r-tags">
                     </a>
                 </div>
 
                 <div class="p-d-r-content-wrap d-flex">
                     <span class="p-d-r-content-quotation">&ldquo;&nbsp;</span>
                     <a th:href="@{/remark/{id} (id=${r.remarkId})}">
-                        <pre class="p-d-r-content" th:utext="|${r.content} <span class='p-d-r-content-quotation'>&rdquo;</span>|"></pre>
+                        <p class="p-d-r-content" th:utext="|${r.content} <span class='p-d-r-content-quotation'>&rdquo;</span>|"></p>
                     </a>
                 </div>
 

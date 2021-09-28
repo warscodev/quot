@@ -49,6 +49,11 @@
     color: #808080;
 }
 
+
+.p-d-etc {
+    margin-top: .25rem;
+}
+
 .p-d-etc > table{
     font-size: .875rem !important;
     margin: 0;
@@ -61,6 +66,7 @@
     color: #a4a4a4;
     padding-right: .5rem;
     padding-left: 0;
+    white-space: pre;
 }
 
 .p-d-etc > table > tr >th:after {
@@ -72,6 +78,9 @@
 .p-d-etc-summary{
     font-family: Pretendard , Noto Sans KR, Apple SD Gothic Neo, Malgun Gothic, 맑은 고딕, sans-serif;
     font-size: .875rem;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+    white-space: -o-pre-wrap; /* Opera 7 */
 }
 /* 인물 정보 끝 */
 
@@ -89,8 +98,13 @@
 }
 
 .p-d-r-date{
-    /*font-size: .938rem;*/
-    font-weight: 500;
+    ont-size: .938rem;
+    font-weight: 600;
+    color: #69696c;
+}
+
+.p-d-r-tags-wrap{
+    /*margin-top: .25rem;*/
 }
 
 .p-d-r-tags {
@@ -100,18 +114,14 @@
     margin-right: .3rem;
     padding: .3rem .6rem;
     line-height: 1;
-    color: #8193a8;
+    color: #8193a8 !important;
     background-color: #f4f7fa;
     border-radius: 25px;
     width: auto;
-    transition: background-color .15s ease-in-out;
+    transition: color .3s ease-in-out;
 }
 
 .p-d-r-tags:hover{
-    /*background-color: #0067b8;*/
-}
-
-.p-d-r-tags:hover > span{
     color: #0067b8 !important;
 }
 
@@ -138,10 +148,6 @@
     align-items: center;
 }
 
-.p-d-r-content-wrap{
-    margin-top: .5rem;
-}
-
 .p-d-r-content-quotation{
     font-family: Noto Sans KR;
     font-weight: 700;
@@ -162,9 +168,8 @@
     font-family: Pretendard;
     font-weight: 400;
     font-size: 1rem;
-    overflow: auto;
-    white-space: pre-wrap;
-    word-break: break-all;
+    /*overflow: auto;*/
+    /*word-break: break-all;*/
 }
 
 .p-d-r-footer-container{

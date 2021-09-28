@@ -332,11 +332,12 @@ a:hover {
     border: 1px solid #eaf0f4;
     box-shadow: .25rem .25rem .25rem rgba(190, 190, 190, 0.2);
     margin: .5rem .5rem .5rem .5rem;
-    transition: background-color .15s ease-in-out, border-color .3s ease-in-out;
+    transition: background-color .15s ease-in-out, border-color .3s ease-in-out, box-shadow .3s ease-in-out;
 }
 
 .r-l-related-person-container > div:hover{
     border-color: #bebebe;
+    box-shadow: 2px 5px 10px 0px rgba(190, 190, 190, 0.3);
 }
 
 
@@ -371,20 +372,21 @@ a:hover {
 .r-l-related-person-nav{
     border-radius: 0.5rem;
     display: inline-block;
-    padding: .5rem 1rem;
+    padding: .4rem .8rem;
 }
 
 .r-l-related-person-nav-first-row{
-    font-size: .813rem;
+    font-size: .75rem;
     color: #6c757d;
 }
 
 .r-l-related-person-nav-name{
+    font-size: .875rem;
     font-weight: 500;
 }
 
 .r-l-related-person-nav-job{
-    font-size: .813rem;
+    font-size: .75rem;
     color: #6c757d;
 }
 
@@ -624,23 +626,20 @@ box-shadow: none
     margin-right: .3rem;
     padding: .3rem .6rem;
     line-height: 1;
-    color: #8193a8;
+    color: #8193a8 !important;
     background-color: #f4f7fa;
     /*background-color: #faa99d;*/
     /*background-color: #75d1b8;*/
     border-radius: 25px;
     width: auto;
-    transition: background-color .3s ease-in-out, color .3s ease-in-out;
+    transition: color .3s ease-in-out;
 }
+
 
 .r-l-t-tags:hover{
     color: #0067b8 !important;
-    /*background-color: #6395cd;*/
-    /*background-color: #10c090;*/
 }
 
-.r-l-t-tags:hover > span{
-}
 
 
 .r-l-t-second-row-container{
@@ -671,7 +670,7 @@ box-shadow: none
     font-weight: 400;
     font-size: 1rem;
     overflow: auto;
-    white-space: pre-wrap;
+    /*white-space: pre-wrap;*/
     word-break: break-all;
 }
 

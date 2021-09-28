@@ -56,6 +56,8 @@
 
             <div class="r-l-sorting-container d-flex align-items-center">
                 <form th:action="@{/remark}" method="get" th:object="${cond}">
+                    <input th:if="${keyword}" type="hidden" th:value="${keyword}" name="keyword">
+                    <input th:if="${tab}" type="hidden" th:value="${tab}" name="tab">
                     <select th:field="*{sort}" onchange="this.form.submit()"
                             class="r-l-sorting form-select form-select-sm">
                         <option value="cd_d">등록순</option>
@@ -115,8 +117,7 @@
                         <div class="r-l-t-tag-container d-flex align-items-top">
                             <div class="r-l-t-tags-wrap">
                                 <a class="r-l-t-tags" th:each="tag : ${r.remarkTagList}"
-                                   th:href="@{/remark(keyword=${tag.name}, tab=3)}">
-                                    <span th:text="|#${tag.name}|"></span>
+                                   th:href="@{/remark(keyword=${tag.name}, tab=3)}" th:text="|#${tag.name}|">
                                 </a>
                             </div>
                         </div>
@@ -144,8 +145,8 @@
 
                     <div class="r-l-t-content-container r-l-t-second-col">
                         <a th:href="@{/remark/{id}(id=${r.remarkId})}">
-                            <pre class="r-l-t-content"
-                                 th:utext="|${r.content} <i class='r-l-t-quote-icon fas fa-quote-right'></i>|"></pre>
+                            <p class="r-l-t-content"
+                                 th:utext="|${r.content} <i class='r-l-t-quote-icon fas fa-quote-right'></i>|"></p>
                         </a>
                     </div>
 
