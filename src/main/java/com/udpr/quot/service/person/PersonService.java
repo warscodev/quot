@@ -76,8 +76,12 @@ public class PersonService {
     }
 
 
-    public List<PersonAutoCompleteDto> personAutoComplete(String keyword) {
-        return personRepository.personAutoComplete(keyword);
+    public List<PersonAutoCompleteDto> personAutoComplete(String term) {
+        return personRepository.personAutoComplete(term);
+    }
+
+    public List<PersonAutoCompleteDto> personAutoCompleteForMainSearch(String term) {
+        return personRepository.personAutoCompleteForMainSearch(term);
     }
 
     public PersonDetailDto getDetail(RemarkForPersonDetailSearchCondition condition, Long id){

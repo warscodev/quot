@@ -144,9 +144,9 @@
                     </div>
 
                     <div class="r-l-t-content-container r-l-t-second-col">
-                        <a th:href="@{/remark/{id}(id=${r.remarkId})}">
+                        <a class="d-flex align-items-center" th:href="@{/remark/{id}(id=${r.remarkId})}">
                             <p class="r-l-t-content"
-                                 th:utext="|${r.content} <i class='r-l-t-quote-icon fas fa-quote-right'></i>|"></p>
+                                 th:text="${r.content}"></p>
                         </a>
                     </div>
 

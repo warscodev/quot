@@ -30,12 +30,15 @@ public class SearchApiController {
         return personService.searchPerson(keyword);
     }
 
-
     @GetMapping("/api/autoComplete")
     public List<PersonAutoCompleteDto> getPersonListForAutoComplete(String term){
         return personService.personAutoComplete(term);
     }
 
+    @GetMapping("/api/autoCompleteForMainSearch")
+    public List<PersonAutoCompleteDto> getPersonListForAutoCompleteForMainSearch(String term){
+        return personService.personAutoCompleteForMainSearch(term);
+    }
 
 
 

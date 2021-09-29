@@ -18,6 +18,8 @@ public interface PersonRepositoryCustom{
 
     List<PersonAutoCompleteDto> personAutoComplete(String keyword);
 
+    List<PersonAutoCompleteDto> personAutoCompleteForMainSearch(String keyword);
+
     List<RemarkForPersonDetailQueryDto> getRemarkListForPersonDetail(RemarkForPersonDetailSearchCondition condition, Long id);
 
     PersonQueryDto getDetail(Long id);

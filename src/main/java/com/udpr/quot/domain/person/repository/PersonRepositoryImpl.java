@@ -2,6 +2,7 @@ package com.udpr.quot.domain.person.repository;
 
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.udpr.quot.domain.person.PersonSearchCondition;
 import com.udpr.quot.domain.common.Status;
@@ -67,9 +68,17 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
                         person.category
                 ))
                 .from(person)
-                .where(person.name.likeIgnoreCase("%" + keyword + "%")
-                .or(person.alias.likeIgnoreCase("%" + keyword + "%")))
-                .orderBy(person.name.asc())
+                .where(person.name.equalsIgnoreCase(keyword)
+                        .or(person.name.likeIgnoreCase("%" + keyword + "%"))
+                        .or(person.alias.likeIgnoreCase("%" + keyword + "%")))
+                .orderBy(new CaseBuilder()
+                        .when(person.name.equalsIgnoreCase(keyword))
+                        .then(1)
+                        .when(person.name.likeIgnoreCase("%" + keyword + "%")
+                                .or(person.alias.likeIgnoreCase("%" + keyword + "%")))
+                        .then(2)
+                        .otherwise(3).asc())
+                /*.orderBy(person.name.asc())*/
                 .fetch();
     }
 
@@ -84,8 +93,48 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
                 .from(person)
                 .where(person.name.likeIgnoreCase("%" + keyword + "%")
                 .or(person.alias.likeIgnoreCase("%" + keyword + "%")))
+                .orderBy(new CaseBuilder()
+                        .when(person.name.equalsIgnoreCase(keyword))
+                        .then(1)
+                        .when(person.name.likeIgnoreCase("%" + keyword + "%")
+                                .or(person.alias.likeIgnoreCase("%" + keyword + "%")))
+                        .then(2)
+                        .otherwise(3).asc())
                 .fetch();
     }
+
+    @Override
+    public List<PersonAutoCompleteDto> personAutoCompleteForMainSearch(String keyword){
+
+        int limit;
+
+        if(keyword.length()>1){
+            limit=15;
+        }else{
+            limit=10;
+        }
+
+        return queryFactory
+                .select(new QPersonAutoCompleteDto(
+                        person.id,
+                        person.name,
+                        person.job
+                ))
+                .from(person)
+                .where(person.name.likeIgnoreCase(keyword + "%")
+                        .or(person.alias.likeIgnoreCase("%" + keyword + "%")))
+                .orderBy(new CaseBuilder()
+                        .when(person.name.equalsIgnoreCase(keyword))
+                        .then(1)
+                        .when(person.name.likeIgnoreCase("%" + keyword + "%")
+                                .or(person.alias.likeIgnoreCase(keyword + "%")))
+                        .then(2)
+                        .otherwise(3).asc())
+                .limit(limit)
+                .fetch();
+    }
+
+
 
     @Override
     public PersonQueryDto getDetail(Long id){

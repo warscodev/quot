@@ -14,7 +14,9 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,13 +24,13 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RemarkRequestDto {
+public class RemarkRequestDto implements Serializable{
 
     @NotBlank(message = "발언내용을 입력해주세요.")
     private String content;
     @NotBlank(message = "발언일자를 입력해주세요.")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate remarkDate;
+    private String remarkDate;
     private String sourceSort;
     private String sourceUrl;
     private List<String> tags = new ArrayList<>();
@@ -41,7 +43,7 @@ public class RemarkRequestDto {
     public Remark toEntity(){
         return Remark.builder()
                 .content(content)
-                .remarkDate(remarkDate)
+                .remarkDate(LocalDate.parse(remarkDate, DateTimeFormatter.ISO_DATE))
                 .person(person)
                 .sourceSort(sourceSort)
                 .sourceUrl(sourceUrl)

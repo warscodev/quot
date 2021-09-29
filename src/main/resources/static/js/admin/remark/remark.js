@@ -67,7 +67,7 @@ function deleteRemark(id) {
             contentType: 'application/json; charset=utf-8',
         }).done(function () {
             alert('발언이 삭제되었습니다.');
-            history.back();
+            location.href='/remark';
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
@@ -76,10 +76,27 @@ function deleteRemark(id) {
     }
 }
 
+function appendQuotationIcon(){
+    let iconTag = "<i class='r-l-t-quote-icon fas fa-quote-right'></i>";
+
+
+}
+
 document.addEventListener("DOMContentLoaded", function () {
-    const tooltips = document.querySelectorAll(".tt")
+    const tooltips = document.querySelectorAll(".tt"),
+        contents = document.querySelectorAll(".r-l-t-content"),
+        iconTag = "<i class='r-l-t-quote-icon fas fa-quote-right'></i>";
+
     tooltips.forEach(t => {
         new bootstrap.Tooltip(t)
     })
+
+    contents.forEach( c =>{
+        $(c).append(iconTag)
+    })
+
+
+
+
 })
 

@@ -20,6 +20,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,7 +77,7 @@ public class RemarkService {
 
         //코멘트 수정
         remark.update(requestDto.getContent(),
-                requestDto.getRemarkDate(),
+                LocalDate.parse(requestDto.getRemarkDate(), DateTimeFormatter.ISO_DATE),
                 requestDto.getSourceSort(),
                 requestDto.getSourceUrl());
 

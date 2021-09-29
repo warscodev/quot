@@ -2,7 +2,6 @@ package com.udpr.quot.domain.remark.repository;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.QueryResults;
-import com.querydsl.core.Tuple;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -304,11 +303,9 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
         BooleanBuilder builder = new BooleanBuilder();
 
         if (keywords.length == 1) {
-            System.out.println("keywords 길이 1");
             builder.or(remark.content.likeIgnoreCase("%" + keyword + "%"));
             return builder;
         } else {
-            System.out.println("keywords 길이 2이상");
 
             Arrays.stream(keywords).forEach(r -> builder.and(remark.content.likeIgnoreCase("%" + r + "%")));
 

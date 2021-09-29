@@ -76,9 +76,9 @@
                             </div>
                         </div>
 
-                        <div class="r-l-t-content-container r-l-t-second-col">
-                            <p class="r-l-t-content r-d-t-content"
-                                 th:utext="|*{content} <i class='r-l-t-quote-icon fas fa-quote-right'></i>|"></p>
+                        <div class="r-l-t-content-container r-l-t-second-col d-flex">
+                            <p class="r-l-t-content"
+                               th:text="*{content}"></p>
                         </div>
 
                     </div>
@@ -172,15 +172,6 @@
 
         </div>
 
-
-        <!-- 발언인 검색-->
-        <!--<div class="remark-detail-person-search d-flex align-items-center justify-content-end"
-             style="margin-top: 1rem; margin-bottom: .5rem;">
-            <a th:href="@{/remark/search(keyword=*{person.name},personId=*{person.id},tab=2)}">
-                <span class="" th:text="|*{person.name}의 발언 보러가기|"></span>
-                <i class="fas fa-arrow-circle-right remark-detail-person-search-icon"></i>
-            </a>
-        </div>-->
 
 
         <div class="d-flex justify-content-end" style="margin-bottom: 1rem;">
