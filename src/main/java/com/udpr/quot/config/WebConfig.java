@@ -23,7 +23,6 @@ import java.util.List;
         argumentResolvers.add(loginUserArgumentResolver);
     }
 
-
     /*@Bean
     public HttpMessageConverter escapingConverter() {
         ObjectMapper objectMapper = new ObjectMapper();
