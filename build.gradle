@@ -52,10 +52,6 @@ dependencies {
 	//RandomStringUtils
 	implementation group: 'org.apache.commons', name: 'commons-text', version: '1.9'
 
-	//lucy-xss
-	implementation 'com.navercorp.lucy:lucy-xss-servlet:2.0.0'
-
-
 
 	//JUnit4 추가
 	testImplementation("org.junit.vintage:junit-vintage-engine") {
