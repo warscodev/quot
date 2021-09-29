@@ -674,10 +674,6 @@ box-shadow: none
     word-break: break-all;
 }
 
-.r-l-t-content:after{
-    content: "\f10e";
-}
-
 .r-d-t-content{
     font-size: 1.063rem !important;
     font-weight: 400 !important;
