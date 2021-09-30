@@ -149,9 +149,10 @@ a:hover {
     display: flex;
     transition: color .2s ease-in;
 }
-
+.main-search-form{
+    margin-left: 1rem;
+}
 .main-search-bar {
-    width: auto;
     min-width: 400px;
     font-size: 1.125rem;
     font-weight: 600;
