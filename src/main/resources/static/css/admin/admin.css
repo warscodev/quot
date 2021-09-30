@@ -15,7 +15,7 @@ html {
 }
 
 body {
-    padding-top: 60px;
+    padding-top: 70px;
     height: 100% !important;
     flex-direction: column !important;
     display: flex !important;
@@ -23,9 +23,19 @@ body {
     font-family: Pretendard ,Noto Sans KR, Apple SD Gothic Neo, Malgun Gothic, 맑은 고딕, sans-serif;
     font-style: normal;
     background-color: #f7fafc;
-
     overflow: scroll;
 }
+
+
+@media (max-width: 767px) {
+    body {
+        padding-top: 65px;
+    }
+}
+
+
+
+
 
 .fieldError {
     border: 2px solid #ff5061
@@ -118,56 +128,88 @@ a:hover {
 .main-header {
     background: rgba(255, 255, 255, 0.95);
     box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2);
-    /*border-bottom: 1px solid #e2e2e2;*/
-    /*position: sticky;
-    z-index: 5;*/
-    height: 60px;
+    height: 70px;
 }
 
-.search-bar {
+@media (max-width: 767px) {
+    .main-header {
+        height: 65px;
+    }
+
+}
+
+
+.main-search-button{
+    font-size: 1.1rem;
+    position: relative;
+    color: #6f7377;
+    border: 0;
+    background-color: transparent;
+    margin-right: -2.5rem;
+    display: flex;
+    transition: color .2s ease-in;
+}
+
+.main-search-bar {
+    width: auto;
+    min-width: 400px;
     font-size: 1.125rem;
     font-weight: 600;
-    border: 0;
-    border-bottom: 1px solid #bfbfbf;
-    border-radius: 0;
-    padding-right: 2rem;
-    outline: none;
-    transition: box-shadow .3s;
+    border: 1px solid transparent;
+    border-radius: 2rem;
+    padding-left: 3rem;
+    padding-bottom: .6rem;
+    transition: box-shadow .2s ease-in, border-color .2s ease-in;
+    background-color: #e4e9f0 !important;
 }
 
-.search-bar:focus {
-    box-shadow: none;
-    outline: 0 none;
+@media (max-width: 767px) {
+    .main-search-bar{
+        min-width: auto;
+    }
 }
 
-.search-button {
-    background-color: transparent;
-    padding: 0;
-    border: 0;
-    color: #1B95E0FF;
-    margin-left: -1.75rem;
-    outline: none;
+
+.main-search-bar:focus {
+    box-shadow: 0px 3px 10px 0px rgba(25, 30, 35, 0.20);
+    border: 1px solid #9a9a9a;
+    background-color: #e4e9f0 !important;
 }
 
-.search-bar::-webkit-input-placeholder {
+.main-search-bar:hover {
+    box-shadow: 0px 3px 10px 0px rgba(25, 30, 35, 0.20);
+    border: 1px solid #9a9a9a;
+}
+
+.main-search-bar:focus > button{
+    color: #505f6f !important;
+}
+
+.main-search-bar:hover > button{
+    color: #505f6f !important;
+}
+
+.main-search-bar::-webkit-input-placeholder {
     font-weight: 400;
     font-size: 1rem; /* Chrome/Opera/Safari */
 }
 
-.search-bar::-moz-placeholder {
+.main-search-bar::-moz-placeholder {
     font-weight: 400;
     font-size: 1rem; /* Firefox 19+ */
 }
 
-.search-bar:-ms-input-placeholder {
+.main-search-bar:-ms-input-placeholder {
     font-weight: 400;
     font-size: 1rem; /* IE 10+ */
 }
 
-.search-bar:-moz-placeholder {
+.main-search-bar:-moz-placeholder {
     font-weight: 400;
     font-size: 1rem; /* Firefox 18- */
 }
+
+
 
 #login-btn {
     min-width: 50px;
@@ -180,9 +222,22 @@ a:hover {
     border-color: #439ff9 !important;
 }
 
-.main-header-profile{
- margin-left: 1rem;
+.main-header-profile-link{
 }
+
+@media (max-width: 767px) {
+    .main-header-profile-link.dropdown-toggle::after, .main-header-profile-nickname {
+        display: none;
+    }
+
+    .main-header-profile-bar-icon{
+        font-size: 1.25rem;
+        color: #878d9f;
+        display: inline-block !important;
+    }
+
+}
+
 
 
 .admin-header {
