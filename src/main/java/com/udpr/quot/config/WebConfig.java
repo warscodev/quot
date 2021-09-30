@@ -43,12 +43,12 @@ import java.util.List;
         converters.add(escapingConverter());
     }*/
 
-    @Bean
+    /*@Bean
     public MappingJackson2HttpMessageConverter jsonEscapeConverter() {
         ObjectMapper copy = objectMapper.copy();
         copy.getFactory().setCharacterEscapes(new HtmlCharacterEscapes());
         return new MappingJackson2HttpMessageConverter(copy);
-    }
+    }*/
 
 
 }
