@@ -78,13 +78,13 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
                 .orderBy(new CaseBuilder()
                         .when(person.name.equalsIgnoreCase(keyword))
                         .then(1)
-                        .when(person.name.likeIgnoreCase(keyword + "%")
-                                .or(removeCommaOnPersonAlias().likeIgnoreCase(keyword + "%")))
+                        .when(person.name.likeIgnoreCase(keyword + "%"))
                         .then(2)
-                        .when(person.name.likeIgnoreCase("%" + keyword + "%")
-                                .or(removeCommaOnPersonAlias().likeIgnoreCase("%" + keyword + "%")))
+                        .when(person.name.likeIgnoreCase("%" + keyword + "%"))
                         .then(3)
-                        .otherwise(4).asc())
+                        .when(removeCommaOnPersonAlias().likeIgnoreCase(keyword + "%"))
+                        .then(4)
+                        .otherwise(5).asc())
                 .fetch();
     }
 
