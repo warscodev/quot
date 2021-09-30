@@ -663,6 +663,10 @@ box-shadow: none
     font-size: 1rem;
 }
 
+#remark-row-1{
+    padding-top : 1.5rem;
+}
+
 .r-l-t-content{
     padding: 0;
     margin: 0;
