@@ -1,6 +1,5 @@
 package com.udpr.quot.config.auth.handler;
 
-import com.udpr.quot.config.auth.dto.SessionUser;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,7 +18,6 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
 
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
             if (authentication != null && !((OAuth2User)authentication.getPrincipal()).getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))){
                 response.sendRedirect("/");
             } else {

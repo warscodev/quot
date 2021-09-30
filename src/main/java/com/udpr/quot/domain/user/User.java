@@ -6,6 +6,7 @@ import com.udpr.quot.domain.common.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class User extends BaseTimeEntity {
     @Column(name = "user_id")
     private Long id;
 
-    @Column(nullable = false)
+    @ColumnDefault("anonymous")
     private String name;
 
     @Column(nullable = false)
@@ -30,7 +31,7 @@ public class User extends BaseTimeEntity {
     @Column(nullable = false)
     private String email;
 
-    @Column
+    @ColumnDefault("/css/images/profile/basic_profile.png")
     private String picture;
 
     @Enumerated(EnumType.STRING)
@@ -47,19 +48,19 @@ public class User extends BaseTimeEntity {
     private List<UserScrap> userScrapList = new ArrayList<>();
 
     @Builder
-    public User(String name, String email, String picture, Role role, String nickname) {
-        this.name = name;
+    public User(String email, Role role, String nickname) {
+        /*this.name = name;*/
         this.email = email;
-        this.picture = picture;
+        /*this.picture = picture;*/
         this.nickname = nickname;
         this.role = role;
     }
 
-    public User update(String name, String picture){
+    /*public User update(String name, String picture){
         this.name = name;
         this.picture = picture;
         return this;
-    }
+    }*/
 
     public String getRoleKey(){
         return this.role.getKey();

@@ -15,10 +15,8 @@ import java.io.IOException;
 
 public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
-
     private RequestCache requestCache = new HttpSessionRequestCache();
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
-
 
     public CustomLoginSuccessHandler(String defaultTargetUrl) {
         setDefaultTargetUrl(defaultTargetUrl);
@@ -31,29 +29,28 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
         SavedRequest savedRequest = requestCache.getRequest(request, response);
         String prevPage = (String) request.getSession().getAttribute("prevPage");
 
-
         if (prevPage != null) {
             request.getSession().removeAttribute("prevPage");
         }
 
         if (savedRequest != null) {
-
+            System.out.println("Check 1 : savedRequest != null");
             String targetUrl = savedRequest.getRedirectUrl();
+            System.out.println(targetUrl);
+
             redirectStrategy.sendRedirect(request, response, targetUrl);
             requestCache.removeRequest(request, response);
 
         } else if(prevPage != null && !prevPage.equals("")) {
+            System.out.println("Check 2 : prevPage != null && !prevPage.equals('')");
             redirectStrategy.sendRedirect(request, response, prevPage);
         } else {
+            System.out.println("Check 3 : else");
+
             super.onAuthenticationSuccess(request, response, authentication);
         }
 
     }
-
-
-
-
-
 
 }
 

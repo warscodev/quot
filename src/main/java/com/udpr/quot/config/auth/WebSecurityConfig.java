@@ -43,9 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .oauth2Login()
                         .loginPage("/oauth_login")
-
                         .successHandler(successHandler())
-                        .failureUrl("/")
                         .permitAll()
 
                 .and()
@@ -55,7 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                     .logout()
-                        .logoutSuccessUrl("/") // 로그아웃 성공시 리다이렉트 주소
+                        .logoutSuccessUrl("/") // 로그아웃 성공시 리다이렉트 주소*/
                         .invalidateHttpSession(true) // 세션 날리기
 
                 .and()

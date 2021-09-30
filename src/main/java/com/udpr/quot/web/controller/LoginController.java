@@ -43,7 +43,14 @@ public class LoginController {
 
         String uri = request.getHeader("Referer");
 
-        if (uri != null && !uri.contains("/login")) {
+        if(uri != null){
+            System.out.println(uri);
+        }
+
+        if (uri != null && !uri.contains("/oauth_login")
+                && !uri.contains("/oauth2.0/authorize)")
+                && !uri.contains("/signin")
+                && !uri.contains("/o/oauth2")) {
             request.getSession().setAttribute("prevPage",
                     request.getHeader("Referer"));
         }
