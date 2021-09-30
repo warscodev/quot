@@ -3,6 +3,8 @@ package com.udpr.quot.domain.person.repository;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.CaseBuilder;
+import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.core.types.dsl.StringTemplate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.udpr.quot.domain.person.PersonSearchCondition;
 import com.udpr.quot.domain.common.Status;
@@ -70,12 +72,12 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
                 .from(person)
                 .where(person.name.equalsIgnoreCase(keyword)
                         .or(person.name.likeIgnoreCase("%" + keyword + "%"))
-                        .or(person.alias.likeIgnoreCase("%" + keyword + "%")))
+                        .or(removeCommaOnPersonAlias().likeIgnoreCase("%" + keyword + "%")))
                 .orderBy(new CaseBuilder()
                         .when(person.name.equalsIgnoreCase(keyword))
                         .then(1)
                         .when(person.name.likeIgnoreCase("%" + keyword + "%")
-                                .or(person.alias.likeIgnoreCase("%" + keyword + "%")))
+                                .or(removeCommaOnPersonAlias().likeIgnoreCase("%" + keyword + "%")))
                         .then(2)
                         .otherwise(3).asc())
                 /*.orderBy(person.name.asc())*/
@@ -91,13 +93,13 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
                         person.job
                 ))
                 .from(person)
-                .where(person.name.likeIgnoreCase("%" + keyword + "%")
-                .or(person.alias.likeIgnoreCase("%" + keyword + "%")))
+                .where(person.name.likeIgnoreCase(keyword + "%")
+                .or(removeCommaOnPersonAlias().likeIgnoreCase(keyword + "%")))
                 .orderBy(new CaseBuilder()
                         .when(person.name.equalsIgnoreCase(keyword))
                         .then(1)
-                        .when(person.name.likeIgnoreCase("%" + keyword + "%")
-                                .or(person.alias.likeIgnoreCase("%" + keyword + "%")))
+                        .when(person.name.likeIgnoreCase(keyword + "%")
+                                .or(removeCommaOnPersonAlias().likeIgnoreCase(keyword + "%")))
                         .then(2)
                         .otherwise(3).asc())
                 .fetch();
@@ -127,7 +129,7 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
                         .when(person.name.equalsIgnoreCase(keyword))
                         .then(1)
                         .when(person.name.likeIgnoreCase("%" + keyword + "%")
-                                .or(person.alias.likeIgnoreCase(keyword + "%")))
+                                .or(removeCommaOnPersonAlias().likeIgnoreCase(keyword + "%")))
                         .then(2)
                         .otherwise(3).asc())
                 .limit(limit)
@@ -250,5 +252,11 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
         return orders;
 
     }
+
+    public StringTemplate removeCommaOnPersonAlias() {
+        StringTemplate st = Expressions.stringTemplate("replace({0},',','')", person.alias);
+        return st;
+    }
+
 
 }

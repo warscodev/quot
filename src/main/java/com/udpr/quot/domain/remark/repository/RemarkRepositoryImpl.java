@@ -4,6 +4,9 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.core.types.dsl.StringExpression;
+import com.querydsl.core.types.dsl.StringTemplate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.udpr.quot.domain.remark.search.RemarkSearchCondition;
 import com.udpr.quot.web.dto.remark.query.*;
@@ -155,7 +158,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                         .join(remark.user, user)
                         .where(keywordLike(condition.getKeyword())
                                 .or(person.name.likeIgnoreCase("%" + condition.getKeyword() + "%"))
-                                .or(person.alias.likeIgnoreCase("%" + condition.getKeyword() + "%")))
+                                .or(removeCommaOnPersonAlias().likeIgnoreCase("%" + condition.getKeyword() + "%")))
                         .offset(pageable.getOffset())
                         .limit(pageable.getPageSize())
                         .orderBy(getOrderSpecifier(condition.getSort()).stream().toArray(OrderSpecifier[]::new))
@@ -187,7 +190,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                         .join(remark.person, person)
                         .join(remark.user, user)
                         .where(person.name.likeIgnoreCase("%" + condition.getKeyword() + "%")
-                                .or(person.alias.likeIgnoreCase("%" + condition.getKeyword() + "%"))
+                                .or(removeCommaOnPersonAlias().likeIgnoreCase("%" + condition.getKeyword() + "%"))
                                 .and(personIdEq(condition.getPersonId())))
                         .offset(pageable.getOffset())
                         .limit(pageable.getPageSize())
@@ -343,6 +346,11 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
 
         return orders;
 
+    }
+
+    public StringTemplate removeCommaOnPersonAlias() {
+        StringTemplate st = Expressions.stringTemplate("replace({0},',','')", person.alias);
+        return st;
     }
 
 
