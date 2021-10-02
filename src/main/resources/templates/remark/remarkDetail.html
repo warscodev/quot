@@ -77,9 +77,8 @@
                         </div>
 
                         <div class="r-l-t-content-container r-l-t-second-col d-flex">
-                            <p class="r-l-t-content"
+                            <p class="r-l-t-content r-d-t-content"
                                th:text="*{content}" id="contentTest"></p>
-                            <p id="haha">테스트</p>
                         </div>
 
                     </div>
@@ -186,20 +185,6 @@
 <div th:replace="fragments/shareModal :: shareModal"/>
 <div th:replace="fragments/footer :: footer"/>
 <script>
-
-    let testDom = document.getElementById("haha"),
-        contentTest = document.getElementById("contentTest");
-
-    function test(){
-        testDom.append(contentTest.textContent);
-    }
-
-    testDom.addEventListener("click", test);
-
-
-
-
-
     function toList() {
         window.location.href = '/remark';
     }

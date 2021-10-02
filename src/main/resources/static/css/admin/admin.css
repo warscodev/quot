@@ -29,7 +29,7 @@ body {
 
 @media (max-width: 767px) {
     body {
-        padding-top: 65px;
+        padding-top: 60px;
     }
 }
 
@@ -133,7 +133,7 @@ a:hover {
 
 @media (max-width: 767px) {
     .main-header {
-        height: 65px;
+        height: 60px;
     }
 
 }
@@ -273,10 +273,13 @@ a:hover {
 }
 
 /*--- 검색결과 네비바 끝 ---*/
+
 /* 검색결과 타이틀*/
 .search-result-keyword {
     color: #325288;
 }
+
+
 
 /* 검색결과 인물 리스트  */
 @media (max-width: 767px) {
@@ -368,8 +371,13 @@ a:hover {
 
 
 
-
-
+.r-l-table-title{
+    font-size: 1.125rem;
+    font-weight: 500;
+    margin-bottom: .5rem;
+    margin-top: 2rem;
+    margin-left: .25rem;
+}
 
 /* ------- 코멘트 박스 ------- */
 
@@ -377,53 +385,33 @@ a:hover {
     background-color: #fff;
     /*border: 1px solid #cecece;*/
     border-radius: .8rem;
-    margin: 1rem 0;
+    margin-bottom: 1rem;
     box-shadow: 0 15px 20px 5px rgba(0, 0, 0, 0.05);
     padding: .5rem;
 }
 
-.r-l-related-person-container > div{
-    background-color: #fff;
-    border-radius: .5rem;
-    border: 1px solid #eaf0f4;
-    box-shadow: .25rem .25rem .25rem rgba(190, 190, 190, 0.2);
-    margin: .5rem .5rem .5rem .5rem;
+.r-l-related-person-container{
+    padding: 1rem;
+}
+
+.r-l-related-person-nav-empty{
+    padding : 1.5rem;
+}
+
+.r-l-related-person-container > .r-l-related-person-nav-container{
+    background-color: #eff3f8;
+    border-radius: 2rem;
+    /*border: 1px solid #eaf0f4;*/
+    /*box-shadow: .25rem .25rem .25rem rgba(190, 190, 190, 0.2);*/
+    margin: .4rem .2rem;
     transition: background-color .15s ease-in-out, border-color .3s ease-in-out, box-shadow .3s ease-in-out;
+    display: inline-flex;
 }
 
-.r-l-related-person-container > div:hover{
+.r-l-related-person-container > .r-l-related-person-nav-container:hover{
     border-color: #bebebe;
-    box-shadow: 2px 5px 10px 0px rgba(190, 190, 190, 0.3);
+    box-shadow: 2px 3px 10px 0px rgba(190, 190, 190, 0.5);
 }
-
-
-.r-l-related-person-container {
-    -ms-overflow-style: none;
-    width: 100% !important;
-    overflow-x: auto;
-    white-space: nowrap;
-}
-
-.r-l-related-person-container::-webkit-scrollbar {
-    height: .7rem;
-}
-
-.r-l-related-person-container::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background-color: rgba(180, 180, 180, 0.3);
-}
-
-@media (max-width: 767px){
-    .r-l-related-person-container::-webkit-scrollbar-thumb {
-        border-radius: 10px;
-        background-color: transparent;
-    }
-}
-
-.r-l-related-person-container::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(140, 140, 140, 0.3);
-}
-
 
 .r-l-related-person-nav{
     border-radius: 0.5rem;
@@ -431,19 +419,18 @@ a:hover {
     padding: .4rem .8rem;
 }
 
-.r-l-related-person-nav-first-row{
+.r-l-related-person-nav-row{
     font-size: .75rem;
-    color: #6c757d;
+    color: #353e45;
 }
 
-.r-l-related-person-nav-name{
+.r-l-related-person-nav-name {
     font-size: .875rem;
     font-weight: 500;
 }
 
 .r-l-related-person-nav-job{
     font-size: .75rem;
-    color: #6c757d;
 }
 
 
@@ -483,7 +470,7 @@ box-shadow: none
 
 .r-l-n-search-nav{
     color: #808080;
-    padding: 1rem;
+    padding: .75rem;
     text-align: center;
     width: 100%;
     transition: color .15s ease-in-out;
@@ -493,14 +480,14 @@ box-shadow: none
     color: black;
     font-weight: 600;
     border-bottom: 3px solid #a2daff;
-    padding-bottom: 1rem;
+    padding-bottom: .75rem;
 }
 
 .r-l-n-search-nav:hover > span{
     color: black;
     font-weight: 600;
     border-bottom: 3px solid #a2daff;
-    padding-bottom: 1rem;
+    padding-bottom: .75rem;
 }
 
 
@@ -508,7 +495,7 @@ box-shadow: none
 .r-l-t-row-container{
     position: relative;
     z-index: 1;
-    padding: 1.25rem;
+    padding: 1.25rem 1.25rem 1rem 1.25rem;
     background-color: #fff;
     background-clip: border-box;
     border-radius: 1rem;
@@ -516,14 +503,14 @@ box-shadow: none
     box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.1);
 }
 
-@media (max-width: 575px) {
+/*@media (max-width: 575px) {
     .r-l-t-row-container{
         padding: 1rem;
     }
-}
+}*/
 
 .r-d-t-row-container{
-    padding: 1.5rem 1.5rem 1.25rem 1.5rem !important;
+    padding: 1.25rem 1.5rem 1.25rem 1.5rem !important;
 }
 
 /*#remark-row-1, .remark-empty {
@@ -609,7 +596,7 @@ box-shadow: none
 }
 
 .r-l-t-person-name-link{
-    font-size: 1.188rem;
+    font-size: 1.125rem;
     font-weight: 700;
     margin-right: .3rem;
 }
@@ -624,7 +611,7 @@ box-shadow: none
 }
 
 .r-d-t-person-name-link{
-    font-size: 1.5rem !important;
+    font-size: 1.25rem !important;
     font-weight: 600;
 }
 
@@ -678,8 +665,8 @@ box-shadow: none
 .r-l-t-tags{
     font-size: .813rem;
     display: inline-block;
-    margin-bottom: .3rem;
-    margin-right: .3rem;
+    margin-bottom: .25rem;
+    margin-right: .25rem;
     padding: .3rem .6rem;
     line-height: 1;
     color: #8193a8 !important;
@@ -731,7 +718,7 @@ box-shadow: none
     font-size: 1rem;
     overflow: auto;
     /*white-space: pre-wrap;*/
-    word-break: break-all;
+    word-break: keep-all;
 }
 
 .r-d-t-content{
@@ -741,7 +728,7 @@ box-shadow: none
 
 
 .r-l-t-last-row-container{
-    padding: 1rem 0 0 0;
+    padding: .75rem 0 0 0;
 }
 
 .r-l-t-last-row-btn-container{
@@ -751,6 +738,8 @@ box-shadow: none
 }
 
 .r-l-t-last-row-btn{
+    padding-top: .5rem;
+    padding-bottom: .5rem;
     display: flex;
     align-items: center !important;
     box-shadow: none !important;
@@ -769,22 +758,25 @@ box-shadow: none
 }
 
 .r-l-t-last-row-btn-icon{
-    font-size: 1.125rem;
+    font-size: 1rem;
     color: #96a0a5;
 }
 
 @media (max-width: 767px) {
     .r-l-t-last-row-btn-icon{
-        font-size: 1rem;
+        font-size: .938rem;
+    }
+
+    .r-l-t-last-row-btn-text {
+        font-size: .813rem;
     }
 }
-
-
 
 .r-l-t-last-row-btn-text{
     margin-left: .5rem;
     color: #808080;
-    font-size: .95rem;
+    font-size: .875rem;
+    line-height: 0;
 }
 
 .r-l-t-last-row-btn-text-right{
@@ -800,24 +792,24 @@ box-shadow: none
 }
 
 .r-l-t-like-btn > i{
-    color: #338ebf !important;
+    color: #89bdd8 !important
 }
 
 .r-l-t-dislike-btn > i{
-    color: #fc7b7b !important;
+    color: #f2a1a1 !important
 }
 
 .like-active > .like-icon,
 .like-active > .like-count {
     /*color: #6ab5ff !important;*/
     /*color: #76b3ee !important;*/
-    color: #338ebf !important;
+    color: #89bdd8 !important
 }
 
 .like-active > .dislike-icon,
 .like-active > .dislike-count {
     /*color: #ff7b7b !important;*/
-    color: #fc7b7b !important;
+    color: #f2a1a1 !important
 }
 
 

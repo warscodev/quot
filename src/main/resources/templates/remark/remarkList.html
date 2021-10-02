@@ -10,23 +10,34 @@
 <div>
 <div class="r-l-page-container container container-custom" th:object="${dto}">
 
-    <div th:if="*{personList}" class="r-l-navigator-container r-l-related-person-container d-flex">
-        <div th:each="p : *{personList}">
+    <div th:if="${keyword}" class="r-l-table-title r-l-person-table-title">
+        <span>인물 검색결과</span>
+    </div>
+
+    <div th:if="${keyword}" class="r-l-navigator-container r-l-related-person-container">
+        <div th:if="*{personList == null}" class="r-l-related-person-nav-empty">
+            <h6 class="text-center">검색 결과가 없습니다.</h6>
+        </div>
+        <div th:each="p : *{personList}" class="r-l-related-person-nav-container">
             <a class="r-l-related-person-nav" th:href="@{/person/{id}(id=${p.id})}">
-                <div class="r-l-related-person-nav-first-row">
-                    <span><i class="bi bi-tags"></i></span>
-                    <span th:text="${p.category}"></span>
-                </div>
-                <div class="r-l-related-person-nav-second-row">
+                <div class="r-l-related-person-nav-row">
                     <span class="r-l-related-person-nav-name" th:text="${p.name}"></span>
                     <span class="r-l-related-person-nav-job" th:text="${p.job}"></span>
                 </div>
             </a>
         </div>
-
     </div>
 
-    <div th:if="${dto.pageMetadata.totalElements>0}" th:object="${dto.pageMetadata}" class="r-l-navigator-container">
+
+    <div th:if="${keyword}" class="r-l-table-title">
+        <span>발언 검색결과</span>
+    </div>
+    <div th:unless="${keyword}" class="r-l-table-title">
+        <!--<span>전체 발언</span>-->
+    </div>
+
+
+    <div th:object="${dto.pageMetadata}" class="r-l-navigator-container">
         <div class="r-l-n-first-row d-flex justify-content-between align-items-center">
             <div class="r-l-sub-pagination-container remark-page-count d-flex align-items-baseline page-item">
                 <th:block th:with="baseUrl=(${keyword}? |/remark?keyword=${keyword}| : '/remark')">
@@ -36,11 +47,13 @@
                         <i class="fas fa-chevron-left"></i>
                     </a>
 
-                    <span th:if="*{first && totalElements!=0}" class="page-link d-inline">
+                    <span th:if="*{(first && totalElements!=0) || totalElements<1}" class="page-link d-inline">
                     <i class="fas fa-chevron-left"></i>
-                </span>
+                    </span>
 
-                    <span style="margin: 0 !important;" th:text="|*{page} / *{totalPages} 페이지|"></span>
+
+                    <span th:if="*{totalElements>0}" style="margin: 0 !important;" th:text="|*{page} / *{totalPages} 페이지|"></span>
+                    <span th:unless="*{totalElements>0}" style="margin: 0 !important;">1 / 1 페이지</span>
 
                     <a th:if="*{!last && totalElements!=0}" th:href="@{|${baseUrl}|(page=*{page}+1,
                 sort=${cond.sort} ? ${cond.sort} : 'cd_d', tab=${cond.tab} ? ${cond.tab} : 1)}"
@@ -48,7 +61,7 @@
                         <i class="fas fa-chevron-right"></i>
                     </a>
 
-                    <span th:if="*{last && totalElements!=0}" class="page-link d-inline">
+                    <span th:if="*{(last && totalElements!=0) || totalElements<1}" class="page-link d-inline">
                     <i class="fas fa-chevron-right"></i>
                 </span>
                 </th:block>
@@ -58,8 +71,14 @@
                 <form th:action="@{/remark}" method="get" th:object="${cond}">
                     <input th:if="${keyword}" type="hidden" th:value="${keyword}" name="keyword">
                     <input th:if="${tab}" type="hidden" th:value="${tab}" name="tab">
-                    <select th:field="*{sort}" onchange="this.form.submit()"
+                    <select th:if="${dto.pageMetadata.totalElements>0}" th:field="*{sort}" onchange="this.form.submit()"
                             class="r-l-sorting form-select form-select-sm">
+                        <option value="cd_d">등록순</option>
+                        <option value="rd_d">최근 발언순</option>
+                        <option value="rd_a">과거 발언순</option>
+                    </select>
+                    <select th:unless="${dto.pageMetadata.totalElements>0}" th:field="*{sort}" onchange="this.form.submit()"
+                            class="r-l-sorting form-select form-select-sm disabled">
                         <option value="cd_d">등록순</option>
                         <option value="rd_d">최근 발언순</option>
                         <option value="rd_a">과거 발언순</option>
@@ -86,6 +105,7 @@
     </div>
 
     <!-- 발언 테이블 -->
+
     <div id="r-l-table-container">
         <div id="r-l-table">
             <div class="r-l-t-row-container row" th:each="r : *{remarkList}" th:id="|remark-row-${rStat.index+1}|">

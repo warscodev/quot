@@ -5,7 +5,6 @@
 <body>
 
 <div th:replace="fragments/topHeader :: topHeader"/>
-<!--<div th:replace="fragments/subHeader :: subHeader"/>-->
 <style>
     input[type="number"]::-webkit-outer-spin-button,
     input[type="number"]::-webkit-inner-spin-button {
@@ -23,8 +22,10 @@
     <form th:object="${form}" method="post" class="row g-3">
         <input type="hidden" th:field="*{id}"/>
 
-        <a th:href="@{/remark/search(keyword=${form.name},personId=${form.id},tab=2)}"
-           class="btn btn-outline-primary" th:text="|*{name}의 발언 목록 보기|"></a>
+        <a th:href="@{/remark(keyword=${form.name},personId=${form.id},tab=2)}"
+           class="btn btn-outline-primary" th:text="|*{name}의 발언 검색|"></a>
+        <a th:href="@{/person/{id}(id=${form.id})}"
+           class="btn btn-outline-primary" th:text="|*{name}의 인물 페이지|"></a>
         <br>
         <!-- 이름 -->
         <div class="col-6">
