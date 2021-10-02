@@ -124,7 +124,7 @@
 }
 
 .p-d-r-tags {
-    font-size: .813rem;
+    font-size: .75rem;
     display: inline-block;
     margin-bottom: .3rem;
     margin-right: .3rem;
@@ -134,11 +134,12 @@
     background-color: #f4f7fa;
     border-radius: 25px;
     width: auto;
-    transition: color .3s ease-in-out;
+    transition: color .3s ease-in-out, background-color .3s ease-in-out;
 }
 
 .p-d-r-tags:hover{
     color: #0067b8 !important;
+    background-color: #edf1f6;
 }
 
 .p-d-r-icons-container{

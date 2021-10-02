@@ -675,12 +675,13 @@ box-shadow: none
     /*background-color: #75d1b8;*/
     border-radius: 25px;
     width: auto;
-    transition: color .3s ease-in-out;
+    transition: color .3s ease-in-out, background-color .3s ease-in-out;
 }
 
 
 .r-l-t-tags:hover{
     color: #0067b8 !important;
+    background-color: #edf1f6;
 }
 
 
