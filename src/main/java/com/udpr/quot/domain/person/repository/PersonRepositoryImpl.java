@@ -1,5 +1,6 @@
 package com.udpr.quot.domain.person.repository;
 
+import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.CaseBuilder;
@@ -15,6 +16,9 @@ import com.udpr.quot.web.dto.remark.RemarkForPersonDetailQueryDto;
 import com.udpr.quot.web.dto.remark.query.*;
 import com.udpr.quot.web.dto.search.QSearchPersonResponseDto;
 import com.udpr.quot.web.dto.search.SearchPersonResponseDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
@@ -60,7 +64,7 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
                 .fetch();
     }
 
-    @Override
+    /*@Override
     public List<SearchPersonResponseDto> findByPersonName(String keyword){
         return queryFactory
                 .select(new QSearchPersonResponseDto(
@@ -85,7 +89,50 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
                         .when(removeCommaOnPersonAlias().likeIgnoreCase(keyword + "%"))
                         .then(4)
                         .otherwise(5).asc())
+                .limit(10)
                 .fetch();
+    }*/
+
+    @Override
+    public Page<SearchPersonResponseDto> findByPersonName(String keyword, Pageable pageable){
+
+        QueryResults results = queryFactory
+                .select(new QSearchPersonResponseDto(
+                        person.id,
+                        person.name,
+                        person.job,
+                        person.category
+                ))
+
+                .from(person)
+
+                .where(person.name.equalsIgnoreCase(keyword)
+                        .or(person.name.likeIgnoreCase(keyword + "%"))
+                        .or(person.name.likeIgnoreCase("%" + keyword + "%"))
+                        .or(removeCommaOnPersonAlias().likeIgnoreCase(keyword + "%"))
+                        .or(removeCommaOnPersonAlias().likeIgnoreCase("%" + keyword + "%")))
+
+                .orderBy(new CaseBuilder()
+                        .when(person.name.equalsIgnoreCase(keyword))
+                        .then(1)
+                        .when(person.name.likeIgnoreCase(keyword + "%"))
+                        .then(2)
+                        .when(person.name.likeIgnoreCase("%" + keyword + "%"))
+                        .then(3)
+                        .when(removeCommaOnPersonAlias().likeIgnoreCase(keyword + "%"))
+                        .then(4)
+                        .otherwise(5).asc())
+                .orderBy(person.name.asc())
+
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+
+                .fetchResults();
+
+        List<SearchPersonResponseDto> content = results.getResults();
+        Long total = results.getTotal();
+
+        return new PageImpl<>(content, pageable, total);
     }
 
     @Override

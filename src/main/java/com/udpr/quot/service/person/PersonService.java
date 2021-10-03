@@ -8,6 +8,8 @@ import com.udpr.quot.web.dto.person.*;
 import com.udpr.quot.web.dto.remark.RemarkForPersonDetailQueryDto;
 import com.udpr.quot.web.dto.search.SearchPersonResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -71,10 +73,9 @@ public class PersonService {
     }
 
 
-    public List<SearchPersonResponseDto> searchPerson(String keyword) {
-        return personRepository.findByPersonName(keyword);
+    public Page<SearchPersonResponseDto> searchPerson(String keyword, Pageable pageable) {
+        return personRepository.findByPersonName(keyword, pageable);
     }
-
 
     public List<PersonAutoCompleteDto> personAutoComplete(String term) {
         return personRepository.personAutoComplete(term);

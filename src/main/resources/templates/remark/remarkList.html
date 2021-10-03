@@ -9,15 +9,16 @@
 <div th:replace="fragments/topHeader :: topHeader"/>
 <div>
 <div class="r-l-page-container container container-custom" th:object="${dto}">
-
+    <input type="hidden" id="r-l-keyword" th:value="${keyword}">
     <div th:if="${keyword}" class="r-l-table-title r-l-person-table-title">
         <span>인물 검색결과</span>
     </div>
 
-    <div th:if="${keyword}" class="r-l-navigator-container r-l-related-person-container">
+    <div th:if="${keyword}" class="r-l-navigator-container r-l-related-person-container" id="search-person-container">
         <div th:if="*{personList == null}" class="r-l-related-person-nav-empty">
             <h6 class="text-center">검색 결과가 없습니다.</h6>
         </div>
+
         <div th:each="p : *{personList}" class="r-l-related-person-nav-container">
             <a class="r-l-related-person-nav" th:href="@{/person/{id}(id=${p.id})}">
                 <div class="r-l-related-person-nav-row">
@@ -26,6 +27,15 @@
                 </div>
             </a>
         </div>
+
+
+        <div class="r-l-related-person-nav-more-btn-container" id="show-more-btn-container">
+        <a th:if="*{personList != null && personList.getTotalElements()>10}" id="show-more-btn"
+           class="r-l-related-person-nav-more-btn-wrap" onclick="showMorePersonList(this, 1)">
+            <span class="r-l-related-person-nav-more-btn-text">더보기</span>
+            <i class="r-l-related-person-nav-more-btn-icon fas fa-chevron-down"></i>
+        </a>
+        </div>
     </div>
 
 
@@ -33,7 +43,6 @@
         <span>발언 검색결과</span>
     </div>
     <div th:unless="${keyword}" class="r-l-table-title">
-        <!--<span>전체 발언</span>-->
     </div>
 
 
@@ -78,7 +87,7 @@
                         <option value="rd_a">과거 발언순</option>
                     </select>
                     <select th:unless="${dto.pageMetadata.totalElements>0}" th:field="*{sort}" onchange="this.form.submit()"
-                            class="r-l-sorting form-select form-select-sm disabled">
+                            class="r-l-sorting form-select form-select-sm" disabled>
                         <option value="cd_d">등록순</option>
                         <option value="rd_d">최근 발언순</option>
                         <option value="rd_a">과거 발언순</option>

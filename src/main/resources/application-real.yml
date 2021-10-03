@@ -23,6 +23,17 @@ spring:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
         default_batch_fetch_size: 100
 
+  web:
+    resources:
+      chain:
+        strategy:
+          content:
+            enabled: true
+            paths: /**
+        enabled: true
+        cache: false
+
+
 server:
   servlet:
     encoding:

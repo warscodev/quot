@@ -4,6 +4,7 @@ import com.udpr.quot.web.dto.remark.query.RemarkQueryDto;
 import com.udpr.quot.web.dto.search.SearchPersonResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class RemarkListResponseDto {
 
-    private List<SearchPersonResponseDto> personList;
+    private Page<SearchPersonResponseDto> personList;
 
     private List<RemarkQueryDto> remarkList;
 

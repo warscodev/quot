@@ -99,44 +99,47 @@ public class RemarkService {
     //코멘트 목록
     public RemarkListResponseDto searchRemark(RemarkSearchCondition condition) {
 
-        Pageable pageable = PageRequest.of(condition.getPage()-1,10);
+        Pageable remarkPageable = PageRequest.of(condition.getPage()-1,10);
+        Pageable personPageable = PageRequest.of(0, 10);
 
         String keyword = condition.getKeyword();
         int tab = condition.getTab();
-        List<RemarkQueryDto> content = new ArrayList<>();
+        List<RemarkQueryDto> remarkContent = new ArrayList<>();
+        List<SearchPersonResponseDto> personContent = new ArrayList<>();
         Long total_ = 0L;
 
 
-        Page<RemarkQueryDto> remarks = new PageImpl<>(content, pageable, total_);
-        List<SearchPersonResponseDto> personList = new ArrayList<>();
+        Page<RemarkQueryDto> remarkPage = new PageImpl<>(remarkContent, remarkPageable, total_);
+        Page<SearchPersonResponseDto> personPage = new PageImpl<>(personContent, personPageable, total_);
+        //List<SearchPersonResponseDto> personList = new ArrayList<>();
 
         if (keyword == null || keyword.isBlank()) {
-            remarks = remarkRepository.searchAll(condition, pageable);
+            remarkPage = remarkRepository.searchAll(condition, remarkPageable);
         } else {
 
-            personList = personRepository.findByPersonName(condition.getKeyword());
+            personPage = personRepository.findByPersonName(condition.getKeyword(), personPageable);
 
             switch (tab) {
                 case 1:
-                    remarks = remarkRepository.searchByContentOrPersonName(condition, pageable);
+                    remarkPage = remarkRepository.searchByContentOrPersonName(condition, remarkPageable);
                     break;
                 case 2:
-                    remarks = remarkRepository.searchByPersonName(condition, pageable);
+                    remarkPage = remarkRepository.searchByPersonName(condition, remarkPageable);
                     break;
                 case 3:
-                    remarks = remarkRepository.searchByTagName(condition, pageable);
+                    remarkPage = remarkRepository.searchByTagName(condition, remarkPageable);
                     break;
             }
         }
 
-        List<RemarkQueryDto> dtoList = remarks.getContent();
+        List<RemarkQueryDto> remarkList = remarkPage.getContent();
 
-        PageMetadata pageMetadata = new PageMetadata(remarks);
+        PageMetadata pageMetadata = new PageMetadata(remarkPage);
 
-        if(personList.size() !=0){
-            return new RemarkListResponseDto(personList, dtoList, pageMetadata);
+        if(personPage.getTotalElements() !=0){
+            return new RemarkListResponseDto(personPage, remarkList, pageMetadata);
         }else{
-            return new RemarkListResponseDto(dtoList, pageMetadata);
+            return new RemarkListResponseDto(remarkList, pageMetadata);
 
         }
     }

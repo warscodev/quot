@@ -7,6 +7,8 @@ import com.udpr.quot.web.dto.person.PersonListResponseDto;
 import com.udpr.quot.web.dto.person.PersonQueryDto;
 import com.udpr.quot.web.dto.remark.RemarkForPersonDetailQueryDto;
 import com.udpr.quot.web.dto.search.SearchPersonResponseDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -14,7 +16,9 @@ public interface PersonRepositoryCustom{
 
     List<PersonListResponseDto> search(PersonSearchCondition condition);
 
-    List<SearchPersonResponseDto> findByPersonName(String keyword);
+    Page<SearchPersonResponseDto> findByPersonName(String keyword, Pageable pageable);
+
+    /*Page<SearchPersonResponseDto> findByPersonNameApiService(String Keyword, Pageable page);*/
 
     List<PersonAutoCompleteDto> personAutoComplete(String keyword);
 

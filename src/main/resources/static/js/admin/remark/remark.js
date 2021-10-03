@@ -14,8 +14,8 @@ function like(e, remarkId, isLike) {
         url: `/api/remark/${remarkId}/like/${isLike}`,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-        beforeSend: function (xhr){
-            xhr.setRequestHeader("XMLHttpRequest" ,"true");
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("XMLHttpRequest", "true");
         }
     }).done(function (result) {
         isRun = true;
@@ -24,9 +24,9 @@ function like(e, remarkId, isLike) {
         dislikeCountDom.innerText = likeInfo.dislikeCount;
         changeLikeIcon();
     }).fail(function (error) {
-        if(error.status == 403){
+        if (error.status == 403) {
             location.href = "/oauth_login";
-        }else{
+        } else {
             alert(JSON.stringify(error));
         }
     });
@@ -67,7 +67,7 @@ function deleteRemark(id) {
             contentType: 'application/json; charset=utf-8',
         }).done(function () {
             alert('발언이 삭제되었습니다.');
-            location.href='/remark';
+            location.href = '/remark';
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
@@ -76,10 +76,63 @@ function deleteRemark(id) {
     }
 }
 
-function appendQuotationIcon(){
-    let iconTag = "<i class='r-l-t-quote-icon fas fa-quote-right'></i>";
+function showMorePersonList(e, page) {
+    const keywordDom = document.getElementById('r-l-keyword');
 
+    if (typeof keywordDom !== "undefined" && keywordDom.value !== '') {
 
+        let keyword = keywordDom.value;
+
+        $.ajax({
+            type: 'GET',
+            url: `/api/search/personList?page=${page}&size=10`,
+            data:{
+                keyword: keyword,
+                page: page
+            },
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("XMLHttpRequest", "true");
+            }
+        }).done(function (result) {
+            $('#show-more-btn-container').remove();
+            $('#search-person-container').append(toSearchPersonContainer(result));
+        }).fail(function (error) {
+                alert(JSON.stringify(error));
+        });
+    }
+}
+
+function toSearchPersonContainer(pageObj){
+    let list = pageObj.content,
+        last = pageObj.last,
+        page = pageObj.number,
+        row = '';
+
+    list.forEach(person =>{
+
+        row += "<div class='r-l-related-person-nav-container'>";
+        row += "<a class='r-l-related-person-nav' href='/person/" + person.id + "'>";
+        row += "<div class='r-l-related-person-nav-row'>";
+        row += "<span class='r-l-related-person-nav-name'>" + person.name + "</span>";
+        row += "<span class='r-l-related-person-nav-job'> " + person.job + "</span>";
+        row += "</div>";
+        row += "</a>";
+        row += "</div>";
+
+    })
+
+    if(!last){
+        row += "<div class='r-l-related-person-nav-more-btn-container' id='show-more-btn-container'>";
+        row += "<a id='show-more-btn' class='r-l-related-person-nav-more-btn-wrap' onclick='showMorePersonList(this," + (page+1) +  ")'>";
+        row += "<span class='r-l-related-person-nav-more-btn-text'>더보기</span>";
+        row += "<i class='r-l-related-person-nav-more-btn-icon fas fa-chevron-down'></i>";
+        row += "</a>";
+        row += "</div>";
+    }
+
+    return row;
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -91,12 +144,8 @@ document.addEventListener("DOMContentLoaded", function () {
         new bootstrap.Tooltip(t)
     })
 
-    contents.forEach( c =>{
+    contents.forEach(c => {
         $(c).append(iconTag)
     })
-
-
-
-
 })
 
