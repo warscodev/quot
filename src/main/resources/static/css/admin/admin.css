@@ -404,7 +404,7 @@ a:hover {
     border-radius: 2rem;
     /*border: 1px solid #eaf0f4;*/
     /*box-shadow: .25rem .25rem .25rem rgba(190, 190, 190, 0.2);*/
-    margin: .5rem .25rem;
+    margin: .25rem .125rem;
     transition: background-color .15s ease-in-out, border-color .3s ease-in-out, box-shadow .3s ease-in-out;
     display: inline-flex;
 }
