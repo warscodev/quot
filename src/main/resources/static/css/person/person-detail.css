@@ -1,6 +1,6 @@
 .p-d-header-container{
     /*border-bottom: 1px solid #e2e2e2;*/
-    box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 3px 15px 0px rgba(15, 13, 63, 0.05);
     background-color: #fff
 }
 .p-d-header-row-container{
@@ -95,9 +95,19 @@
 }
 
 .p-d-modify-btn{
-    color: #4091e0;
-    font-size: 1.125rem;
+    border: 1px solid #e3ebf6;
+    padding-top: .125rem !important;
+    padding-bottom: .125rem !important;
 }
+.p-d-modify-btn:hover {
+    border: 1px solid #d2ddec;
+    background-color: #f9fbfd;
+}
+
+.p-d-modify-btn:focus{
+    box-shadow: none;
+}
+
 /* 인물 정보 끝 */
 
 /* 발언 */
@@ -107,7 +117,7 @@
     margin-bottom: var(--bs-gutter-x,2rem);
     background-color: #fff;
     border-radius: .75rem;
-    box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 20px 0 rgba(15, 40, 65, 0.1);
 }
 
 .p-d-r-row-container{
