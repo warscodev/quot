@@ -179,7 +179,7 @@
 
                     <div class="r-l-t-content-container r-l-t-second-col">
                         <a class="d-flex align-items-center" th:href="@{/remark/{id}(id=${r.remarkId})}">
-                            <p class="r-l-t-content"
+                            <p th:id="|remark-content-${rStat.index+1}|" class="r-l-t-content"
                                  th:text="${r.content}"></p>
                         </a>
                     </div>
@@ -231,7 +231,7 @@
                     <div class="r-l-t-last-row-btn-container d-flex align-items-center">
                         <a class="r-l-t-share-btn share-btn r-l-t-last-row-btn btn" href=""
                            th:onclick="|openShareModal(this, ${r.remarkId})|"
-                           th:data-name="${r.name}" th:data-date="${r.createdDate}"
+                           th:data-name="${r.name}" th:data-date="${r.remarkDate}" th:data-index="${rStat.index+1}"
                            data-bs-toggle="modal" data-bs-target="#shareModal">
                             <div class="d-flex align-items-center">
                                 <i class="r-l-t-last-row-btn-icon fas fa-share"></i>

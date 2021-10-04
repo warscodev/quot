@@ -78,7 +78,7 @@
 
                         <div class="r-l-t-content-container r-l-t-second-col d-flex">
                             <p class="r-l-t-content r-d-t-content"
-                               th:text="*{content}" id="contentTest"></p>
+                               th:text="*{content}" id="remark-content-999"></p>
                         </div>
 
                     </div>
@@ -128,7 +128,7 @@
                         <div class="r-l-t-last-row-btn-container d-flex align-items-center">
                             <a class="r-l-t-share-btn share-btn r-l-t-last-row-btn btn" href=""
                                th:onclick="|openShareModal(this, *{remarkId})|"
-                               th:data-name="*{name}" th:data-date="*{createdDate}"
+                               th:data-name="*{name}" th:data-date="*{remarkDate}" data-index="999"
                                data-bs-toggle="modal" data-bs-target="#shareModal">
                                 <div class="d-flex align-items-center">
                                     <i class="r-l-t-last-row-btn-icon fas fa-share"></i>

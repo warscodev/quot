@@ -45,7 +45,9 @@
     <script>
         const urlInput = document.getElementById("remark-share-url");
         let name = '',
-            date = '';
+            date = '',
+            index = '',
+            content = '';
 
         Kakao.init('d98279dd490fad82032e7f644c8af31c');
 
@@ -55,6 +57,10 @@
 
             name = e.dataset.name;
             date = e.dataset.date;
+            index = e.dataset.index;
+            console.log("remark-content-"+index);
+            content = document.getElementById("remark-content-"+index).innerText;
+
             shareKakao();
         }
 
@@ -84,8 +90,15 @@
         }
 
         function shareTwitter() {
-            let sendText = "[Quot.wiki] " + date + " " + name + "의 발언 : ";
-            window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + urlInput.value);
+            let contentForSend = '';
+            if(content.length > 80){
+                contentForSend = "\"" + content.substr(0,80) + "...\" *더보기👉";
+            }else{
+                contentForSend = "\"" + content + "\" 👉";
+            }
+
+            let sendText = date + " " + name + "의 발언 : " + contentForSend;
+            window.open("https://twitter.com/intent/tweet?text=" + sendText + "&hashtags=QuotWiki,"+ name +"&url=" + urlInput.value);
         }
 
         function shareFacebook() {
