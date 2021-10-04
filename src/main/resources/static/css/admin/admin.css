@@ -39,11 +39,21 @@ body {
 
 
 .fieldError {
-    border: 2px solid #ff5061
+    transition: border-color 0.15s ease-in-out 0s;
+    border: 2px solid #ff8383 !important;
+    box-shadow: none !important;
+}
+
+.fieldError:focus{
+    box-shadow: none;
+    border: 2px solid #ff8383;
 }
 
 .fieldError + p {
-    color: red;
+    font-size: .875rem;
+    font-weight: 500;
+    color: #e86161;
+    margin-left: .25rem;
 }
 
 
