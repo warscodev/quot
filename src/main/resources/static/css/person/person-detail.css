@@ -199,9 +199,9 @@
     margin: 0;
     font-family: Pretendard;
     font-weight: 400;
-    font-size: 1rem;
+    font-size: .983rem;
     /*overflow: auto;*/
-    /*word-break: break-all;*/
+    word-break: keep-all;
 }
 
 .p-d-r-footer-container{
