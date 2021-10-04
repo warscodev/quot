@@ -16,8 +16,12 @@
                     </div>
                 </div>
                 <div class="p-d-info-container">
-                    <div class="p-d-name">
+                    <div class="p-d-name d-flex justify-content-between">
                         <span th:text="*{name}"></span>
+                        <div sec:authorize="hasRole('ADMIN')" class="d-flex align-items-start">
+                            <a class="p-d-modify-btn btn btn-sm" th:href="@{/admin/person/{id} (id=*{personId})}">편집</a>
+                        </div>
+
                     </div>
                     <div class="p-d-job">
                         <span th:if="*{not #strings.isEmpty(alias)}" th:text="|*{alias} ｜|"></span>
@@ -51,14 +55,11 @@
 
                 </div>
             </div>
-            <div sec:authorize="hasRole('ADMIN')" class="p-d-header-row-container">
-                <a class="p-d-modify-btn btn btn-sm" th:href="@{/admin/person/{id} (id=*{personId})}">편집</a>
-            </div>
         </div>
     </div>
     <div class="p-d-body-container container container-custom">
         <div class="p-d-body">
-            <div class="p-d-r-row-container" th:each="r : *{remarkList}">
+            <div th:if="*{not #lists.isEmpty(remarkList)}" class="p-d-r-row-container" th:each="r : *{remarkList}">
                 <div class="p-d-r-first-row-container d-flex">
                     <div class="p-d-r-date-wrap">
                         <span class="p-d-r-date" th:text="${r.remarkDate}"></span>
@@ -98,6 +99,9 @@
                 </div>
 
                 <hr th:class="|p-d-r-content-border-last-${rStat.last}|">
+            </div>
+            <div th:unless="*{not #lists.isEmpty(remarkList)}" class="p-d-r-row-container">
+                <h6 class="text-center">등록된 발언이 없습니다.</h6>
             </div>
 
 

@@ -5,6 +5,7 @@
 }
 .p-d-header-row-container{
     padding: 1.5rem 0;
+    width: 100%;
 }
 
 @media (max-width: 575px) {
@@ -49,14 +50,17 @@
 /* 인물 정보 */
 .p-d-info-container{
     padding-left: 1.5rem;
+    width: 100%;
 }
 
 .p-d-name{
-    font-size: 2rem;
+    font-size: 1.75rem;
+    font-weight: 600;
 }
 
 .p-d-job{
-    color: #808080;
+    color: #7f8a99;
+    font-size: .938rem;
 }
 
 
@@ -74,7 +78,7 @@
 
 .p-d-etc > table > tbody > tr > th {
     font-weight: 400;
-    color: #a4a4a4;
+    color: #96a0a5;
     padding-right: .5rem;
     padding-left: 0;
     white-space: pre;
@@ -89,6 +93,7 @@
 .p-d-etc-summary{
     font-family: Pretendard , Noto Sans KR, Apple SD Gothic Neo, Malgun Gothic, 맑은 고딕, sans-serif;
     font-size: .875rem;
+    margin-bottom: 0;
     white-space: pre-wrap;
     white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
     white-space: -o-pre-wrap; /* Opera 7 */
@@ -113,8 +118,8 @@
 /* 발언 */
 .p-d-body{
     padding: var(--bs-gutter-x,1.5rem);
-    margin-top: var(--bs-gutter-x,1rem);
-    margin-bottom: var(--bs-gutter-x,2rem);
+    margin-top: 2rem;
+    margin-bottom: 2rem;
     background-color: #fff;
     border-radius: .75rem;
     box-shadow: 0 10px 20px 0 rgba(15, 40, 65, 0.1);
