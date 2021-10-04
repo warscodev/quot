@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 
 @Getter
@@ -15,12 +16,24 @@ import javax.validation.constraints.NotBlank;
 public class PersonRequestDto {
 
     private Long id;
-    @NotBlank(message = "인물 이름은 필수입니다.")
+
+    @NotBlank(message = "이름은 필수입력 사항입니다.")
+    @Pattern(regexp = "^[0-9]*[a-zA-Z가-힣]+[0-9:$-()&a-zA-Z가-힣]*(?<!\\()$", message = "사용할 수 없는 문자가 포함되었습니다.")
     private String name;
+
+    @Pattern(regexp = "^(?<![(,])[0-9]*[a-zA-Z가-힣]*[,\\s0-9:$-()&a-zA-Z가-힣]*(?<![(,\\s])$",
+            message = "사용할 수 없는 문자가 포함되었습니다. 2개 이상의 단어는 콤마(,)로 구분하여주세요.")
     private String alias;
+
     private Birth birth;
+
     private String gender;
+
+    @NotBlank(message = "직업은 필수입력 사항입니다.")
+        @Pattern(regexp = "^(?<![(,])[0-9]*[a-zA-Z가-힣]*[,\\s0-9:$-()&a-zA-Z가-힣]*(?<![(,\\s])$",
+            message = "사용할 수 없는 문자가 포함되었습니다. 2개 이상의 직업은 콤마(,)로 구분하여주세요.")
     private String job;
+
     private String summary;
     private String category;
 

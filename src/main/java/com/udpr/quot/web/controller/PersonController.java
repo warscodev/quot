@@ -66,8 +66,8 @@ public class PersonController {
         //생일
         form.setBirthDay();
 
-        personService.save(form);
-        return "redirect:/admin/person";
+        Long personId = personService.save(form);
+        return "redirect:/person/"+personId;
     }
 
     //인물 수정 폼

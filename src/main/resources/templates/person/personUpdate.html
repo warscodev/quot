@@ -49,7 +49,30 @@
         <!-- 본명, 가명, 별명 등-->
         <div class="col-12">
             <label th:for="alias" class="form-label">본명,예명,별명 등(검색용)</label>
-            <input type="text" th:field="*{alias}" class="form-control" placeholder="인물의 본명, 예명, 별명 등">
+            <input type="text" th:field="*{alias}" class="form-control" placeholder="인물의 본명, 예명, 별명 등"
+                   th:class="${#fields.hasErrors('alias')}? 'form-control fieldError' : 'form-control'">
+            <p th:if="${#fields.hasErrors('alias')}" th:errors="*{alias}">Incorrect data</p>
+        </div>
+
+        <!-- 직업 -->
+        <div class="col-6">
+            <label th:for="job" class="form-label">직업</label>
+            <input type="text" th:field="*{job}" class="form-control" placeholder="인물의 직업을 입력하세요">
+        </div>
+
+        <!-- 카테고리 -->
+        <div class="col-6">
+            <label th:for="categoryId" class="form-label">카테고리</label>
+            <select th:field="*{category}" class="form-select">
+                <option th:value="기타">기타</option>
+                <option th:value="정치">정치</option>
+                <option th:value="사회">사회</option>
+                <option th:value="연예">연예</option>
+                <option th:value="스포츠">스포츠</option>
+                <option th:value="e스포츠">e스포츠</option>
+                <option th:value="인플루언서">인플루언서</option>
+                <option th:value="창작물">창작물</option>
+            </select>
         </div>
 
         <!-- 생년월일 -->
@@ -76,26 +99,6 @@
                    placeholder="일" maxlength="2" min="0" oninput="dayMaxLength(this);">
         </div>
 
-        <!-- 직업 -->
-        <div class="col-6">
-            <label th:for="job" class="form-label">직업</label>
-            <input type="text" th:field="*{job}" class="form-control" placeholder="인물의 직업을 입력하세요">
-        </div>
-
-        <!-- 카테고리 -->
-        <div class="col-6">
-            <label th:for="categoryId" class="form-label">카테고리</label>
-            <select th:field="*{category}" class="form-select">
-                <option th:value="기타">기타</option>
-                <option th:value="정치">정치</option>
-                <option th:value="사회">사회</option>
-                <option th:value="연예">연예</option>
-                <option th:value="스포츠">스포츠</option>
-                <option th:value="e스포츠">e스포츠</option>
-                <option th:value="인플루언서">인플루언서</option>
-                <option th:value="창작물">창작물</option>
-            </select>
-        </div>
 
         <!-- 요약 -->
         <div class="col-12">

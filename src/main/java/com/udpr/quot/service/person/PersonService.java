@@ -90,9 +90,7 @@ public class PersonService {
         PersonQueryDto getDetail = personRepository.getDetail(id);
         List<RemarkForPersonDetailQueryDto> remarkList = personRepository.getRemarkListForPersonDetail(condition, id);
 
-        PersonDetailDto result = new PersonDetailDto(getDetail, remarkList);
-
-        return result;
+        return new PersonDetailDto(getDetail, remarkList);
     }
 }
 

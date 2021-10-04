@@ -53,7 +53,7 @@ public class Person extends BaseTimeEntity {
         this.name = name.trim();
         this.alias = alias.trim();
         this.birth = birth;
-        this.job = job;
+        this.job = job.trim();
         this.gender = gender;
         this.summary = summary.trim();
         this.status = Status.CREATED;
@@ -64,7 +64,7 @@ public class Person extends BaseTimeEntity {
         this.name = name.trim();
         this.alias = alias.trim();
         this.birth = birth;
-        this.job = job;
+        this.job = job.trim();
         this.gender = gender;
         this.summary = summary.trim();
         this.status = Status.UPDATED;
