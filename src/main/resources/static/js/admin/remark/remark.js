@@ -1,8 +1,13 @@
+let isRun = false;
+
+
 function like(e, remarkId, isLike) {
 
-    let isRun = false;
-    if (isRun == true) {
+    if (isRun) {
+        alert("잠시만 기다려주세요.")
         return false;
+    }else{
+        isRun = true;
     }
 
     let likeCountDom = document.getElementById("like-count-" + remarkId),
@@ -18,11 +23,13 @@ function like(e, remarkId, isLike) {
             xhr.setRequestHeader("XMLHttpRequest", "true");
         }
     }).done(function (result) {
-        isRun = true;
         let likeInfo = result;
         likeCountDom.innerText = likeInfo.likeCount;
         dislikeCountDom.innerText = likeInfo.dislikeCount;
         changeLikeIcon();
+        setTimeout(function (){
+            isRun = false
+        },200)
     }).fail(function (error) {
         if (error.status == 403) {
             location.href = "/oauth_login";
