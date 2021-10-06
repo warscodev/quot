@@ -298,7 +298,7 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
             }
         }
 
-        orders.add(remark.remarkDate.asc());
+        orders.add(remark.remarkDate.desc());
 
         return orders;
 

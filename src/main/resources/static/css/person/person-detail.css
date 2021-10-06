@@ -129,9 +129,9 @@
 }
 
 .p-d-r-date{
-    font-size: .938rem;
+    font-size: .875rem;
     font-weight: 600;
-    color: #69696c;
+    color: #7f8a99;
 }
 
 .p-d-r-tags-wrap{
@@ -160,7 +160,7 @@
 .p-d-r-icons-container{
     cursor: default;
     color: #919191;
-    font-size: .875rem;
+    font-size: .813rem;
 }
 
 .p-d-r-icons-like, .p-d-r-icons-dislike {
@@ -208,7 +208,7 @@
     padding: .5rem .5rem 0 .5rem;
     flex-wrap: wrap;
     font-size: .75rem;
-    color: #96a0a5;
+    color: #a0acbc;
 }
 
 .p-d-r-footer-creator-container{
