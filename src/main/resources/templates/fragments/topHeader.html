@@ -18,7 +18,7 @@
             <button type="submit" class="main-search-button">
                 <i class="main-search-button-icon fas fa-search"></i>
             </button>
-            <input id="search-input" name="keyword" class="main-search-bar form-control" placeholder="검색어를 입력하세요."
+            <input id="search-input" name="keyword" class="main-search-bar form-control" maxlength="100" placeholder="검색어를 입력하세요."
                    th:value="${keyword}">
             <input id="tab" name="tab" type="hidden" value="1">
         </form>
