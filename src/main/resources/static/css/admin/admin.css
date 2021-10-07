@@ -1,13 +1,13 @@
 
 @media all and (max-width: 360px) {
     html {
-        font-size: .75rem;
+        font-size: .875rem !important;
     }
 }
 
 @media all and (min-width: 361px) and (max-width: 575px) {
     html {
-        font-size: .875rem;
+        font-size: .938rem !important;
     }
 }
 
@@ -390,6 +390,12 @@ a:hover {
     margin-left: .25rem;
 }
 
+@media (max-width: 575px) {
+    .r-l-table-title {
+        margin-top: 1.5rem;
+    }
+}
+
 /* ------- 코멘트 박스 ------- */
 
 .r-l-navigator-container{
@@ -551,6 +557,13 @@ box-shadow: none
     padding: 0;
 }
 
+@media (max-width: 575px) {
+    .r-l-n-search-nav-container{
+        margin-bottom: -.5rem;
+    }
+
+}
+
 .r-l-n-search-nav{
     padding: .8rem;
     text-align: center;
@@ -594,14 +607,19 @@ box-shadow: none
     box-shadow: 0 10px 20px 0 rgba(15, 40, 65, 0.1);
 }
 
-/*@media (max-width: 575px) {
-    .r-l-t-row-container{
-        padding: 1rem;
+@media (max-width: 575px) {
+    #remark-row-1{
+        padding-top: 1rem !important;
     }
-}*/
+
+    .r-l-t-row-container{
+        margin-bottom: 1rem;
+        padding: .75rem;
+    }
+}
 
 .r-d-t-row-container{
-    padding: 1.25rem 1.5rem 1.25rem 1.5rem !important;
+    padding: 1.25rem !important;
 }
 
 /*#remark-row-1, .remark-empty {
@@ -822,6 +840,9 @@ box-shadow: none
 .r-l-t-last-row-container{
     padding: .75rem 0 0 0;
 }
+.r-d-t-last-row-container{
+    padding: 1.5rem 0 .75rem 0;
+}
 
 .r-l-t-last-row-btn-container{
     margin-left: 1.25rem;
@@ -903,6 +924,61 @@ box-shadow: none
     /*color: #ff7b7b !important;*/
     color: #f2a1a1 !important
 }
+
+
+
+/* 코멘트 */
+
+.r-l-t-border-bottom{
+    color: #9aa7b1;
+}
+
+.r-c-table-container{
+    /*padding: 0 2rem;*/
+}
+
+.r-c-t-writer-nickname{
+    font-size: .968rem;
+    font-weight: 500;
+    color: #7f8a99;
+}
+
+.r-c-t-textarea-container{
+   padding-top: 1rem;
+}
+
+.r-c-t-textarea{
+    font-size: .938rem;
+    overflow-wrap: break-word;
+    resize: none;
+    border-color: #dde6f2;
+}
+
+.r-c-t-textarea:focus{
+    box-shadow: none;
+}
+
+.r-c-t-textarea::placeholder{
+    color: #96a0a5;
+}
+
+.r-c-t-save-btn-wrap{
+    margin-top: .5rem;
+}
+.r-c-t-save-btn{
+    background-color: #5fa3e3;
+    color: #fff;
+}
+
+.r-c-t-save-btn:hover{
+    background-color: #487fb0;
+    color: #fff !important;
+}
+
+
+
+
+
 
 
 /* 페이징 */
