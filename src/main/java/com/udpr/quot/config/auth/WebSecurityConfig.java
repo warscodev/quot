@@ -5,6 +5,7 @@ import com.udpr.quot.config.auth.handler.CustomAuthenticationEntryPoint;
 import com.udpr.quot.config.auth.handler.CustomLoginSuccessHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -31,9 +32,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable()
                 .and()
                     .authorizeRequests()
+                    .antMatchers(HttpMethod.GET,"/api/remark/**/comment").permitAll()
                     .antMatchers("/api/remark/**","/api/remark/loginCheck").hasAnyRole("USER","ADMIN")
                     .antMatchers("/api/person/**","/api/remark/","/h2-console/**","/person/new","/remark/new","/remark/**/update","/admin/**").hasRole("ADMIN")
-                    .antMatchers("/remark","/remark/**/","/","/remark/search", "/api/search/**","/oauth2/**","/profile", "/login_req","/login", "/login/**","/person/**").permitAll()
+                    .antMatchers("/remark","/remark/**/","/","/remark/search", "/api/search/**","/oauth2/**", "/profile", "/login_req","/login", "/login/**","/person/**").permitAll()
                     .anyRequest().authenticated() // 나머지 요청들은 권한의 종류에 상관 없이 권한이 있어야 접근 가능
 
                 .and()

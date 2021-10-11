@@ -252,6 +252,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
 
         Map<Long, List<RemarkTagQueryDto>> tagMap =
                 tagList.stream().collect(Collectors.groupingBy(RemarkTagQueryDto::getRemarkId));
+
         return tagMap;
     }
 

@@ -13,6 +13,7 @@
     "@popperjs/core": "^2.9.2",
     "@yaireo/dragsort": "^1.1.0",
     "@yaireo/tagify": "^4.2.0",
+    "autosize": "^5.0.1",
     "bootstrap": "^5.0.1",
     "bootstrap-icons": "^1.5.0",
     "i": "^0.3.6",

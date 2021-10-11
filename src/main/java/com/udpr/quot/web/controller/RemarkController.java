@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.udpr.quot.config.auth.LoginUser;
 import com.udpr.quot.config.auth.dto.SessionUser;
+import com.udpr.quot.domain.remark.comment.repository.CommentRepository;
 import com.udpr.quot.domain.remark.search.RemarkSearchCondition;
 import com.udpr.quot.domain.tag.repository.TagRepository;
 import com.udpr.quot.service.remark.RemarkService;
@@ -27,6 +28,7 @@ import java.util.stream.Collectors;
 public class RemarkController {
 
     private final RemarkService remarkService;
+    private final CommentRepository commentRepository;
     private final TagRepository tagRepository;
     private final ObjectMapper objectMapper;
 
@@ -46,6 +48,9 @@ public class RemarkController {
         }else{
             model.addAttribute("remark", remarkService.getDetail(remarkId));
         }
+
+        model.addAttribute("commentCount", commentRepository.getCommentCount(remarkId));
+
 
         return "remark/remarkDetail";
     }

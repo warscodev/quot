@@ -161,7 +161,7 @@ a:hover {
     transition: color .2s ease-in;
 }
 .main-search-form{
-    margin-left: 1rem;
+    margin-left: .5rem;
 }
 .main-search-bar {
     min-width: 400px;
@@ -224,9 +224,8 @@ a:hover {
 
 
 #login-btn {
-    min-width: 50px;
+    min-width: 52px;
     border-color: #439ff9 !important;
-    margin-left: 1rem;
 }
 
 #login-btn:hover {
@@ -235,6 +234,11 @@ a:hover {
 }
 
 .main-header-profile-link{
+}
+
+.main-header-profile-nickname{
+    font-size: .938rem;
+    letter-spacing: -.025rem;
 }
 
 @media (max-width: 767px) {
@@ -616,10 +620,15 @@ box-shadow: none
         margin-bottom: 1rem;
         padding: .75rem;
     }
+
+    .r-d-t-row-container{
+        padding: 1rem !important;
+    }
+
 }
 
 .r-d-t-row-container{
-    padding: 1.25rem !important;
+    padding: 1.25rem;
 }
 
 /*#remark-row-1, .remark-empty {
@@ -841,7 +850,7 @@ box-shadow: none
     padding: .75rem 0 0 0;
 }
 .r-d-t-last-row-container{
-    padding: 1.5rem 0 .75rem 0;
+    padding-top: 1.5rem;
 }
 
 .r-l-t-last-row-btn-container{
@@ -937,14 +946,163 @@ box-shadow: none
     /*padding: 0 2rem;*/
 }
 
-.r-c-t-writer-nickname{
-    font-size: .968rem;
+.r-c-count{
+    margin: .5rem 0;
+}
+
+.r-c-count-number{
     font-weight: 500;
-    color: #7f8a99;
+    color: #73a3de;
+}
+
+
+.r-c-t-row-container{
+    background-color: #f8fafd;
+    border-radius: .5rem;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.r-c-t-row-reply-container{
+    margin-left: 2rem;
+    background-color: #f8f8f8;
+}
+
+.r-c-t-row-mine-container{
+    box-shadow: 0 0 0 0.1rem rgba(13, 110, 253, .2);
+}
+
+.r-c-t-first-row-container{
+    line-height: normal;
+    margin-bottom: .5rem;
+}
+
+.r-c-t-comment-writer{
+    font-size: .938rem;
+    font-weight: 500;
+    margin-right: .5rem;
+    color: #4d5c70;
+    letter-spacing: -.025rem;
+}
+
+.r-c-t-comment-date{
+    font-size: .813rem;
+    color: #a0acbc;
+}
+
+@media (max-width: 767px) {
+    .r-c-t-comment-date{
+        font-size: .715rem;
+    }
+
+}
+
+
+.r-c-t-etc-btn-container{
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+
+}
+
+.r-c-t-etc-btn-container > *{
+    font-size: .875rem;
+    color: #a0acbc !important;
+}
+
+.r-c-t-etc-btn-container>a:hover{
+    color: #79adf1 !important;
+}
+
+.r-c-t-etc-btn-container>a:hover >.r-c-t-etc-btn-icon{
+    color: #79adf1 !important;
+}
+
+.r-c-t-modify-btn-icon, .r-c-t-delete-btn-icon{
+    /*margin-right: 0 !important;*/
+}
+
+.r-c-t-etc-btn-icon{
+    font-size: .813rem;
+    margin-right: .125rem;
+    color: #c1ccdb;
+    transition: color .3s ease-in-out;
+}
+
+.r-c-t-reply-btn, .r-c-t-modify-btn, .r-c-t-delete-btn{
+    margin-right: .6rem;
+}
+
+.r-c-t-comment-reply-icon{
+    margin-left: .25rem;
+    margin-right: .5rem;
+    color: #9cacc2;
+    font-size: 1rem;
+}
+
+@media (max-width: 767px) {
+    .r-c-t-etc-btn-container > *{
+        font-size: .715rem;
+    }
+    .r-c-t-etc-btn-icon{
+        font-size: .715rem;
+    }
+    .r-c-t-reply-btn, .r-c-t-modify-btn, .r-c-t-delete-btn{
+        margin-right: .4rem;
+    }
+
+}
+
+
+
+.r-c-t-writer{
+    color: #6e90c1;
+    font-size: .938rem;
+    font-weight: 500;
+    letter-spacing: -.025rem;
+}
+
+.r-c-t-comment-parent-nickname{
+    font-size: .813rem;
+    font-weight: 500;
+    margin-right: .5rem;
+    color: #8fa3c1;
+}
+
+.r-c-t-comment-content{
+    font-family: Pretendard;
+    font-weight: 400;
+    font-size: .938rem;
+    overflow: auto;
+    white-space: pre-wrap;
+    margin-bottom: 0;
+    word-break: break-all;
+}
+
+.deleted-comment{
+    color: #8c8f91 !important;
+    font-style: italic;
+    font-weight: 500;
+}
+
+.r-c-t-textarea-label{
+    font-weight: 500;
+    font-size: .938rem;
 }
 
 .r-c-t-textarea-container{
-   padding-top: 1rem;
+   /*padding-top: 1rem;*/
+}
+
+.r-c-t-child-modify-textarea-container{
+    margin-left: 2rem !important;
+}
+
+.r-c-t-reply-textarea-container, .r-c-t-modify-textarea-container{
+    margin-left: 2rem;
+    margin-bottom: 1rem;
 }
 
 .r-c-t-textarea{
@@ -962,10 +1120,26 @@ box-shadow: none
     color: #96a0a5;
 }
 
-.r-c-t-save-btn-wrap{
-    margin-top: .5rem;
+.r-c-t-textarea-disabled{
+    cursor: pointer;
+
 }
+
+.r-c-t-cancel-btn{
+    margin-top: .35rem;
+    background-color: #9eb0c2;
+    color: #fff;
+    margin-right: .35rem;
+}
+
+.r-c-t-cancel-btn:hover{
+    background-color: #717e8a;
+    color: #fff !important;
+}
+
+
 .r-c-t-save-btn{
+    margin-top: .35rem;
     background-color: #5fa3e3;
     color: #fff;
 }

@@ -22,7 +22,7 @@ public class User extends BaseTimeEntity {
     @Column(name = "user_id")
     private Long id;
 
-    @ColumnDefault("anonymous")
+    @ColumnDefault("'anonymous'")
     private String name;
 
     @Column(nullable = false)
@@ -31,7 +31,7 @@ public class User extends BaseTimeEntity {
     @Column(nullable = false)
     private String email;
 
-    @ColumnDefault("/css/images/profile/basic_profile.png")
+    @ColumnDefault("'/css/images/profile/basic_profile.png'")
     private String picture;
 
     @Enumerated(EnumType.STRING)

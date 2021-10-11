@@ -7,7 +7,21 @@
 <div th:replace="fragments/topHeader :: topHeader"/>
 
 <div class="container container-custom">
-    <div class="remark-page-wrap" style="margin-top: 4rem;">
+    <div class="remark-page-wrap" style="margin-top: 2rem;">
+
+        <div class="d-flex justify-content-end" style="margin-bottom: 1rem;">
+            <div sec:authorize="hasRole('ADMIN')"
+                 class="remark-delete-and-update-btn-wrap d-flex align-items-center">
+                <!-- 수정 버튼 -->
+                <a class="btn btn-outline-secondary btn-sm me-2"
+                   th:href="@{/remark/{remarkId}/update(remarkId=*{remarkId})}">수정</a>
+                <!-- 삭제 버튼 -->
+                <button class="btn btn-outline-danger btn-sm btn-delete me-2"
+                        th:onclick="|deleteRemark(*{remarkId})|">삭제
+                </button>
+            </div>
+            <a class="btn btn-outline-secondary btn-sm me-2" href="javascript:toList();">목록</a>
+        </div>
 
         <div id="r-l-table-container">
             <div id="r-l-table">
@@ -18,7 +32,8 @@
                             <div class="r-l-t-picture-wrap">
                                 <a class="r-l-t-picture-link r-d-t-picture-link d-flex align-items-center justify-content-center"
                                    th:href="@{/person/{personId}(personId=*{personId})}">
-                                    <i class="r-l-t-picture r-d-t-picture fas fa-user-alt" style='font-size: 1.4rem; color: white'></i>
+                                    <i class="r-l-t-picture r-d-t-picture fas fa-user-alt"
+                                       style='font-size: 1.4rem; color: white'></i>
                                 </a>
                             </div>
                         </div>
@@ -27,22 +42,22 @@
                             <div class="r-l-t-person-and-date-container">
                                 <!-- 이름 -->
                                 <div>
-                                <a class="r-d-t-person-name-link"
-                                   th:href="@{/person/{personId}(personId=*{personId})}">
-                                    <span class="r-l-t-person-name r-d-t-person-name" th:text="*{name}"></span>
-                                </a>
+                                    <a class="r-d-t-person-name-link"
+                                       th:href="@{/person/{personId}(personId=*{personId})}">
+                                        <span class="r-l-t-person-name r-d-t-person-name" th:text="*{name}"></span>
+                                    </a>
                                 </div>
                                 <!-- 다른이름, 직업, 날짜 -->
                                 <div class="d-flex align-items-center" style="flex-wrap: wrap;">
-                                <div class="r-d-t-person-alias-and-job-container">
-                                    <span class="r-d-t-person-job" th:text="*{job}"></span>
-                                </div>
+                                    <div class="r-d-t-person-alias-and-job-container">
+                                        <span class="r-d-t-person-job" th:text="*{job}"></span>
+                                    </div>
                                     <div class="r-d-t-date-container" style="margin: 0 .25rem;">
                                         <span class="r-d-t-date">·</span>
                                     </div>
-                                <div class="r-d-t-date-container">
-                                    <span class="r-d-t-date" th:text="|*{remarkDate}|"></span>
-                                </div>
+                                    <div class="r-d-t-date-container">
+                                        <span class="r-d-t-date" th:text="|*{remarkDate}|"></span>
+                                    </div>
                                 </div>
 
                             </div>
@@ -83,7 +98,7 @@
 
                     </div>
 
-                    <div class="r-l-t-last-row-container d-flex justify-content-center">
+                    <div class="r-l-t-last-row-container r-d-t-last-row-container d-flex justify-content-center">
 
                         <div class="r-l-t-last-row-btn-container" style="margin-left: 0">
                             <a sec:authorize="isAuthenticated()" th:if="*{isLike eq 1}" th:id="|like-btn-*{remarkId}|"
@@ -108,7 +123,8 @@
                         <div class="r-l-t-last-row-btn-container">
                             <a sec:authorize="isAuthenticated()" th:if="*{isLike eq -1}"
                                th:id="|dislike-btn-*{remarkId}|"
-                               class="r-l-t-dislike-btn dislike-btn r-l-t-last-row-btn btn like-active" href="javascript:;"
+                               class="r-l-t-dislike-btn dislike-btn r-l-t-last-row-btn btn like-active"
+                               href="javascript:;"
                                th:onclick="|like(this, *{remarkId}, -1)|">
                                 <i class="r-l-t-dislike-icon dislike-icon r-l-t-last-row-btn-icon far fa-thumbs-down fas"></i>
                                 <span th:id="|dislike-count-*{remarkId}|"
@@ -156,38 +172,413 @@
 
                     </div>
 
+
+                    <div class="r-c-table-container">
+                        <hr class="r-l-t-border-bottom">
+
+                        <div class="r-c-count">
+                            댓글 <span class="r-c-count-number" th:text="${commentCount}"></span>
+                        </div>
+                        <div class="r-c-table" id="comment-table">
+
+
+                        </div>
+                        <div sec:authorize="hasAnyRole('ADMIN,USER')" class="r-c-t-textarea-container">
+                            <label class="r-c-t-textarea-label">댓글쓰기</label>
+                            <div class="r-c-t-textarea-wrap">
+                                <textarea id="cmTextarea" class="r-c-t-textarea form-control" rows="3" maxlength="300"
+                                          placeholder="댓글을 입력하세요."></textarea>
+                                <div class="d-flex justify-content-end">
+                                    <button class="r-c-t-save-btn btn btn-sm" th:onclick="|cmSubmit(this,*{remarkId})|">
+                                        등록
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div sec:authorize="isAnonymous()" class="r-c-t-textarea-container">
+                            <div>
+                                <span class="r-c-t-textarea-label">댓글쓰기</span>
+                            </div>
+                            <a href="/oauth_login"><textarea
+                                    class="r-c-t-textarea form-control r-c-t-textarea-disabled" readonly rows="3"
+                                    placeholder="댓글을 입력하시려면 로그인 하세요."></textarea></a>
+                            <div class="d-flex justify-content-end">
+                                <button disabled class="r-c-t-save-btn btn btn-sm">등록</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+
                 </div>
             </div>
 
 
-
         </div>
 
 
-
-        <div class="d-flex justify-content-end" style="margin-bottom: 1rem;">
-            <div sec:authorize="hasRole('ADMIN')"
-                 class="remark-delete-and-update-btn-wrap d-flex align-items-center">
-                <!-- 수정 버튼 -->
-                <a class="btn btn-outline-secondary btn-sm me-2"
-                   th:href="@{/remark/{remarkId}/update(remarkId=*{remarkId})}">수정</a>
-                <!-- 삭제 버튼 -->
-                <button class="btn btn-outline-danger btn-sm btn-delete me-2"
-                        th:onclick="|deleteRemark(*{remarkId})|">삭제
-                </button>
-            </div>
-            <a class="btn btn-outline-secondary btn-sm me-2" href="javascript:toList();">목록</a>
-        </div>
     </div>
 </div>
 </div>
 <!-- Modal -->
 <div th:replace="fragments/shareModal :: shareModal"/>
 <div th:replace="fragments/footer :: footer"/>
+<script src="/node_modules/autosize/dist/autosize.js"></script>
 <script>
+    autosize(document.querySelector('textarea'));
+
     function toList() {
         window.location.href = '/remark';
     }
+
+</script>
+<script sec:authorize="isAuthenticated()" th:inline="javascript">
+    const sid = /*[[ ${session.user.id} ]]*/,
+        rdRemarkId = /*[[ *{remarkId} ]]*/,
+        size = 20,
+        blank_pattern = /^\s+|\s+$/g,
+        commentCountForInit = /*[[ ${commentCount} ]]*/,
+        commentPageForInit = Math.ceil(commentCountForInit / 20) - 1;
+</script>
+
+<script sec:authorize="isAnonymous()" th:inline="javascript">
+    const sid = '',
+        rdRemarkId = /*[[ *{remarkId} ]]*/,
+        size = 20,
+        blank_pattern = /^\s+|\s+$/g,
+        commentCountForInit = /*[[ ${commentCount} ]]*/,
+        commentPageForInit = Math.ceil(commentCountForInit / 20) - 1;
+</script>
+
+<script>
+    function loadComments(page) {
+        $.getJSON(`/api/remark/${rdRemarkId}/comment?page=${page}&size=${size}`, function (data) {
+            $("#comment-table").html(toCommentTable(data));
+            addDeleteCmBtn();
+        });
+    }
+
+    function toCommentTable(obj) {
+        let row = '',
+            comments = obj.content;
+
+        if (comments.length > 0) {
+            comments.forEach(c => {
+                if (c.parentId != null && c.ancestorId != null) {
+                    if(c.userId === sid){
+                        row += "<div id='comment-" + c.commentId + "' class=\"r-c-t-row-container r-c-t-row-reply-container r-c-t-row-mine-container\" data-cid='" + c.commentId + "' data-aid='" + c.ancestorId + "' data-pid='" + c.parentId + "'>";
+                    }else{
+                        row += "<div id='comment-" + c.commentId + "' class=\"r-c-t-row-container r-c-t-row-reply-container\" data-cid='" + c.commentId + "' data-aid='" + c.ancestorId + "' data-pid='" + c.parentId + "'>";
+                    }
+                } else {
+                    if(c.userId === sid) {
+                        row += "<div id='comment-" + c.commentId + "' class=\"r-c-t-row-container r-c-t-row-mine-container \" data-cid='" + c.commentId + "'>";
+                    }else{
+                        row += "<div id='comment-" + c.commentId + "' class=\"r-c-t-row-container\" data-cid='" + c.commentId + "'>";
+                    }
+                }
+                row += "<div class=\"r-c-t-first-row-container d-flex justify-content-between\">";
+                row += "<div class=\"r-c-t-first-row-first-col-container d-flex align-items-baseline\">";
+
+                if (c.parentId != null) {
+                    row += "<div class=\"r-c-t-comment-writer\"><i class=\"r-c-t-comment-reply-icon fas fa-level-up-alt fa-rotate-90\"></i>" + c.nickname + "</div>";
+                } else {
+                    row += "<div class=\"r-c-t-comment-writer\">" + c.nickname + "</div>";
+                }
+
+                row += "<div class=\"r-c-t-comment-date\">" + c.createdDate + "</div>";
+
+                row += "</div>";
+
+
+                row += "<div class=\"r-c-t-etc-btn-container\">";
+
+                if (sid === c.userId && c.status !== "DELETED_ANCESTOR") {
+
+                    row += "<a class='r-c-t-modify-btn' onclick='openCmModifyTextArea(" + c.commentId + ")'><i class=\"r-c-t-etc-btn-icon r-c-t-modify-btn-icon fas fa-edit\"></i>수정</a>";
+                    row += "<a class='r-c-t-delete-btn' data-cid='" + c.commentId + "'><i class=\"r-c-t-etc-btn-icon r-c-t-delete-btn-icon fas fa-trash\"></i>삭제</a>";
+                }
+
+                if (sid !== '' && c.parentId != null) {
+                    row += "<a id='openCmReplyBtn-" + c.commentId + "' onclick='openCmReplyTextarea(this)' class='r-c-t-reply-btn' data-writer='" + c.nickname + "' data-aid='" + c.ancestorId + "' data-cid='" + c.commentId + "'><i class=\"r-c-t-etc-btn-icon fas fa-comment\"></i>답글</a>";
+                } else if (sid !== '' && c.parentId === null) {
+                    row += "<a id='openCmReplyBtn-" + c.commentId + "' onclick='openCmReplyTextarea(this)' class='r-c-t-reply-btn' data-writer='" + c.nickname + "' data-cid='" + c.commentId + "'><i class=\"r-c-t-etc-btn-icon fas fa-comment\"></i>답글</a>";
+                }
+                row += "<a>신고</a>";
+                row += "</div>";
+
+                row += "</div>";
+
+                row += "<div class=\"r-c-t-comment-content-wrap\">";
+
+                if (c.parentId != null) {
+                    if (c.status === "DELETED_ANCESTOR") {
+                        row += "<pre id='comment-content-" + c.commentId + "' class=\"r-c-t-comment-content deleted-comment\"><span class='r-c-t-comment-parent-nickname'>@" + c.parentWriter + "</span>" + c.content + "</pre>";
+                    } else {
+                        row += "<pre id='comment-content-" + c.commentId + "' class=\"r-c-t-comment-content\"><span class='r-c-t-comment-parent-nickname'>@" + c.parentWriter + "</span>" + c.content + "</pre>";
+                    }
+                } else {
+                    if (c.status === "DELETED_ANCESTOR") {
+                        row += "<pre id='comment-content-" + c.commentId + "' class=\"r-c-t-comment-content deleted-comment\">" + c.content + "</pre>";
+                    } else {
+                        row += "<pre id='comment-content-" + c.commentId + "' class=\"r-c-t-comment-content\">" + c.content + "</pre>";
+                    }
+                }
+
+                row += "</div>";
+
+                row += "</div>";
+            })
+            row += "<hr class='r-l-t-border-bottom'>";
+        }
+
+        return row;
+    }
+
+
+    function cmSubmit(e, remarkId) {
+        let textarea = $(e).parent().prev(),
+            content = textarea.val(),
+            data = {
+                content: content
+            }
+        if (e.dataset.parent != null) {
+            data.parentId = e.dataset.parent;
+            data.ancestorId = e.dataset.parent;
+            if (e.dataset.ancestor != null) {
+                data.ancestorId = e.dataset.ancestor;
+            }
+        }
+
+        if (!data.content || data.content.replace(blank_pattern, "") === "") {
+            alert("내용을 입력해주세요.")
+            return false;
+        }
+
+        if (isRun) {
+            alert("잠시만 기다려주세요.")
+            return false;
+        } else {
+            isRun = true;
+        }
+
+        cmSubmitAjax(remarkId, data);
+    }
+
+    function cmSubmitAjax(remarkId, data) {
+        $.ajax({
+            type: 'POST',
+            url: `/api/remark/${remarkId}/comment`,
+            data: JSON.stringify(data),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("XMLHttpRequest", "true");
+            }
+        }).done(function (result) {
+            clearCmTextarea();
+            loadComments(Math.ceil(result / 20) - 1);
+            $(".r-c-count-number").text(result);
+            setTimeout(function () {
+                isRun = false
+            }, 200)
+        }).fail(function (error) {
+            if (error.status === 403) {
+                location.href = "/oauth_login";
+            } else {
+                alert(JSON.stringify(error));
+            }
+            isRun = false
+        });
+    }
+
+    function clearCmTextarea() {
+        const textarea = document.querySelectorAll('.r-c-t-textarea');
+        for (let i = 0; i < textarea.length; i++) {
+            textarea[i].value = '';
+        }
+    }
+
+    function openCmReplyTextarea(e) {
+
+        let parentId = e.dataset.cid,
+            parentNickname = e.dataset.writer,
+            row = "",
+            textareaContainer = document.getElementById("cmReplyTextareaContainer-" + parentId);
+
+        if (textareaContainer === null) {
+            hideAllCmReplyTextarea();
+            row += "<div class=\"r-c-t-textarea-container r-c-t-reply-textarea-container\" id='cmReplyTextareaContainer-" + parentId + "'>";
+            row += "<div><i class=\"r-c-t-comment-reply-icon fas fa-level-up-alt fa-rotate-90\"></i><span class=\"r-c-t-writer\">@" + parentNickname + "</span></div>";
+            row += "<textarea id='cmReplyTextarea-" + parentId + "' class=\"r-c-t-textarea form-control\" rows=\"3\" maxLength=\"300\" placeholder=\"댓글을 입력하세요.\"></textarea>";
+            row += "<div class='d-flex justify-content-end'>";
+
+            if (e.dataset.aid != null) {
+                row += "<button class='r-c-t-save-btn btn btn-sm' data-parent='" + parentId + "' data-ancestor='" + e.dataset.aid + "' onclick='cmSubmit(this," + rdRemarkId + ")'>등록</button>";
+            } else {
+                row += "<button class='r-c-t-save-btn btn btn-sm' data-parent='" + parentId + "' onclick='cmSubmit(this," + rdRemarkId + ")'>등록</button>";
+            }
+            row += "</div>";
+            row += "</div>";
+
+            $("#comment-" + parentId).after(row);
+            $("#cmReplyTextarea-" + parentId).focus();
+
+        } else if (textareaContainer != null && textareaContainer.style.display === 'none') {
+            hideAllCmReplyTextarea();
+            textareaContainer.style.display = "block";
+            $("#cmReplyTextarea-" + parentId).focus();
+        } else if (textareaContainer != null && textareaContainer.style.display !== 'none') {
+            hideAllCmReplyTextarea();
+        } else {
+        }
+    }
+
+    function hideAllCmReplyTextarea() {
+        $(".r-c-t-reply-textarea-container").hide();
+    }
+
+    function deleteCm(e) {
+        if (!confirm("댓글을 삭제하시겠습니까?")) {
+            return false;
+        } else {
+            let commentId = e.dataset.cid;
+            $.ajax({
+                type: 'DELETE',
+                url: `/api/remark/${rdRemarkId}/comment/${commentId}/${sid}`,
+                contentType: 'application/json; charset=utf-8',
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("XMLHttpRequest", "true");
+                }
+            }).done(function (result) {
+                $(".r-c-count-number").text(result);
+                loadComments(Math.ceil(result / 20) - 1);
+                setTimeout(function () {
+                    isRun = false
+                }, 200)
+            }).fail(function (error) {
+                if (error.status === 403) {
+                    location.href = "/oauth_login";
+                } else {
+                    alert(JSON.stringify(error));
+                }
+                isRun = false
+            });
+        }
+    }
+
+    function openCmModifyTextArea(commentId) {
+        let row = '',
+            commentEl = document.getElementById("comment-" + commentId),
+            originContent = '',
+            textareaContainer = document.getElementById("cmModifyTextareaContainer-" + commentId);
+
+        if (textareaContainer === null) {
+            hideAllCmReplyTextarea();
+            if (commentEl.dataset.aid != null) {
+                originContent = $("#comment-content-" + commentId).html().split('>')[2];
+            } else {
+                originContent = document.getElementById("comment-content-" + commentId).innerText;
+            }
+            row += "<div id='cmModifyTextareaContainer-" + commentId + "' class=\"r-c-t-textarea-container r-c-t-reply-textarea-container r-c-t-child-modify-textarea-container\">";
+            row += "<div><i class=\"r-c-t-comment-reply-icon fas fa-level-up-alt fa-rotate-90\"></i><label class='r-c-t-textarea-label'>댓글수정</label></div>";
+            row += "<textarea id='cmModifyTextarea-" + commentId + "' class=\"r-c-t-textarea form-control\" rows=\"3\" maxLength=\"300\" placeholder=\"댓글을 입력하세요.\">" + originContent + "</textarea>";
+            row += "<div class='d-flex justify-content-end'>";
+            row += "<button class='r-c-t-save-btn btn btn-sm' onclick='modifyCm(" + commentId + ")'>수정</button>";
+
+            row += "</div>";
+            row += "</div>";
+
+            $("#comment-" + commentId).after(row);
+            $("#cmModifyTextarea-" + commentId).focus();
+        } else if (textareaContainer != null && textareaContainer.style.display === 'none') {
+            hideAllCmReplyTextarea();
+            textareaContainer.style.display = "block";
+            $("#cmModifyTextarea-" + commentId).focus();
+        } else if (textareaContainer != null && textareaContainer.style.display !== 'none') {
+            hideAllCmReplyTextarea();
+        } else {
+        }
+    }
+
+    function modifyCm(commentId) {
+        let originContent = '',
+            content = document.getElementById("cmModifyTextarea-" + commentId).value;
+
+        if (document.getElementById("comment-"+commentId).dataset.aid != null) {
+            originContent = $("#comment-content-" + commentId).html().split('>')[2];
+        } else {
+            originContent = document.getElementById("comment-content-" + commentId).innerText;
+        }
+
+
+        if (!content || content.replace(blank_pattern, "") === "") {
+            alert("내용을 입력해주세요.")
+            return false;
+        }
+
+        if(content.trim() === originContent.trim()){
+            alert("변경된 내용이 없습니다.")
+            return false;
+        }
+
+        if (isRun) {
+            alert("잠시만 기다려주세요.")
+            return false;
+        } else {
+            isRun = true;
+        }
+
+        $.ajax({
+            type: 'PUT',
+            url: `/api/remark/${rdRemarkId}/comment/${commentId}/${sid}`,
+            data: JSON.stringify({
+                content: content
+            }),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("XMLHttpRequest", "true");
+            }
+        }).done(function (result) {
+            $(".r-c-count-number").text(result);
+            loadComments(Math.ceil(result / 20) - 1);
+            setTimeout(function () {
+                isRun = false
+            }, 200)
+        }).fail(function (error) {
+            if (error.status === 403) {
+                location.href = "/oauth_login";
+            } else {
+                alert(JSON.stringify(error));
+            }
+            isRun = false
+        });
+    }
+
+    /*function setCookie(name, value, exp) {
+        let date = new Date();
+        date.setTime(date.getTime() + exp * 24 * 60 * 60 * 1000);
+        document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
+    };
+
+    function getCookie(name) {
+        let value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+        return value ? value[2] : null;
+    };*/
+
+
+    function addDeleteCmBtn() {
+        let deleteCmBtn = document.getElementsByClassName("r-c-t-delete-btn");
+        for (let i = 0; i < deleteCmBtn.length; i++) {
+            deleteCmBtn[i].addEventListener("click", function () {
+                deleteCm(this);
+            });
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", loadComments(commentPageForInit));
 </script>
 </body>
 </html>

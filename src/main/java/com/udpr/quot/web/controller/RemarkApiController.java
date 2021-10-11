@@ -21,7 +21,7 @@ public class RemarkApiController {
     private final RemarkService remarkService;
 
 
-    //코멘트 저장
+    //발언 저장
     @PostMapping("/api/person/{personId}/remark")
     public Long save(@PathVariable("personId") Long personId, @RequestBody RemarkRequestDto requestDto,
                      @LoginUser SessionUser user)

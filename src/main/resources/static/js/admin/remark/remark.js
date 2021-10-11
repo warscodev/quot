@@ -2,14 +2,12 @@ let isRun = false;
 
 
 function like(e, remarkId, isLike) {
-
     if (isRun) {
         alert("잠시만 기다려주세요.")
         return false;
     }else{
         isRun = true;
     }
-
     let likeCountDom = document.getElementById("like-count-" + remarkId),
         dislikeCountDom = document.getElementById("dislike-count-" + remarkId);
 
@@ -58,7 +56,7 @@ function like(e, remarkId, isLike) {
 
     function getFirstChild(element) {
         let firstChild = element.firstChild;
-        while (firstChild != null && firstChild.nodeType == 3) {
+        while (firstChild != null && firstChild.nodeType === 3) {
             firstChild = firstChild.nextSibling;
         }
         return firstChild;
@@ -66,7 +64,7 @@ function like(e, remarkId, isLike) {
 }
 
 function deleteRemark(id) {
-    if (confirm("정말 삭제하시겠습니까? \n삭제한 발언은 복원할 수 없습니다.") == true) {
+    if (confirm("정말 삭제하시겠습니까? \n삭제한 발언은 복원할 수 없습니다.") === true) {
         $.ajax({
             type: 'DELETE',
             url: '/api/remark/' + id,

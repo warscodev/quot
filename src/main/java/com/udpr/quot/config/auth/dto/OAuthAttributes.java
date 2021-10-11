@@ -62,7 +62,7 @@ public class OAuthAttributes {
         String random = RandomStringUtils.random(8, true, true);
         return User.builder()
                 .email(email)
-                .nickname("nickname_" + random)
+                .nickname("quot_" + random)
                 .role(Role.USER)
                 .build();
     }
