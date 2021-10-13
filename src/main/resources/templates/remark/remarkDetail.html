@@ -173,7 +173,7 @@
                     </div>
 
 
-                    <div class="r-c-table-container">
+                    <div class="r-c-table-container" id="comment-container">
                         <hr class="r-l-t-border-bottom">
 
                         <div class="r-c-count">
@@ -747,6 +747,8 @@
         for (let i = 0; i < pageLink.length; i++) {
             pageLink[i].addEventListener("click", function () {
                 loadComments(this.dataset.page);
+                let location = document.querySelector("#comment-container").offsetTop;
+                window.scrollTo({top:location});
             });
         }
     }
