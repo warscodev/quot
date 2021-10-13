@@ -88,14 +88,15 @@
                     <select th:if="${dto.pageMetadata.totalElements>0}" th:field="*{sort}" onchange="this.form.submit()"
                             class="r-l-sorting form-select form-select-sm">
                         <option value="cd_d">등록순</option>
+                        <option value="cm">댓글순</option>
+                        <option value="like">좋아요순</option>
+                        <option value="dislike">싫어요순</option>
                         <option value="rd_d">최근 발언순</option>
                         <option value="rd_a">과거 발언순</option>
                     </select>
                     <select th:unless="${dto.pageMetadata.totalElements>0}" th:field="*{sort}" onchange="this.form.submit()"
                             class="r-l-sorting form-select form-select-sm" disabled>
                         <option value="cd_d">등록순</option>
-                        <option value="rd_d">최근 발언순</option>
-                        <option value="rd_a">과거 발언순</option>
                     </select>
                 </form>
             </div>
@@ -157,7 +158,7 @@
                         </div>
                     </div>
 
-                    <div class="r-l-t-first-row-third-col col-1 d-flex justify-content-end">
+                    <div class="r-l-t-first-row-third-col d-flex justify-content-end">
                         <span class="r-l-t-info tt" data-bs-html="true" data-bs-placement="bottom"
                               th:title="|<div class='d-flex align-items-center justify-content-center'>
                                 <span class='r-l-t-info-nickname'>${r.nickname}</span>

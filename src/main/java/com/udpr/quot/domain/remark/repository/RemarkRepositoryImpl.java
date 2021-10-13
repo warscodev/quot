@@ -174,7 +174,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                                 .or(removeCommaOnPersonAlias().likeIgnoreCase("%" + condition.getKeyword() + "%")))
                         .offset(pageable.getOffset())
                         .limit(pageable.getPageSize())
-                        .orderBy(getOrderSpecifier(condition.getSort()).stream().toArray(OrderSpecifier[]::new))
+                        .orderBy(getOrderSpecifier(condition.getSort()).toArray(OrderSpecifier[]::new))
                         .fetchResults();
 
         List<Long> remarkIdList = toRemarkIdList(results);
@@ -210,7 +210,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                                 .and(personIdEq(condition.getPersonId())))
                         .offset(pageable.getOffset())
                         .limit(pageable.getPageSize())
-                        .orderBy(getOrderSpecifier(condition.getSort()).stream().toArray(OrderSpecifier[]::new))
+                        .orderBy(getOrderSpecifier(condition.getSort()).toArray(OrderSpecifier[]::new))
                         .fetchResults();
 
         List<Long> remarkIdList = toRemarkIdList(results);
@@ -244,7 +244,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
 
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
-                .orderBy(getOrderSpecifier(condition.getSort()).stream().toArray(OrderSpecifier[]::new))
+                .orderBy(getOrderSpecifier(condition.getSort()).toArray(OrderSpecifier[]::new))
                 .fetchResults();
 
         List<Long> remarkIdList = toRemarkIdList(results);
@@ -285,16 +285,13 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                 .where(remarkLike.remark.id.in(remarkIdList).and(remarkLike.user.id.eq(sid)))
                 .fetch();
 
-        Map<Long, List<RemarkLikeQueryDto>> likeMap =
-                likeList.stream().collect(Collectors.groupingBy(RemarkLikeQueryDto::getRemarkId));
-        return likeMap;
+        return likeList.stream().collect(Collectors.groupingBy(RemarkLikeQueryDto::getRemarkId));
     }
 
     private List<Long> toRemarkIdList(QueryResults<RemarkQueryDto> results) {
-        List<Long> remarkIdList = results.getResults().stream()
-                .map(r->r.getRemarkId())
+        return results.getResults().stream()
+                .map(RemarkQueryDto::getRemarkId)
                 .collect(Collectors.toList());
-        return remarkIdList;
     }
 
     private void setCollections(RemarkSearchCondition condition, QueryResults<RemarkQueryDto> results, List<Long> remarkIdList, Map<Long, List<RemarkTagQueryDto>> tagMap) {
@@ -359,6 +356,15 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                 break;
             case "rd_a":
                 orders.add(remark.remarkDate.asc());
+                break;
+            case "cm":
+                orders.add(comment.count().desc());
+                break;
+            case "like":
+                orders.add(remark.likeCount.desc());
+                break;
+            case "dislike":
+                orders.add(remark.dislikeCount.desc());
                 break;
         }
 

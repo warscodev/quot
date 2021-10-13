@@ -695,14 +695,14 @@ box-shadow: none
     }
 
     .r-l-t-second-col{
-        padding: 0 .5rem 0 .5rem;
+        padding: 0 .25rem 0 .5rem;
     }
 }
 
 
 .r-l-t-second-col{
-    padding-left: calc(var(--bs-gutter-x)/ 2);
-    padding-right: calc(var(--bs-gutter-x)/ 2);
+    padding-left: .75rem;
+    padding-right: .5rem;
 }
 
 .r-l-t-person-and-date-container{
@@ -934,10 +934,12 @@ box-shadow: none
 @media (max-width: 426px) {
 
     .r-l-t-last-row-container {
+        padding-left: 1rem;
         -ms-overflow-style: none;
         width: 100% !important;
         overflow-x: auto;
-        white-space: nowrap
+        white-space: nowrap;
+
     }
 
     .r-l-t-last-row-container::-webkit-scrollbar {
