@@ -60,15 +60,17 @@
     <div class="p-d-body-container container container-custom">
         <div class="p-d-body">
             <div th:if="*{not #lists.isEmpty(remarkList)}" class="p-d-r-row-container" th:each="r : *{remarkList}">
-                <div class="p-d-r-first-row-container d-flex">
+                <div class="p-d-r-first-row-container d-flex align-items-center">
                     <div class="p-d-r-date-wrap">
                         <span class="p-d-r-date" th:text="${r.remarkDate}"></span>
                     </div>
-                    <span style="font-size: .938rem; margin:0 .25rem; display: flex; align-items: flex-end;">｜</span>
-                    <div class="p-d-r-icons-container d-flex">
+                    <span class="p-d-r-first-row-divider">｜</span>
+                    <div class="p-d-r-icons-container">
+                        <a th:href="@{/remark/{id}(id=${r.remarkId})}" class=" d-flex">
                         <div class="p-d-r-icons-like"><i class="far fa-thumbs-up"></i>&nbsp;<span th:text="${r.likeCount}"></span></div>
                         <div class="p-d-r-icons-dislike"><i class="far fa-thumbs-down"></i>&nbsp;<span th:text="${r.dislikeCount}"></span></div>
                         <div class="p-d-r-icons-comments"><i class="far fa-comment-dots"></i>&nbsp;<span th:text="${r.commentCount}"></span></div>
+                        </a>
                     </div>
                 </div>
 

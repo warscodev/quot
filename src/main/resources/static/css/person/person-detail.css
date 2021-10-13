@@ -133,7 +133,8 @@
 }
 
 
-.p-d-r-row-container{
+.p-d-r-first-row-container{
+    line-height: initial;
 }
 
 .p-d-r-date{
@@ -141,6 +142,43 @@
     font-weight: 600;
     color: #7f8a99;
 }
+
+.p-d-r-first-row-divider{
+    margin:0 .25rem;
+    display: flex;
+    align-items: flex-end;
+    color: #7f8a99;
+}
+
+.p-d-r-icons-container{
+    display: flex;
+    cursor: default;
+    color: #919191;
+    font-size: .813rem;
+}
+.p-d-r-icons-container > a > div{
+    margin-right: .75rem;
+}
+.p-d-r-icons-container > a{
+    color: #7f8a99;
+}
+
+.p-d-r-icons-like, .p-d-r-icons-dislike, .p-d-r-icons-comments {
+    display: flex;
+    align-items: center;
+}
+
+.p-d-r-icons-like > i {
+    color: #338ebf;
+}
+.p-d-r-icons-dislike > i {
+    color: #fc7b7b;
+}
+
+.p-d-r-icons-comments > i {
+    color: #909bab;
+}
+
 
 .p-d-r-tags-wrap{
     margin-top: .25rem;
@@ -163,31 +201,6 @@
 .p-d-r-tags:hover{
     color: #0067b8 !important;
     background-color: #edf1f6;
-}
-
-.p-d-r-icons-container{
-    cursor: default;
-    color: #919191;
-    font-size: .813rem;
-}
-.p-d-r-icons-container > div{
-    margin-right: .75rem;
-}
-
-.p-d-r-icons-like, .p-d-r-icons-dislike, .p-d-r-icons-comments {
-    display: flex;
-    align-items: center;
-}
-
-.p-d-r-icons-like > i {
-    color: #338ebf;
-}
-.p-d-r-icons-dislike > i {
-    color: #fc7b7b;
-}
-
-.p-d-r-icons-comments > i {
-    color: #909bab;
 }
 
 .p-d-r-content-quotation{
