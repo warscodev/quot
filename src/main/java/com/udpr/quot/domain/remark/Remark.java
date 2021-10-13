@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.udpr.quot.domain.common.BaseTimeEntity;
 import com.udpr.quot.domain.common.Status;
 import com.udpr.quot.domain.person.Person;
+import com.udpr.quot.domain.remark.comment.Comment;
 import com.udpr.quot.domain.user.User;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -45,12 +46,16 @@ public class Remark extends BaseTimeEntity {
     @JoinColumn(name = "person_id")
     private Person person;
 
+
     @JsonManagedReference(value = "remark")
     @OneToMany(mappedBy = "remark", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RemarkTag> remarkTagList = new ArrayList<>();
 
     @OneToMany(mappedBy = "remark", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RemarkLike> remarkLikeList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "remark", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> commentList = new ArrayList<>();
 
     @ColumnDefault("0")
     private int likeCount;

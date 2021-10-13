@@ -10,6 +10,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.udpr.quot.domain.person.PersonSearchCondition;
 import com.udpr.quot.domain.common.Status;
 import com.udpr.quot.domain.person.search.RemarkForPersonDetailSearchCondition;
+import com.udpr.quot.domain.remark.comment.QComment;
 import com.udpr.quot.web.dto.person.*;
 import com.udpr.quot.web.dto.remark.QRemarkForPersonDetailQueryDto;
 import com.udpr.quot.web.dto.remark.RemarkForPersonDetailQueryDto;
@@ -29,6 +30,7 @@ import java.util.stream.Collectors;
 import static com.udpr.quot.domain.person.QPerson.person;
 import static com.udpr.quot.domain.remark.QRemark.remark;
 import static com.udpr.quot.domain.remark.QRemarkTag.remarkTag;
+import static com.udpr.quot.domain.remark.comment.QComment.comment;
 import static com.udpr.quot.domain.tag.QTag.tag;
 import static com.udpr.quot.domain.user.QUser.user;
 
@@ -210,11 +212,13 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
                         remark.id, remark.content, remark.remarkDate,
                         remark.createdDate, remark.updatedDate, remark.likeCount,
                         remark.dislikeCount,remark.sourceSort, remark.sourceUrl,
-                        user.id, user.nickname, user.picture))
+                        user.id, user.nickname, comment.count()))
                 .from(remark)
                 .where(remark.person.id.eq(id))
-                .join(remark.user, user)
-                .orderBy(getOrderSpecifier(condition.getSort()).stream().toArray(OrderSpecifier[]::new))
+                .leftJoin(remark.user, user)
+                .leftJoin(comment).on(remark.id.eq(comment.remark.id).and(comment.status.ne(Status.DELETED)))
+                .groupBy(remark.id)
+                .orderBy(getOrderSpecifier(condition.getSort()).toArray(OrderSpecifier[]::new))
                 .fetch();
 
         List<Long> remarkIdList = toRemarkIdList(results);

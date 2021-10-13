@@ -26,12 +26,13 @@ public class RemarkForPersonDetailQueryDto {
 
     private Long user_id;
     private String nickname;
-    private String picture;
+
+    private Long commentCount;
 
     private List<RemarkTagQueryDto> remarkTagList;
 
     @QueryProjection
-    public RemarkForPersonDetailQueryDto(Long remarkId, String content, LocalDate remarkDate, LocalDateTime createdDate, LocalDateTime updatedDate, int likeCount, int dislikeCount, String sourceSort, String sourceUrl, Long user_id, String nickname, String picture) {
+    public RemarkForPersonDetailQueryDto(Long remarkId, String content, LocalDate remarkDate, LocalDateTime createdDate, LocalDateTime updatedDate, int likeCount, int dislikeCount, String sourceSort, String sourceUrl, Long user_id, String nickname, Long commentCount) {
         this.remarkId = remarkId;
         this.content = content;
         this.remarkDate = remarkDateFormat(remarkDate);
@@ -43,7 +44,7 @@ public class RemarkForPersonDetailQueryDto {
         this.sourceUrl = sourceUrl;
         this.user_id = user_id;
         this.nickname = nickname;
-        this.picture = picture;
+        this.commentCount = commentCount;
     }
 
     public String createdAndUpdatedDateFormat(LocalDateTime localDateTime){
