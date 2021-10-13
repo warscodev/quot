@@ -48,13 +48,12 @@
                                     </a>
                                 </div>
                                 <!-- 다른이름, 직업, 날짜 -->
-                                <div class="d-flex align-items-center" style="flex-wrap: wrap;">
+                                <div class="d-flex align-items-start" style="flex-wrap: wrap;">
                                     <div class="r-d-t-person-alias-and-job-container">
-                                        <span class="r-d-t-person-job" th:text="*{job}"></span>
+                                        <span class="r-d-t-person-job" th:text="*{job}"></span><span class="r-d-t-date">｜</span>
                                     </div>
-                                    <div class="r-d-t-date-container" style="margin: 0 .25rem;">
-                                        <span class="r-d-t-date">·</span>
-                                    </div>
+                                    <!--<div class="r-d-t-date-container" style="margin: 0 .25rem;">
+                                    </div>-->
                                     <div class="r-d-t-date-container">
                                         <span class="r-d-t-date" th:text="|*{remarkDate}|"></span>
                                     </div>
