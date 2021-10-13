@@ -38,9 +38,13 @@ public class CommentApiController {
 
     @DeleteMapping("/api/remark/{remarkId}/comment/{commentId}/{userId}")
     public Long deleteComment(@PathVariable("remarkId") Long remarkId, @PathVariable("commentId") Long commentId,
-                              @LoginUser SessionUser user, @PathVariable("userId") Long userId) throws AuthenticationException {
+                              @LoginUser SessionUser user, @PathVariable("userId") Long userId, @RequestParam(value = "ancestorId", required = false) Long ancestorId) throws AuthenticationException {
         if (user != null && userId.equals(user.getId())) {
-            commentService.deleteComment(commentId);
+            if(ancestorId != null){
+                commentService.deleteComment(commentId,ancestorId);
+            }else {
+                commentService.deleteComment(commentId);
+            }
             return commentRepository.getCommentCount(remarkId);
         } else
             throw new AuthenticationException();

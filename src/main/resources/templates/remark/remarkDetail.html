@@ -189,7 +189,7 @@
                                 <textarea id="cmTextarea" class="r-c-t-textarea form-control" rows="3" maxlength="300"
                                           placeholder="댓글을 입력하세요."></textarea>
                                 <div class="d-flex justify-content-end">
-                                    <button class="r-c-t-save-btn btn btn-sm" th:onclick="|cmSubmit(this,*{remarkId})|">
+                                    <button class="r-c-t-save-btn btn btn-sm" th:onclick="|submitCm(this,*{remarkId})|">
                                         등록
                                     </button>
                                 </div>
@@ -236,19 +236,21 @@
 <script sec:authorize="isAuthenticated()" th:inline="javascript">
     const sid = /*[[ ${session.user.id} ]]*/,
         rdRemarkId = /*[[ *{remarkId} ]]*/,
-        size = 20,
+        size = 40,
         blank_pattern = /^\s+|\s+$/g,
         commentCountForInit = /*[[ ${commentCount} ]]*/,
-        commentPageForInit = Math.ceil(commentCountForInit / 20) - 1;
+        commentPageForInit = Math.ceil(commentCountForInit / size) - 1;
+    let currentCmPage ='';
 </script>
 
 <script sec:authorize="isAnonymous()" th:inline="javascript">
     const sid = '',
         rdRemarkId = /*[[ *{remarkId} ]]*/,
-        size = 20,
+        size = 40,
         blank_pattern = /^\s+|\s+$/g,
         commentCountForInit = /*[[ ${commentCount} ]]*/,
-        commentPageForInit = Math.ceil(commentCountForInit / 20) - 1;
+        commentPageForInit = Math.ceil(commentCountForInit / size) - 1;
+    let currentCmPage ='';
 </script>
 
 <script>
@@ -287,8 +289,11 @@
                     row += "<div class=\"r-c-t-comment-writer\">" + c.nickname + "</div>";
                 }
 
+                if(c.status === "UPDATED"){
+                    row += "<div class=\"r-c-t-comment-date\">" + c.createdDate + "(수정됨)</div>";
+                }else {
                 row += "<div class=\"r-c-t-comment-date\">" + c.createdDate + "</div>";
-
+                }
                 row += "</div>";
 
 
@@ -332,12 +337,11 @@
             })
             row += "<hr class='r-l-t-border-bottom'>";
         }
-
         return row;
     }
 
 
-    function cmSubmit(e, remarkId) {
+    function submitCm(e, remarkId) {
         let textarea = $(e).parent().prev(),
             content = textarea.val(),
             data = {
@@ -363,10 +367,10 @@
             isRun = true;
         }
 
-        cmSubmitAjax(remarkId, data);
+        submitCmAjax(remarkId, data);
     }
 
-    function cmSubmitAjax(remarkId, data) {
+    function submitCmAjax(remarkId, data) {
         $.ajax({
             type: 'POST',
             url: `/api/remark/${remarkId}/comment`,
@@ -378,11 +382,9 @@
             }
         }).done(function (result) {
             clearCmTextarea();
-            loadComments(Math.ceil(result / 20) - 1);
+            loadComments(Math.ceil(result / size) - 1);
             $(".r-c-count-number").text(result);
-            setTimeout(function () {
-                isRun = false
-            }, 200)
+            setTimeout(() => {isRun = false}, 200)
         }).fail(function (error) {
             if (error.status === 403) {
                 location.href = "/oauth_login";
@@ -401,7 +403,6 @@
     }
 
     function openCmReplyTextarea(e) {
-
         let parentId = e.dataset.cid,
             parentNickname = e.dataset.writer,
             row = "",
@@ -415,9 +416,9 @@
             row += "<div class='d-flex justify-content-end'>";
 
             if (e.dataset.aid != null) {
-                row += "<button class='r-c-t-save-btn btn btn-sm' data-parent='" + parentId + "' data-ancestor='" + e.dataset.aid + "' onclick='cmSubmit(this," + rdRemarkId + ")'>등록</button>";
+                row += "<button class='r-c-t-save-btn btn btn-sm' data-parent='" + parentId + "' data-ancestor='" + e.dataset.aid + "' onclick='submitCm(this," + rdRemarkId + ")'>등록</button>";
             } else {
-                row += "<button class='r-c-t-save-btn btn btn-sm' data-parent='" + parentId + "' onclick='cmSubmit(this," + rdRemarkId + ")'>등록</button>";
+                row += "<button class='r-c-t-save-btn btn btn-sm' data-parent='" + parentId + "' onclick='submitCm(this," + rdRemarkId + ")'>등록</button>";
             }
             row += "</div>";
             row += "</div>";
@@ -443,20 +444,27 @@
         if (!confirm("댓글을 삭제하시겠습니까?")) {
             return false;
         } else {
-            let commentId = e.dataset.cid;
+            let url = '',
+                commentId = e.dataset.cid,
+                ancestorId = document.getElementById("comment-"+commentId).dataset.aid;
+
+            if(ancestorId !=null){
+                url = `/api/remark/${rdRemarkId}/comment/${commentId}/${sid}?ancestorId=${ancestorId}`
+            }else {
+                url = `/api/remark/${rdRemarkId}/comment/${commentId}/${sid}`
+            }
+
             $.ajax({
                 type: 'DELETE',
-                url: `/api/remark/${rdRemarkId}/comment/${commentId}/${sid}`,
+                url: url,
                 contentType: 'application/json; charset=utf-8',
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader("XMLHttpRequest", "true");
                 }
             }).done(function (result) {
                 $(".r-c-count-number").text(result);
-                loadComments(Math.ceil(result / 20) - 1);
-                setTimeout(function () {
-                    isRun = false
-                }, 200)
+                loadComments(Math.ceil(result / size) - 1);
+                setTimeout(() => {isRun = false}, 200);
             }).fail(function (error) {
                 if (error.status === 403) {
                     location.href = "/oauth_login";
@@ -512,7 +520,6 @@
             originContent = document.getElementById("comment-content-" + commentId).innerText;
         }
 
-
         if (!content || content.replace(blank_pattern, "") === "") {
             alert("내용을 입력해주세요.")
             return false;
@@ -543,11 +550,9 @@
             }
         }).done(function (result) {
             $(".r-c-count-number").text(result);
-            loadComments(Math.ceil(result / 20) - 1);
-            setTimeout(function () {
-                isRun = false
-            }, 200)
-        }).fail(function (error) {
+            loadComments(Math.ceil(result / size) - 1);
+            setTimeout(() => {isRun = false}, 200);
+        }).fail(error => {
             if (error.status === 403) {
                 location.href = "/oauth_login";
             } else {

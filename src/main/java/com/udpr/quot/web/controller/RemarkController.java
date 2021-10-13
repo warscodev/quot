@@ -85,7 +85,7 @@ public class RemarkController {
 
 
 
-    //코멘트 리스트
+    //발언 리스트
     @GetMapping("/remark")
     public String remarkListPage(@ModelAttribute("cond") RemarkSearchCondition condition,
                                  Model model, @LoginUser SessionUser user) {

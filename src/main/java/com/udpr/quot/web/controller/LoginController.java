@@ -43,10 +43,6 @@ public class LoginController {
 
         String uri = request.getHeader("Referer");
 
-        if(uri != null){
-            System.out.println(uri);
-        }
-
         if (uri != null && !uri.contains("/oauth_login")
                 && !uri.contains("/oauth2.0/authorize)")
                 && !uri.contains("/signin")
@@ -54,13 +50,10 @@ public class LoginController {
             request.getSession().setAttribute("prevPage",
                     request.getHeader("Referer"));
         }
-
-
-
         return "account/login";
     }
 
-    @GetMapping("/login")
+    /*@GetMapping("/login")
     public String login(HttpServletRequest request){
 
         String uri = request.getHeader("Referer");
@@ -72,6 +65,6 @@ public class LoginController {
 
         return "account/login";
 
-    }
+    }*/
 
 }

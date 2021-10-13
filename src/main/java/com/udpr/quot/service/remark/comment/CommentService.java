@@ -1,11 +1,7 @@
 package com.udpr.quot.service.remark.comment;
 
 
-import com.udpr.quot.config.auth.LoginUser;
-import com.udpr.quot.config.auth.dto.SessionUser;
 import com.udpr.quot.domain.common.Status;
-import com.udpr.quot.domain.person.Person;
-import com.udpr.quot.domain.person.repository.PersonRepository;
 import com.udpr.quot.domain.remark.Remark;
 import com.udpr.quot.domain.remark.comment.Comment;
 import com.udpr.quot.domain.remark.comment.repository.CommentRepository;
@@ -67,6 +63,20 @@ public class CommentService {
     }
 
     @Transactional
+    public void deleteComment(Long commentId, Long ancestorId){
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 댓글정보가 없습니다. id = " + commentId));
+        comment.setStatusDeleted();
+
+        if(commentRepository.checkChildren(ancestorId)<1){
+            Comment ancestor = commentRepository.findById(ancestorId)
+                    .orElseThrow(() -> new IllegalArgumentException("해당 댓글정보가 없습니다. id = " + commentId));
+            ancestor.setStatusDeleted();
+        }
+
+    }
+
+    @Transactional
     public void modifyComment(Long commentId, String content) {
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new IllegalArgumentException("원 댓글정보가 없습니다. id = " + commentId));
@@ -77,7 +87,5 @@ public class CommentService {
 
         comment.update(content);
     }
-
-
 
 }

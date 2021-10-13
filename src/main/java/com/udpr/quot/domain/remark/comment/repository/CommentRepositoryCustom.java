@@ -12,4 +12,6 @@ public interface CommentRepositoryCustom{
 
     Long checkChildren(Long ancestorId);
 
+    void checkAncestorStatus(Long commentId);
+
 }
