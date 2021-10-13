@@ -7,7 +7,12 @@ import org.springframework.data.domain.Page;
 @Getter
 public class CommentListResponseDto {
 
-    private Page<CommentQueryDto> comments;
+    private final Page<CommentQueryDto> comments;
 
-    private PageMetadata pageMetadata;
+    private final PageMetadata pageMetadata;
+
+    public CommentListResponseDto(Page<CommentQueryDto> comments, PageMetadata pageMetadata) {
+        this.comments = comments;
+        this.pageMetadata = pageMetadata;
+    }
 }

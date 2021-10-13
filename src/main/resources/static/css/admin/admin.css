@@ -1149,7 +1149,23 @@ box-shadow: none
     color: #fff !important;
 }
 
+.r-c-pagination-container > nav > ul{
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+}
 
+#comment-pagination-sm{
+    display: none;
+}
+
+@media (max-width: 767px) {
+    #comment-pagination{
+        display: none;
+    }
+    #comment-pagination-sm{
+        display: block;
+    }
+}
 
 
 
@@ -1187,6 +1203,10 @@ box-shadow: none
     padding: 0 !important;
     background-color: transparent;
     border: none;
+}
+
+.page-item.active >.page-link{
+    pointer-events: none;
 }
 
 .page-item.active{

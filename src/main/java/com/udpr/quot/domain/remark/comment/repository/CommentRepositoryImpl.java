@@ -1,5 +1,6 @@
 package com.udpr.quot.domain.remark.comment.repository;
 
+import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.dsl.Coalesce;
 import com.querydsl.jpa.JPAExpressions;
@@ -40,7 +41,7 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom{
 
     @Override
     public Page<CommentQueryDto> getComments(Long remarkId, Pageable pageable){
-        List<CommentQueryDto> results = queryFactory
+        QueryResults<CommentQueryDto> results = queryFactory
                 .select(new QCommentQueryDto(
                     comment.id, comment.content, comment.createdDate, comment.updatedDate,
                         comment.status, comment.ancestor.id, comment.parent.id, comment.parent.user.nickname,
@@ -57,8 +58,9 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom{
                 .orderBy(coalesce.asc(),
                         comment.createdDate.asc()
                 )
-                .fetch();
-        return new PageImpl<>(results, pageable, results.size());
+                .fetchResults();
+
+        return new PageImpl<>(results.getResults(), pageable, results.getTotal());
     }
 
     @Override

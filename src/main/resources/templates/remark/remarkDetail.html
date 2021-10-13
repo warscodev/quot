@@ -181,8 +181,16 @@
                         </div>
                         <div class="r-c-table" id="comment-table">
 
+                        </div>
+
+                        <div class="r-c-pagination-container" id="comment-pagination">
 
                         </div>
+
+                        <div class="r-c-pagination-container" id="comment-pagination-sm">
+
+                        </div>
+
                         <div sec:authorize="hasAnyRole('ADMIN,USER')" class="r-c-t-textarea-container">
                             <label class="r-c-t-textarea-label">댓글쓰기</label>
                             <div class="r-c-t-textarea-wrap">
@@ -239,8 +247,8 @@
         size = 40,
         blank_pattern = /^\s+|\s+$/g,
         commentCountForInit = /*[[ ${commentCount} ]]*/,
-        commentPageForInit = Math.ceil(commentCountForInit / size) - 1;
-    let currentCmPage ='';
+        commentPageForInit = Math.ceil(commentCountForInit / size);
+    let currentCmPage = commentPageForInit;
 </script>
 
 <script sec:authorize="isAnonymous()" th:inline="javascript">
@@ -249,21 +257,26 @@
         size = 40,
         blank_pattern = /^\s+|\s+$/g,
         commentCountForInit = /*[[ ${commentCount} ]]*/,
-        commentPageForInit = Math.ceil(commentCountForInit / size) - 1;
-    let currentCmPage ='';
+        commentPageForInit = Math.ceil(commentCountForInit / size);
+
+    let currentCmPage = commentPageForInit;
 </script>
 
 <script>
     function loadComments(page) {
         $.getJSON(`/api/remark/${rdRemarkId}/comment?page=${page}&size=${size}`, function (data) {
             $("#comment-table").html(toCommentTable(data));
+            $("#comment-pagination").html(toPagination(data.pageMetadata));
+            $("#comment-pagination-sm").html(toPaginationSm(data.pageMetadata));
+            currentCmPage = page;
+            addPaging();
             addDeleteCmBtn();
         });
     }
 
-    function toCommentTable(obj) {
+    function toCommentTable(data) {
         let row = '',
-            comments = obj.content;
+            comments = data.comments.content;
 
         if (comments.length > 0) {
             comments.forEach(c => {
@@ -340,6 +353,146 @@
         return row;
     }
 
+    function toPagination(data){
+        let row = '';
+
+        row += "<nav aria-label='Page navigator'>";
+
+        if(data.totalPages>1){
+            row += "<ul class='pagination pagination-sm d-flex'>";
+
+            if(!data.first){
+                row += "<li class='page-item page-chevron-left'>";
+                row += "<a class='page-link' data-page='" + (data.page-1) + "'>";
+                row += "<span><i class='fas fa-chevron-left'></i></span>";
+                row += "</a>";
+                row += "</li>";
+            }else {
+                row += "<li class='page-item page-chevron-left disabled'>";
+                row += "<a class='page-link'>";
+                row += "<span><i class='fas fa-chevron-left'></i></span>";
+                row += "</a>";
+                row += "</li>";
+            }
+            if(data.startBlock > 1) {
+                row += "<li class='page-item'>";
+                row += "<a class='page-link' data-page='1'>1</a>";
+                row += "</li>";
+            }
+
+            if(data.startBlock>0){
+                for(let pages = data.startBlock; pages <= data.endBlock; pages++){
+                    if(pages===data.page){
+                        row += "<li class='page-item active'>";
+                        row += "<span class='page-link'>" + pages + "</span>";
+                        row += "</li>";
+                    }else {
+                        row += "<li class='page-item'>";
+                        row += "<a class='page-link' data-page='" + pages + "'>" + pages + "</a>";
+                        row += "</li>";
+                    }
+                }
+            }
+
+            if(!(data.endBlock - data.startBlock) < 9 && data.endBlock !== data.totalPages){
+                row += "<li class='page-item disabled'><span class='page-link'>...</span></li>";
+                row += "<li class='page-item'>";
+                row += "<a class='page-link' data-page='" + data.totalPages + "'>" + data.totalPages + "</a>";
+                row += "</li>";
+                row += "</li>";
+            }
+
+            if(!data.last && data.totalElements !==0){
+                row += "<li class='page-item page-chevron-right'>";
+                row += "<a class='page-link' data-page='" + (data.page +1) + "'>";
+                row += "<span><i class='fas fa-chevron-right'></i></span>";
+                row += "</a>";
+                row += "</li>";
+            }else if(data.last && data.totalElements !==0){
+                row += "<li class='page-item page-chevron-right disabled'>";
+                row += "<a class='page-link'>";
+                row += "<span><i class='fas fa-chevron-right'></i></span>";
+                row += "</a>";
+                row += "</li>";
+            }
+            row += "</ul>";
+        }
+        row += "</nav>";
+
+        return row;
+    }
+
+    function toPaginationSm(data){
+        let row = '';
+
+        row += "<nav aria-label='Page navigator'>";
+
+        if(data.totalPages>1){
+            row += "<ul class='pagination pagination-sm d-flex'>";
+
+            if(!data.first){
+                row += "<li class='page-item page-chevron-left'>";
+                row += "<a class='page-link' data-page='" + (data.page-1) + "'>";
+                row += "<span><i class='fas fa-chevron-left'></i></span>";
+                row += "</a>";
+                row += "</li>";
+            }else {
+                row += "<li class='page-item page-chevron-left disabled'>";
+                row += "<a class='page-link'>";
+                row += "<span><i class='fas fa-chevron-left'></i></span>";
+                row += "</a>";
+                row += "</li>";
+            }
+            if(data.startBlock_sm > 1) {
+                row += "<li class='page-item'>";
+                row += "<a class='page-link' data-page='1'>1</a>";
+                row += "</li>";
+            }
+
+            if(data.startBlock_sm>0){
+                for(let pages = data.startBlock_sm; pages <= data.endBlock_sm; pages++){
+                    if(pages===data.page){
+                        row += "<li class='page-item active'>";
+                        row += "<span class='page-link'>" + pages + "</span>";
+                        row += "</li>";
+                    }else {
+                        row += "<li class='page-item'>";
+                        row += "<a class='page-link' data-page='" + pages + "'>" + pages + "</a>";
+                        row += "</li>";
+                    }
+                }
+            }
+
+            if(!(data.endBlock_sm - data.startBlock_sm) < 4 && data.endBlock_sm !== data.totalPages){
+                row += "<li class='page-item disabled'><span class='page-link'>...</span></li>";
+                row += "<li class='page-item'>";
+                row += "<a class='page-link' data-page='" + data.totalPages + "'>" + data.totalPages + "</a>";
+                row += "</li>";
+                row += "</li>";
+            }
+
+            if(!data.last && data.totalElements !==0){
+                row += "<li class='page-item page-chevron-right'>";
+                row += "<a class='page-link' data-page='" + (data.page +1) + "'>";
+                row += "<span><i class='fas fa-chevron-right'></i></span>";
+                row += "</a>";
+                row += "</li>";
+            }else if(data.last && data.totalElements !==0){
+                row += "<li class='page-item page-chevron-right disabled'>";
+                row += "<a class='page-link'>";
+                row += "<span><i class='fas fa-chevron-right'></i></span>";
+                row += "</a>";
+                row += "</li>";
+            }
+            row += "</ul>";
+        }
+        row += "</nav>";
+
+        return row;
+    }
+
+
+
 
     function submitCm(e, remarkId) {
         let textarea = $(e).parent().prev(),
@@ -382,7 +535,13 @@
             }
         }).done(function (result) {
             clearCmTextarea();
-            loadComments(Math.ceil(result / size) - 1);
+
+            if(data.ancestorId != null){
+                loadComments(currentCmPage);
+            }else {
+                loadComments(Math.ceil(result / size));
+            }
+
             $(".r-c-count-number").text(result);
             setTimeout(() => {isRun = false}, 200)
         }).fail(function (error) {
@@ -463,7 +622,7 @@
                 }
             }).done(function (result) {
                 $(".r-c-count-number").text(result);
-                loadComments(Math.ceil(result / size) - 1);
+                loadComments(currentCmPage);
                 setTimeout(() => {isRun = false}, 200);
             }).fail(function (error) {
                 if (error.status === 403) {
@@ -550,7 +709,7 @@
             }
         }).done(function (result) {
             $(".r-c-count-number").text(result);
-            loadComments(Math.ceil(result / size) - 1);
+            loadComments(currentCmPage);
             setTimeout(() => {isRun = false}, 200);
         }).fail(error => {
             if (error.status === 403) {
@@ -579,6 +738,15 @@
         for (let i = 0; i < deleteCmBtn.length; i++) {
             deleteCmBtn[i].addEventListener("click", function () {
                 deleteCm(this);
+            });
+        }
+    }
+
+    function addPaging() {
+        let pageLink= document.getElementsByClassName("page-link");
+        for (let i = 0; i < pageLink.length; i++) {
+            pageLink[i].addEventListener("click", function () {
+                loadComments(this.dataset.page);
             });
         }
     }
