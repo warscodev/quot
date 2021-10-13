@@ -97,7 +97,7 @@
 
                     </div>
 
-                    <div class="r-l-t-last-row-container r-d-t-last-row-container d-flex justify-content-center">
+                    <div id="cmCont" class="r-l-t-last-row-container r-d-t-last-row-container d-flex justify-content-center">
 
                         <div class="r-l-t-last-row-btn-container" style="margin-left: 0">
                             <a sec:authorize="isAuthenticated()" th:if="*{isLike eq 1}" th:id="|like-btn-*{remarkId}|"
@@ -140,15 +140,11 @@
                             </a>
                         </div>
 
-                        <div class="r-l-t-last-row-btn-container d-flex align-items-center">
-                            <a class="r-l-t-share-btn share-btn r-l-t-last-row-btn btn" href=""
-                               th:onclick="|openShareModal(this, *{remarkId})|"
-                               th:data-name="*{name}" th:data-date="*{remarkDate}" data-index="999"
-                               data-bs-toggle="modal" data-bs-target="#shareModal">
-                                <div class="d-flex align-items-center">
-                                    <i class="r-l-t-last-row-btn-icon fas fa-share"></i>
-                                    <span class="r-l-t-last-row-btn-text r-l-t-last-row-btn-text-right">공유</span>
-                                </div>
+                        <div class="r-l-t-last-row-btn-container">
+                            <a class="r-l-t-last-row-btn btn" onclick="toggleComment()">
+                                <i class="r-l-t-last-row-btn-icon fas fa-comment-dots"></i>
+                                <span class="r-l-t-last-row-comment-count r-l-t-last-row-btn-text"
+                                      th:text="*{commentCount}"></span>
                             </a>
                         </div>
 
@@ -169,6 +165,18 @@
                             </a>
                         </div>
 
+                        <div class="r-l-t-last-row-btn-container d-flex align-items-center">
+                            <a class="r-l-t-share-btn share-btn r-l-t-last-row-btn btn" href=""
+                               th:onclick="|openShareModal(this, *{remarkId})|"
+                               th:data-name="*{name}" th:data-date="*{remarkDate}" data-index="999"
+                               data-bs-toggle="modal" data-bs-target="#shareModal">
+                                <div class="d-flex align-items-center">
+                                    <i class="r-l-t-last-row-btn-icon fas fa-share"></i>
+                                    <span class="r-l-t-last-row-btn-text r-l-t-last-row-btn-text-right">공유</span>
+                                </div>
+                            </a>
+                        </div>
+
                     </div>
 
 
@@ -176,7 +184,7 @@
                         <hr class="r-l-t-border-bottom">
 
                         <div class="r-c-count">
-                            댓글 <span class="r-c-count-number" th:text="${commentCount}"></span>
+                            댓글 <span class="r-c-count-number" th:text="*{commentCount}"></span>
                         </div>
                         <div class="r-c-table" id="comment-table">
 
@@ -245,9 +253,10 @@
         rdRemarkId = /*[[ *{remarkId} ]]*/,
         size = 40,
         blank_pattern = /^\s+|\s+$/g,
-        commentCountForInit = /*[[ ${commentCount} ]]*/,
+        commentCountForInit = /*[[ ${remark.commentCount} ]]*/,
         commentPageForInit = Math.ceil(commentCountForInit / size);
     let currentCmPage = commentPageForInit;
+
 </script>
 
 <script sec:authorize="isAnonymous()" th:inline="javascript">
@@ -255,7 +264,7 @@
         rdRemarkId = /*[[ *{remarkId} ]]*/,
         size = 40,
         blank_pattern = /^\s+|\s+$/g,
-        commentCountForInit = /*[[ ${commentCount} ]]*/,
+        commentCountForInit = /*[[ ${remark.commentCount} ]]*/,
         commentPageForInit = Math.ceil(commentCountForInit / size);
 
     let currentCmPage = commentPageForInit;
@@ -747,11 +756,17 @@
         let pageLink= document.getElementsByClassName("page-link");
         for (let i = 0; i < pageLink.length; i++) {
             pageLink[i].addEventListener("click", function () {
-                loadComments(this.dataset.page);
                 let location = document.querySelector("#comment-container").offsetTop;
+                loadComments(this.dataset.page);
                 window.scrollTo({top:location});
             });
         }
+    }
+
+    function toggleComment(){
+        $("#comment-container").toggle();
+        let location = document.querySelector("#comment-container").offsetTop;
+        window.scrollTo({top:location});
     }
 
     document.addEventListener("DOMContentLoaded", loadComments(commentPageForInit));

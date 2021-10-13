@@ -228,15 +228,11 @@
                         </a>
                     </div>
 
-                    <div class="r-l-t-last-row-btn-container d-flex align-items-center">
-                        <a class="r-l-t-share-btn share-btn r-l-t-last-row-btn btn" href=""
-                           th:onclick="|openShareModal(this, ${r.remarkId})|"
-                           th:data-name="${r.name}" th:data-date="${r.remarkDate}" th:data-index="${rStat.index+1}"
-                           data-bs-toggle="modal" data-bs-target="#shareModal">
-                            <div class="d-flex align-items-center">
-                                <i class="r-l-t-last-row-btn-icon fas fa-share"></i>
-                                <span class="r-l-t-last-row-btn-text r-l-t-last-row-btn-text-right">공유</span>
-                            </div>
+                    <div class="r-l-t-last-row-btn-container">
+                        <a class="r-l-t-last-row-btn btn" th:href="@{/remark/{id}#cmCont(id=${r.remarkId})}">
+                            <i class="r-l-t-last-row-btn-icon fas fa-comment-dots"></i>
+                            <span class="r-l-t-last-row-comment-count r-l-t-last-row-btn-text"
+                                  th:text="${r.commentCount}"></span>
                         </a>
                     </div>
 
@@ -256,6 +252,19 @@
                             </div>
                         </a>
                     </div>
+
+                    <div class="r-l-t-last-row-btn-container d-flex align-items-center">
+                        <a class="r-l-t-share-btn share-btn r-l-t-last-row-btn btn" href=""
+                           th:onclick="|openShareModal(this, ${r.remarkId})|"
+                           th:data-name="${r.name}" th:data-date="${r.remarkDate}" th:data-index="${rStat.index+1}"
+                           data-bs-toggle="modal" data-bs-target="#shareModal">
+                            <div class="d-flex align-items-center">
+                                <i class="r-l-t-last-row-btn-icon fas fa-share"></i>
+                                <span class="r-l-t-last-row-btn-text r-l-t-last-row-btn-text-right">공유</span>
+                            </div>
+                        </a>
+                    </div>
+
 
                 </div>
             </div>

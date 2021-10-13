@@ -8,6 +8,7 @@ import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.StringExpression;
 import com.querydsl.core.types.dsl.StringTemplate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.udpr.quot.domain.common.Status;
 import com.udpr.quot.domain.remark.search.RemarkSearchCondition;
 import com.udpr.quot.web.dto.remark.query.*;
 import org.springframework.data.domain.Page;
@@ -25,6 +26,7 @@ import static com.udpr.quot.domain.person.QPerson.person;
 import static com.udpr.quot.domain.remark.QRemark.remark;
 import static com.udpr.quot.domain.remark.QRemarkLike.remarkLike;
 import static com.udpr.quot.domain.remark.QRemarkTag.remarkTag;
+import static com.udpr.quot.domain.remark.comment.QComment.comment;
 import static com.udpr.quot.domain.tag.QTag.tag;
 import static com.udpr.quot.domain.user.QUser.user;
 import static org.springframework.util.ObjectUtils.isEmpty;
@@ -47,10 +49,13 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                         remark.createdDate, remark.updatedDate, remark.likeCount,
                         remark.dislikeCount,remark.sourceSort, remark.sourceUrl,
                         person.id, person.name, person.alias, person.job, person.category,
-                        user.id, user.nickname, user.picture))
+                        user.id, user.nickname, comment.count()))
                 .from(remark)
                 .leftJoin(remark.person, person)
                 .leftJoin(remark.user, user)
+                .leftJoin(comment).on(remark.id.eq(comment.remark.id).and(comment.status.ne(Status.DELETED)))
+                .groupBy(remark.id)
+
                 .where(remark.id.eq(remarkId))
                 .fetchOne();
 
@@ -87,10 +92,13 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                         remark.createdDate, remark.updatedDate, remark.likeCount,
                         remark.dislikeCount,remark.sourceSort, remark.sourceUrl,
                         person.id, person.name, person.alias, person.job, person.category,
-                        user.id, user.nickname, user.picture))
+                        user.id, user.nickname, comment.count()))
                 .from(remark)
                 .leftJoin(remark.person, person)
                 .leftJoin(remark.user, user)
+                .leftJoin(comment).on(remark.id.eq(comment.remark.id).and(comment.status.ne(Status.DELETED)))
+                .groupBy(remark.id)
+
                 .where(remark.id.eq(remarkId))
                 .fetchOne();
 
@@ -121,10 +129,12 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                                 remark.createdDate, remark.updatedDate, remark.likeCount,
                                 remark.dislikeCount,remark.sourceSort, remark.sourceUrl,
                                 person.id, person.name, person.alias, person.job, person.category,
-                                user.id, user.nickname, user.picture))
+                                user.id, user.nickname, comment.count()))
                         .from(remark)
                         .leftJoin(remark.person, person)
                         .leftJoin(remark.user, user)
+                        .leftJoin(comment).on(remark.id.eq(comment.remark.id).and(comment.status.ne(Status.DELETED)))
+                        .groupBy(remark.id)
 
                         .offset(pageable.getOffset())
                         .limit(pageable.getPageSize())
@@ -152,11 +162,14 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                                 remark.createdDate, remark.updatedDate, remark.likeCount,
                                 remark.dislikeCount,remark.sourceSort, remark.sourceUrl,
                                 person.id, person.name, person.alias, person.job, person.category,
-                                user.id, user.nickname, user.picture))
+                                user.id, user.nickname, comment.count()))
                         .from(remark)
                         .join(remark.person, person)
                         .join(remark.user, user)
-                        .where(keywordLike(condition.getKeyword())
+                        .leftJoin(comment).on(remark.id.eq(comment.remark.id).and(comment.status.ne(Status.DELETED)))
+                        .groupBy(remark.id)
+
+                .where(keywordLike(condition.getKeyword())
                                 .or(person.name.likeIgnoreCase("%" + condition.getKeyword() + "%"))
                                 .or(removeCommaOnPersonAlias().likeIgnoreCase("%" + condition.getKeyword() + "%")))
                         .offset(pageable.getOffset())
@@ -185,10 +198,13 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                                 remark.createdDate, remark.updatedDate, remark.likeCount,
                                 remark.dislikeCount,remark.sourceSort, remark.sourceUrl,
                                 person.id, person.name, person.alias, person.job, person.category,
-                                user.id, user.nickname, user.picture))
+                                user.id, user.nickname, comment.count()))
                         .from(remark)
                         .join(remark.person, person)
                         .join(remark.user, user)
+                        .leftJoin(comment).on(remark.id.eq(comment.remark.id).and(comment.status.ne(Status.DELETED)))
+                        .groupBy(remark.id)
+
                         .where(person.name.likeIgnoreCase("%" + condition.getKeyword() + "%")
                                 .or(removeCommaOnPersonAlias().likeIgnoreCase("%" + condition.getKeyword() + "%"))
                                 .and(personIdEq(condition.getPersonId())))
@@ -217,12 +233,15 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                         remark.createdDate, remark.updatedDate, remark.likeCount,
                         remark.dislikeCount,remark.sourceSort, remark.sourceUrl,
                         person.id, person.name, person.alias, person.job, person.category,
-                        user.id, user.nickname, user.picture))
+                        user.id, user.nickname, comment.count()))
                 .from(remarkTag)
                 .join(remarkTag.remark, remark)
                 .join(remark.person, person)
                 .join(remark.user, user)
                 .on(remarkTag.tag.name.eq(condition.getKeyword()))
+                .leftJoin(comment).on(remark.id.eq(comment.remark.id).and(comment.status.ne(Status.DELETED)))
+                .groupBy(remark.id)
+
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .orderBy(getOrderSpecifier(condition.getSort()).stream().toArray(OrderSpecifier[]::new))
