@@ -263,14 +263,16 @@
 
 <script>
     function loadComments(page) {
-        $.getJSON(`/api/remark/${rdRemarkId}/comment?page=${page}&size=${size}`, function (data) {
-            $("#comment-table").html(toCommentTable(data));
-            $("#comment-pagination").html(toPagination(data.pageMetadata));
-            $("#comment-pagination-sm").html(toPaginationSm(data.pageMetadata));
-            currentCmPage = page;
-            addPaging();
-            addDeleteCmBtn();
-        });
+        if(page > 0){
+            $.getJSON(`/api/remark/${rdRemarkId}/comment?page=${page}&size=${size}`, function (data) {
+                $("#comment-table").html(toCommentTable(data));
+                $("#comment-pagination").html(toPagination(data.pageMetadata));
+                $("#comment-pagination-sm").html(toPaginationSm(data.pageMetadata));
+                currentCmPage = page;
+                addPaging();
+                addDeleteCmBtn();
+            });
+        }
     }
 
     function toCommentTable(data) {

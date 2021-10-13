@@ -747,6 +747,11 @@ box-shadow: none
     line-height: initial;
 }
 
+.r-d-t-person-job{
+    font-size: .875rem;
+    color: #96a0a5;
+}
+
 .r-d-t-person-alias-and-job-container>*, .r-d-t-date{
     font-size: .875rem;
     color: #96a0a5;
