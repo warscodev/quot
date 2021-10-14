@@ -143,7 +143,7 @@
                         <div class="r-l-t-last-row-btn-container">
                             <a class="r-l-t-last-row-btn btn" onclick="toggleComment()">
                                 <i class="r-l-t-last-row-btn-icon r-l-t-last-row-comment-count-icon far fa-comment-dots"></i>
-                                <span class="r-l-t-last-row-comment-count r-l-t-last-row-btn-text"
+                                <span class="r-l-t-last-row-comment-count r-l-t-last-row-btn-text r-d-changing-comment-count"
                                       th:text="*{commentCount}"></span>
                             </a>
                         </div>
@@ -184,7 +184,7 @@
                         <hr class="r-l-t-border-bottom">
 
                         <div class="r-c-count">
-                            댓글 <span class="r-c-count-number" th:text="*{commentCount}"></span>
+                            댓글 <span class="r-c-count-number r-d-changing-comment-count" th:text="*{commentCount}"></span>
                         </div>
                         <div class="r-c-table" id="comment-table">
 
@@ -552,7 +552,7 @@
                 loadComments(Math.ceil(result / size));
             }
 
-            $(".r-c-count-number").text(result);
+            $(".r-d-changing-comment-count").text(result);
             setTimeout(() => {isRun = false}, 200)
         }).fail(function (error) {
             if (error.status === 403) {
@@ -631,7 +631,7 @@
                     xhr.setRequestHeader("XMLHttpRequest", "true");
                 }
             }).done(function (result) {
-                $(".r-c-count-number").text(result);
+                $(".r-d-changing-comment-count").text(result);
                 loadComments(currentCmPage);
                 setTimeout(() => {isRun = false}, 200);
             }).fail(function (error) {
@@ -718,7 +718,7 @@
                 xhr.setRequestHeader("XMLHttpRequest", "true");
             }
         }).done(function (result) {
-            $(".r-c-count-number").text(result);
+            $(".r-d-changing-comment-count").text(result);
             loadComments(currentCmPage);
             setTimeout(() => {isRun = false}, 200);
         }).fail(error => {
