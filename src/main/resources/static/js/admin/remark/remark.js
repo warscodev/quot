@@ -1,11 +1,46 @@
 let isRun = false;
 
 
+function highlightKeyword() {
+    let keyword = document.querySelector("#r-l-keyword").value;
+
+        if (keyword !=null && keyword !== "" && keyword !== undefined) {
+        let tab = document.querySelector("#r-l-tab").value,
+            remarkContentEl = document.querySelectorAll(".r-l-t-content"),
+            remarkPersonEl = document.querySelectorAll(".r-l-t-person-name"),
+            regex = new RegExp(keyword, "g");
+
+        switch (tab) {
+            case '1':
+                remarkContentEl.forEach(e => {
+                    e.innerHTML = e.innerHTML.replace(regex, "<span class='search-highlight'>" + keyword + "</span>");
+                })
+                remarkPersonEl.forEach(e => {
+                    e.innerHTML = e.innerHTML.replace(regex, "<span class='search-highlight'>" + keyword + "</span>");
+                })
+                break;
+
+            case '2':
+                remarkPersonEl.forEach(e => {
+                    e.innerHTML = e.innerHTML.replace(regex, "<span class='search-highlight'>" + keyword + "</span>");
+                })
+                break;
+
+            case '3':
+                let remarkTagEl = document.querySelectorAll(".r-l-t-tags");
+                remarkTagEl.forEach(e => {
+                    e.innerHTML = e.innerHTML.replace(regex, "<span class='search-tag-highlight'>" + keyword + "</span>");
+                })
+                break;
+        }
+    }
+}
+
 function like(e, remarkId, isLike) {
     if (isRun) {
         alert("잠시만 기다려주세요.")
         return false;
-    }else{
+    } else {
         isRun = true;
     }
     let likeCountDom = document.getElementById("like-count-" + remarkId),
@@ -25,9 +60,9 @@ function like(e, remarkId, isLike) {
         likeCountDom.innerText = likeInfo.likeCount;
         dislikeCountDom.innerText = likeInfo.dislikeCount;
         changeLikeIcon();
-        setTimeout(function (){
+        setTimeout(function () {
             isRun = false
-        },200)
+        }, 200)
     }).fail(function (error) {
         if (error.status == 403) {
             location.href = "/oauth_login";
@@ -91,7 +126,7 @@ function showMorePersonList(e, page) {
         $.ajax({
             type: 'GET',
             url: `/api/search/personList?page=${page}&size=10`,
-            data:{
+            data: {
                 keyword: keyword,
                 page: page
             },
@@ -104,18 +139,18 @@ function showMorePersonList(e, page) {
             $('#show-more-btn-container').remove();
             $('#search-person-container').append(toSearchPersonContainer(result));
         }).fail(function (error) {
-                alert(JSON.stringify(error));
+            alert(JSON.stringify(error));
         });
     }
 }
 
-function toSearchPersonContainer(pageObj){
+function toSearchPersonContainer(pageObj) {
     let list = pageObj.content,
         last = pageObj.last,
         page = pageObj.number,
         row = '';
 
-    list.forEach(person =>{
+    list.forEach(person => {
 
         row += "<div class='r-l-related-person-nav-container'>";
         row += "<a class='r-l-related-person-nav' href='/person/" + person.id + "'>";
@@ -128,9 +163,9 @@ function toSearchPersonContainer(pageObj){
 
     })
 
-    if(!last){
+    if (!last) {
         row += "<div class='r-l-related-person-nav-more-btn-container' id='show-more-btn-container'>";
-        row += "<a id='show-more-btn' class='r-l-related-person-nav-more-btn-wrap' onclick='showMorePersonList(this," + (page+1) +  ")'>";
+        row += "<a id='show-more-btn' class='r-l-related-person-nav-more-btn-wrap' onclick='showMorePersonList(this," + (page + 1) + ")'>";
         row += "<span class='r-l-related-person-nav-more-btn-text'>더보기</span>";
         row += "<i class='r-l-related-person-nav-more-btn-icon fas fa-chevron-down'></i>";
         row += "</a>";
@@ -152,5 +187,7 @@ document.addEventListener("DOMContentLoaded", function () {
     contents.forEach(c => {
         $(c).append(iconTag)
     })
+
+    highlightKeyword();
 })
 

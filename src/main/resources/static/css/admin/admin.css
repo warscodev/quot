@@ -666,8 +666,8 @@ box-shadow: none
     margin-top: 1rem;
 }
 
-#r-l-table-container{
-    margin-top: 1rem;
+.r-d-table-container{
+   margin-top: 1rem;
 }
 
 .r-l-t-row-container{
@@ -785,7 +785,7 @@ box-shadow: none
 
 .r-l-t-person-name-link{
     font-size: 1.125rem;
-    font-weight: 700;
+    font-weight: 600;
     margin-right: .3rem;
 }
 .r-l-t-person-name-link:hover{
@@ -907,7 +907,7 @@ box-shadow: none
 .r-l-t-content{
     padding: 0;
     margin: 0;
-    font-family: Pretendard;
+    font-family: Pretendard, Noto Sans KR;
     font-weight: 400;
     font-size: 1rem;
     overflow: auto;
@@ -989,13 +989,11 @@ box-shadow: none
 }
 
 @media (max-width: 767px) {
-
     .r-l-t-last-row-btn-container{
         margin-left: 0;
     }
-
-    .r-l-t-last-row-like-count, .r-l-t-last-row-dislike-count{
-        width: 20px;
+    .r-l-t-last-row-comment-count{
+        width: 22px !important;
     }
 }
 
@@ -1030,33 +1028,60 @@ box-shadow: none
     }
 
     .r-l-t-last-row-like-count, .r-l-t-last-row-dislike-count{
-        width: 20px;
+        width: 24px !important;
     }
+}
+
+.r-l-t-last-row-comment-count-icon{
+    /*
+    color: #95aac9 !important;
+    */
 }
 
 
 
 
 .r-l-t-like-btn > i{
-    color: #89bdd8 !important
+    font-size: .875rem;
+    color: #569bde !important;
+    padding-top: 1px;
+    padding-bottom: 1px;
 }
 
 .r-l-t-dislike-btn > i{
-    color: #f2a1a1 !important
+    font-size: .875rem;
+    color: #f37171 !important;
+    padding-top: 1px;
+    padding-bottom: 1px;
 }
+
+@media (max-width: 767px) {
+    .r-l-t-like-btn > i{
+        font-size: .813rem !important;
+    }
+
+    .r-l-t-dislike-btn > i{
+        font-size: .813rem !important;
+    }
+}
+
 
 .like-active > .like-icon,
 .like-active > .like-count {
     /*color: #6ab5ff !important;*/
     /*color: #76b3ee !important;*/
-    color: #89bdd8 !important
+    color: #569bde !important;
+    padding-top: 1px;
+    padding-bottom: 1px;
 }
 
 .like-active > .dislike-icon,
 .like-active > .dislike-count {
     /*color: #ff7b7b !important;*/
-    color: #f2a1a1 !important
+    color: #f37171 !important;
 }
+
+
 
 
 
@@ -1071,6 +1096,7 @@ box-shadow: none
 }
 
 .r-c-count{
+    font-size: .938rem;
     margin: .5rem 0;
 }
 
@@ -1183,7 +1209,7 @@ box-shadow: none
 
 .r-c-t-writer{
     color: #6e90c1;
-    font-size: .938rem;
+    font-size: .875rem;
     font-weight: 500;
     letter-spacing: -.025rem;
 }
@@ -1198,7 +1224,7 @@ box-shadow: none
 .r-c-t-comment-content{
     font-family: Pretendard;
     font-weight: 400;
-    font-size: .938rem;
+    font-size: .875rem;
     overflow: auto;
     white-space: pre-wrap;
     margin-bottom: 0;
@@ -1213,7 +1239,7 @@ box-shadow: none
 
 .r-c-t-textarea-label{
     font-weight: 500;
-    font-size: .938rem;
+    font-size: .875rem;
 }
 
 .r-c-t-textarea-container{
@@ -1307,9 +1333,9 @@ box-shadow: none
 }
 
 .pagination > .page-item, .page-item.disabled {
-    width: 32px;
-    height: 32px;
-    line-height: 32px;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
     background-color: #e7ebf0;
     margin: 0 .25rem;
     border-radius: .5rem !important;
@@ -1324,6 +1350,7 @@ box-shadow: none
 .page-item > .page-link, .page-item.active >.page-link ,.page-item.disabled > .page-link{
     text-align: center;
     font-weight: 400;
+    font-size: .813rem;
     color: #81888f !important;
     padding: 0 !important;
     background-color: transparent;
@@ -1572,6 +1599,7 @@ box-shadow: none
 }
 
 /* ------- 좋아요 시작 ------- */
+/*
 .remark-center-bottom-wrap {
     margin: 1rem 0 0 0;
 }
@@ -1653,6 +1681,7 @@ box-shadow: none
         width: 22px;
     }
 }
+*/
 
 
 
@@ -1726,7 +1755,14 @@ box-shadow: none
 
 /* 페이지네이션 끝 */
 /* 코멘트 공유 모달 */
+
+.share-modal-title{
+    font-weight: 400;
+}
+
 .remark-share-icon > a {
+    font-size: .875rem;
+    font-weight: 300;
     border: 1px solid transparent;
     display: block;
 }
@@ -1757,94 +1793,23 @@ box-shadow: none
 }
 
 .remark-share-url-wrap {
+    font-weight: 300;
     padding: 0 2rem;
 }
-
-
-/* 코멘트 세부 페이지 */
-.remark-detail-title-wrap {
-}
-
-.remark-detail-title-date {
-    font-size: .875rem;
-    color: #6c757d;
-}
-
-.remark-detail-title-date-list {
-    font-size: .813rem;
-}
-
-.remark-detail-title-main {
-    margin-left: 0;
-}
-
-.remark-detail-title-person-name-link{
-    transition: .2s ease-in-out;
-}
-
-.remark-detail-title-person-name-list{
-    font-size: 1.188rem;
-    font-weight: 700;
-}
-
-.remark-detail-title-person-name-link:hover{
-    text-decoration: underline;
+.remark-share-url-wrap >input{
+    font-weight: 300;
 }
 
 
-@media (max-width: 575px) {
-    .remark-detail-title-person-name-list{
-        font-size: 1.068rem;
-    }
-
+.search-highlight {
+    font-weight: 600;
 }
 
-
-
-
-.remark-detail-title-person-job-list{
-    color: #696969;
-    font-size: .875rem;
-    margin-left: .3rem;
+.search-name-highlight{
+    color: #415f82;
 }
 
-.remark-detail-title-icon {
-    font-size: 1.375rem;
-    margin-left: .5rem;
-    color: #C6C6C6;
-    margin-top: -.2rem;
-}
-
-.remark-detail-title-icon-list {
-    font-size: 1.25rem !important;
-    margin-top: -3rem;
-    margin-left: .25rem;
-}
-
-.remark-detail-row {
-    padding: 1.5rem 2.5rem;
-}
-
-.remark-detail-person-search > a {
-    color: #6c757d;
-    transition: color .2s ease-in-out;
-}
-
-.remark-detail-person-search>a:hover{
-    color: #439ff9 !important;
-}
-
-.remark-detail-bottom-wrap{
-    flex-wrap: wrap;
-}
-
-@media (max-width: 426px) {
-    .remark-detail-title-icon {
-        margin-top: -.3rem;
-    }
-
-    .remark-detail-title-icon-list{
-        margin-top: -.2rem !important;
-
-    }
+.search-tag-highlight{
+    color: #2a5e9a;
+    font-weight: 500;
 }

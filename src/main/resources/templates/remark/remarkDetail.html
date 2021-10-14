@@ -23,7 +23,7 @@
             <a class="btn btn-outline-secondary btn-sm me-2" href="javascript:toList();">목록</a>
         </div>
 
-        <div id="r-l-table-container">
+        <div id="r-l-table-container" class="r-d-table-container">
             <div id="r-l-table">
                 <div class="r-l-t-row-container r-d-t-row-container row" th:object="${remark}">
                     <div class="r-l-t-first-row-container d-flex justify-content-between">
@@ -142,7 +142,7 @@
 
                         <div class="r-l-t-last-row-btn-container">
                             <a class="r-l-t-last-row-btn btn" onclick="toggleComment()">
-                                <i class="r-l-t-last-row-btn-icon fas fa-comment-dots"></i>
+                                <i class="r-l-t-last-row-btn-icon r-l-t-last-row-comment-count-icon far fa-comment-dots"></i>
                                 <span class="r-l-t-last-row-comment-count r-l-t-last-row-btn-text"
                                       th:text="*{commentCount}"></span>
                             </a>
