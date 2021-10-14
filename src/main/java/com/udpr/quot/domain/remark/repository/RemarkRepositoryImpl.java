@@ -240,7 +240,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                 .join(remark.user, user)
                 .on(remarkTag.tag.name.eq(condition.getKeyword()))
                 .leftJoin(comment).on(remark.id.eq(comment.remark.id).and(comment.status.ne(Status.DELETED)))
-                .groupBy(remark.id)
+                .groupBy(remarkTag.remark.id)
 
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
