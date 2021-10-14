@@ -8,7 +8,7 @@
         <!-- 로고 -->
         <div>
             <a href="/">
-                <span style="font-weight:700; font-size: 2rem; color: #2c7be5;">Quot.</span>
+                <span class="main-header-logo">Quot.</span>
             </a>
         </div>
 
@@ -34,12 +34,12 @@
                      <span class="main-header-profile-nickname" th:text="${session.user.nickname}"></span>
                      <i class="main-header-profile-bar-icon fas fa-bars" style="display: none"></i>
                  </a>
-                 <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2" style="">
+                 <ul class="main-header-profile-dropdown dropdown-menu" aria-labelledby="dropdownUser2">
                      <li><a sec:authorize="hasRole('ADMIN')" class="dropdown-item" href="/admin/person">인물목록</a></li>
                      <li><a sec:authorize="hasRole('ADMIN')" class="dropdown-item" href="/admin/person/new">인물등록</a></li>
                      <li><a sec:authorize="hasRole('ADMIN')" class="dropdown-item" href="/remark/new">발언등록</a></li>
                      <li>
-                         <hr class="dropdown-divider">
+                         <hr sec:authorize="hasRole('ADMIN')" class="dropdown-divider">
                      </li>
                      <li><a class="dropdown-item" href="/logout">로그아웃</a></li>
                  </ul>

@@ -11,13 +11,13 @@
     }
 </style>
 </head>
-<body class="text-center">
+<body class="text-center" style="background-color: #fff">
 <div class="main-header py-2 fixed-top d-flex align-items-center">
     <div class="container d-flex justify-content-center main-header-container align-items-center">
         <!-- 로고 -->
         <div>
             <a href="/">
-                <span style="font-weight:bold; font-size: 2rem; color: #439ff9;">Quot.</span>
+                <span class="login-logo">Quot.</span>
             </a>
         </div>
     </div>
@@ -25,7 +25,9 @@
 
 
 <main class="form-signin text-center">
-    <h3 class="mb-4" style="font-weight: bold">로그인</h3>
+    <h2 class="login-title">로그인</h2>
+    <hr class="login-sub-title-divider">
+    <div class="login-sub-title"><span>간편 로그인</span></div>
     <div th:if="${param.error}" style="color: #e00000">
         <i class="bi bi-exclamation-circle"></i> 다시 로그인해 주세요.
         <div th:each="e : ${param.error}">

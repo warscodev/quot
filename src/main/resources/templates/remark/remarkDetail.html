@@ -7,9 +7,9 @@
 <div th:replace="fragments/topHeader :: topHeader"/>
 
 <div class="container container-custom">
-    <div class="remark-page-wrap" style="margin-top: 2rem;">
+    <div class="remark-page-wrap">
 
-        <div class="d-flex justify-content-end" style="margin-bottom: 1rem;">
+        <div class="d-flex justify-content-end">
             <div sec:authorize="hasRole('ADMIN')"
                  class="remark-delete-and-update-btn-wrap d-flex align-items-center">
                 <!-- 수정 버튼 -->
