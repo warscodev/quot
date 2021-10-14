@@ -66,14 +66,16 @@ public class CommentService {
     public void deleteComment(Long commentId, Long ancestorId){
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 댓글정보가 없습니다. id = " + commentId));
+
         comment.setStatusDeleted();
 
-        if(commentRepository.checkChildren(ancestorId)<1){
-            Comment ancestor = commentRepository.findById(ancestorId)
-                    .orElseThrow(() -> new IllegalArgumentException("해당 댓글정보가 없습니다. id = " + commentId));
+        Comment ancestor = commentRepository.findById(ancestorId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 댓글정보가 없습니다. id = " + commentId));
+
+        //조상의 자식 댓글들의 상태를 체크
+        if(commentRepository.checkChildrenWhenDeleteChild(ancestorId)<1 && ancestor.getStatus() == Status.DELETED_ANCESTOR){
             ancestor.setStatusDeleted();
         }
-
     }
 
     @Transactional

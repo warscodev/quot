@@ -69,12 +69,41 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom{
                 .from(comment)
                 .leftJoin(comment.ancestor)
                 .where(comment.ancestor.id.eq(ancestorId)
-                        .and(comment.status.ne(Status.DELETED)))
+                        .and(comment.status.ne(Status.DELETED))
+                        .and(comment.ancestor.status.ne(Status.DELETED_ANCESTOR)))
                 .fetchCount();
     }
 
     @Override
+    public Long checkChildrenWhenDeleteChild(Long ancestorId){
+        return queryFactory.select(comment.count())
+                .from(comment)
+                .leftJoin(comment.ancestor)
+                .where(comment.ancestor.id.eq(ancestorId)
+                        .and(comment.status.ne(Status.DELETED)))
+                .fetchCount();
+    }
+
+
+/*
+    @Override
+    public Long checkAncestor(Long ancestorId){
+        return queryFactory.select(comment.count())
+                .from(comment)
+                .leftJoin(comment.ancestor)
+                .where(comment.id.eq(ancestorId)
+                        .and(comment.status.ne(Status.DELETED))
+                        .and(comment.ancestor.status.eq(Status.DELETED_ANCESTOR)))
+                .fetchCount();
+    }
+*/
+
+    @Override
     public void checkAncestorStatus(Long ancestorId){
+
+
+
+
         List<Long> ancestorIdList = queryFactory.select(comment.ancestor.id)
                 .from(comment)
                 .leftJoin(comment.ancestor)
