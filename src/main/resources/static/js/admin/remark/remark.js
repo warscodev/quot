@@ -2,39 +2,43 @@ let isRun = false;
 
 
 function highlightKeyword() {
-    let keyword = document.querySelector("#r-l-keyword").value;
+    let keywordEl = document.querySelector("#r-l-keyword");
+    if (keywordEl) {
+        let keyword = keywordEl.value;
 
-        if (keyword !=null && keyword !== "" && keyword !== undefined) {
-        let tab = document.querySelector("#r-l-tab").value,
-            remarkContentEl = document.querySelectorAll(".r-l-t-content"),
-            remarkPersonEl = document.querySelectorAll(".r-l-t-person-name"),
-            regex = new RegExp(keyword, "g");
+        if (keyword != null && keyword !== "" && keyword !== undefined) {
+            let tab = document.querySelector("#r-l-tab").value,
+                remarkContentEl = document.querySelectorAll(".r-l-t-content"),
+                remarkPersonEl = document.querySelectorAll(".r-l-t-person-name"),
+                regex = new RegExp(keyword, "g");
 
-        switch (tab) {
-            case '1':
-                remarkContentEl.forEach(e => {
-                    e.innerHTML = e.innerHTML.replace(regex, "<span class='search-highlight'>" + keyword + "</span>");
-                })
-                remarkPersonEl.forEach(e => {
-                    e.innerHTML = e.innerHTML.replace(regex, "<span class='search-highlight'>" + keyword + "</span>");
-                })
-                break;
+            switch (tab) {
+                case '1':
+                    remarkContentEl.forEach(e => {
+                        e.innerHTML = e.innerHTML.replace(regex, "<span class='search-highlight'>" + keyword + "</span>");
+                    })
+                    remarkPersonEl.forEach(e => {
+                        e.innerHTML = e.innerHTML.replace(regex, "<span class='search-highlight'>" + keyword + "</span>");
+                    })
+                    break;
 
-            case '2':
-                remarkPersonEl.forEach(e => {
-                    e.innerHTML = e.innerHTML.replace(regex, "<span class='search-highlight'>" + keyword + "</span>");
-                })
-                break;
+                case '2':
+                    remarkPersonEl.forEach(e => {
+                        e.innerHTML = e.innerHTML.replace(regex, "<span class='search-highlight'>" + keyword + "</span>");
+                    })
+                    break;
 
-            case '3':
-                let remarkTagEl = document.querySelectorAll(".r-l-t-tags");
-                remarkTagEl.forEach(e => {
-                    e.innerHTML = e.innerHTML.replace(regex, "<span class='search-tag-highlight'>" + keyword + "</span>");
-                })
-                break;
+                case '3':
+                    let remarkTagEl = document.querySelectorAll(".r-l-t-tags");
+                    remarkTagEl.forEach(e => {
+                        e.innerHTML = e.innerHTML.replace(regex, "<span class='search-tag-highlight'>" + keyword + "</span>");
+                    })
+                    break;
+            }
         }
     }
 }
+
 
 function like(e, remarkId, isLike) {
     if (isRun) {
