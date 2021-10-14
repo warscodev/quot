@@ -242,13 +242,13 @@
                     <div th:if="${not #strings.isEmpty(r.sourceSort)}"
                          class="r-l-t-last-row-btn-container d-flex align-items-center">
                         <a class="r-l-t-source-btn source-btn r-l-t-last-row-btn btn" th:href="${r.sourceUrl}"
-                           target="_blank" rel="noopener">
+                           target="_blank" rel="noopener noreferer nofollow">
                             <div class="d-flex align-items-center">
                                 <i class="r-l-t-last-row-btn-icon fas fa-play-circle"
                                    th:if="${r.sourceSort.toString().equals('영상')}"></i>
                                 <i class="r-l-t-last-row-btn-icon fas fa-mobile-alt"
                                    th:if="${r.sourceSort.toString().equals('SNS')}"></i>
-                                <i class="r-l-t-last-row-btn-icon fas fa-mobile-alt"
+                                <i class="r-l-t-last-row-btn-icon fas fas fa-newspaper"
                                    th:if="${r.sourceSort.toString().equals('기사')}"></i>
 
                                 <span class="r-l-t-last-row-btn-text r-l-t-last-row-btn-text-right">출처</span>

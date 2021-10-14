@@ -147,7 +147,8 @@
     margin:0 .25rem;
     display: flex;
     align-items: flex-end;
-    color: #7f8a99;
+    color: #d2d8e0;
+    user-select:none
 }
 
 .p-d-r-icons-container{
@@ -169,14 +170,25 @@
 }
 
 .p-d-r-icons-like > i {
+    font-size: .75rem;
     color: #338ebf;
 }
 .p-d-r-icons-dislike > i {
+    font-size: .75rem;
     color: #fc7b7b;
 }
 
 .p-d-r-icons-comments > i {
     color: #909bab;
+}
+
+.p-d-r-icons-source-text{
+    font-size: .75rem;
+}
+
+.p-d-r-icons-source-link-tt{
+    font-size: .75rem;
+    word-break: break-all;
 }
 
 

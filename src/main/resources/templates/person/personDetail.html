@@ -36,14 +36,19 @@
                                 and not #strings.isEmpty(birth.birth_day)}">
                                 <th>출생</th>
                                 <td>
-                                    <span th:if="*{not #strings.isEmpty(birth.birth_year)}" th:text="|*{birth.birth_year}년 |"></span>
-                                    <span th:if="*{not #strings.isEmpty(birth.birth_month)}" th:text="|*{birth.birth_month}월 |"></span>
-                                    <span th:if="*{not #strings.isEmpty(birth.birth_day)}" th:text="|*{birth.birth_day}일 |"></span>
+                                    <span th:if="*{not #strings.isEmpty(birth.birth_year)}"
+                                          th:text="|*{birth.birth_year}년 |"></span>
+                                    <span th:if="*{not #strings.isEmpty(birth.birth_month)}"
+                                          th:text="|*{birth.birth_month}월 |"></span>
+                                    <span th:if="*{not #strings.isEmpty(birth.birth_day)}"
+                                          th:text="|*{birth.birth_day}일 |"></span>
                                 </td>
                             </tr>
                             <tr th:if="*{not #strings.isEmpty(summary)}">
                                 <th>기타</th>
-                                <td><pre class="p-d-etc-summary" th:text="*{summary}"></pre></td>
+                                <td>
+                                    <pre class="p-d-etc-summary" th:text="*{summary}"></pre>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
@@ -66,23 +71,43 @@
                     </div>
                     <span class="p-d-r-first-row-divider">｜</span>
                     <div class="p-d-r-icons-container">
-                        <a th:href="@{/remark/{id}(id=${r.remarkId})}" class=" d-flex">
-                        <div class="p-d-r-icons-like"><i class="far fa-thumbs-up"></i>&nbsp;<span th:text="${r.likeCount}"></span></div>
-                        <div class="p-d-r-icons-dislike"><i class="far fa-thumbs-down"></i>&nbsp;<span th:text="${r.dislikeCount}"></span></div>
-                        <div class="p-d-r-icons-comments"><i class="far fa-comment-dots"></i>&nbsp;<span th:text="${r.commentCount}"></span></div>
+                        <a th:href="@{/remark/{id}(id=${r.remarkId})}" class="d-flex">
+                            <div class="p-d-r-icons-like"><i class="far fa-thumbs-up"></i>&nbsp;<span
+                                    th:text="${r.likeCount}"></span></div>
+                            <div class="p-d-r-icons-dislike"><i class="far fa-thumbs-down"></i>&nbsp;<span
+                                    th:text="${r.dislikeCount}"></span></div>
+                        </a>
+                        <a th:href="@{/remark/{id}#cmCont(id=${r.remarkId})}">
+                            <div class="p-d-r-icons-comments"><i class="far fa-comment-dots"></i>&nbsp;<span
+                                    th:text="${r.commentCount}"></span></div>
+                        </a>
+                        <a class="tt" th:href="${r.sourceUrl}" target="_blank" rel="noopener noreferer nofollow"
+                           data-bs-html="true" data-bs-placement="bottom"
+                           th:title="|<span class='p-d-r-icons-source-link-tt'>${r.sourceUrl}</span>|">
+                            <div th:if="${not #strings.isEmpty(r.sourceSort)}">
+                                <i class="p-d-r-icons-source far fa-play-circle"
+                                   th:if="${r.sourceSort.toString().equals('영상')}"></i>
+                                <i class="p-d-r-icons-source fas fa-mobile-alt"
+                                   th:if="${r.sourceSort.toString().equals('SNS')}"></i>
+                                <i class="p-d-r-icons-source far fa-newspaper"
+                                   th:if="${r.sourceSort.toString().equals('기사')}"></i>
+                                <span class="p-d-r-icons-source-text">출처</span>
+                            </div>
                         </a>
                     </div>
                 </div>
 
                 <div class="p-d-r-tags-wrap">
-                    <a th:each="tag : ${r.remarkTagList}" th:href="@{/remark(keyword=${tag.name}, tab=3)}" th:text="|#${tag.name}|" class="p-d-r-tags">
+                    <a th:each="tag : ${r.remarkTagList}" th:href="@{/remark(keyword=${tag.name}, tab=3)}"
+                       th:text="|#${tag.name}|" class="p-d-r-tags">
                     </a>
                 </div>
 
                 <div class="p-d-r-content-wrap d-flex">
                     <span class="p-d-r-content-quotation">&ldquo;&nbsp;</span>
                     <a th:href="@{/remark/{id} (id=${r.remarkId})}">
-                        <p class="p-d-r-content" th:utext="|${r.content} <span class='p-d-r-content-quotation'>&rdquo;</span>|"></p>
+                        <p class="p-d-r-content"
+                           th:utext="|${r.content} <span class='p-d-r-content-quotation'>&rdquo;</span>|"></p>
                     </a>
                 </div>
 
