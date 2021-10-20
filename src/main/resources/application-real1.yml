@@ -40,5 +40,5 @@ spring:
           content:
             enabled: true
             paths: /**
-        #enabled: true
-        #cache: false
+        enabled: true
+        cache: false
