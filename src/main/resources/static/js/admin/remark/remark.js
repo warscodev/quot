@@ -2,7 +2,7 @@ let isRun = false;
 
 
 function highlightKeyword() {
-    let keywordEl = document.querySelector("#r-l-keyword");
+    const keywordEl = document.querySelector("#r-l-keyword");
     if (keywordEl) {
         let keyword = keywordEl.value;
 
@@ -57,6 +57,7 @@ function like(e, remarkId, isLike) {
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {
+
             xhr.setRequestHeader("XMLHttpRequest", "true");
         }
     }).done(function (result) {

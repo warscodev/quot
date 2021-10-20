@@ -13,7 +13,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         String ajaxHeader = request.getHeader("XMLHttpRequest");
-        Boolean isAjax = "true".equals(ajaxHeader);
+        boolean isAjax = "true".equals(ajaxHeader);
         if(isAjax){
             response.sendError(HttpServletResponse.SC_FORBIDDEN, "Ajax Request Denied (Session Expired)");
         }else{

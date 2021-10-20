@@ -35,14 +35,15 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
 
         if (savedRequest != null) {
             String targetUrl = savedRequest.getRedirectUrl();
-
+            System.out.println("targetUrl : " + targetUrl);
             redirectStrategy.sendRedirect(request, response, targetUrl);
             requestCache.removeRequest(request, response);
 
         } else if(prevPage != null && !prevPage.equals("")) {
+            System.out.println("prevPage : " + prevPage);
             redirectStrategy.sendRedirect(request, response, prevPage);
         } else {
-
+            System.out.println("else");
             super.onAuthenticationSuccess(request, response, authentication);
         }
 

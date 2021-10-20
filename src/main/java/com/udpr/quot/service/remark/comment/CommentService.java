@@ -45,7 +45,7 @@ public class CommentService {
         requestDto.setRemark(remark);
         requestDto.setUser(user);
 
-        commentRepository.save(requestDto.toEntity()).getId();
+        commentRepository.save(requestDto.toEntity());
 
         return commentRepository.getCommentCount(remarkId);
     }

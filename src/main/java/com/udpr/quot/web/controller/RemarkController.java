@@ -47,8 +47,6 @@ public class RemarkController {
             model.addAttribute("remark", remarkService.getDetail(remarkId, user.getId()));
         }else{
             model.addAttribute("remark", remarkService.getDetail(remarkId));
-
-            System.out.println(" =========    ======= "+remarkService.getDetail(remarkId).getCommentCount());
         }
 
 

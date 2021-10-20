@@ -28,9 +28,12 @@
     <h2 class="login-title">로그인</h2>
     <hr class="login-sub-title-divider">
     <div class="login-sub-title"><span>간편 로그인</span></div>
-    <div th:if="${param.error}" style="color: #e00000">
-        <i class="bi bi-exclamation-circle"></i> 다시 로그인해 주세요.
-        <div th:each="e : ${param.error}">
+<!--
+    <div th:text="${urls}"></div>
+-->
+    <div th:if="${param.error}" style="color: #e00000; overflow-wrap: anywhere;">
+        <i class="bi bi-exclamation-circle"></i> 오류가 발생했습니다.
+        <div class="mt-3" th:each="e : ${param.error}">
             <span th:text="${e.toString()}"></span>
         </div>
     </div>

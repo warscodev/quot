@@ -1,0 +1,178 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="fragments/header :: header">
+<body>
+<div th:replace="fragments/topHeader :: topHeader"/>
+<div class="container container-custom" th:object="${user}">
+    <div class="user-profile-header">
+        내 정보
+    </div>
+    <div class="user-profile-body">
+        <div class="user-profile-table">
+            <div class="user-profile-row">
+                <div class="user-profile-th">이메일</div>
+                <div class="user-profile-td user-profile-email" th:text="*{email}"></div>
+            </div>
+                <div class="user-profile-row">
+                    <div class="user-profile-th">닉네임</div>
+                    <div class="user-profile-td user-profile-nickname-container">
+                        <div class="user-profile-nickname-input-container">
+                            <input class="user-profile-nickname-input form-control" maxlength="12" onkeyup="validateNickname()" th:field="*{nickname}" disabled>
+                            <div sec:authorize="hasRole('USER')" th:if="*{canEditNickname}" class="user-profile-nickname-btn-container">
+                                <button type="submit" class="btn btn-sm user-profile-nickname-edit-btn">변경</button>
+                                <button class="btn btn-sm user-profile-nickname-edit-submit-btn" style="display: none" disabled>저장</button>
+                                <button class="btn btn-sm user-profile-nickname-edit-cancel-btn btn-secondary" style="display: none">취소
+                                </button>
+                            </div>
+                            <div sec:authorize="hasRole('ADMIN')" class="user-profile-nickname-btn-container">
+                                <button type="submit" class="btn btn-sm user-profile-nickname-edit-btn">변경</button>
+                                <button class="btn btn-sm user-profile-nickname-edit-submit-btn" style="display: none" disabled>저장</button>
+                                <button class="btn btn-sm user-profile-nickname-edit-cancel-btn btn-secondary" style="display: none">취소
+                                </button>
+                            </div>
+                        </div>
+                        <div class="user-profile-nickname-success"></div>
+
+                        <div class="user-profile-nickname-error user-profile-nickname-regex-error"></div>
+
+                        <div class="user-profile-nickname-error user-profile-nickname-redundant-error"></div>
+
+                        <div class="user-profile-nickname-notice">
+                            <i class="bi bi-exclamation-triangle"></i> 닉네임 변경은 7일에 한번 가능합니다.
+                        </div>
+
+                    </div>
+                </div>
+                <div class="user-profile-row">
+                    <div class="user-profile-th">가입일</div>
+                    <div class="user-profile-td user-profile-created-date" th:text="*{createdDate}"></div>
+                </div>
+                <div th:if="*{! #strings.equals(createdDate, updatedDate)}" class="user-profile-row">
+                    <div class="user-profile-th">최종 수정일</div>
+                    <div class="user-profile-td user-profile-updated-date" th:text="*{updatedDate}"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+<script sec:authorize="isAuthenticated()" th:if="${user.canEditNickname || session.user.role.name()=='ADMIN'}" th:inline="javascript">
+    const nicknameInput = document.querySelector(".user-profile-nickname-input");
+    const submitBtn = document.querySelector(".user-profile-nickname-edit-submit-btn");
+    const currentNickname = nicknameInput.value;
+
+
+    function validateNickname(){
+        const lblError = document.querySelector(".user-profile-nickname-regex-error");
+        const redundantError = document.querySelector(".user-profile-nickname-redundant-error");
+
+        lblError.innerHTML = "";
+        redundantError.innerHTML = "";
+        submitBtn.disabled = false
+        const expr = /^[0-9:.\-$-()_&a-zA-Z가-힣]{3,8}(?<![-(.])$/;
+
+        if (!expr.test(nicknameInput.value)) {
+            submitBtn.disabled = true;
+            lblError.innerHTML = "✋ 글자수 제한(3~8자)을 충족하지 않거나, 사용할 수 없는 문자가 포함되었습니다.";
+        }else if(nicknameInput.value === currentNickname){
+            submitBtn.disabled = true;
+        }else{
+            findRedundantNickname(nicknameInput.value)
+                .then(res => {
+                    if(res === "true"){
+                        submitBtn.disabled = true;
+                        redundantError.innerHTML = "이미 존재하는 닉네임입니다."
+                    }
+                })
+        }
+    }
+
+    async function findRedundantNickname(nickname){
+        const isRedundant = await fetch(`/api/user/nickname/${nickname}`)
+        return isRedundant.text();
+    }
+
+    function editNicknameBtn() {
+        toggleBtns();
+        $(".user-profile-nickname-input").focus();
+    }
+
+    function submitExec(){
+        if (confirm("닉네임을 변경하시겠습니까?\n변경 후 7일 이내에는 다시 변경하실 수 없습니다.")){
+            const nickname = getNicknameFromInput();
+            updateNickname(nickname)
+                .then(newNickname => setNewNicknameToPage(newNickname))
+                .then(toggleBtns)
+                .then(showSuccessAlert);
+        }
+    }
+
+    function getNicknameFromInput(){
+        return nicknameInput.value;
+    }
+
+    async function updateNickname(nickname){
+        const newNickname = await fetch("/api/user/nickname", {
+            method: "post",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify({
+                nickname : nickname
+            })
+        })
+        try{
+            return newNickname.text();
+        } catch (error){
+            alert(JSON.stringify(error));
+        }
+    }
+
+    function setNewNicknameToPage(newNickname){
+        const mainHeaderNicknameSpan = document.querySelector(".main-header-profile-nickname");
+        const nicknameEditBtnContainer = document.querySelector(".user-profile-nickname-btn-container");
+        mainHeaderNicknameSpan.innerText = newNickname;
+        nicknameEditBtnContainer.remove();
+    }
+
+    function initInput(){
+        nicknameInput.value = currentNickname;
+        const errorInputs = document.querySelectorAll(".user-profile-nickname-error")
+        for (let i = 0; i < errorInputs.length; i++) {
+            let item = errorInputs.item(i);
+            item.innerHTML = "";
+        }
+        toggleBtns();
+    }
+
+    function toggleBtns() {
+        let input = $(".user-profile-nickname-input"),
+            submitBtn = $(".user-profile-nickname-edit-submit-btn"),
+            cancelBtn = $(".user-profile-nickname-edit-cancel-btn"),
+            editBtn = $(".user-profile-nickname-edit-btn"),
+            editBtnCondition = editBtn.prop('disabled'),
+            inputCondition = input.prop('disabled');
+
+        cancelBtn.toggle();
+        submitBtn.toggle();
+        editBtn.toggle();
+        input.prop('disabled', !inputCondition);
+        editBtn.prop('disabled', !editBtnCondition);
+    }
+
+    function showSuccessAlert(){
+        const alertDiv = document.querySelector(".user-profile-nickname-success");
+        alertDiv.innerHTML = "<i class=\"far fa-check-circle\"></i> 변경되었습니다."
+    }
+
+    document.querySelector(".user-profile-nickname-edit-btn").addEventListener("click", editNicknameBtn)
+    document.querySelector(".user-profile-nickname-edit-cancel-btn").addEventListener("click", initInput)
+    submitBtn.addEventListener("click", submitExec)
+
+</script>
+
+<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>

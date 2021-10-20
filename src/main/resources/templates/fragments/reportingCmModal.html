@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="reportingCmModal" th:fragment="reportingCmModal">
+    <!--data-bs-backdrop="static" data-bs-keyboard="false"-->
+    <div class="modal fade" id="reportingCmModal" tabindex="-1" aria-labelledby="reportingCmModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title reportingCm-modal-title" id="reportingCmModalLabel">신고하기</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body reporting-cm-modal-body">
+                    <div class="reporting-cm-origin-container">
+                        <div class="reporting-cm-origin-writer-container">
+                            <div class="reporting-cm-origin-writer-label-wrap">
+                                <label>작성자</label>
+                                <span>｜</span>
+                            </div>
+                            <div>
+                                <span id="reporting-cm-writer" class="reporting-cm-origin-writer"></span>
+                            </div>
+                        </div>
+                        <div class="reporting-cm-origin-content-container">
+                            <div class="reporting-cm-origin-content-label-wrap">
+                                <label>내용</label>
+                                <span>｜</span>
+                            </div>
+                            <div>
+                                <span id="reporting-cm-content" class="reporting-cm-origin-content"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="reporting-cm-radios-container">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="reporting-type" id="flexRadioDefault1" value="광고,스팸,도배" checked>
+                            <label class="form-check-label w-100" for="flexRadioDefault1">
+                                광고, 스팸, 도배글
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="reporting-type" id="flexRadioDefault2" value="음란물,불법정보">
+                            <label class="form-check-label w-100" for="flexRadioDefault2">
+                                음란물, 불법정보
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="reporting-type" id="flexRadioDefault3" value="기타">
+                            <label class="form-check-label w-100" for="flexRadioDefault3">
+                                기타
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">닫기</button>
+                    <button type="button" class="reporting-cm-submit-btn btn btn-primary btn-sm">제출</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+

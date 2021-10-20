@@ -20,7 +20,7 @@
                         th:onclick="|deleteRemark(*{remarkId})|">삭제
                 </button>
             </div>
-            <a class="btn btn-outline-secondary btn-sm me-2" href="javascript:toList();">목록</a>
+            <a class="btn btn-outline-secondary btn-sm me-2" href="javascript:history.back();">이전</a>
         </div>
 
         <div id="r-l-table-container" class="r-d-table-container">
@@ -238,6 +238,7 @@
 </div>
 <!-- Modal -->
 <div th:replace="fragments/shareModal :: shareModal"/>
+<div th:replace="fragments/reportingCmModal :: reportingCmModal"/>
 <div th:replace="fragments/footer :: footer"/>
 <script src="/node_modules/autosize/dist/autosize.js"></script>
 <script>
@@ -274,9 +275,9 @@
     function loadComments(page) {
         if(page > 0){
             $.getJSON(`/api/remark/${rdRemarkId}/comment?page=${page}&size=${size}`, function (data) {
-                $("#comment-table").html(toCommentTable(data));
-                $("#comment-pagination").html(toPagination(data.pageMetadata));
-                $("#comment-pagination-sm").html(toPaginationSm(data.pageMetadata));
+                document.querySelector("#comment-table").innerHTML = toCommentTable(data);
+                document.querySelector("#comment-pagination").innerHTML = toPagination(data.pageMetadata);
+                document.querySelector("#comment-pagination-sm").innerHTML = toPaginationSm(data.pageMetadata);
                 currentCmPage = page;
                 addPaging();
                 addDeleteCmBtn();
@@ -307,9 +308,9 @@
                 row += "<div class=\"r-c-t-first-row-first-col-container d-flex align-items-baseline\">";
 
                 if (c.parentId != null) {
-                    row += "<div class=\"r-c-t-comment-writer\"><i class=\"r-c-t-comment-reply-icon fas fa-level-up-alt fa-rotate-90\"></i>" + c.nickname + "</div>";
+                    row += "<div id='comment-writer-" + c.commentId + "' class=\"r-c-t-comment-writer\"><i class=\"r-c-t-comment-reply-icon fas fa-level-up-alt fa-rotate-90\"></i>" + c.nickname + "</div>";
                 } else {
-                    row += "<div class=\"r-c-t-comment-writer\">" + c.nickname + "</div>";
+                    row += "<div id='comment-writer-" + c.commentId + "' class=\"r-c-t-comment-writer\">" + c.nickname + "</div>";
                 }
 
                 if(c.status === "UPDATED"){
@@ -333,7 +334,7 @@
                 } else if (sid !== '' && c.parentId === null) {
                     row += "<a id='openCmReplyBtn-" + c.commentId + "' onclick='openCmReplyTextarea(this)' class='r-c-t-reply-btn' data-writer='" + c.nickname + "' data-cid='" + c.commentId + "'><i class=\"r-c-t-etc-btn-icon fas fa-comment\"></i>답글</a>";
                 }
-                row += "<a>신고</a>";
+                row += "<a data-bs-toggle='modal' data-bs-target='#reportingCmModal' onclick='openReportingModal("+c.commentId+")'>신고</a>";
                 row += "</div>";
 
                 row += "</div>";
@@ -518,19 +519,9 @@
             }
         }
 
-        if (!data.content || data.content.replace(blank_pattern, "") === "") {
-            alert("내용을 입력해주세요.")
-            return false;
+        if(validateCm(data.content)){
+            submitCmAjax(remarkId, data);
         }
-
-        if (isRun) {
-            alert("잠시만 기다려주세요.")
-            return false;
-        } else {
-            isRun = true;
-        }
-
-        submitCmAjax(remarkId, data);
     }
 
     function submitCmAjax(remarkId, data) {
@@ -545,7 +536,6 @@
             }
         }).done(function (result) {
             clearCmTextarea();
-
             if(data.ancestorId != null){
                 loadComments(currentCmPage);
             }else {
@@ -568,7 +558,9 @@
         const textarea = document.querySelectorAll('.r-c-t-textarea');
         for (let i = 0; i < textarea.length; i++) {
             textarea[i].value = '';
+            textarea[i].style.height='80px';
         }
+
     }
 
     function openCmReplyTextarea(e) {
@@ -603,6 +595,12 @@
             hideAllCmReplyTextarea();
         } else {
         }
+
+        let openedTextarea = document.querySelector('#cmReplyTextarea-'+parentId)
+        autosize(openedTextarea);
+
+        let location = document.querySelector('#comment-'+parentId).offsetTop;
+        window.scrollTo({top:location+60});
     }
 
     function hideAllCmReplyTextarea() {
@@ -613,6 +611,7 @@
         if (!confirm("댓글을 삭제하시겠습니까?")) {
             return false;
         } else {
+            checkAndSetIsRun();
             let url = '',
                 commentId = e.dataset.cid,
                 ancestorId = document.getElementById("comment-"+commentId).dataset.aid;
@@ -662,6 +661,7 @@
             row += "<div><i class=\"r-c-t-comment-reply-icon fas fa-level-up-alt fa-rotate-90\"></i><label class='r-c-t-textarea-label'>댓글수정</label></div>";
             row += "<textarea id='cmModifyTextarea-" + commentId + "' class=\"r-c-t-textarea form-control\" rows=\"3\" maxLength=\"300\" placeholder=\"댓글을 입력하세요.\">" + originContent + "</textarea>";
             row += "<div class='d-flex justify-content-end'>";
+            row += "<button class='r-c-t-modify-cancel-btn btn btn-secondary btn-sm' onclick='clearCmModifyTextArea(" + commentId + ")'>취소</button>";
             row += "<button class='r-c-t-save-btn btn btn-sm' onclick='modifyCm(" + commentId + ")'>수정</button>";
 
             row += "</div>";
@@ -677,6 +677,16 @@
             hideAllCmReplyTextarea();
         } else {
         }
+
+        let openedTextarea = document.querySelector('#cmModifyTextarea-'+commentId)
+        autosize(openedTextarea);
+
+        let location = document.querySelector('#comment-'+commentId).offsetTop;
+        window.scrollTo({top:location+60});
+    }
+
+    function clearCmModifyTextArea(commentId){
+        document.querySelector("#cmModifyTextareaContainer-"+commentId).remove();
     }
 
     function modifyCm(commentId) {
@@ -696,6 +706,14 @@
 
         if(content.trim() === originContent.trim()){
             alert("변경된 내용이 없습니다.")
+            return false;
+        }
+
+        let numberOfLines =  (content.match(/\n/g) || []).length + 1,
+            maxLengthOfLines = 20;
+
+        if(numberOfLines > maxLengthOfLines){
+            alert("글이 너무 깁니다(최대 20줄).");
             return false;
         }
 
@@ -742,6 +760,115 @@
         return value ? value[2] : null;
     };*/
 
+    function openReportingModal(commentId) {
+        if (sid == null || sid === '') {
+            location.href = "/oauth_login"
+        } else {
+            let commentEl = document.getElementById("comment-" + commentId),
+                writerNickname = document.getElementById("comment-writer-" + commentId).innerText,
+                commentContent = '';
+
+            /*if (commentEl.dataset.aid != null) {
+                commentContent = $("#comment-content-" + commentId).html().split('>')[2];
+            } else {*/
+                commentContent = document.getElementById("comment-content-" + commentId).innerHTML;
+            /*}*/
+
+            document.getElementById("reporting-cm-writer").innerText = writerNickname;
+            document.getElementById("reporting-cm-content").innerHTML = commentContent;
+
+            let data = {
+                commentContent : commentContent
+            }
+            document.querySelector(".reporting-cm-submit-btn")
+                .setAttribute("onclick","submitReporting("+commentId+ ")");
+        }
+    }
+
+    function submitReporting(commentId){
+
+        if (isRun) {
+            alert("잠시만 기다려주세요.")
+        } else {
+            isRun = true;
+        }
+
+        let commentContent ='',
+            commentEl = document.getElementById("comment-" + commentId);
+
+        if (commentEl.dataset.aid != null) {
+        commentContent = $("#comment-content-" + commentId).html().split('>')[2];
+            } else {
+        commentContent = document.getElementById("comment-content-" + commentId).innerText;
+        }
+
+        /*let commentContent = replaceTags(document.querySelector("#comment-content-"+commentId).innerHTML);*/
+
+        let data = {
+            originContent : commentContent,
+            type : document.querySelector('input[name="reporting-type"]:checked').value
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: `/api/comment/${commentId}/reporting`,
+            data: JSON.stringify(data),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("XMLHttpRequest", "true");
+            }
+        }).done(function (result) {
+            alert(JSON.stringify(result));
+            let myModalEl = document.getElementById('reportingCmModal'),
+                modal = bootstrap.Modal.getInstance(myModalEl);
+            modal.hide();
+            isRun = false;
+        }).fail(function (request,status,error) {
+            if (request.status === 403) {
+                location.href = "/oauth_login";
+            } else {
+                let myModalEl = document.getElementById('reportingCmModal'),
+                    modal = bootstrap.Modal.getInstance(myModalEl)
+                modal.hide();
+                isRun = false;
+                let message = JSON.stringify(request.responseText);
+                alert(message.replace(/\"/gi,""));
+            }
+        });
+    }
+
+
+    function validateCm(content){
+
+        let numberOfLines =  (content.match(/\n/g) || []).length + 1,
+            maxLengthOfLines = 20;
+        if (!content || content.replace(blank_pattern, "") === "") {
+            alert("내용을 입력해주세요.")
+            return false;
+        }else if(numberOfLines > maxLengthOfLines){
+            alert("글이 너무 깁니다(최대 20줄).");
+            return false;
+        }else if(checkAndSetIsRun()){
+            return true;
+        }
+    }
+
+    function checkAndSetIsRun(){
+        if (isRun) {
+            alert("잠시만 기다려주세요.")
+            return false;
+        } else {
+            isRun = true;
+            return true;
+        }
+    }
+
+    function replaceTags(html) {
+        let regExp = /<\/?[^>]+>/gi;
+
+        return html.replace(regExp, "");
+    }
 
     function addDeleteCmBtn() {
         let deleteCmBtn = document.getElementsByClassName("r-c-t-delete-btn");
@@ -758,7 +885,7 @@
             pageLink[i].addEventListener("click", function () {
                 let location = document.querySelector("#comment-container").offsetTop;
                 loadComments(this.dataset.page);
-                window.scrollTo({top:location});
+                window.scrollTo({top:location+60});
             });
         }
     }
@@ -766,7 +893,7 @@
     function toggleComment(){
         $("#comment-container").toggle();
         let location = document.querySelector("#comment-container").offsetTop;
-        window.scrollTo({top:location});
+        window.scrollTo({top:location+60});
     }
 
     document.addEventListener("DOMContentLoaded", loadComments(commentPageForInit));
