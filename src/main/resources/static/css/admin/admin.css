@@ -2011,7 +2011,6 @@ a:hover {
     }
 
     .user-profile-nickname-btn-container{
-        padding-top: .5rem;
         display: flex;
         justify-content: flex-end;
     }
