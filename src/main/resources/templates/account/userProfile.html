@@ -71,7 +71,8 @@
         lblError.innerHTML = "";
         redundantError.innerHTML = "";
         submitBtn.disabled = false
-        const expr = /^[0-9:.\-$-()_&a-zA-Z가-힣]{3,8}(?<![-(.])$/;
+        /*const expr = /^[0-9:.\-$-()_&a-zA-Z가-힣]{3,8}(?<![-(.])$/;*/
+        const expr = /^[0-9:.\-_a-zA-Z가-힣]{3,8}$/;
 
         if (!expr.test(nicknameInput.value)) {
             submitBtn.disabled = true;
