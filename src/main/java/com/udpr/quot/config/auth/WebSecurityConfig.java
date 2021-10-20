@@ -38,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers(HttpMethod.GET,"/api/remark/**/comment").permitAll()
                     .antMatchers("/api/remark/**","/api/remark/loginCheck","/api/comment/**/reporting","/profile").hasAnyRole("USER","ADMIN")
                     .antMatchers("/_profile","/api/person/**","/api/remark/","/h2-console/**","/person/new","/remark/new","/remark/**/update","/admin/**").hasRole("ADMIN")
-                    .antMatchers("/remark","/remark/**/","/","/remark/search", "/api/search/**","/oauth2/**", "/login_req","/login", "/login/**","/person/**").permitAll()
+                    .antMatchers("/remark","/remark/**/","/","/remark/search", "/api/search/**","/oauth2/**", "/login_req","/login", "/login/**","/person/**","/_profile").permitAll()
                     .anyRequest().authenticated() // 나머지 요청들은 권한의 종류에 상관 없이 권한이 있어야 접근 가능
 
                 .and()
