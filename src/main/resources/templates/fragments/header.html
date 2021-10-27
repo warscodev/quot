@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="header">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head th:fragment="header" th:with="keyword=${keyword} ?: '홈'">
+    <title th:text="|${keyword} - Quot.wiki|"></title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,5 +28,4 @@
     <!-- jquery -->
     <link rel="stylesheet" href="/vendor/jquery-ui/jquery-ui.min.css">
     <script src="/node_modules/jquery/dist/jquery.min.js"></script>
-    <title>Quot.</title>
 </head>
