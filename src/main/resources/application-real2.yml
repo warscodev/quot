@@ -38,3 +38,4 @@ spring:
         strategy:
           content:
             enabled: true
+            paths: /**

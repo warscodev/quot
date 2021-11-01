@@ -29,6 +29,7 @@ spring:
         strategy:
           content:
             enabled: true
+            paths: /**
 
 server:
   servlet:
