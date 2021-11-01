@@ -51,7 +51,7 @@ public class CommentQueryDto {
         LocalDateTime now = LocalDateTime.now();
         long betweenMinutes = ChronoUnit.MINUTES.between(commentDate, now);
         if(betweenMinutes >= 60*24){
-            return commentDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+            return commentDate.format(DateTimeFormatter.ofPattern("yy.MM.dd HH:mm"));
         }else if(betweenMinutes >= 60){
             long betweenHour = ChronoUnit.HOURS.between(commentDate, now);
                 return betweenHour +"시간 전";
