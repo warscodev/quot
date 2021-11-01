@@ -27,6 +27,8 @@ public class RemarkQueryDto {
 
     private List<RemarkLikeQueryDto> remarkLikeList;
 
+    private String tags;
+
     private int isLike;
 
     private Long personId;
@@ -40,9 +42,14 @@ public class RemarkQueryDto {
 
     private Long commentCount;
 
+    private Long isBookmarked;
+
 
     @QueryProjection
-    public RemarkQueryDto(Long remarkId, String content, LocalDate remarkDate, LocalDateTime createdDate, LocalDateTime updatedDate, int likeCount, int dislikeCount, String sourceSort, String sourceUrl, Long personId, String name, String alias, String job, String category, Long user_id, String nickname, Long commentCount) {
+    public RemarkQueryDto(Long remarkId, String content, LocalDate remarkDate, LocalDateTime createdDate, LocalDateTime updatedDate,
+                          int likeCount, int dislikeCount, String sourceSort, String sourceUrl,
+                          Long personId, String name, String alias, String job, String category,
+                          Long user_id, String nickname, Long commentCount) {
         this.remarkId = remarkId;
         this.content = content;
         this.remarkDate = remarkDateFormat(remarkDate);

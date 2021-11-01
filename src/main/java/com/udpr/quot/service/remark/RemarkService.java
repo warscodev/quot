@@ -7,7 +7,10 @@ import com.udpr.quot.domain.remark.repository.RemarkRepository;
 import com.udpr.quot.domain.remark.search.RemarkSearchCondition;
 import com.udpr.quot.domain.person.Person;
 import com.udpr.quot.domain.person.repository.PersonRepository;
+import com.udpr.quot.domain.user.Bookmark;
 import com.udpr.quot.domain.user.User;
+import com.udpr.quot.domain.user.repository.BookmarkQueryRepository;
+import com.udpr.quot.domain.user.repository.BookmarkRepository;
 import com.udpr.quot.domain.user.repository.UserRepository;
 import com.udpr.quot.web.dto.remark.*;
 import com.udpr.quot.web.dto.remark.query.RemarkQueryDto;
@@ -34,6 +37,8 @@ public class RemarkService {
     private final RemarkRepository remarkRepository;
     private final RemarkLikeRepository remarkLikeRepository;
     private final UserRepository userRepository;
+    private final BookmarkQueryRepository bookmarkQueryRepository;
+    private final BookmarkRepository bookmarkRepository;
 
     private final RemarkTagService remarkTagService;
 
@@ -192,12 +197,29 @@ public class RemarkService {
         }
 
         return new LikeInfo(remark.getLikeCount(),remark.getDislikeCount(),isLike);
-
     }
 
     public Boolean hasNotLiked(Remark remark, User user) {
         return remarkLikeRepository.findByRemarkAndUser(remark, user).isEmpty();
     }
 
+    @Transactional
+    public void saveOrDeleteBookmark(Long remarkId, Long userId){
+        Remark remark = remarkRepository.findById(remarkId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 발언 정보가 없습니다. id = " + remarkId));
 
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 유저 정보가 없습니다. id = " + userId));
+
+        Bookmark bookmark = bookmarkRepository.findByRemarkIdAndUserId(remarkId, userId)
+                .orElse(Bookmark.builder()
+                        .remark(remark)
+                        .user(user)
+                        .build());
+        if(bookmark.getId() != null){
+            bookmarkRepository.delete(bookmark);
+        }else {
+            bookmarkRepository.save(bookmark);
+        }
+    }
 }

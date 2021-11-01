@@ -1039,7 +1039,7 @@ a:hover {
     margin-right: .5rem;
 }
 
-.bookmark-wrap{
+.bookmark-icon-wrap{
     width: 50px;
 }
 
@@ -1049,7 +1049,7 @@ a:hover {
         height: 30px;
     }
 
-    .bookmark-wrap{
+    .bookmark-icon-wrap{
         width: 44px;
     }
 
@@ -1061,10 +1061,21 @@ a:hover {
         height: 26px;
     }
 
-    .bookmark-wrap{
+    .bookmark-icon-wrap{
         width: 38px;
     }
 }
+
+.bookmark-active > .bookmark-icon-wrap {
+    background-color: #fff9e9 !important;
+    border-color: #ffd261;
+    /*box-shadow: 0 0 1px 1px rgba(255, 100, 100, .4) !important;*/
+}
+
+.bookmark-active i{
+    opacity: 1;
+}
+
 
 
 .r-l-t-last-row-btn{

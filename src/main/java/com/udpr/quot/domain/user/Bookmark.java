@@ -1,19 +1,21 @@
 package com.udpr.quot.domain.user;
 
 import com.udpr.quot.domain.remark.Remark;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class UserScrap {
+public class Bookmark {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_scrap_id")
+    @Column(name = "bookmark_id")
     private Long id;
 
     @ManyToOne
@@ -24,5 +26,9 @@ public class UserScrap {
     @JoinColumn(name = "remark_id")
     private Remark remark;
 
-
+    @Builder
+    public Bookmark(User user, Remark remark) {
+        this.user = user;
+        this.remark = remark;
+    }
 }

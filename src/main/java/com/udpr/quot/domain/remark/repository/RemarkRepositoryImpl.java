@@ -5,7 +5,6 @@ import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
-import com.querydsl.core.types.dsl.StringExpression;
 import com.querydsl.core.types.dsl.StringTemplate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.udpr.quot.domain.common.Status;
@@ -28,6 +27,7 @@ import static com.udpr.quot.domain.remark.QRemarkLike.remarkLike;
 import static com.udpr.quot.domain.remark.QRemarkTag.remarkTag;
 import static com.udpr.quot.domain.remark.comment.QComment.comment;
 import static com.udpr.quot.domain.tag.QTag.tag;
+import static com.udpr.quot.domain.user.QBookmark.bookmark;
 import static com.udpr.quot.domain.user.QUser.user;
 import static org.springframework.util.ObjectUtils.isEmpty;
 
@@ -74,8 +74,20 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                 .where(remarkLike.remark.id.eq(remarkId).and(remarkLike.user.id.eq(sessionId)))
                 .fetchOne();
 
+        Long isBookmarked = queryFactory
+                .select(bookmark.count())
+                .from(bookmark)
+                .where(bookmark.remark.id.eq(remarkId).and(bookmark.user.id.eq(sessionId)))
+                .fetchCount();
+
         assert result != null;
         result.setRemarkTagList(tagList);
+
+        result.setTags(tagList.stream()
+                .map(t->"#"+t.getName())
+                .collect(Collectors.joining(", ")));
+
+        result.setIsBookmarked(isBookmarked);
 
         if(isLike!=null) {
             result.setIsLike(isLike);
@@ -111,8 +123,12 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                 .where(remarkTag.remark.id.eq(remarkId))
                 .fetch();
 
-        result.setRemarkTagList(tagList);
+            assert result != null;
+            result.setRemarkTagList(tagList);
 
+            result.setTags(tagList.stream()
+                    .map(t->"#"+t.getName())
+                    .collect(Collectors.joining(", ")));
         return result;
     }
 
@@ -138,7 +154,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
 
                         .offset(pageable.getOffset())
                         .limit(pageable.getPageSize())
-                        .orderBy(getOrderSpecifier(condition.getSort()).stream().toArray(OrderSpecifier[]::new))
+                        .orderBy(getOrderSpecifier(condition.getSort()).toArray(OrderSpecifier[]::new))
                         .fetchResults();
 
         List<Long> remarkIdList = toRemarkIdList(results);
@@ -269,10 +285,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                 .where(remarkTag.remark.id.in(remarkIdList))
                 .fetch();
 
-        Map<Long, List<RemarkTagQueryDto>> tagMap =
-                tagList.stream().collect(Collectors.groupingBy(RemarkTagQueryDto::getRemarkId));
-
-        return tagMap;
+        return tagList.stream().collect(Collectors.groupingBy(RemarkTagQueryDto::getRemarkId));
     }
 
 
@@ -288,6 +301,16 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
         return likeList.stream().collect(Collectors.groupingBy(RemarkLikeQueryDto::getRemarkId));
     }
 
+    private Long checkIsBookmarked(Long remarkId, Long sid){
+        return queryFactory.select(bookmark.count())
+                .from(bookmark)
+                .where(bookmark.remark.id.eq(remarkId)
+                        .and(bookmark.user.id.eq(sid)))
+                .fetchCount();
+    }
+
+
+
     private List<Long> toRemarkIdList(QueryResults<RemarkQueryDto> results) {
         return results.getResults().stream()
                 .map(RemarkQueryDto::getRemarkId)
@@ -299,6 +322,10 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
             Map<Long, List<RemarkLikeQueryDto>> likeMap = findLikeMap(remarkIdList, condition.getSid());
             results.getResults().forEach(r -> {
                 r.setRemarkTagList(tagMap.get(r.getRemarkId()));
+                r.setTags(tagMap.get(r.getRemarkId()).stream()
+                        .map(RemarkTagQueryDto::getName)
+                        .collect(Collectors.joining(", ")));
+                r.setIsBookmarked(checkIsBookmarked(r.getRemarkId(),condition.getSid()));
                 if(likeMap.get(r.getRemarkId())!=null) {
                     r.setIsLike(likeMap.get(r.getRemarkId()).get(0).getIsLike());
                 }
@@ -306,6 +333,10 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
         }else{
             results.getResults().forEach(r -> {
                 r.setRemarkTagList(tagMap.get(r.getRemarkId()));
+                r.setTags(tagMap.get(r.getRemarkId()).stream()
+                        .map(RemarkTagQueryDto::getName)
+                        .collect(Collectors.joining(", ")));
+
             });
         }
     }
@@ -375,8 +406,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
     }
 
     public StringTemplate removeCommaOnPersonAlias() {
-        StringTemplate st = Expressions.stringTemplate("replace({0},',','')", person.alias);
-        return st;
+        return Expressions.stringTemplate("replace({0},',','')", person.alias);
     }
 
 

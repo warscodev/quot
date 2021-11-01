@@ -247,10 +247,9 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
 
 
     private List<Long> toRemarkIdList(List<RemarkForPersonDetailQueryDto> results) {
-        List<Long> remarkIdList = results.stream()
-                .map(r->r.getRemarkId())
+        return results.stream()
+                .map(RemarkForPersonDetailQueryDto::getRemarkId)
                 .collect(Collectors.toList());
-        return remarkIdList;
     }
 
     private void setTagMapsToRemark(List<RemarkForPersonDetailQueryDto> results, Map<Long, List<RemarkTagQueryDto>> tagMap) {

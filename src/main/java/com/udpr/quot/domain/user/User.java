@@ -45,7 +45,7 @@ public class User extends BaseTimeEntity {
     private List<RemarkLike> remarkLikeList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<UserScrap> userScrapList = new ArrayList<>();
+    private List<Bookmark> bookmarkList = new ArrayList<>();
 
     @Builder
     public User(String email, Role role, String nickname) {

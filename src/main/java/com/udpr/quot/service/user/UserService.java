@@ -44,4 +44,5 @@ public class UserService {
 
         return userRepository.existsByNickname(nickname) || forbiddenWord.isPresent();
     }
+
 }

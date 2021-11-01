@@ -2,7 +2,6 @@ package com.udpr.quot.domain.user.repository;
 
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.udpr.quot.domain.user.User;
 import com.udpr.quot.web.dto.user.QUserQueryDto;
 import com.udpr.quot.web.dto.user.UserQueryDto;
 import lombok.RequiredArgsConstructor;

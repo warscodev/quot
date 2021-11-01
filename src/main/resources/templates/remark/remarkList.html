@@ -2,8 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-<head th:if="${keyword}" th:replace="fragments/header :: header(keyword=${keyword})">
-    <head th:unless="${keyword}" th:replace="fragments/header :: header(keyword='home')">
+<head th:replace="fragments/header :: header(title='홈', keyword=${keyword})">
 
 <body>
 <div th:replace="fragments/topHeader :: topHeader"/>
@@ -212,13 +211,13 @@
 
                     <div class="r-l-t-last-row-container">
                         <div class="d-flex">
-                            <a class="r-l-t-last-row-btn r-l-t-like-btn btn like-active tt" title="이 발언이 좋아요"
-                               data-bs-trigger="hover" data-bs-placement="bottom"
+                            <a class="r-l-t-last-row-btn r-l-t-like-btn btn like-active"
                                sec:authorize="isAuthenticated()" th:if="${r.isLike eq 1}"
                                th:id="|like-btn-${r.remarkId}|"
                                href="javascript:;"
                                th:onclick="|like(this, ${r.remarkId}, 1)|">
-                                <div class="r-l-t-last-row-btn-icon-wrap like-icon-wrap">
+                                <div class="r-l-t-last-row-btn-icon-wrap like-icon-wrap tt" title="이 발언이 좋아요"
+                                     data-bs-trigger="hover" data-bs-placement="bottom">
                                     <i class="r-l-t-like-icon like-icon r-l-t-last-row-btn-icon fas fa-thumbs-up"></i>
                                     <span th:id="|like-count-${r.remarkId}|"
                                           class="r-l-t-last-row-btn-text r-l-t-last-row-like-count like-count"
@@ -226,10 +225,10 @@
                                 </div>
                             </a>
                             <a th:unless="${r.isLike eq 1}" th:id="|like-btn-${r.remarkId}|"
-                               class="r-l-t-last-row-btn r-l-t-like-btn tt" title="이 발언이 좋아요"
-                               data-bs-trigger="hover" data-bs-placement="bottom" href="javascript:;"
+                               class="r-l-t-last-row-btn r-l-t-like-btn" href="javascript:;"
                                th:onclick="|like(this, ${r.remarkId}, 1)|">
-                                <div class="r-l-t-last-row-btn-icon-wrap like-icon-wrap">
+                                <div class="r-l-t-last-row-btn-icon-wrap like-icon-wrap tt" title="이 발언이 좋아요"
+                                     data-bs-trigger="hover" data-bs-placement="bottom">
                                     <i class="r-l-t-like-icon like-icon r-l-t-last-row-btn-icon fas fa-thumbs-up"></i>
                                     <span th:id="|like-count-${r.remarkId}|"
                                           class="r-l-t-last-row-btn-text r-l-t-last-row-like-count like-count"
@@ -239,11 +238,10 @@
 
                             <a sec:authorize="isAuthenticated()" th:if="${r.isLike eq -1}"
                                th:id="|dislike-btn-${r.remarkId}|"
-                               class="r-l-t-dislike-btn r-l-t-last-row-btn btn like-active tt" title="이 발언이 싫어요"
-                               data-bs-trigger="hover" data-bs-placement="bottom"
-                               href="javascript:;"
+                               class="r-l-t-dislike-btn r-l-t-last-row-btn btn like-active" href="javascript:;"
                                th:onclick="|like(this, ${r.remarkId}, -1)|">
-                                <div class="r-l-t-last-row-btn-icon-wrap dislike-icon-wrap">
+                                <div class="r-l-t-last-row-btn-icon-wrap dislike-icon-wrap tt" title="이 발언이 싫어요"
+                                     data-bs-trigger="hover" data-bs-placement="bottom">
                                     <i class="r-l-t-dislike-icon dislike-icon r-l-t-last-row-btn-icon fas fa-thumbs-down fas"></i>
                                     <span th:id="|dislike-count-${r.remarkId}|"
                                           class="r-l-t-last-row-btn-text r-l-t-last-row-dislike-count dislike-count"
@@ -252,10 +250,10 @@
                                 </div>
                             </a>
                             <a th:unless="${r.isLike eq -1}" th:id="|dislike-btn-${r.remarkId}|"
-                               class="r-l-t-dislike-btn r-l-t-last-row-btn btn tt" title="이 발언이 싫어요"
-                               data-bs-trigger="hover" data-bs-placement="bottom" href="javascript:;"
+                               class="r-l-t-dislike-btn r-l-t-last-row-btn btn" href="javascript:;"
                                th:onclick="|like(this, ${r.remarkId}, -1)|">
-                                <div class="r-l-t-last-row-btn-icon-wrap dislike-icon-wrap">
+                                <div class="r-l-t-last-row-btn-icon-wrap dislike-icon-wrap tt" title="이 발언이 싫어요"
+                                     data-bs-trigger="hover" data-bs-placement="bottom" >
                                     <i class="r-l-t-dislike-icon dislike-icon r-l-t-last-row-btn-icon fas fa-thumbs-down"></i>
                                     <span th:id="|dislike-count-${r.remarkId}|"
                                           class="r-l-t-last-row-btn-text r-l-t-last-row-dislike-count dislike-count"
@@ -263,12 +261,22 @@
                                 </div>
                             </a>
 
-                            <a class="r-l-t-last-row-btn r-l-t-last-row-bookmark-btn btn">
-                                <div class="r-l-t-last-row-btn-icon-wrap bookmark-wrap">
+                            <a th:if="${r.isBookmarked > 0}" class="r-l-t-last-row-btn r-l-t-last-row-bookmark-btn btn bookmark-active" th:onclick="|saveOrDeleteBookmark(this,${r.remarkId})|" href="javascript:;">
+                                <div class="r-l-t-last-row-btn-icon-wrap bookmark-icon-wrap tt" title="저장"
+                                     data-bs-trigger="hover" data-bs-placement="bottom">
                                     <i class="r-l-t-last-row-btn-icon r-l-t-last-row-bookmark-icon bi bi-bookmark-star-fill"
                                        style="line-height: 0"></i>
                                 </div>
                             </a>
+                            <a th:unless="${r.isBookmarked > 0}" class="r-l-t-last-row-btn r-l-t-last-row-bookmark-btn btn" th:onclick="|saveOrDeleteBookmark(this,${r.remarkId})|" href="javascript:;">
+                                <div class="r-l-t-last-row-btn-icon-wrap bookmark-icon-wrap tt" title="저장"
+                                     data-bs-trigger="hover" data-bs-placement="bottom">
+                                    <i class="r-l-t-last-row-btn-icon r-l-t-last-row-bookmark-icon bi bi-bookmark-star-fill"
+                                       style="line-height: 0"></i>
+                                </div>
+                            </a>
+
+
                         </div>
 
                         <div class="d-flex">

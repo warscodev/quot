@@ -101,6 +101,27 @@ function like(e, remarkId, isLike) {
     }
 }
 
+async function saveOrDeleteBookmark(e, remarkId) {
+    await fetch("/api/remark/bookmark", {
+        method: "post",
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: remarkId
+    })
+    try{
+        toggleBookmarkIcon(e);
+    } catch (error){
+        alert(JSON.stringify(error));
+    }
+}
+
+function toggleBookmarkIcon(e){
+    e.classList.toggle("bookmark-active");
+}
+
+
+
 function deleteRemark(id) {
     if (confirm("정말 삭제하시겠습니까? \n삭제한 발언은 복원할 수 없습니다.") === true) {
         $.ajax({

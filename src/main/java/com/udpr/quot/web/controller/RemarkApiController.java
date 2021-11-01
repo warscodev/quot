@@ -67,4 +67,12 @@ public class RemarkApiController {
             throw new AuthenticationException();
     }
 
+    @PostMapping("/api/remark/bookmark")
+    public void bookmark(@LoginUser SessionUser user, @RequestBody Long remarkId) throws AuthenticationException{
+        if(user != null){
+            remarkService.saveOrDeleteBookmark(remarkId, user.getId());
+        }else
+            throw new AuthenticationException();
+    }
+
 }
