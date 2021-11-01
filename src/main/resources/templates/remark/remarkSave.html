@@ -168,7 +168,7 @@
         if (!$('#person_id').val()) {
             alert("인물을 선택해주세요.")
             return false;
-        } else if (!data.content || data.content.replace(blank_pattern, "") == "") {
+        } else if (!data.content || data.content.replace(blank_pattern, "") === "") {
             alert("본문 내용을 입력해주세요.")
             return false;
         } else if (!data.remarkDate) {
@@ -177,7 +177,7 @@
         } else if(!data.jasonArrayTags){
             alert("태그는 한개 이상 입력되어야 합니다.")
             return false;
-        }else if(!data.sourceSort == "" && (data.sourceUrl.replace(blank_pattern, "") == "" || !data.sourceUrl)){
+        }else if(!data.sourceSort === "" && (data.sourceUrl.replace(blank_pattern, "") === "" || !data.sourceUrl)){
             alert("출처 링크를 바르게 입력해주세요.")
             return false;
         }

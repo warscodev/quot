@@ -67,7 +67,7 @@ function like(e, remarkId, isLike) {
         changeLikeIcon();
         setTimeout(function () {
             isRun = false
-        }, 200)
+        }, 500)
     }).fail(function (error) {
         if (error.status == 403) {
             location.href = "/oauth_login";
@@ -80,16 +80,14 @@ function like(e, remarkId, isLike) {
     function changeLikeIcon() {
         let otherBtn = '';
 
-        if (e.classList.contains("like-btn")) {
+        if (e.classList.contains("r-l-t-like-btn")) {
             otherBtn = document.getElementById("dislike-btn-" + remarkId);
         } else {
             otherBtn = document.getElementById("like-btn-" + remarkId);
         }
 
-        getFirstChild(e).classList.toggle("fas");
         e.classList.toggle("like-active");
         if (otherBtn.classList.contains("like-active")) {
-            getFirstChild(otherBtn).classList.toggle("fas");
             otherBtn.classList.toggle("like-active")
         }
     }
@@ -156,7 +154,6 @@ function toSearchPersonContainer(pageObj) {
         row = '';
 
     list.forEach(person => {
-
         row += "<div class='r-l-related-person-nav-container'>";
         row += "<a class='r-l-related-person-nav' href='/person/" + person.id + "'>";
         row += "<div class='r-l-related-person-nav-row'>";
@@ -165,7 +162,6 @@ function toSearchPersonContainer(pageObj) {
         row += "</div>";
         row += "</a>";
         row += "</div>";
-
     })
 
     if (!last) {
@@ -180,18 +176,53 @@ function toSearchPersonContainer(pageObj) {
     return row;
 }
 
+
+
 document.addEventListener("DOMContentLoaded", function () {
-    const tooltips = document.querySelectorAll(".tt"),
-        contents = document.querySelectorAll(".r-l-t-content"),
-        iconTag = "<i class='r-l-t-quote-icon fas fa-quote-right'></i>";
+
+    const remarkLinks = document.querySelectorAll(".r-l-t-content-link");
+        remarkLinks.forEach(r =>{
+            r.addEventListener("click" ,function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                alert("이동");
+                location.href = r.getAttribute('href');
+            })
+        });
+
+    const quoteIcon = "<i class='r-l-t-quote-icon fas fa-quote-right' style='margin-right: .75rem'></i>";
+
+    const contents = document.querySelectorAll(".r-l-t-content");
+
+    contents.forEach(c => {
+        const sourceIcon = "<a class='tt r-l-t-source-btn' data-bs-html='true' data-bs-placement='right' data-bs-trigger='focus click' " +
+            "title='<a class=\"r-l-t-source-link\" href=\""+c.dataset.source+"\" target=\"_blank\" rel=\"noopener noreferer nofollow\">"+c.dataset.source+"</a>'</a>"+
+            "<i class='r-l-t-source-btn-icon fas fa-link'></i>출처</a>";
+
+        $(c).append(quoteIcon)
+        $(c).append(sourceIcon)
+
+        c.addEventListener("click", function (e){
+            e.preventDefault();
+            e.stopPropagation();
+            location.href = c.nextElementSibling.getAttribute('href');
+        })
+    });
+
+    const sourceBtn = document.querySelectorAll(".r-l-t-source-btn");
+    sourceBtn.forEach(s => {
+        s.addEventListener("click", function (e){
+            e.preventDefault();
+            e.stopPropagation();
+        })
+    })
+
+    const tooltips = document.querySelectorAll(".tt");
 
     tooltips.forEach(t => {
         new bootstrap.Tooltip(t)
-    })
+    });
 
-    contents.forEach(c => {
-        $(c).append(iconTag)
-    })
 
     highlightKeyword();
 })

@@ -2,13 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-<head th:replace="fragments/header :: header">
+<head th:replace="fragments/header :: header(keyword=|${remark.name} : ${remark.tags}|)">
 <body>
 <div th:replace="fragments/topHeader :: topHeader"/>
 
 <div class="container container-custom">
     <div class="remark-page-wrap">
-
         <div class="d-flex justify-content-end">
             <div sec:authorize="hasRole('ADMIN')"
                  class="remark-delete-and-update-btn-wrap d-flex align-items-center">
@@ -41,22 +40,24 @@
                         <div class="r-l-t-title-container r-l-t-second-col col">
                             <div class="r-l-t-person-and-date-container">
                                 <!-- 이름 -->
-                                <div>
-                                    <a class="r-d-t-person-name-link"
-                                       th:href="@{/person/{personId}(personId=*{personId})}">
-                                        <span class="r-l-t-person-name r-d-t-person-name" th:text="*{name}"></span>
-                                    </a>
-                                </div>
+                                <a class="r-d-t-person-name-link"
+                                   th:href="@{/person/{personId}(personId=*{personId})}">
+                                    <span class="r-l-t-person-name r-d-t-person-name" th:text="*{name}"></span>
+                                </a>
                                 <!-- 다른이름, 직업, 날짜 -->
-                                <div class="d-flex align-items-start" style="flex-wrap: wrap;">
-                                    <div class="r-d-t-person-alias-and-job-container">
-                                        <span class="r-d-t-person-job" th:text="*{job}"></span><span class="r-d-t-date">｜</span>
-                                    </div>
-                                    <!--<div class="r-d-t-date-container" style="margin: 0 .25rem;">
-                                    </div>-->
-                                    <div class="r-d-t-date-container">
-                                        <span class="r-d-t-date" th:text="|*{remarkDate}|"></span>
-                                    </div>
+                                <span class="r-d-t-person-job" th:text="*{job}"></span>
+                                <span class="r-d-t-date">｜</span>
+                                <!--<div class="r-d-t-date-container" style="margin: 0 .25rem;">
+                                </div>-->
+                                <div class="d-flex align-items-center">
+                                        <span class="r-d-t-date" th:text="|*{remarkDate}|"
+                                              style="margin-right: .3rem"></span>
+                                    <span class="r-l-t-info-icon tt bi bi-info-circle"
+                                          data-bs-html="true" data-bs-placement="right"
+                                          th:title="|<div class='d-flex align-items-center justify-content-center'>
+                                                        <span class='r-l-t-info-nickname'>작성자 : *{nickname}</span></div>
+                                                        <div><span class='r-l-t-info-date'>*{createdDate} 등록됨</span></div>|">
+                                        </span>
                                 </div>
 
                             </div>
@@ -71,13 +72,14 @@
                         </div>
 
                         <div class="r-l-t-first-row-third-col d-flex justify-content-end">
-                        <span class="r-l-t-info tt" data-bs-html="true" data-bs-placement="bottom"
-                              th:title="|<div class='d-flex align-items-center justify-content-center'>
-                                <span class='r-l-t-info-nickname'>작성자 : *{nickname}</span>
+                            <a class="r-l-t-share-btn share-btn r-l-t-last-row-btn btn" href=""
+                               th:onclick="|openShareModal(this, *{remarkId})|"
+                               th:data-name="*{name}" th:data-date="*{remarkDate}" data-index="999"
+                               data-bs-toggle="modal" data-bs-target="#shareModal">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-three-dots-vertical"></i>
                                 </div>
-                                <div><span class='r-l-t-info-date'>*{createdDate} 등록됨</span></div>|">
-                            <i class="r-l-t-info-icon fas fa-info-circle"></i>
-                        </span>
+                            </a>
                         </div>
 
                     </div>
@@ -92,55 +94,74 @@
 
                         <div class="r-l-t-content-container r-l-t-second-col d-flex">
                             <p class="r-l-t-content r-d-t-content"
-                               th:text="*{content}" id="remark-content-999"></p>
+                               th:text="*{content}" th:data-source="*{sourceUrl}" id="remark-content-999"></p>
                         </div>
 
                     </div>
 
-                    <div id="cmCont" class="r-l-t-last-row-container r-d-t-last-row-container d-flex justify-content-center">
-
-                        <div class="r-l-t-last-row-btn-container" style="margin-left: 0">
-                            <a sec:authorize="isAuthenticated()" th:if="*{isLike eq 1}" th:id="|like-btn-*{remarkId}|"
-                               class="r-l-t-like-btn like-btn r-l-t-last-row-btn btn like-active" href="javascript:;"
+                    <div id="cmCont"
+                         class="r-l-t-last-row-container">
+                        <div class="d-flex">
+                            <a class="r-l-t-last-row-btn r-l-t-like-btn btn like-active tt" title="이 발언이 좋아요"
+                               data-bs-trigger="hover" data-bs-placement="bottom"
+                               sec:authorize="isAuthenticated()" th:if="*{isLike eq 1}"
+                               th:id="|like-btn-*{remarkId}|"
+                               href="javascript:;"
                                th:onclick="|like(this, *{remarkId}, 1)|">
-                                <i class="r-l-t-like-icon like-icon r-l-t-last-row-btn-icon far fa-thumbs-up fas"></i>
-                                <span th:id="|like-count-*{remarkId}|"
-                                      class="r-l-t-last-row-btn-text r-l-t-last-row-like-count like-count"
-                                      th:text="*{likeCount}"></span>
+                                <div class="r-l-t-last-row-btn-icon-wrap like-icon-wrap">
+                                    <i class="r-l-t-like-icon like-icon r-l-t-last-row-btn-icon fas fa-thumbs-up"></i>
+                                    <span th:id="|like-count-*{remarkId}|"
+                                          class="r-l-t-last-row-btn-text r-l-t-last-row-like-count like-count"
+                                          th:text="*{likeCount}"></span>
+                                </div>
                             </a>
-
                             <a th:unless="*{isLike eq 1}" th:id="|like-btn-*{remarkId}|"
-                               class="r-l-t-like-btn like-btn r-l-t-last-row-btn btn" href="javascript:;"
+                               class="r-l-t-last-row-btn r-l-t-like-btn tt" title="이 발언이 좋아요"
+                               data-bs-trigger="hover" data-bs-placement="bottom" href="javascript:;"
                                th:onclick="|like(this, *{remarkId}, 1)|">
-                                <i class="r-l-t-like-icon like-icon r-l-t-last-row-btn-icon far fa-thumbs-up"></i>
-                                <span th:id="|like-count-*{remarkId}|"
-                                      class="r-l-t-last-row-btn-text r-l-t-last-row-like-count like-count"
-                                      th:text="*{likeCount}"></span>
+                                <div class="r-l-t-last-row-btn-icon-wrap like-icon-wrap">
+                                    <i class="r-l-t-like-icon like-icon r-l-t-last-row-btn-icon fas fa-thumbs-up"></i>
+                                    <span th:id="|like-count-*{remarkId}|"
+                                          class="r-l-t-last-row-btn-text r-l-t-last-row-like-count like-count"
+                                          th:text="*{likeCount}"></span>
+                                </div>
                             </a>
-                        </div>
 
-                        <div class="r-l-t-last-row-btn-container">
                             <a sec:authorize="isAuthenticated()" th:if="*{isLike eq -1}"
                                th:id="|dislike-btn-*{remarkId}|"
-                               class="r-l-t-dislike-btn dislike-btn r-l-t-last-row-btn btn like-active"
+                               class="r-l-t-dislike-btn r-l-t-last-row-btn btn like-active tt" title="이 발언이 싫어요"
+                               data-bs-trigger="hover" data-bs-placement="bottom"
                                href="javascript:;"
                                th:onclick="|like(this, *{remarkId}, -1)|">
-                                <i class="r-l-t-dislike-icon dislike-icon r-l-t-last-row-btn-icon far fa-thumbs-down fas"></i>
-                                <span th:id="|dislike-count-*{remarkId}|"
-                                      class="r-l-t-last-row-btn-text r-l-t-last-row-dislike-count dislike-count"
-                                      th:text="*{dislikeCount}"></span>
+                                <div class="r-l-t-last-row-btn-icon-wrap dislike-icon-wrap">
+                                    <i class="r-l-t-dislike-icon dislike-icon r-l-t-last-row-btn-icon fas fa-thumbs-down"></i>
+                                    <span th:id="|dislike-count-*{remarkId}|"
+                                          class="r-l-t-last-row-btn-text r-l-t-last-row-dislike-count dislike-count"
+                                          th:text="*{dislikeCount}"></span>
+                                </div>
                             </a>
                             <a th:unless="*{isLike eq -1}" th:id="|dislike-btn-*{remarkId}|"
-                               class="r-l-t-dislike-btn dislike-btn r-l-t-last-row-btn btn" href="javascript:;"
+                               class="r-l-t-dislike-btn r-l-t-last-row-btn btn tt" title="이 발언이 싫어요"
+                               data-bs-trigger="hover" data-bs-placement="bottom" href="javascript:;"
                                th:onclick="|like(this, *{remarkId}, -1)|">
-                                <i class="r-l-t-dislike-icon dislike-icon r-l-t-last-row-btn-icon far fa-thumbs-down"></i>
-                                <span th:id="|dislike-count-*{remarkId}|"
-                                      class="r-l-t-last-row-btn-text r-l-t-last-row-dislike-count dislike-count"
-                                      th:text="*{dislikeCount}"></span>
+                                <div class="r-l-t-last-row-btn-icon-wrap dislike-icon-wrap">
+                                    <i class="r-l-t-dislike-icon dislike-icon r-l-t-last-row-btn-icon fas fa-thumbs-down"></i>
+                                    <span th:id="|dislike-count-*{remarkId}|"
+                                          class="r-l-t-last-row-btn-text r-l-t-last-row-dislike-count dislike-count"
+                                          th:text="*{dislikeCount}"></span>
+                                </div>
+                            </a>
+
+
+                            <a class="r-l-t-last-row-btn r-l-t-last-row-bookmark-btn btn">
+                                <div class="r-l-t-last-row-btn-icon-wrap bookmark-wrap">
+                                    <i class="r-l-t-last-row-btn-icon r-l-t-last-row-bookmark-icon bi bi-bookmark-star-fill"
+                                       style="line-height: 0"></i>
+                                </div>
                             </a>
                         </div>
 
-                        <div class="r-l-t-last-row-btn-container">
+                        <div class="d-flex">
                             <a class="r-l-t-last-row-btn btn" onclick="toggleComment()">
                                 <i class="r-l-t-last-row-btn-icon r-l-t-last-row-comment-count-icon far fa-comment-dots"></i>
                                 <span class="r-l-t-last-row-comment-count r-l-t-last-row-btn-text r-d-changing-comment-count"
@@ -148,7 +169,7 @@
                             </a>
                         </div>
 
-                        <div th:if="*{not #strings.isEmpty(sourceSort)}"
+                        <!--<div th:if="*{not #strings.isEmpty(sourceSort)}"
                              class="r-l-t-last-row-btn-container d-flex align-items-center">
                             <a class="r-l-t-source-btn source-btn r-l-t-last-row-btn btn" th:href="*{sourceUrl}"
                                target="_blank" rel="noopener noreferer nofollow">
@@ -175,7 +196,7 @@
                                     <span class="r-l-t-last-row-btn-text r-l-t-last-row-btn-text-right">공유</span>
                                 </div>
                             </a>
-                        </div>
+                        </div>-->
 
                     </div>
 
@@ -184,7 +205,8 @@
                         <hr class="r-l-t-border-bottom">
 
                         <div class="r-c-count">
-                            댓글 <span class="r-c-count-number r-d-changing-comment-count" th:text="*{commentCount}"></span>
+                            댓글 <span class="r-c-count-number r-d-changing-comment-count"
+                                     th:text="*{commentCount}"></span>
                         </div>
                         <div class="r-c-table" id="comment-table">
 
@@ -204,7 +226,8 @@
                                 <textarea id="cmTextarea" class="r-c-t-textarea form-control" rows="3" maxlength="300"
                                           placeholder="댓글을 입력하세요."></textarea>
                                 <div class="d-flex justify-content-end">
-                                    <button class="r-c-t-save-btn btn btn-sm" th:onclick="|submitCm(this,*{remarkId})|">
+                                    <button class="r-c-t-save-btn btn btn-sm"
+                                            th:onclick="|submitCm(this,*{remarkId})|">
                                         등록
                                     </button>
                                 </div>
@@ -224,16 +247,16 @@
                         </div>
 
                     </div>
-
-
                 </div>
+
             </div>
-
-
         </div>
 
 
     </div>
+
+
+</div>
 </div>
 </div>
 <!-- Modal -->
@@ -273,7 +296,7 @@
 
 <script>
     function loadComments(page) {
-        if(page > 0){
+        if (page > 0) {
             $.getJSON(`/api/remark/${rdRemarkId}/comment?page=${page}&size=${size}`, function (data) {
                 document.querySelector("#comment-table").innerHTML = toCommentTable(data);
                 document.querySelector("#comment-pagination").innerHTML = toPagination(data.pageMetadata);
@@ -292,15 +315,15 @@
         if (comments.length > 0) {
             comments.forEach(c => {
                 if (c.parentId != null && c.ancestorId != null) {
-                    if(c.userId === sid){
+                    if (c.userId === sid) {
                         row += "<div id='comment-" + c.commentId + "' class=\"r-c-t-row-container r-c-t-row-reply-container r-c-t-row-mine-container\" data-cid='" + c.commentId + "' data-aid='" + c.ancestorId + "' data-pid='" + c.parentId + "'>";
-                    }else{
+                    } else {
                         row += "<div id='comment-" + c.commentId + "' class=\"r-c-t-row-container r-c-t-row-reply-container\" data-cid='" + c.commentId + "' data-aid='" + c.ancestorId + "' data-pid='" + c.parentId + "'>";
                     }
                 } else {
-                    if(c.userId === sid) {
+                    if (c.userId === sid) {
                         row += "<div id='comment-" + c.commentId + "' class=\"r-c-t-row-container r-c-t-row-mine-container \" data-cid='" + c.commentId + "'>";
-                    }else{
+                    } else {
                         row += "<div id='comment-" + c.commentId + "' class=\"r-c-t-row-container\" data-cid='" + c.commentId + "'>";
                     }
                 }
@@ -313,10 +336,10 @@
                     row += "<div id='comment-writer-" + c.commentId + "' class=\"r-c-t-comment-writer\">" + c.nickname + "</div>";
                 }
 
-                if(c.status === "UPDATED"){
+                if (c.status === "UPDATED") {
                     row += "<div class=\"r-c-t-comment-date\">" + c.createdDate + "(수정됨)</div>";
-                }else {
-                row += "<div class=\"r-c-t-comment-date\">" + c.createdDate + "</div>";
+                } else {
+                    row += "<div class=\"r-c-t-comment-date\">" + c.createdDate + "</div>";
                 }
                 row += "</div>";
 
@@ -334,7 +357,7 @@
                 } else if (sid !== '' && c.parentId === null) {
                     row += "<a id='openCmReplyBtn-" + c.commentId + "' onclick='openCmReplyTextarea(this)' class='r-c-t-reply-btn' data-writer='" + c.nickname + "' data-cid='" + c.commentId + "'><i class=\"r-c-t-etc-btn-icon fas fa-comment\"></i>답글</a>";
                 }
-                row += "<a data-bs-toggle='modal' data-bs-target='#reportingCmModal' onclick='openReportingModal("+c.commentId+")'>신고</a>";
+                row += "<a data-bs-toggle='modal' data-bs-target='#reportingCmModal' onclick='openReportingModal(" + c.commentId + ")'>신고</a>";
                 row += "</div>";
 
                 row += "</div>";
@@ -364,40 +387,40 @@
         return row;
     }
 
-    function toPagination(data){
+    function toPagination(data) {
         let row = '';
 
         row += "<nav aria-label='Page navigator'>";
 
-        if(data.totalPages>1){
+        if (data.totalPages > 1) {
             row += "<ul class='pagination pagination-sm d-flex'>";
 
-            if(!data.first){
+            if (!data.first) {
                 row += "<li class='page-item page-chevron-left'>";
-                row += "<a class='page-link' data-page='" + (data.page-1) + "'>";
+                row += "<a class='page-link' data-page='" + (data.page - 1) + "'>";
                 row += "<span><i class='fas fa-chevron-left'></i></span>";
                 row += "</a>";
                 row += "</li>";
-            }else {
+            } else {
                 row += "<li class='page-item page-chevron-left disabled'>";
                 row += "<a class='page-link'>";
                 row += "<span><i class='fas fa-chevron-left'></i></span>";
                 row += "</a>";
                 row += "</li>";
             }
-            if(data.startBlock > 1) {
+            if (data.startBlock > 1) {
                 row += "<li class='page-item'>";
                 row += "<a class='page-link' data-page='1'>1</a>";
                 row += "</li>";
             }
 
-            if(data.startBlock>0){
-                for(let pages = data.startBlock; pages <= data.endBlock; pages++){
-                    if(pages===data.page){
+            if (data.startBlock > 0) {
+                for (let pages = data.startBlock; pages <= data.endBlock; pages++) {
+                    if (pages === data.page) {
                         row += "<li class='page-item active'>";
                         row += "<span class='page-link'>" + pages + "</span>";
                         row += "</li>";
-                    }else {
+                    } else {
                         row += "<li class='page-item'>";
                         row += "<a class='page-link' data-page='" + pages + "'>" + pages + "</a>";
                         row += "</li>";
@@ -405,7 +428,7 @@
                 }
             }
 
-            if(!(data.endBlock - data.startBlock) < 9 && data.endBlock !== data.totalPages){
+            if (!(data.endBlock - data.startBlock) < 9 && data.endBlock !== data.totalPages) {
                 row += "<li class='page-item disabled'><span class='page-link'>...</span></li>";
                 row += "<li class='page-item'>";
                 row += "<a class='page-link' data-page='" + data.totalPages + "'>" + data.totalPages + "</a>";
@@ -413,13 +436,13 @@
                 row += "</li>";
             }
 
-            if(!data.last && data.totalElements !==0){
+            if (!data.last && data.totalElements !== 0) {
                 row += "<li class='page-item page-chevron-right'>";
-                row += "<a class='page-link' data-page='" + (data.page +1) + "'>";
+                row += "<a class='page-link' data-page='" + (data.page + 1) + "'>";
                 row += "<span><i class='fas fa-chevron-right'></i></span>";
                 row += "</a>";
                 row += "</li>";
-            }else if(data.last && data.totalElements !==0){
+            } else if (data.last && data.totalElements !== 0) {
                 row += "<li class='page-item page-chevron-right disabled'>";
                 row += "<a class='page-link'>";
                 row += "<span><i class='fas fa-chevron-right'></i></span>";
@@ -433,40 +456,40 @@
         return row;
     }
 
-    function toPaginationSm(data){
+    function toPaginationSm(data) {
         let row = '';
 
         row += "<nav aria-label='Page navigator'>";
 
-        if(data.totalPages>1){
+        if (data.totalPages > 1) {
             row += "<ul class='pagination pagination-sm d-flex'>";
 
-            if(!data.first){
+            if (!data.first) {
                 row += "<li class='page-item page-chevron-left'>";
-                row += "<a class='page-link' data-page='" + (data.page-1) + "'>";
+                row += "<a class='page-link' data-page='" + (data.page - 1) + "'>";
                 row += "<span><i class='fas fa-chevron-left'></i></span>";
                 row += "</a>";
                 row += "</li>";
-            }else {
+            } else {
                 row += "<li class='page-item page-chevron-left disabled'>";
                 row += "<a class='page-link'>";
                 row += "<span><i class='fas fa-chevron-left'></i></span>";
                 row += "</a>";
                 row += "</li>";
             }
-            if(data.startBlock_sm > 1) {
+            if (data.startBlock_sm > 1) {
                 row += "<li class='page-item'>";
                 row += "<a class='page-link' data-page='1'>1</a>";
                 row += "</li>";
             }
 
-            if(data.startBlock_sm>0){
-                for(let pages = data.startBlock_sm; pages <= data.endBlock_sm; pages++){
-                    if(pages===data.page){
+            if (data.startBlock_sm > 0) {
+                for (let pages = data.startBlock_sm; pages <= data.endBlock_sm; pages++) {
+                    if (pages === data.page) {
                         row += "<li class='page-item active'>";
                         row += "<span class='page-link'>" + pages + "</span>";
                         row += "</li>";
-                    }else {
+                    } else {
                         row += "<li class='page-item'>";
                         row += "<a class='page-link' data-page='" + pages + "'>" + pages + "</a>";
                         row += "</li>";
@@ -474,7 +497,7 @@
                 }
             }
 
-            if(!(data.endBlock_sm - data.startBlock_sm) < 4 && data.endBlock_sm !== data.totalPages){
+            if (!(data.endBlock_sm - data.startBlock_sm) < 4 && data.endBlock_sm !== data.totalPages) {
                 row += "<li class='page-item disabled'><span class='page-link'>...</span></li>";
                 row += "<li class='page-item'>";
                 row += "<a class='page-link' data-page='" + data.totalPages + "'>" + data.totalPages + "</a>";
@@ -482,13 +505,13 @@
                 row += "</li>";
             }
 
-            if(!data.last && data.totalElements !==0){
+            if (!data.last && data.totalElements !== 0) {
                 row += "<li class='page-item page-chevron-right'>";
-                row += "<a class='page-link' data-page='" + (data.page +1) + "'>";
+                row += "<a class='page-link' data-page='" + (data.page + 1) + "'>";
                 row += "<span><i class='fas fa-chevron-right'></i></span>";
                 row += "</a>";
                 row += "</li>";
-            }else if(data.last && data.totalElements !==0){
+            } else if (data.last && data.totalElements !== 0) {
                 row += "<li class='page-item page-chevron-right disabled'>";
                 row += "<a class='page-link'>";
                 row += "<span><i class='fas fa-chevron-right'></i></span>";
@@ -501,8 +524,6 @@
 
         return row;
     }
-
-
 
 
     function submitCm(e, remarkId) {
@@ -519,7 +540,7 @@
             }
         }
 
-        if(validateCm(data.content)){
+        if (validateCm(data.content)) {
             submitCmAjax(remarkId, data);
         }
     }
@@ -536,14 +557,16 @@
             }
         }).done(function (result) {
             clearCmTextarea();
-            if(data.ancestorId != null){
+            if (data.ancestorId != null) {
                 loadComments(currentCmPage);
-            }else {
+            } else {
                 loadComments(Math.ceil(result / size));
             }
 
             $(".r-d-changing-comment-count").text(result);
-            setTimeout(() => {isRun = false}, 200)
+            setTimeout(() => {
+                isRun = false
+            }, 200)
         }).fail(function (error) {
             if (error.status === 403) {
                 location.href = "/oauth_login";
@@ -558,7 +581,7 @@
         const textarea = document.querySelectorAll('.r-c-t-textarea');
         for (let i = 0; i < textarea.length; i++) {
             textarea[i].value = '';
-            textarea[i].style.height='80px';
+            textarea[i].style.height = '80px';
         }
 
     }
@@ -596,11 +619,11 @@
         } else {
         }
 
-        let openedTextarea = document.querySelector('#cmReplyTextarea-'+parentId)
+        let openedTextarea = document.querySelector('#cmReplyTextarea-' + parentId)
         autosize(openedTextarea);
 
-        let location = document.querySelector('#comment-'+parentId).offsetTop;
-        window.scrollTo({top:location+60});
+        let location = document.querySelector('#comment-' + parentId).offsetTop;
+        window.scrollTo({top: location + 60});
     }
 
     function hideAllCmReplyTextarea() {
@@ -614,11 +637,11 @@
             checkAndSetIsRun();
             let url = '',
                 commentId = e.dataset.cid,
-                ancestorId = document.getElementById("comment-"+commentId).dataset.aid;
+                ancestorId = document.getElementById("comment-" + commentId).dataset.aid;
 
-            if(ancestorId !=null){
+            if (ancestorId != null) {
                 url = `/api/remark/${rdRemarkId}/comment/${commentId}/${sid}?ancestorId=${ancestorId}`
-            }else {
+            } else {
                 url = `/api/remark/${rdRemarkId}/comment/${commentId}/${sid}`
             }
 
@@ -632,7 +655,9 @@
             }).done(function (result) {
                 $(".r-d-changing-comment-count").text(result);
                 loadComments(currentCmPage);
-                setTimeout(() => {isRun = false}, 200);
+                setTimeout(() => {
+                    isRun = false
+                }, 200);
             }).fail(function (error) {
                 if (error.status === 403) {
                     location.href = "/oauth_login";
@@ -678,22 +703,22 @@
         } else {
         }
 
-        let openedTextarea = document.querySelector('#cmModifyTextarea-'+commentId)
+        let openedTextarea = document.querySelector('#cmModifyTextarea-' + commentId)
         autosize(openedTextarea);
 
-        let location = document.querySelector('#comment-'+commentId).offsetTop;
-        window.scrollTo({top:location+60});
+        let location = document.querySelector('#comment-' + commentId).offsetTop;
+        window.scrollTo({top: location + 60});
     }
 
-    function clearCmModifyTextArea(commentId){
-        document.querySelector("#cmModifyTextareaContainer-"+commentId).remove();
+    function clearCmModifyTextArea(commentId) {
+        document.querySelector("#cmModifyTextareaContainer-" + commentId).remove();
     }
 
     function modifyCm(commentId) {
         let originContent = '',
             content = document.getElementById("cmModifyTextarea-" + commentId).value;
 
-        if (document.getElementById("comment-"+commentId).dataset.aid != null) {
+        if (document.getElementById("comment-" + commentId).dataset.aid != null) {
             originContent = $("#comment-content-" + commentId).html().split('>')[2];
         } else {
             originContent = document.getElementById("comment-content-" + commentId).innerText;
@@ -704,15 +729,15 @@
             return false;
         }
 
-        if(content.trim() === originContent.trim()){
+        if (content.trim() === originContent.trim()) {
             alert("변경된 내용이 없습니다.")
             return false;
         }
 
-        let numberOfLines =  (content.match(/\n/g) || []).length + 1,
+        let numberOfLines = (content.match(/\n/g) || []).length + 1,
             maxLengthOfLines = 20;
 
-        if(numberOfLines > maxLengthOfLines){
+        if (numberOfLines > maxLengthOfLines) {
             alert("글이 너무 깁니다(최대 20줄).");
             return false;
         }
@@ -738,7 +763,9 @@
         }).done(function (result) {
             $(".r-d-changing-comment-count").text(result);
             loadComments(currentCmPage);
-            setTimeout(() => {isRun = false}, 200);
+            setTimeout(() => {
+                isRun = false
+            }, 200);
         }).fail(error => {
             if (error.status === 403) {
                 location.href = "/oauth_login";
@@ -771,21 +798,21 @@
             /*if (commentEl.dataset.aid != null) {
                 commentContent = $("#comment-content-" + commentId).html().split('>')[2];
             } else {*/
-                commentContent = document.getElementById("comment-content-" + commentId).innerHTML;
+            commentContent = document.getElementById("comment-content-" + commentId).innerHTML;
             /*}*/
 
             document.getElementById("reporting-cm-writer").innerText = writerNickname;
             document.getElementById("reporting-cm-content").innerHTML = commentContent;
 
             let data = {
-                commentContent : commentContent
+                commentContent: commentContent
             }
             document.querySelector(".reporting-cm-submit-btn")
-                .setAttribute("onclick","submitReporting("+commentId+ ")");
+                .setAttribute("onclick", "submitReporting(" + commentId + ")");
         }
     }
 
-    function submitReporting(commentId){
+    function submitReporting(commentId) {
 
         if (isRun) {
             alert("잠시만 기다려주세요.")
@@ -793,20 +820,20 @@
             isRun = true;
         }
 
-        let commentContent ='',
+        let commentContent = '',
             commentEl = document.getElementById("comment-" + commentId);
 
         if (commentEl.dataset.aid != null) {
-        commentContent = $("#comment-content-" + commentId).html().split('>')[2];
-            } else {
-        commentContent = document.getElementById("comment-content-" + commentId).innerText;
+            commentContent = $("#comment-content-" + commentId).html().split('>')[2];
+        } else {
+            commentContent = document.getElementById("comment-content-" + commentId).innerText;
         }
 
         /*let commentContent = replaceTags(document.querySelector("#comment-content-"+commentId).innerHTML);*/
 
         let data = {
-            originContent : commentContent,
-            type : document.querySelector('input[name="reporting-type"]:checked').value
+            originContent: commentContent,
+            type: document.querySelector('input[name="reporting-type"]:checked').value
         }
 
         $.ajax({
@@ -824,7 +851,7 @@
                 modal = bootstrap.Modal.getInstance(myModalEl);
             modal.hide();
             isRun = false;
-        }).fail(function (request,status,error) {
+        }).fail(function (request, status, error) {
             if (request.status === 403) {
                 location.href = "/oauth_login";
             } else {
@@ -833,28 +860,28 @@
                 modal.hide();
                 isRun = false;
                 let message = JSON.stringify(request.responseText);
-                alert(message.replace(/\"/gi,""));
+                alert(message.replace(/\"/gi, ""));
             }
         });
     }
 
 
-    function validateCm(content){
+    function validateCm(content) {
 
-        let numberOfLines =  (content.match(/\n/g) || []).length + 1,
+        let numberOfLines = (content.match(/\n/g) || []).length + 1,
             maxLengthOfLines = 20;
         if (!content || content.replace(blank_pattern, "") === "") {
             alert("내용을 입력해주세요.")
             return false;
-        }else if(numberOfLines > maxLengthOfLines){
+        } else if (numberOfLines > maxLengthOfLines) {
             alert("글이 너무 깁니다(최대 20줄).");
             return false;
-        }else if(checkAndSetIsRun()){
+        } else if (checkAndSetIsRun()) {
             return true;
         }
     }
 
-    function checkAndSetIsRun(){
+    function checkAndSetIsRun() {
         if (isRun) {
             alert("잠시만 기다려주세요.")
             return false;
@@ -880,20 +907,20 @@
     }
 
     function addPaging() {
-        let pageLink= document.getElementsByClassName("page-link");
+        let pageLink = document.getElementsByClassName("page-link");
         for (let i = 0; i < pageLink.length; i++) {
             pageLink[i].addEventListener("click", function () {
                 let location = document.querySelector("#comment-container").offsetTop;
                 loadComments(this.dataset.page);
-                window.scrollTo({top:location+60});
+                window.scrollTo({top: location + 60});
             });
         }
     }
 
-    function toggleComment(){
+    function toggleComment() {
         $("#comment-container").toggle();
         let location = document.querySelector("#comment-container").offsetTop;
-        window.scrollTo({top:location+60});
+        window.scrollTo({top: location + 60});
     }
 
     document.addEventListener("DOMContentLoaded", loadComments(commentPageForInit));
