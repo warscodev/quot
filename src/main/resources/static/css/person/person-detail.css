@@ -138,6 +138,7 @@
 }
 
 .p-d-r-date{
+    font-family: Noto Sans KR;
     font-size: .875rem;
     font-weight: 600;
     color: #7f8a99;
@@ -153,12 +154,13 @@
 
 .p-d-r-icons-container{
     display: flex;
+    align-items: center;
     cursor: default;
     color: #919191;
     font-size: .813rem;
 }
 .p-d-r-icons-container > a > div{
-    margin-right: .75rem;
+    margin-right: 1rem;
 }
 .p-d-r-icons-container > a{
     color: #7f8a99;
@@ -171,26 +173,19 @@
 
 .p-d-r-icons-like > i {
     font-size: .75rem;
-    color: #338ebf;
+    color: #77c5ef;
+    /*color: #338ebf;*/
 }
 .p-d-r-icons-dislike > i {
     font-size: .75rem;
-    color: #fc7b7b;
+    color: #ffacac;
+    /*color: #fc7b7b;*/
 }
 
-.p-d-r-icons-comments > i {
-    color: #909bab;
+.p-d-r-icons-info{
+    display: inline-flex;
+    color: #3f546f;
 }
-
-.p-d-r-icons-source-text{
-    font-size: .75rem;
-}
-
-.p-d-r-icons-source-link-tt{
-    font-size: .75rem;
-    word-break: break-all;
-}
-
 
 .p-d-r-tags-wrap{
     margin-top: .25rem;
@@ -224,6 +219,10 @@
     color: #9fa5ac;
 }
 
+.p-d-r-source-btn{
+    font-size: .9rem !important;
+}
+
 @media (max-width: 990px) {
     .p-d-r-content-hyphen{
         display: none;
@@ -236,7 +235,7 @@
     margin: 0;
     font-family: Pretendard;
     font-weight: 400;
-    font-size: .983rem;
+    font-size: .938rem;
     /*overflow: auto;*/
     word-break: keep-all;
 }
@@ -263,5 +262,6 @@
 
 .p-d-r-content-border-last-false{
     color: #9aa7b1;
+    margin: 1.25rem 0;
 }
 

@@ -39,6 +39,3 @@ spring:
         strategy:
           content:
             enabled: true
-            paths: /**
-        enabled: true
-        cache: false

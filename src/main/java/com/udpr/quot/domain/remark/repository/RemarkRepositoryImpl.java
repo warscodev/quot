@@ -9,6 +9,8 @@ import com.querydsl.core.types.dsl.StringTemplate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.udpr.quot.domain.common.Status;
 import com.udpr.quot.domain.remark.search.RemarkSearchCondition;
+import com.udpr.quot.web.dto.bookmark.BookmarkQueryDto;
+import com.udpr.quot.web.dto.bookmark.QBookmarkQueryDto;
 import com.udpr.quot.web.dto.remark.query.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -301,6 +303,21 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
         return likeList.stream().collect(Collectors.groupingBy(RemarkLikeQueryDto::getRemarkId));
     }
 
+
+    private Map<Long, List<BookmarkQueryDto>> findIsBookmarkedMap(List<Long> remarkIdList, Long sid){
+        List<BookmarkQueryDto> isBookmarkedList = queryFactory
+                .select(new QBookmarkQueryDto(
+                        bookmark.remark.id, bookmark.count()
+                ))
+                .from(bookmark)
+                .where(bookmark.remark.id.in(remarkIdList).and(bookmark.user.id.eq(sid)))
+                .groupBy(bookmark.remark.id)
+                .fetch();
+
+        return isBookmarkedList.stream().collect(Collectors.groupingBy(BookmarkQueryDto::getRemarkId));
+    }
+
+
     private Long checkIsBookmarked(Long remarkId, Long sid){
         return queryFactory.select(bookmark.count())
                 .from(bookmark)
@@ -320,14 +337,18 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
     private void setCollections(RemarkSearchCondition condition, QueryResults<RemarkQueryDto> results, List<Long> remarkIdList, Map<Long, List<RemarkTagQueryDto>> tagMap) {
         if(condition.getSid()!=null){
             Map<Long, List<RemarkLikeQueryDto>> likeMap = findLikeMap(remarkIdList, condition.getSid());
+            Map<Long, List<BookmarkQueryDto>> bookmarkMap = findIsBookmarkedMap(remarkIdList, condition.getSid());
             results.getResults().forEach(r -> {
                 r.setRemarkTagList(tagMap.get(r.getRemarkId()));
                 r.setTags(tagMap.get(r.getRemarkId()).stream()
                         .map(RemarkTagQueryDto::getName)
                         .collect(Collectors.joining(", ")));
-                r.setIsBookmarked(checkIsBookmarked(r.getRemarkId(),condition.getSid()));
                 if(likeMap.get(r.getRemarkId())!=null) {
                     r.setIsLike(likeMap.get(r.getRemarkId()).get(0).getIsLike());
+                }
+
+                if (bookmarkMap.get(r.getRemarkId()) != null) {
+                    r.setIsBookmarked(bookmarkMap.get(r.getRemarkId()).get(0).getIsBookmarked());
                 }
             });
         }else{

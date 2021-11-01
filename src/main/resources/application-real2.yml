@@ -12,7 +12,6 @@ server:
   forward-headers-strategy: native
 
 
-
 spring:
   config:
     activate:
@@ -39,6 +38,3 @@ spring:
         strategy:
           content:
             enabled: true
-            paths: /**
-        enabled: true
-        cache: false

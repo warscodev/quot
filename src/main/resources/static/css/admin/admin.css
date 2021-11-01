@@ -869,13 +869,6 @@ a:hover {
     border-left-color: #777f8c !important;
 }
 
-
-
-
-.r-l-t-info {
-    display: inline-block;
-}
-
 .r-l-t-info-icon {
     display: inline-flex;
     font-size: .873rem;
@@ -1020,7 +1013,7 @@ a:hover {
 
 .r-l-t-last-row-btn-container {
     margin-left: 1.25rem;
-    transition: background-color .3s ease-in-out;
+    transition: background-color .15s ease-in-out;
     border-radius: 2rem;
 }
 
@@ -1034,7 +1027,7 @@ a:hover {
     box-shadow: none !important;
     border-radius: 2rem;
     /*background-color: #f5f8fe;*/
-    transition: color .3s linear, background-color .3s linear,
+    transition: color .15s linear, background-color .15s linear,
     border-color .15s linear, opacity .15s linear, box-shadow .15s linear;
     margin-right: .5rem;
 }
@@ -1131,7 +1124,7 @@ a:hover {
 .r-l-t-last-row-btn-icon {
     font-size: 1rem;
     color: #909bab;
-    opacity: .3;
+    opacity: .35;
     transition: opacity .15s linear;
 }
 
@@ -1142,12 +1135,12 @@ a:hover {
 }
 
 .r-l-t-like-icon {
-    font-size: .938rem;
+    font-size: .9rem;
     color: #0fa4ec !important;
 }
 
 .r-l-t-dislike-icon {
-    font-size: .938rem;
+    font-size: .9rem;
     color: #f37272  !important;
 }
 
@@ -1157,7 +1150,7 @@ a:hover {
 }
 
 .r-l-t-last-row-bookmark-icon{
-    color: orange;
+    color: #fdc424;
 }
 
 
@@ -1308,7 +1301,7 @@ a:hover {
     font-size: .813rem;
     margin-right: .125rem;
     color: #c1ccdb;
-    transition: color .3s ease-in-out;
+    transition: color .15s ease-in-out;
 }
 
 .r-c-t-reply-btn, .r-c-t-modify-btn, .r-c-t-delete-btn {
@@ -1530,234 +1523,6 @@ a:hover {
 
 }
 
-
-/*
-.remark-row {
-    position: relative;
-    z-index: 1;
-    padding: 1.3rem;
-    background-color: #fff;
-    background-clip: border-box;
-    border-radius: 1rem;
-    margin: 0 0 2rem 0;
-    box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.1);
-}
-
-@media (max-width: 426px) {
-    .remark-row, .remark-detail-row {
-        padding: 1rem;
-    }
-}
-
-
-.remark-col-first {
-    padding: 0;
-    flex-basis: 58px;
-}
-
-
-!* 프로필 이미지 *!
-.remark-profile-icon-wrap {
-}
-
-.remark-profile-icon-link {
-    width: 48px;
-    height: 48px;
-    background-color: #c1c8d0;
-    border: 1px solid rgba(0, 0, 0, 0.04);
-    transition: background-color .3s ease-in-out;
-    border-radius: 50%;
-}
-
-.remark-profile-icon-link:hover {
-    background-color: #637286;
-}
-
-@media (max-width: 575px) {
-
-    .remark-profile-icon-link {
-        width: 42px;
-        height: 42px;
-    }
-
-    .remark-col-first {
-        flex-basis: 50px;
-    }
-}
-*/
-
-/*@media (max-width: 360px) {
-
-    .remark-profile-icon-link {
-        width: 35px;
-        height: 35px;
-    }
-
-    .remark-col-first {
-        flex-basis: 46px;
-    }
-
-
-}*/
-
-/*
-.remark-info {
-    display: table;
-}
-
-.remark-info-icon {
-    font-size: 1.25rem;
-    color: #d0d0d0;
-}
-
-.remark-info-picture {
-    margin: .2rem .3rem 0 0;
-    border: 1px solid gray
-}
-
-.remark-info-nickname {
-    margin-top: .1rem;
-}
-
-.remark-info-date {
-    font-size: .75rem !important;
-}
-*/
-
-/*
-!* 코멘트 타이틀 *!
-.remark-title > h4, .person-title > h4 {
-    font-style: normal;
-    font-weight: bold;
-    margin-left: 0.5rem;
-}
-*/
-
-
-/* ------- 태그 시작 ------- */
-/*
-@media (max-width: 426px) {
-    !*.remark-tag {
-        -ms-overflow-style: none;
-        width: 100% !important;
-        overflow-x: auto;
-        white-space: nowrap
-    }*!
-    .remark-tag > a {
-        margin-right: .25rem !important;
-    }
-
-    .remark-tag::-webkit-scrollbar {
-        height: .5rem;
-    }
-
-    .remark-tag::-webkit-scrollbar-thumb {
-        border-radius: 10px;
-        background-color: transparent;
-    }
-
-    .remark-tag::-webkit-scrollbar-thumb:hover {
-        background-color: rgba(210, 210, 210, 0.3);
-    }
-}
-
-.remark-tag {
-    width: 95%;
-}
-
-.remark-tag > a {
-    font-size: .813rem;
-    display: inline-block;
-    margin-bottom: .3rem;
-    margin-right: .3rem;
-    padding: .3rem .6rem;
-    line-height: 1;
-    color: #fff;
-    background-color: #faa99d;
-    border-radius: 25px;
-    width: auto;
-    transition: background-color .15s ease-in-out;
-
-}
-
-.remark-tag > a:hover {
-    background-color: #ff8772;
-}
-
-!* ------- 태그 끝 ------- *!
-
-.remark-row-first, .remark-row-second {
-    padding: 0;
-}
-
-.remark-row-second {
-    margin-top: .25rem;
-}
-
-!* 코멘트 본문 *!
-.remark-content pre {
-    font-family: Pretendard;
-    font-weight: 400;
-    font-size: 1rem;
-    overflow: auto;
-    white-space: pre-wrap;
-    word-break: break-all;
-    margin-bottom: 0;
-}
-
-.remark-quote-icon {
-    color: #c0c0c0;
-    margin: 0 .4rem;
-    font-size: 1rem;
-
-}
-
-.remark-content p {
-    margin-bottom: 0;
-}
-
-@media all and (min-width: 1px) and (max-width: 360px) {
-    .remark-content pre {
-        font-size: 14px;
-    }
-}
-
-.remark-created-date {
-    font-size: .813rem;
-    color: #6c757d;
-}
-
-!* ------- 코멘트 우하단(발언 날짜, 발언인) 시작 ------- *!
-.remark-right-bottom-wrap {
-    margin-right: .5rem;
-}
-
-.remark-date > span {
-    color: #6c757d;
-    font-size: .875rem;
-}
-
-.person-job {
-    font-size: .875rem;
-    color: #6c757d;
-}
-
-.person-name {
-    color: #212529;
-    font-weight: 600;
-}
-
-
-@media (max-width: 426px) {
-    .remark-right-bottom-wrap {
-        margin-right: 0 !important;
-    }
-}
-*/
-
-
-/* ------- 코멘트 우하단(발언 날짜, 발언인) 끝 ------- */
-/* ------- 코멘트 박스 끝 ------- */
 #custom-search-input {
     padding: 3px;
     border: solid 1px #E4E4E4;
@@ -1814,8 +1579,6 @@ a:hover {
 }
 
 @media (max-width: 426px) {
-
-
     .remark-share-icon > a > img {
         width: 45px;
         height: 45px;

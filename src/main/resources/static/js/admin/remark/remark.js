@@ -67,7 +67,7 @@ function like(e, remarkId, isLike) {
         changeLikeIcon();
         setTimeout(function () {
             isRun = false
-        }, 500)
+        }, 300)
     }).fail(function (error) {
         if (error.status == 403) {
             location.href = "/oauth_login";
@@ -79,17 +79,38 @@ function like(e, remarkId, isLike) {
 
     function changeLikeIcon() {
         let otherBtn = '';
+        const child = e.firstElementChild;
+        const tooltip = bootstrap.Tooltip.getInstance(child);
 
         if (e.classList.contains("r-l-t-like-btn")) {
             otherBtn = document.getElementById("dislike-btn-" + remarkId);
+            if(e.classList.contains("like-active")) {
+                child.setAttribute("data-bs-original-title", "이 발언이 좋아요");
+            }else {
+                child.setAttribute("data-bs-original-title", "좋아요 취소")
+            }
+            if (otherBtn.classList.contains("like-active")) {
+                otherBtn.classList.toggle("like-active")
+                otherBtn.firstElementChild.setAttribute("data-bs-original-title", "이 발언이 싫어요")
+            }
+
         } else {
             otherBtn = document.getElementById("like-btn-" + remarkId);
+            if(e.classList.contains("like-active")) {
+                child.setAttribute("data-bs-original-title", "이 발언이 싫어요");
+            }else {
+                child.setAttribute("data-bs-original-title", "싫어요 취소")
+            }
+            if (otherBtn.classList.contains("like-active")) {
+                otherBtn.classList.toggle("like-active")
+                otherBtn.firstElementChild.setAttribute("data-bs-original-title", "이 발언이 좋아요")
+            }
         }
 
+        tooltip.show();
+
         e.classList.toggle("like-active");
-        if (otherBtn.classList.contains("like-active")) {
-            otherBtn.classList.toggle("like-active")
-        }
+
     }
 
     function getFirstChild(element) {
@@ -102,22 +123,50 @@ function like(e, remarkId, isLike) {
 }
 
 async function saveOrDeleteBookmark(e, remarkId) {
-    await fetch("/api/remark/bookmark", {
+    if (isRun) {
+        alert("잠시만 기다려주세요.")
+        return false;
+    } else {
+        isRun = true;
+    }
+
+    const response = await fetch("/api/remark/bookmark", {
         method: "post",
         headers: {
+            'XMLHttpRequest': 'true',
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: remarkId
     })
     try{
-        toggleBookmarkIcon(e);
+        if(response.ok){
+            toggleBookmarkIcon(e);
+            setTimeout(function () {
+                isRun = false
+            }, 300)
+        }else if(response.status===405 || response.status===403){
+            location.href = "/oauth_login";
+        }
     } catch (error){
         alert(JSON.stringify(error));
     }
 }
 
 function toggleBookmarkIcon(e){
+
+    const child = e.firstElementChild;
+    const tooltip = bootstrap.Tooltip.getInstance(child) // Returns a Bootstrap tooltip instance
+
+    if(e.classList.contains("bookmark-active")) {
+        child.setAttribute("data-bs-original-title", "북마크")
+    }else {
+        child.setAttribute("data-bs-original-title", "북마크 취소")
+    }
+    tooltip.show();
+
     e.classList.toggle("bookmark-active");
+
+
 }
 
 
@@ -201,22 +250,14 @@ function toSearchPersonContainer(pageObj) {
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    const remarkLinks = document.querySelectorAll(".r-l-t-content-link");
-        remarkLinks.forEach(r =>{
-            r.addEventListener("click" ,function(e){
-                e.preventDefault();
-                e.stopPropagation();
-                alert("이동");
-                location.href = r.getAttribute('href');
-            })
-        });
+    highlightKeyword();
 
     const quoteIcon = "<i class='r-l-t-quote-icon fas fa-quote-right' style='margin-right: .75rem'></i>";
 
     const contents = document.querySelectorAll(".r-l-t-content");
 
     contents.forEach(c => {
-        const sourceIcon = "<a class='tt r-l-t-source-btn' data-bs-html='true' data-bs-placement='right' data-bs-trigger='focus click' " +
+        const sourceIcon = "<a class='tt r-l-t-source-btn' data-bs-html='true' data-bs-placement='right' data-bs-trigger='click' " +
             "title='<a class=\"r-l-t-source-link\" href=\""+c.dataset.source+"\" target=\"_blank\" rel=\"noopener noreferer nofollow\">"+c.dataset.source+"</a>'</a>"+
             "<i class='r-l-t-source-btn-icon fas fa-link'></i>출처</a>";
 
@@ -224,10 +265,14 @@ document.addEventListener("DOMContentLoaded", function () {
         $(c).append(sourceIcon)
 
         c.addEventListener("click", function (e){
-            e.preventDefault();
-            e.stopPropagation();
             location.href = c.nextElementSibling.getAttribute('href');
         })
+    });
+
+    const tooltips = document.querySelectorAll(".tt");
+
+    tooltips.forEach(t => {
+        new bootstrap.Tooltip(t)
     });
 
     const sourceBtn = document.querySelectorAll(".r-l-t-source-btn");
@@ -238,13 +283,5 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     })
 
-    const tooltips = document.querySelectorAll(".tt");
 
-    tooltips.forEach(t => {
-        new bootstrap.Tooltip(t)
-    });
-
-
-    highlightKeyword();
 })
-

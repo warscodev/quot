@@ -1,15 +1,14 @@
 package com.udpr.quot.service.remark;
 
+import com.udpr.quot.domain.person.Person;
+import com.udpr.quot.domain.person.repository.PersonRepository;
 import com.udpr.quot.domain.remark.Remark;
 import com.udpr.quot.domain.remark.RemarkLike;
 import com.udpr.quot.domain.remark.repository.RemarkLikeRepository;
 import com.udpr.quot.domain.remark.repository.RemarkRepository;
 import com.udpr.quot.domain.remark.search.RemarkSearchCondition;
-import com.udpr.quot.domain.person.Person;
-import com.udpr.quot.domain.person.repository.PersonRepository;
 import com.udpr.quot.domain.user.Bookmark;
 import com.udpr.quot.domain.user.User;
-import com.udpr.quot.domain.user.repository.BookmarkQueryRepository;
 import com.udpr.quot.domain.user.repository.BookmarkRepository;
 import com.udpr.quot.domain.user.repository.UserRepository;
 import com.udpr.quot.web.dto.remark.*;
@@ -37,7 +36,6 @@ public class RemarkService {
     private final RemarkRepository remarkRepository;
     private final RemarkLikeRepository remarkLikeRepository;
     private final UserRepository userRepository;
-    private final BookmarkQueryRepository bookmarkQueryRepository;
     private final BookmarkRepository bookmarkRepository;
 
     private final RemarkTagService remarkTagService;
@@ -101,7 +99,7 @@ public class RemarkService {
     }
 
 
-    //코멘트 목록
+    //발언 목록
     public RemarkListResponseDto searchRemark(RemarkSearchCondition condition) {
 
         Pageable remarkPageable = PageRequest.of(condition.getPage()-1,10);
@@ -116,7 +114,6 @@ public class RemarkService {
 
         Page<RemarkQueryDto> remarkPage = new PageImpl<>(remarkContent, remarkPageable, total_);
         Page<SearchPersonResponseDto> personPage = new PageImpl<>(personContent, personPageable, total_);
-        //List<SearchPersonResponseDto> personList = new ArrayList<>();
 
         if (keyword == null || keyword.isBlank()) {
             remarkPage = remarkRepository.searchAll(condition, remarkPageable);

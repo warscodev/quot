@@ -65,35 +65,28 @@
     <div class="p-d-body-container container container-custom">
         <div class="p-d-body">
             <div th:if="*{not #lists.isEmpty(remarkList)}" class="p-d-r-row-container" th:each="r : *{remarkList}">
-                <div class="p-d-r-first-row-container d-flex align-items-center">
+                <div class="p-d-r-first-row-container d-flex align-items-center justify-content-between">
                     <div class="p-d-r-date-wrap">
                         <span class="p-d-r-date" th:text="${r.remarkDate}"></span>
                     </div>
-                    <span class="p-d-r-first-row-divider">｜</span>
+                    <!--<span class="p-d-r-first-row-divider">｜</span>-->
                     <div class="p-d-r-icons-container">
                         <a th:href="@{/remark/{id}(id=${r.remarkId})}" class="d-flex">
-                            <div class="p-d-r-icons-like"><i class="far fa-thumbs-up"></i>&nbsp;<span
+                            <div class="p-d-r-icons-like"><i class="fas fa-thumbs-up"></i>&nbsp;<span
                                     th:text="${r.likeCount}"></span></div>
-                            <div class="p-d-r-icons-dislike"><i class="far fa-thumbs-down"></i>&nbsp;<span
+                            <div class="p-d-r-icons-dislike"><i class="fas fa-thumbs-down"></i>&nbsp;<span
                                     th:text="${r.dislikeCount}"></span></div>
                         </a>
                         <a th:href="@{/remark/{id}#cmCont(id=${r.remarkId})}">
                             <div class="p-d-r-icons-comments"><i class="far fa-comment-dots"></i>&nbsp;<span
                                     th:text="${r.commentCount}"></span></div>
                         </a>
-                        <a class="tt" th:href="${r.sourceUrl}" target="_blank" rel="noopener noreferer nofollow"
-                           data-bs-html="true" data-bs-placement="bottom"
-                           th:title="|<span class='p-d-r-icons-source-link-tt'>${r.sourceUrl}</span>|">
-                            <div th:if="${not #strings.isEmpty(r.sourceSort)}">
-                                <i class="p-d-r-icons-source far fa-play-circle"
-                                   th:if="${r.sourceSort.toString().equals('영상')}"></i>
-                                <i class="p-d-r-icons-source fas fa-mobile-alt"
-                                   th:if="${r.sourceSort.toString().equals('SNS')}"></i>
-                                <i class="p-d-r-icons-source far fa-newspaper"
-                                   th:if="${r.sourceSort.toString().equals('기사')}"></i>
-                                <span class="p-d-r-icons-source-text">출처</span>
-                            </div>
-                        </a>
+                        <span class="p-d-r-icons-info tt bi bi-info-circle"
+                        data-bs-html="true" data-bs-placement="right"
+                        th:title="|<div class='d-flex align-items-center justify-content-center'>
+                        <span class='r-l-t-info-nickname'>작성자 : ${r.nickname}</span>
+                        </div>
+                        <div><span class='r-l-t-info-date'>${r.createdDate} 등록됨</span></div>|"></span>
                     </div>
                 </div>
 
@@ -106,24 +99,9 @@
                 <div class="p-d-r-content-wrap d-flex">
                     <span class="p-d-r-content-quotation">&ldquo;&nbsp;</span>
                     <a th:href="@{/remark/{id} (id=${r.remarkId})}">
-                        <p class="p-d-r-content"
+                        <p class="p-d-r-content" th:data-source="${r.sourceUrl}"
                            th:utext="|${r.content} <span class='p-d-r-content-quotation'>&rdquo;</span>|"></p>
                     </a>
-                </div>
-
-                <div class="p-d-r-footer-container d-flex align-items-center justify-content-end">
-                    <div class="p-d-r-footer-creator-container">
-                        <span>작성자 :&nbsp;</span>
-
-                        &nbsp;
-                        <span th:text="${r.nickname}"></span>
-                    </div>
-                    <div class="p-d-r-footer-cd-wrap">
-                        <span class="p-d-r-footer-cd" th:text="|등록일 : ${r.createdDate}|"></span>
-                    </div>
-                    <div class="">
-
-                    </div>
                 </div>
 
                 <hr th:class="|p-d-r-content-border-last-${rStat.last}|">
@@ -138,6 +116,18 @@
     </div>
 
 </div>
+<script>
+    const contents = document.querySelectorAll(".p-d-r-content");
+
+    contents.forEach(c => {
+        const sourceIcon = "<a class='tt r-l-t-source-btn p-d-r-source-btn' data-bs-html='true' data-bs-placement='right' data-bs-trigger='click' " +
+            "title='<a class=\"r-l-t-source-link\" href=\""+c.dataset.source+"\" target=\"_blank\" rel=\"noopener noreferer nofollow\">"+c.dataset.source+"</a>'</a>"+
+            "<i class='r-l-t-source-btn-icon fas fa-link'></i>출처</a>";
+
+        $(c).append(sourceIcon)
+    });
+
+</script>
 
 <div th:replace="fragments/footer :: footer"/>
 </body>
