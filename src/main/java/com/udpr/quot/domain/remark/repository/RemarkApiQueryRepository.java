@@ -29,7 +29,7 @@ public class RemarkApiQueryRepository {
                 .where(remark.person.category.eq(category))
                 .leftJoin(remark.person)
                 .orderBy()
-                .orderBy(NumberExpression.random().asc())
+                .orderBy(Expressions.numberTemplate(Double.class, "function('rand')").asc())
                 .limit(5)
                 .fetch();
     }
