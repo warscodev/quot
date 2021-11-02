@@ -12,7 +12,7 @@
     }
 </style>
 
-<div class="container container-custom col-md">
+<div class="container container-main col-md">
 
     </br>
     <div class="py-2 row">
@@ -54,8 +54,8 @@
             <label th:for="categoryId" class="form-label">카테고리</label>
             <select th:field="*{category}" class="form-select">
                 <option th:value="none">카테고리</option>
-                <option th:value="|정치/사회|">정치/사회</option>
-                <option th:value="|방송/연예|">방송/연예</option>
+                <option th:value="정치사회">정치/사회</option>
+                <option th:value="방송연예">방송/연예</option>
                 <option th:value="스포츠">스포츠</option>
                 <option th:value="문화">문화</option>
                 <option th:value="창작물">창작물</option>

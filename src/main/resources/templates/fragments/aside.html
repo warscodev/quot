@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="aside col-lg-4" th:fragment="aside">
+    <div class="aside-menu-container sticky-top">
+        <span class="aside-title"><i class="fab fa-hotjar"></i>인기 발언</span>
+        <ul class="aside-remark-category-nav">
+            <li class="aside-remark-category-nav-items active" data-cat="정치사회"><span>정치/사회</span></li>
+            <li class="aside-remark-category-nav-items" data-cat="방송연예"><span>방송/연예</span></li>
+            <li class="aside-remark-category-nav-items" data-cat="스포츠"><span>스포츠</span></li>
+            <li class="aside-remark-category-nav-items" data-cat="문화"><span>문화</span></li>
+            <li class="aside-remark-category-nav-items" data-cat="창작물"><span>창작물</span></li>
+        </ul>
+
+        <div class="aside-remark-table">
+            <div class="d-flex justify-content-center p-4">
+                <div class="spinner-border text-secondary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const remarkTable = document.querySelector(".aside-remark-table");
+        const navs = document.querySelectorAll(".aside-remark-category-nav-items");
+        let activatedNav = document.querySelector(".aside-remark-category-nav-items.active")
+
+        function initRemarks(){
+            const initCategory = document.querySelector(".aside-remark-category-nav-items.active").dataset.cat;
+            getHotRemarkList(initCategory)
+                .then(res => res.json())
+                .then(toTable)
+                .then(row => remarkTable.innerHTML = row);
+        }
+
+        function changeCat(e){
+            if(!e.classList.contains("active")){
+                const cat = e.dataset.cat;
+                activatedNav.classList.toggle("active");
+                e.classList.toggle("active");
+                activatedNav = e;
+
+                getHotRemarkList(cat)
+                    .then(res => res.json())
+                    .then(toTable)
+                    .then(row => remarkTable.innerHTML = row);
+            }
+        }
+
+        async function getHotRemarkList(category){
+            const response = await fetch(`/api/remark/hot/${category}`);
+            try{
+                if(response.ok){
+                    return response;
+                }else {
+                    console.log("목록을 불러올 수 없습니다.")
+                }
+            } catch (error){
+                alert(JSON.stringify(error));
+            }
+        }
+
+        function toTable(list){
+            let row = "";
+            if(list.length > 0){
+                list.forEach(r => {
+                row += "<div class=\"aside-remark-table-row\" onclick='toRemarkDetail(this)' data-link='/remark/"+ r.remarkId + "'>";
+                    row += "<div class=\"aside-remark-title-container\">";
+                        row += "<div class=\"aside-remark-title-first-col-container\">";
+                            row += "<span class=\"aside-remark-name\">" + r.name +"</span>";
+                            row += "<span class=\"aside-remark-job\">"+ r.job +"</span>";
+                        row += "</div>";
+                        row += "<div class=\"aside-remark-title-second-col-container\">";
+                            row += "<div class=\"aside-remark-like-icon-container aside-remark-icon-container\">";
+                                row += "<i class=\"fas fa-thumbs-up\"></i>";
+                                row += "<span>"+r.likeCount+"</span>";
+                            row += "</div>";
+                            row += "<div class=\"aside-remark-dislike-icon-container aside-remark-icon-container\">";
+                                row += "<i class=\"fas fa-thumbs-up\"></i>";
+                                row += "<span>"+r.dislikeCount+"</span>";
+                            row += "</div>";
+                            row += "<div class=\"aside-remark-comment-icon-container aside-remark-icon-container\">";
+                                row += "<i class=\"far fa-comment-dots\"></i>";
+                                row += "<span>"+r.commentCount+"</span>";
+                            row += "</div>";
+                        row += "</div>";
+                    row += "</div>";
+                    row += "<div class=\"aside-remark-content\">" ;
+                    row += "\""+r.content+"\"";
+                    row += "</div>";
+                row += "</div>";
+            })
+            }else{
+                row += "<div class=\"aside-remark-table-row\" style='text-align: center'>";
+                row += "<span>결과가 없습니다.</span>";
+                row += "</div>";
+            }
+
+            return row;
+        }
+
+        function toRemarkDetail(e){
+            location.href= e.dataset.link;
+        }
+
+        function toggleNav(){
+
+        }
+
+        document.addEventListener("DOMContentLoaded", function (){
+            initRemarks();
+        })
+
+        navs.forEach(n=>{
+            n.addEventListener("click", function (e){
+                changeCat(this);
+            })
+        })
+    </script>
+</div>
+

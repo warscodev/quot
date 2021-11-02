@@ -35,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable()
                 .and()
                     .authorizeRequests()
-                    .antMatchers(HttpMethod.GET,"/api/remark/**/comment").permitAll()
+                    .antMatchers(HttpMethod.GET,"/api/remark/**/comment","/api/remark/hot/**").permitAll()
                     .antMatchers("/api/remark/**","/api/remark/loginCheck","/api/comment/**/reporting","/profile").hasAnyRole("USER","ADMIN")
                     .antMatchers("/_profile","/api/person/**","/api/remark/","/h2-console/**","/person/new","/remark/new","/remark/**/update","/admin/**").hasRole("ADMIN")
                     .antMatchers("/remark","/remark/**/","/","/remark/search", "/api/search/**","/oauth2/**", "/login_req","/login", "/login/**","/person/**","/_profile").permitAll()

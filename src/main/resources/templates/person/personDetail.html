@@ -3,12 +3,12 @@
 <html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head th:replace="fragments/header :: header(title=|${info.person.name} : 인물페이지|)">
-<body>
+<body th:object="${info}">
 <div th:replace="fragments/topHeader :: topHeader"/>
 
-<div th:object="${info}">
+<div class="container-fluid">
     <div class="p-d-header-container" th:object="${info.person}">
-        <div class="p-d-header container container-custom d-flex justify-content-between">
+        <div class="p-d-header container container-xl d-flex justify-content-between">
             <div class="p-d-header-row-container d-flex align-items-top">
                 <div class="p-d-profile-icon-container d-flex justify-content-end">
                     <div class="p-d-profile-icon-wrapper d-flex align-items-center justify-content-center">
@@ -62,7 +62,12 @@
             </div>
         </div>
     </div>
-    <div class="p-d-body-container container container-custom">
+</div>
+
+<div class="container-xl">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="p-d-body-container">
         <div class="p-d-body">
             <div th:if="*{not #lists.isEmpty(remarkList)}" class="p-d-r-row-container" th:each="r : *{remarkList}">
                 <div class="p-d-r-first-row-container d-flex align-items-center justify-content-between">
@@ -114,7 +119,11 @@
         </div>
 
     </div>
+        </div>
+        <div th:replace="fragments/aside :: aside"/>
 
+    </div>
+</div>
 </div>
 <script>
     const contents = document.querySelectorAll(".p-d-r-content");

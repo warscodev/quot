@@ -1,25 +1,25 @@
 @media (max-width: 575px) {
-    .container-custom {
+    .container-main {
         padding-right: 0 !important;
         padding-left: 0 !important;
     }
 }
 
 @media (min-width: 768px) {
-    .container-custom {
-        width: 750px;
+    .container-main {
+        width: 760px;
     }
 }
 
 @media (min-width: 992px) {
-    .container-custom {
-        width: 750px;
+    .container-main {
+        width: 760px;
     }
 }
 
 @media (min-width: 1200px) {
-    .container-custom {
-        width: 750px;
+    .container-main {
+        width: 760px;
     }
 }
 

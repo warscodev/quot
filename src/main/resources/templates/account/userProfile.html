@@ -6,7 +6,7 @@
 
 <body>
 <div th:replace="fragments/topHeader :: topHeader"></div>
-<div class="container container-custom" th:object="${user}">
+<div class="container container-main" th:object="${user}">
     <div class="user-profile-header">
         내 정보
     </div>
@@ -72,7 +72,6 @@
         lblError.innerHTML = "";
         redundantError.innerHTML = "";
         submitBtn.disabled = false
-        /*const expr = /^[0-9:.\-$-()_&a-zA-Z가-힣]{3,8}(?<![-(.])$/;*/
         const expr = /^[0-9:.\-_a-zA-Z가-힣]{3,8}$/;
 
         if (!expr.test(nicknameInput.value)) {

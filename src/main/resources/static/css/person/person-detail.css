@@ -118,7 +118,7 @@
 /* 발언 */
 .p-d-body{
     padding: var(--bs-gutter-x,1.5rem);
-    margin-top: 2rem;
+    margin-top: 2.125rem;
     margin-bottom: 2rem;
     background-color: #fff;
     border-radius: .75rem;

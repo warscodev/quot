@@ -6,8 +6,10 @@
 
 <body>
 <div th:replace="fragments/topHeader :: topHeader"/>
-<div>
-    <div class="r-l-page-container container container-custom" th:object="${dto}">
+<div class="container-xl">
+<div class="row">
+    <div class="col-lg-8">
+    <div class="r-l-page-container" th:object="${dto}">
         <input type="hidden" id="r-l-keyword" th:value="${keyword}">
         <input type="hidden" id="r-l-tab" th:value="${cond.tab}">
         <div th:if="${keyword}" class="r-l-table-title r-l-person-table-title">
@@ -154,7 +156,8 @@
                                 </a>-->
                                 <!-- 다른이름, 직업 -->
                                 <div class="r-l-t-person-and-alias-container">
-                                    <span th:title="${r.job}" class="r-l-t-person-job tt" th:text="${r.job}" data-bs-trigger="hover"></span>
+                                    <span th:title="${r.job}" class="r-l-t-person-job tt" th:text="${r.job}"
+                                          data-bs-trigger="hover"></span>
                                 </div>
                                 <span class="r-l-t-date">｜</span>
                                 <div class="d-flex align-items-center">
@@ -253,7 +256,7 @@
                                class="r-l-t-dislike-btn r-l-t-last-row-btn btn" href="javascript:;"
                                th:onclick="|like(this, ${r.remarkId}, -1)|">
                                 <div class="r-l-t-last-row-btn-icon-wrap dislike-icon-wrap tt" title="이 발언이 싫어요"
-                                     data-bs-trigger="hover" data-bs-placement="bottom" >
+                                     data-bs-trigger="hover" data-bs-placement="bottom">
                                     <i class="r-l-t-dislike-icon dislike-icon r-l-t-last-row-btn-icon fas fa-thumbs-down"></i>
                                     <span th:id="|dislike-count-${r.remarkId}|"
                                           class="r-l-t-last-row-btn-text r-l-t-last-row-dislike-count dislike-count"
@@ -261,14 +264,18 @@
                                 </div>
                             </a>
 
-                            <a th:if="${r.isBookmarked > 0}" class="r-l-t-last-row-btn r-l-t-last-row-bookmark-btn btn bookmark-active" th:onclick="|saveOrDeleteBookmark(this,${r.remarkId})|" href="javascript:;">
+                            <a th:if="${r.isBookmarked > 0}"
+                               class="r-l-t-last-row-btn r-l-t-last-row-bookmark-btn btn bookmark-active"
+                               th:onclick="|saveOrDeleteBookmark(this,${r.remarkId})|" href="javascript:;">
                                 <div class="r-l-t-last-row-btn-icon-wrap bookmark-icon-wrap tt" title="북마크 취소"
                                      data-bs-trigger="hover" data-bs-placement="bottom">
                                     <i class="r-l-t-last-row-btn-icon r-l-t-last-row-bookmark-icon bi bi-bookmark-star-fill"
                                        style="line-height: 0"></i>
                                 </div>
                             </a>
-                            <a th:unless="${r.isBookmarked > 0}" class="r-l-t-last-row-btn r-l-t-last-row-bookmark-btn btn" th:onclick="|saveOrDeleteBookmark(this,${r.remarkId})|" href="javascript:;">
+                            <a th:unless="${r.isBookmarked > 0}"
+                               class="r-l-t-last-row-btn r-l-t-last-row-bookmark-btn btn"
+                               th:onclick="|saveOrDeleteBookmark(this,${r.remarkId})|" href="javascript:;">
                                 <div class="r-l-t-last-row-btn-icon-wrap bookmark-icon-wrap tt" title="북마크"
                                      data-bs-trigger="hover" data-bs-placement="bottom">
                                     <i class="r-l-t-last-row-btn-icon r-l-t-last-row-bookmark-icon bi bi-bookmark-star-fill"
@@ -296,139 +303,141 @@
                 <h6 class="text-center"> 검색 결과가 없습니다. </h6>
             </div>
         </div>
-    </div>
 
-    <!-- 페이지네이션 -->
-    <div class="r-l-pagination-container" th:object="${dto.pageMetadata}" id="r-l-pagination">
-        <nav aria-label="Page navigator"
-             th:with="baseUrl=(${keyword}? |/remark?keyword=${keyword}| : '/remark')">
-            <ul class="pagination pagination-sm d-flex">
+        <!-- 페이지네이션 -->
+        <div class="r-l-pagination-container" th:object="${dto.pageMetadata}" id="r-l-pagination">
+            <nav aria-label="Page navigator"
+                 th:with="baseUrl=(${keyword}? |/remark?keyword=${keyword}| : '/remark')">
+                <ul class="pagination pagination-sm d-flex">
 
-                <li th:if="*{not first and totalElements != 0}" class="page-item page-chevron-left">
-                    <a class="page-link" th:href="@{|${baseUrl}|(page=*{page}-1,
+                    <li th:if="*{not first and totalElements != 0}" class="page-item page-chevron-left">
+                        <a class="page-link" th:href="@{|${baseUrl}|(page=*{page}-1,
                     sort=${cond.sort} ? ${cond.sort} : 'cd_d', tab=${cond.tab} ? ${cond.tab} : 1)}">
-                        <span><i class="fas fa-chevron-left"></i></span>
-                    </a>
-                </li>
-                <li th:if="*{first and totalElements != 0}" class="page-item page-chevron-left disabled">
-                    <a class="page-link">
-                        <span><i class="fas fa-chevron-left"></i></span>
-                    </a>
-                </li>
+                            <span><i class="fas fa-chevron-left"></i></span>
+                        </a>
+                    </li>
+                    <li th:if="*{first and totalElements != 0}" class="page-item page-chevron-left disabled">
+                        <a class="page-link">
+                            <span><i class="fas fa-chevron-left"></i></span>
+                        </a>
+                    </li>
 
-                <th:block th:if="*{startBlock>1}">
-                    <li class="page-item"><a class="page-link" th:href="@{|${baseUrl}|(page=1,
+                    <th:block th:if="*{startBlock>1}">
+                        <li class="page-item"><a class="page-link" th:href="@{|${baseUrl}|(page=1,
                     sort=${cond.sort} ? ${cond.sort} : 'cd_d', tab=${cond.tab} ? ${cond.tab} : 1)}">1</a></li>
-                    <li class="page-item disabled"><span class="page-link">...</span></li>
-                </th:block>
-
-                <th:block th:with="start = ${dto.pageMetadata.startBlock}, end = ${dto.pageMetadata.endBlock}">
-                    <th:block th:if="*{startBlock >0}" th:each="pages : ${#numbers.sequence(start,end)}">
-                        <li th:if="${pages} eq *{page}" class="page-item active">
-                            <span class="page-link" th:text="${pages}" style="cursor: default"></span>
-                        </li>
-                        <li th:unless="${pages} eq *{page}" class="page-item">
-                            <a class="page-link" th:href="@{|${baseUrl}|(page=${pages},
-                            sort=${cond.sort} ? ${cond.sort} : 'cd_d', tab=${cond.tab} ? ${cond.tab} : 1)}"
-                               th:text="${pages}"></a>
-                        </li>
+                        <li class="page-item disabled"><span class="page-link">...</span></li>
                     </th:block>
-                </th:block>
 
-                <th:block th:if=" not (*{endBlock} - *{startBlock} < 9) and (*{endBlock} != *{totalPages})">
-                    <li class="page-item disabled"><span class="page-link">...</span></li>
-                    <li class="page-item">
-                        <a class="page-link" th:href="@{|${baseUrl}|(page=*{totalPages}, sort=${cond.sort} ? ${cond.sort} : 'cd_d',
+                    <th:block th:with="start = ${dto.pageMetadata.startBlock}, end = ${dto.pageMetadata.endBlock}">
+                        <th:block th:if="*{startBlock >0}" th:each="pages : ${#numbers.sequence(start,end)}">
+                            <li th:if="${pages} eq *{page}" class="page-item active">
+                                <span class="page-link" th:text="${pages}" style="cursor: default"></span>
+                            </li>
+                            <li th:unless="${pages} eq *{page}" class="page-item">
+                                <a class="page-link" th:href="@{|${baseUrl}|(page=${pages},
+                            sort=${cond.sort} ? ${cond.sort} : 'cd_d', tab=${cond.tab} ? ${cond.tab} : 1)}"
+                                   th:text="${pages}"></a>
+                            </li>
+                        </th:block>
+                    </th:block>
+
+                    <th:block th:if=" not (*{endBlock} - *{startBlock} < 9) and (*{endBlock} != *{totalPages})">
+                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                        <li class="page-item">
+                            <a class="page-link" th:href="@{|${baseUrl}|(page=*{totalPages}, sort=${cond.sort} ? ${cond.sort} : 'cd_d',
                         tab=${cond.tab} ? ${cond.tab} : 1)}" th:text="*{totalPages}">
-                        </a></li>
-                </th:block>
+                            </a></li>
+                    </th:block>
 
 
-                <li th:if="*{not last and totalElements != 0}" class="page-item page-chevron-right">
-                    <a class="page-link page-chevron-right" th:href="@{|${baseUrl}|(page=*{page}+1, sort=${cond.sort} ? ${cond.sort} : 'cd_d',
+                    <li th:if="*{not last and totalElements != 0}" class="page-item page-chevron-right">
+                        <a class="page-link page-chevron-right" th:href="@{|${baseUrl}|(page=*{page}+1, sort=${cond.sort} ? ${cond.sort} : 'cd_d',
                     tab=${cond.tab} ? ${cond.tab} : 1)}">
-                        <span><i class="fas fa-chevron-right"></i></span>
-                    </a>
-                </li>
-                <li th:if="*{last and totalElements != 0}" class="page-item page-chevron-right disabled">
-                    <a class="page-link">
-                        <span><i class="fas fa-chevron-right"></i></span>
-                    </a>
-                </li>
+                            <span><i class="fas fa-chevron-right"></i></span>
+                        </a>
+                    </li>
+                    <li th:if="*{last and totalElements != 0}" class="page-item page-chevron-right disabled">
+                        <a class="page-link">
+                            <span><i class="fas fa-chevron-right"></i></span>
+                        </a>
+                    </li>
 
 
-            </ul>
-        </nav>
-    </div>
-    <div class="r-l-pagination-container" th:object="${dto.pageMetadata}" id="r-l-pagination-sm">
-        <nav aria-label="Page navigator"
-             th:with="baseUrl=(${keyword}? |/remark?keyword=${keyword}| : '/remark')">
+                </ul>
+            </nav>
+        </div>
+        <div class="r-l-pagination-container" th:object="${dto.pageMetadata}" id="r-l-pagination-sm">
+            <nav aria-label="Page navigator"
+                 th:with="baseUrl=(${keyword}? |/remark?keyword=${keyword}| : '/remark')">
 
-            <ul class="pagination pagination-sm d-flex">
+                <ul class="pagination pagination-sm d-flex">
 
-                <li th:if="*{not first and totalElements != 0}" class="page-item page-chevron-left">
-                    <a class="page-link" th:href="@{|${baseUrl}|(page=*{page}-1, sort=${cond.sort} ? ${cond.sort} : 'cd_d',
+                    <li th:if="*{not first and totalElements != 0}" class="page-item page-chevron-left">
+                        <a class="page-link" th:href="@{|${baseUrl}|(page=*{page}-1, sort=${cond.sort} ? ${cond.sort} : 'cd_d',
                     tab=${cond.tab} ? ${cond.tab} : 1)}">
-                        <span><i class="fas fa-chevron-left"></i></span>
-                    </a>
-                </li>
-                <li th:if="*{first and totalElements != 0}" class="page-item disabled">
-                    <a class="page-link">
-                        <span><i class="fas fa-chevron-left page-chevron-left"></i></span>
-                    </a>
-                </li>
+                            <span><i class="fas fa-chevron-left"></i></span>
+                        </a>
+                    </li>
+                    <li th:if="*{first and totalElements != 0}" class="page-item disabled">
+                        <a class="page-link">
+                            <span><i class="fas fa-chevron-left page-chevron-left"></i></span>
+                        </a>
+                    </li>
 
-                <th:block th:if="*{startBlock_sm>1}">
-                    <li class="page-item"><a class="page-link" th:href="@{|${baseUrl}|(page=1, sort=${cond.sort} ? ${cond.sort} : 'cd_d',
+                    <th:block th:if="*{startBlock_sm>1}">
+                        <li class="page-item"><a class="page-link" th:href="@{|${baseUrl}|(page=1, sort=${cond.sort} ? ${cond.sort} : 'cd_d',
                     tab=${cond.tab} ? ${cond.tab} : 1)}">1</a></li>
-                    <li class="page-item disabled"><span class="page-link">...</span></li>
-                </th:block>
+                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                    </th:block>
 
-                <th:block
-                        th:with="start = ${dto.pageMetadata.startBlock_sm}, end = ${dto.pageMetadata.endBlock_sm}">
-                    <th:block th:if="*{startBlock_sm >0}" th:each="pages : ${#numbers.sequence(start,end)}">
-                        <li th:if="${pages} eq *{page}" class="page-item active">
-                            <span class="page-link" th:text="${pages}" style="cursor: default"></span>
-                        </li>
-                        <li th:unless="${pages} eq *{page}" class="page-item">
-                            <a class="page-link" th:href="@{|${baseUrl}|(page=${pages}, sort=${cond.sort} ? ${cond.sort} : 'cd_d',
+                    <th:block
+                            th:with="start = ${dto.pageMetadata.startBlock_sm}, end = ${dto.pageMetadata.endBlock_sm}">
+                        <th:block th:if="*{startBlock_sm >0}" th:each="pages : ${#numbers.sequence(start,end)}">
+                            <li th:if="${pages} eq *{page}" class="page-item active">
+                                <span class="page-link" th:text="${pages}" style="cursor: default"></span>
+                            </li>
+                            <li th:unless="${pages} eq *{page}" class="page-item">
+                                <a class="page-link" th:href="@{|${baseUrl}|(page=${pages}, sort=${cond.sort} ? ${cond.sort} : 'cd_d',
                             tab=${cond.tab} ? ${cond.tab} : 1)}" th:text="${pages}">
+                                </a>
+                            </li>
+                        </th:block>
+                    </th:block>
+
+                    <th:block
+                            th:if=" not (*{endBlock_sm} - *{startBlock_sm} < 4) and (*{endBlock_sm} != *{totalPages})">
+                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                        <li class="page-item">
+                            <a class="page-link" th:href="@{|${baseUrl}|(page=*{totalPages}, sort=${cond.sort} ? ${cond.sort} : 'cd_d',
+                    tab=${cond.tab} ? ${cond.tab} : 1)}" th:text="*{totalPages}">
                             </a>
                         </li>
                     </th:block>
-                </th:block>
 
-                <th:block
-                        th:if=" not (*{endBlock_sm} - *{startBlock_sm} < 4) and (*{endBlock_sm} != *{totalPages})">
-                    <li class="page-item disabled"><span class="page-link">...</span></li>
-                    <li class="page-item">
-                        <a class="page-link" th:href="@{|${baseUrl}|(page=*{totalPages}, sort=${cond.sort} ? ${cond.sort} : 'cd_d',
-                    tab=${cond.tab} ? ${cond.tab} : 1)}" th:text="*{totalPages}">
+
+                    <li th:if="*{not last and totalElements != 0}" class="page-item page-chevron-right">
+                        <a class="page-link" th:href="@{|${baseUrl}|(page=*{page}+1, sort=${cond.sort} ? ${cond.sort} : 'cd_d',
+                     tab=${cond.tab} ? ${cond.tab} : 1)}">
+                            <span><i class="fas fa-chevron-right"></i></span>
                         </a>
                     </li>
-                </th:block>
+                    <li th:if="*{last and totalElements != 0}" class="page-item page-chevron-right disabled">
+                        <a class="page-link">
+                            <span><i class="fas fa-chevron-right"></i></span>
+                        </a>
+                    </li>
 
 
-                <li th:if="*{not last and totalElements != 0}" class="page-item page-chevron-right">
-                    <a class="page-link" th:href="@{|${baseUrl}|(page=*{page}+1, sort=${cond.sort} ? ${cond.sort} : 'cd_d',
-                     tab=${cond.tab} ? ${cond.tab} : 1)}">
-                        <span><i class="fas fa-chevron-right"></i></span>
-                    </a>
-                </li>
-                <li th:if="*{last and totalElements != 0}" class="page-item page-chevron-right disabled">
-                    <a class="page-link">
-                        <span><i class="fas fa-chevron-right"></i></span>
-                    </a>
-                </li>
-
-
-            </ul>
-        </nav>
+                </ul>
+            </nav>
+        </div>
+        <div th:replace="fragments/shareModal :: shareModal"/>
     </div>
 
-    <div th:replace="fragments/shareModal :: shareModal"/>
-
+    </div>
+    <div th:replace="fragments/aside :: aside"/>
 </div>
+
 </div>
 <div th:replace="fragments/footer :: footer"/>
 </body>

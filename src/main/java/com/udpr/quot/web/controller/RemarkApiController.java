@@ -3,14 +3,17 @@ package com.udpr.quot.web.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.udpr.quot.config.auth.LoginUser;
 import com.udpr.quot.config.auth.dto.SessionUser;
+import com.udpr.quot.domain.remark.repository.RemarkApiQueryRepository;
 import com.udpr.quot.service.remark.RemarkService;
 import com.udpr.quot.web.dto.remark.LikeInfo;
 import com.udpr.quot.web.dto.remark.RemarkRequestDto;
+import com.udpr.quot.web.dto.remark.query.RemarkApiQueryDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.naming.AuthenticationException;
+import java.util.List;
 import java.util.Objects;
 
 @RequiredArgsConstructor
@@ -19,6 +22,7 @@ import java.util.Objects;
 public class RemarkApiController {
 
     private final RemarkService remarkService;
+    private final RemarkApiQueryRepository remarkApiQueryRepository;
 
 
     //발언 저장
@@ -75,4 +79,8 @@ public class RemarkApiController {
             throw new AuthenticationException();
     }
 
+    @GetMapping("/api/remark/hot/{category}")
+    public List<RemarkApiQueryDto> getRemarkListForNav(@PathVariable("category") String category){
+        return remarkApiQueryRepository.getRemarkList(category);
+    }
 }
