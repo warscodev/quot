@@ -29,7 +29,7 @@ spring:
   jpa:
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        #dialect: org.hibernate.dialect.MySQL5InnoDBDialect
         default_batch_fetch_size: 100
 
   web:
