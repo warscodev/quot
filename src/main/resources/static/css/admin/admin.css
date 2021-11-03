@@ -1457,7 +1457,7 @@ a:hover {
 
 .pagination {
     justify-content: center;
-    margin: 4rem 0 3rem 0;
+    margin: 3rem 0 3rem 0;
 }
 
 .pagination > .page-item, .page-item.disabled {
