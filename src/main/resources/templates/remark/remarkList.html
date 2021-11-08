@@ -3,14 +3,15 @@
 <html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head th:replace="fragments/header :: header(title='홈', keyword=${keyword})">
-
 <body>
-<div th:replace="fragments/topHeader :: topHeader"/>
+<div th:replace="fragments/topHeader :: topHeader"></div>
+<div th:replace="fragments/subNavbar :: subNavbar"></div>
 <div class="container-xl">
 <div class="row">
     <div class="col-lg-8">
     <div class="r-l-page-container" th:object="${dto}">
         <input type="hidden" id="r-l-keyword" th:value="${keyword}">
+        <input type="hidden" id="r-l-category" th:value="${category}">
         <input type="hidden" id="r-l-tab" th:value="${cond.tab}">
         <div th:if="${keyword}" class="r-l-table-title r-l-person-table-title">
             <span>인물 검색결과</span>
@@ -40,7 +41,7 @@
                 </a>
             </div>
         </div>
-        <div th:if="${keyword}"
+        <div sec:authorize="hasRole('ADMIN')" th:if="${keyword}"
              class="r-l-related-person-notice-container d-flex justify-content-end align-items-center">
             <a href="/admin/person/new" class="btn btn-sm r-l-related-person-notice-add-btn">
                 <span>찾는 인물이 없다면 직접 <b>[등록]</b> 해보세요!</span>
@@ -60,7 +61,7 @@
                 <div class="r-l-sub-pagination-container remark-page-count d-flex align-items-baseline page-item">
                     <th:block th:with="baseUrl=(${keyword}? |/remark?keyword=${keyword}| : '/remark')">
                         <a th:if="*{!first && totalElements!=0}" th:href="@{|${baseUrl}|(page=*{page}-1,
-                sort=${cond.sort} ? ${cond.sort} : 'cd_d', tab=${cond.tab} ? ${cond.tab} : 1)}"
+                sort=${cond.sort} ? ${cond.sort} : 'cd_d', tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : 'all')}"
                            class="page-link d-inline">
                             <i class="fas fa-chevron-left"></i>
                         </a>
@@ -74,7 +75,7 @@
                               th:text="|*{page} / *{totalPages}|"></span>
                         <span th:unless="*{totalElements>0}" style="margin: 0 !important;">1 / 1</span>
                         <a th:if="*{!last && totalElements!=0}" th:href="@{|${baseUrl}|(page=*{page}+1,
-                sort=${cond.sort} ? ${cond.sort} : 'cd_d', tab=${cond.tab} ? ${cond.tab} : 1)}"
+                sort=${cond.sort} ? ${cond.sort} : 'cd_d', tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : 'all')}"
                            class="page-link d-inline">
                             <i class="fas fa-chevron-right"></i>
                         </a>
@@ -89,6 +90,7 @@
                     <form th:action="@{/remark}" method="get" th:object="${cond}">
                         <input th:if="${keyword}" type="hidden" th:value="${keyword}" name="keyword">
                         <input th:if="${tab}" type="hidden" th:value="${tab}" name="tab">
+                        <input th:if="${category}" type="hidden" th:value="${category}" name="category">
                         <select th:if="${dto.pageMetadata.totalElements>0}" th:field="*{sort}"
                                 onchange="this.form.submit()"
                                 class="r-l-sorting form-select form-select-sm">
@@ -312,7 +314,7 @@
 
                     <li th:if="*{not first and totalElements != 0}" class="page-item page-chevron-left">
                         <a class="page-link" th:href="@{|${baseUrl}|(page=*{page}-1,
-                    sort=${cond.sort} ? ${cond.sort} : 'cd_d', tab=${cond.tab} ? ${cond.tab} : 1)}">
+                    sort=${cond.sort} ? ${cond.sort} : 'cd_d', tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : 'all') }">
                             <span><i class="fas fa-chevron-left"></i></span>
                         </a>
                     </li>
@@ -324,7 +326,7 @@
 
                     <th:block th:if="*{startBlock>1}">
                         <li class="page-item"><a class="page-link" th:href="@{|${baseUrl}|(page=1,
-                    sort=${cond.sort} ? ${cond.sort} : 'cd_d', tab=${cond.tab} ? ${cond.tab} : 1)}">1</a></li>
+                    sort=${cond.sort} ? ${cond.sort} : 'cd_d', tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : 'all')}">1</a></li>
                         <li class="page-item disabled"><span class="page-link">...</span></li>
                     </th:block>
 
@@ -335,7 +337,7 @@
                             </li>
                             <li th:unless="${pages} eq *{page}" class="page-item">
                                 <a class="page-link" th:href="@{|${baseUrl}|(page=${pages},
-                            sort=${cond.sort} ? ${cond.sort} : 'cd_d', tab=${cond.tab} ? ${cond.tab} : 1)}"
+                            sort=${cond.sort} ? ${cond.sort} : 'cd_d', tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : 'all')}"
                                    th:text="${pages}"></a>
                             </li>
                         </th:block>
@@ -345,14 +347,14 @@
                         <li class="page-item disabled"><span class="page-link">...</span></li>
                         <li class="page-item">
                             <a class="page-link" th:href="@{|${baseUrl}|(page=*{totalPages}, sort=${cond.sort} ? ${cond.sort} : 'cd_d',
-                        tab=${cond.tab} ? ${cond.tab} : 1)}" th:text="*{totalPages}">
+                        tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : 'all')}" th:text="*{totalPages}">
                             </a></li>
                     </th:block>
 
 
                     <li th:if="*{not last and totalElements != 0}" class="page-item page-chevron-right">
                         <a class="page-link page-chevron-right" th:href="@{|${baseUrl}|(page=*{page}+1, sort=${cond.sort} ? ${cond.sort} : 'cd_d',
-                    tab=${cond.tab} ? ${cond.tab} : 1)}">
+                    tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : 'all')}">
                             <span><i class="fas fa-chevron-right"></i></span>
                         </a>
                     </li>
@@ -374,7 +376,7 @@
 
                     <li th:if="*{not first and totalElements != 0}" class="page-item page-chevron-left">
                         <a class="page-link" th:href="@{|${baseUrl}|(page=*{page}-1, sort=${cond.sort} ? ${cond.sort} : 'cd_d',
-                    tab=${cond.tab} ? ${cond.tab} : 1)}">
+                    tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : 'all')}">
                             <span><i class="fas fa-chevron-left"></i></span>
                         </a>
                     </li>
@@ -386,7 +388,7 @@
 
                     <th:block th:if="*{startBlock_sm>1}">
                         <li class="page-item"><a class="page-link" th:href="@{|${baseUrl}|(page=1, sort=${cond.sort} ? ${cond.sort} : 'cd_d',
-                    tab=${cond.tab} ? ${cond.tab} : 1)}">1</a></li>
+                    tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : 'all')}">1</a></li>
                         <li class="page-item disabled"><span class="page-link">...</span></li>
                     </th:block>
 
@@ -398,7 +400,7 @@
                             </li>
                             <li th:unless="${pages} eq *{page}" class="page-item">
                                 <a class="page-link" th:href="@{|${baseUrl}|(page=${pages}, sort=${cond.sort} ? ${cond.sort} : 'cd_d',
-                            tab=${cond.tab} ? ${cond.tab} : 1)}" th:text="${pages}">
+                            tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : 'all')}" th:text="${pages}">
                                 </a>
                             </li>
                         </th:block>
@@ -409,7 +411,7 @@
                         <li class="page-item disabled"><span class="page-link">...</span></li>
                         <li class="page-item">
                             <a class="page-link" th:href="@{|${baseUrl}|(page=*{totalPages}, sort=${cond.sort} ? ${cond.sort} : 'cd_d',
-                    tab=${cond.tab} ? ${cond.tab} : 1)}" th:text="*{totalPages}">
+                    tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : 'all')}" th:text="*{totalPages}">
                             </a>
                         </li>
                     </th:block>
@@ -417,7 +419,7 @@
 
                     <li th:if="*{not last and totalElements != 0}" class="page-item page-chevron-right">
                         <a class="page-link" th:href="@{|${baseUrl}|(page=*{page}+1, sort=${cond.sort} ? ${cond.sort} : 'cd_d',
-                     tab=${cond.tab} ? ${cond.tab} : 1)}">
+                     tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : 'all')}">
                             <span><i class="fas fa-chevron-right"></i></span>
                         </a>
                     </li>

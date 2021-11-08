@@ -33,7 +33,7 @@ spring:
     properties:
       hibernate:
         # show_sql: true
-        # dialect: org.hibernate.dialect.MySQL57Dialect
+        dialect: org.hibernate.dialect.MySQL57Dialect
         format_sql: true
         use_sql_comment: true
         default_batch_fetch_size: 100

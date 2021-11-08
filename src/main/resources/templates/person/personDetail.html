@@ -4,10 +4,11 @@
 
 <head th:replace="fragments/header :: header(title=|${info.person.name} : 인물페이지|)">
 <body th:object="${info}">
-<div th:replace="fragments/topHeader :: topHeader"/>
+<div th:replace="fragments/topHeader :: topHeader"></div>
+<div th:replace="fragments/subNavbar :: subNavbar"></div>
 
-<div class="container-fluid">
-    <div class="p-d-header-container" th:object="${info.person}">
+<div class="p-d-header-container container-fluid">
+    <div th:object="${info.person}">
         <div class="p-d-header container container-xl d-flex justify-content-between">
             <div class="p-d-header-row-container d-flex align-items-top">
                 <div class="p-d-profile-icon-container d-flex justify-content-end">

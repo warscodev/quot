@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<nav class="subNavbar" th:fragment="subNavbar">
+    <div class="subNav-menu-wrap container-xl">
+        <ul class="subNav-menu">
+            <li class="subNav-menu-items main-menu"
+                th:classappend="${#strings.equals(category, 'all')} ? active">
+                <a href="/remark">
+                    <span>종합</span>
+                </a>
+            </li>
+            <li id="subNavHot" class="subNav-menu-items main-menu hot"
+                th:classappend="${#strings.equals(category, 'hot')} ? active">
+
+                <a href="/remark?category=hot">
+                    <span>
+                        <i class="fab fa-hotjar"></i>
+                        인기
+                    </span>
+                </a>
+            </li>
+            <li sec:authorize="isAuthenticated()" class="subNav-menu-items main-menu"
+                th:classappend="${#strings.equals(category, 'bookmark')} ? active">
+                <a href="/remark/bookmark">
+                    <span>
+                        <i class="subNav-menu-bookmark bi bi-bookmark-star-fill" style="line-height: 0"></i>
+                        북마크
+                    </span>
+                </a>
+            </li>
+            <li class="subNav-menu-items"
+                th:classappend="${#strings.equals(category, '정치사회')} ? active">
+                <a href="/remark?category=정치사회">
+                    <span>정치/사회</span>
+                </a>
+            </li>
+            <li class="subNav-menu-items"
+                th:classappend="${#strings.equals(category, '방송연예')} ? active">
+                <a href="/remark?category=방송연예">
+                    <span>방송/연예</span>
+                </a>
+            </li>
+            <li class="subNav-menu-items"
+                th:classappend="${#strings.equals(category, '스포츠')} ? active">
+                <a href="/remark?category=스포츠">
+                    <span>스포츠</span>
+                </a>
+            </li>
+            <li class="subNav-menu-items"
+                th:classappend="${#strings.equals(category, '문화')} ? active">
+                <a href="/remark?category=문화">
+                    <span>문화</span>
+                </a>
+            </li>
+            <li class="subNav-menu-items"
+                th:classappend="${#strings.equals(category, '창작물')} ? active">
+                <a href="/remark?category=창작물">
+                    <span>창작물</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+
+        $(document).ready(function () {
+            var $scrItem = $('.subNav-menu-items');
+            var scrIWidth = 0;
+            for (var i = 0; i < $scrItem.length; i++) {
+                scrIWidth += $scrItem.eq(i).outerWidth();
+            }
+            $('.subNav-menu-wrap').css('width', scrIWidth)
+            muCenter();
+
+            function muCenter() {
+                var target = $(".subNav-menu-items.active")
+                var box = $('.subNav-menu-wrap');
+                var boxItem = box.find('.subNav-menu-items');
+                var boxHarf = box.width() / 2;
+                var pos;
+                var listWidth = 0;
+                var targetLeft = 0;
+
+                boxItem.each(function () {
+                    listWidth += $(this).outerWidth();
+                })
+
+                for (var i = 0; i < target.index(); i++) targetLeft += boxItem.eq(i).outerWidth(); // 선택요소 까지 길이
+
+                var selectTargetPos = (targetLeft + target.outerWidth() / 2);
+                if (selectTargetPos <= boxHarf) { // left
+                    pos = 0;
+                } else if (listWidth - selectTargetPos <= boxHarf) { //right : target 절반 이후 영역이 boxHarf 보다 작을경우 right 정렬
+                    pos = listWidth - box.width();
+                } else {
+                    pos = selectTargetPos - boxHarf; // 중앙정렬
+                }
+
+                setTimeout(function () {
+                    box.animate({scrollLeft: pos}, 200)
+                }, 100);
+            }
+        });
+
+        const menu = document.querySelectorAll(".subNav-menu-items");
+        menu.forEach(m => {
+            m.addEventListener("click", function (e) {
+            })
+        })
+    </script>
+</nav>

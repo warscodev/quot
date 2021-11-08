@@ -109,14 +109,18 @@ public class RemarkService {
         int tab = condition.getTab();
         List<RemarkQueryDto> remarkContent = new ArrayList<>();
         List<SearchPersonResponseDto> personContent = new ArrayList<>();
-        Long total_ = 0L;
+        long total_ = 0L;
 
 
         Page<RemarkQueryDto> remarkPage = new PageImpl<>(remarkContent, remarkPageable, total_);
         Page<SearchPersonResponseDto> personPage = new PageImpl<>(personContent, personPageable, total_);
 
         if (keyword == null || keyword.isBlank()) {
-            remarkPage = remarkRepository.searchAll(condition, remarkPageable);
+            if("bookmark".equals(condition.getCategory())){
+                remarkPage = remarkRepository.getBookmarkList(condition, remarkPageable);
+            }else{
+                remarkPage = remarkRepository.searchAll(condition, remarkPageable);
+            }
         } else {
 
             personPage = personRepository.findByPersonName(condition.getKeyword(), personPageable);

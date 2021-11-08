@@ -5,7 +5,9 @@
 <head th:replace="fragments/header :: header(title=|${remark.name} : ${remark.tags}|)">
 
 <body>
-<div th:replace="fragments/topHeader :: topHeader"/>
+<div th:replace="fragments/topHeader :: topHeader"></div>
+<div th:replace="fragments/subNavbar :: subNavbar"></div>
+
 <div class="container-xl">
     <div class="row">
         <div class="col-lg-8">
@@ -286,6 +288,8 @@
 <script>
     function loadComments(page) {
         if (page > 0) {
+            console.log("page > 0 !")
+
             $.getJSON(`/api/remark/${rdRemarkId}/comment?page=${page}&size=${size}`, function (data) {
                 document.querySelector("#comment-table").innerHTML = toCommentTable(data);
                 document.querySelector("#comment-pagination").innerHTML = toPagination(data.pageMetadata);

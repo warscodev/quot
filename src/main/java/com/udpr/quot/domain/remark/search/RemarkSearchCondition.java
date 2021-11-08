@@ -12,13 +12,14 @@ public class RemarkSearchCondition {
 
     long personId;
 
-
     String sort;
 
     //session Id
     Long sid;
 
     int page;
+
+    String category;
 
     public RemarkSearchCondition() {
         this.tab = 1;

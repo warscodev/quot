@@ -51,12 +51,10 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                         remark.createdDate, remark.updatedDate, remark.likeCount,
                         remark.dislikeCount,remark.sourceSort, remark.sourceUrl,
                         person.id, person.name, person.alias, person.job, person.category,
-                        user.id, user.nickname, comment.count()))
+                        user.id, user.nickname))
                 .from(remark)
                 .leftJoin(remark.person, person)
                 .leftJoin(remark.user, user)
-                .leftJoin(comment).on(remark.id.eq(comment.remark.id).and(comment.status.ne(Status.DELETED)))
-                .groupBy(remark.id)
 
                 .where(remark.id.eq(remarkId))
                 .fetchOne();
@@ -82,6 +80,12 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                 .where(bookmark.remark.id.eq(remarkId).and(bookmark.user.id.eq(sessionId)))
                 .fetchCount();
 
+        Long commentCount = queryFactory
+                .select(comment.count())
+                .from(comment)
+                .where(comment.remark.id.eq(remarkId).and(comment.status.ne(Status.DELETED)))
+                .fetchCount();
+
         assert result != null;
         result.setRemarkTagList(tagList);
 
@@ -90,6 +94,8 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                 .collect(Collectors.joining(", ")));
 
         result.setIsBookmarked(isBookmarked);
+
+        result.setCommentCount(commentCount);
 
         if(isLike!=null) {
             result.setIsLike(isLike);
@@ -106,12 +112,10 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                         remark.createdDate, remark.updatedDate, remark.likeCount,
                         remark.dislikeCount,remark.sourceSort, remark.sourceUrl,
                         person.id, person.name, person.alias, person.job, person.category,
-                        user.id, user.nickname, comment.count()))
+                        user.id, user.nickname))
                 .from(remark)
                 .leftJoin(remark.person, person)
                 .leftJoin(remark.user, user)
-                .leftJoin(comment).on(remark.id.eq(comment.remark.id).and(comment.status.ne(Status.DELETED)))
-                .groupBy(remark.id)
 
                 .where(remark.id.eq(remarkId))
                 .fetchOne();
@@ -125,12 +129,22 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                 .where(remarkTag.remark.id.eq(remarkId))
                 .fetch();
 
-            assert result != null;
+        Long commentCount = queryFactory
+                .select(comment.count())
+                .from(comment)
+                .where(comment.remark.id.eq(remarkId).and(comment.status.ne(Status.DELETED)))
+                .fetchCount();
+
+
+        assert result != null;
             result.setRemarkTagList(tagList);
 
             result.setTags(tagList.stream()
                     .map(t->"#"+t.getName())
                     .collect(Collectors.joining(", ")));
+
+            result.setCommentCount(commentCount);
+
         return result;
     }
 
@@ -145,18 +159,17 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                         .select(new QRemarkQueryDto(
                                 remark.id, remark.content, remark.remarkDate,
                                 remark.createdDate, remark.updatedDate, remark.likeCount,
-                                remark.dislikeCount,remark.sourceSort, remark.sourceUrl,
+                                remark.dislikeCount, remark.sourceSort, remark.sourceUrl,
                                 person.id, person.name, person.alias, person.job, person.category,
-                                user.id, user.nickname, comment.count()))
+                                user.id, user.nickname))
                         .from(remark)
                         .leftJoin(remark.person, person)
                         .leftJoin(remark.user, user)
-                        .leftJoin(comment).on(remark.id.eq(comment.remark.id).and(comment.status.ne(Status.DELETED)))
-                        .groupBy(remark.id)
+                        .where(categoryEq(condition.getCategory()))
 
                         .offset(pageable.getOffset())
                         .limit(pageable.getPageSize())
-                        .orderBy(getOrderSpecifier(condition.getSort()).toArray(OrderSpecifier[]::new))
+                        .orderBy(getOrderSpecifierForSearchAll(condition.getSort(), condition.getCategory()).toArray(OrderSpecifier[]::new))
                         .fetchResults();
 
         List<Long> remarkIdList = toRemarkIdList(results);
@@ -180,12 +193,10 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                                 remark.createdDate, remark.updatedDate, remark.likeCount,
                                 remark.dislikeCount,remark.sourceSort, remark.sourceUrl,
                                 person.id, person.name, person.alias, person.job, person.category,
-                                user.id, user.nickname, comment.count()))
+                                user.id, user.nickname))
                         .from(remark)
                         .join(remark.person, person)
                         .join(remark.user, user)
-                        .leftJoin(comment).on(remark.id.eq(comment.remark.id).and(comment.status.ne(Status.DELETED)))
-                        .groupBy(remark.id)
 
                 .where(keywordLike(condition.getKeyword())
                                 .or(person.name.likeIgnoreCase("%" + condition.getKeyword() + "%"))
@@ -204,8 +215,8 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
         long total = results.getTotal();
 
         return new PageImpl<>(content, pageable, total);
-
     }
+
 
     @Override
     public Page<RemarkQueryDto> searchByPersonName(RemarkSearchCondition condition, Pageable pageable) {
@@ -216,12 +227,10 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                                 remark.createdDate, remark.updatedDate, remark.likeCount,
                                 remark.dislikeCount,remark.sourceSort, remark.sourceUrl,
                                 person.id, person.name, person.alias, person.job, person.category,
-                                user.id, user.nickname, comment.count()))
+                                user.id, user.nickname))
                         .from(remark)
                         .join(remark.person, person)
                         .join(remark.user, user)
-                        .leftJoin(comment).on(remark.id.eq(comment.remark.id).and(comment.status.ne(Status.DELETED)))
-                        .groupBy(remark.id)
 
                         .where(person.name.likeIgnoreCase("%" + condition.getKeyword() + "%")
                                 .or(removeCommaOnPersonAlias().likeIgnoreCase("%" + condition.getKeyword() + "%"))
@@ -251,14 +260,12 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                         remark.createdDate, remark.updatedDate, remark.likeCount,
                         remark.dislikeCount,remark.sourceSort, remark.sourceUrl,
                         person.id, person.name, person.alias, person.job, person.category,
-                        user.id, user.nickname, comment.count()))
+                        user.id, user.nickname))
                 .from(remarkTag)
                 .join(remarkTag.remark, remark)
                 .join(remark.person, person)
                 .join(remark.user, user)
                 .on(remarkTag.tag.name.eq(condition.getKeyword()))
-                .leftJoin(comment).on(remark.id.eq(comment.remark.id).and(comment.status.ne(Status.DELETED)))
-                .groupBy(remarkTag.remark.id)
 
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
@@ -268,6 +275,40 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
         List<Long> remarkIdList = toRemarkIdList(results);
 
         Map<Long, List<RemarkTagQueryDto>> tagMap = findTagMap(remarkIdList);
+
+        setCollections(condition, results, remarkIdList, tagMap);
+
+        List<RemarkQueryDto> content = results.getResults();
+        long total = results.getTotal();
+
+        return new PageImpl<>(content, pageable, total);
+    }
+
+    @Override
+    public Page<RemarkQueryDto> getBookmarkList(RemarkSearchCondition condition, Pageable pageable){
+
+        QueryResults<RemarkQueryDto> results = queryFactory
+                .select(new QRemarkQueryDto(
+                        remark.id, remark.content, remark.remarkDate,
+                        remark.createdDate, remark.updatedDate, remark.likeCount,
+                        remark.dislikeCount,remark.sourceSort, remark.sourceUrl,
+                        person.id, person.name, person.alias, person.job, person.category,
+                        user.id, user.nickname))
+                .from(bookmark)
+                .join(bookmark.remark, remark)
+                .join(remark.person, person)
+                .join(remark.user, user)
+                .on(bookmark.user.id.eq(condition.getSid()))
+
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .orderBy(getOrderSpecifier(condition.getSort()).toArray(OrderSpecifier[]::new))
+                .fetchResults();
+
+        List<Long> remarkIdList = toRemarkIdList(results);
+
+        Map<Long, List<RemarkTagQueryDto>> tagMap = findTagMap(remarkIdList);
+
         setCollections(condition, results, remarkIdList, tagMap);
 
         List<RemarkQueryDto> content = results.getResults();
@@ -317,16 +358,21 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
         return isBookmarkedList.stream().collect(Collectors.groupingBy(BookmarkQueryDto::getRemarkId));
     }
 
+    private Map<Long, List<RemarkCommentQueryDto>> findCommentCountMap(List<Long> remarkIdList){
+        List<RemarkCommentQueryDto> remarkCommentList = queryFactory
+                .select(new QRemarkCommentQueryDto(
+                        remark.id, comment.count()
+                ))
+                .from(remark)
+                .leftJoin(remark.commentList, comment)
+                .on(comment.status.ne(Status.DELETED))
+                .where(remark.id.in(remarkIdList))
+                .groupBy(remark.id)
+                .fetch();
 
-    private Long checkIsBookmarked(Long remarkId, Long sid){
-        return queryFactory.select(bookmark.count())
-                .from(bookmark)
-                .where(bookmark.remark.id.eq(remarkId)
-                        .and(bookmark.user.id.eq(sid)))
-                .fetchCount();
+        return remarkCommentList.stream()
+                .collect(Collectors.groupingBy(RemarkCommentQueryDto::getRemarkId));
     }
-
-
 
     private List<Long> toRemarkIdList(QueryResults<RemarkQueryDto> results) {
         return results.getResults().stream()
@@ -335,14 +381,18 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
     }
 
     private void setCollections(RemarkSearchCondition condition, QueryResults<RemarkQueryDto> results, List<Long> remarkIdList, Map<Long, List<RemarkTagQueryDto>> tagMap) {
+        Map<Long, List<RemarkCommentQueryDto>> commentCountMap = findCommentCountMap(remarkIdList);
         if(condition.getSid()!=null){
             Map<Long, List<RemarkLikeQueryDto>> likeMap = findLikeMap(remarkIdList, condition.getSid());
             Map<Long, List<BookmarkQueryDto>> bookmarkMap = findIsBookmarkedMap(remarkIdList, condition.getSid());
+
             results.getResults().forEach(r -> {
                 r.setRemarkTagList(tagMap.get(r.getRemarkId()));
                 r.setTags(tagMap.get(r.getRemarkId()).stream()
                         .map(RemarkTagQueryDto::getName)
                         .collect(Collectors.joining(", ")));
+                r.setCommentCount(commentCountMap.get(r.getRemarkId()).get(0).getCommentCount());
+
                 if(likeMap.get(r.getRemarkId())!=null) {
                     r.setIsLike(likeMap.get(r.getRemarkId()).get(0).getIsLike());
                 }
@@ -357,12 +407,18 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                 r.setTags(tagMap.get(r.getRemarkId()).stream()
                         .map(RemarkTagQueryDto::getName)
                         .collect(Collectors.joining(", ")));
-
+                r.setCommentCount(commentCountMap.get(r.getRemarkId()).get(0).getCommentCount());
             });
         }
     }
 
-
+    private BooleanExpression categoryEq(String category) {
+        if(("hot").equals(category)){
+            return remark.likeCount.add(remark.dislikeCount).goe(2);
+        }else {
+            return isEmpty(category) || ("all").equals(category) ? null : remark.person.category.eq(category);
+        }
+    }
 
     private BooleanExpression personIdEq(Long personId) {
         return isEmpty(personId) || personId == 0L ? null : remark.person.id.eq(personId);
@@ -376,29 +432,16 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
 
         if (keywords.length == 1) {
             builder.or(remark.content.likeIgnoreCase("%" + keyword + "%"));
-            return builder;
         } else {
-
             Arrays.stream(keywords).forEach(r -> builder.and(remark.content.likeIgnoreCase("%" + r + "%")));
-
-            return builder;
         }
+        return builder;
     }
 
 
 
-    private BooleanExpression personNameLike(String name) {
-        return isEmpty(name) ? null : remark.person.name.like("%" + name + "%");
-    }
-
-    private BooleanExpression contentLike(String content) {
-        return isEmpty(content) ? null : remark.content.like("%" + content + "%");
-    }
 
     private List<OrderSpecifier> getOrderSpecifier(String sort){
-
-        /*PathBuilder pathBuilder = new PathBuilder(remark.getType(),
-                remark.getMetadata())*/;
 
         List<OrderSpecifier> orders = new ArrayList<>();
 
@@ -410,7 +453,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                 orders.add(remark.remarkDate.asc());
                 break;
             case "cm":
-                orders.add(comment.count().desc());
+                orders.add(remark.commentCount.desc());
                 break;
             case "like":
                 orders.add(remark.likeCount.desc());
@@ -423,13 +466,42 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
         orders.add(remark.createdDate.desc());
 
         return orders;
+    }
 
+
+    private List<OrderSpecifier> getOrderSpecifierForSearchAll(String sort, String category){
+
+        List<OrderSpecifier> orders = new ArrayList<>();
+
+        switch (sort){
+            case "rd_d":
+                orders.add(remark.remarkDate.desc());
+                break;
+            case "rd_a":
+                orders.add(remark.remarkDate.asc());
+                break;
+            case "cm":
+                orders.add(remark.commentCount.desc());
+                break;
+            case "like":
+                orders.add(remark.likeCount.desc());
+                break;
+            case "dislike":
+                orders.add(remark.dislikeCount.desc());
+                break;
+        }
+
+        if("hot".equals(category)){
+            orders.add(remark.likeCount.add(remark.dislikeCount).desc());
+            orders.add(remark.commentCount.desc());
+        }
+
+            orders.add(remark.createdDate.desc());
+
+        return orders;
     }
 
     public StringTemplate removeCommaOnPersonAlias() {
         return Expressions.stringTemplate("replace({0},',','')", person.alias);
     }
-
-
-
 }

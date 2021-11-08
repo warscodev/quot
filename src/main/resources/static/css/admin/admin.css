@@ -26,17 +26,9 @@ body {
     overflow: scroll;
 }
 
-
-@media (max-width: 767px) {
-    body {
-        /* padding-top: 60px;*/
-    }
-}
-
 .dropdown-menu {
     z-index: 1021 !important;
 }
-
 
 .fieldError {
     transition: border-color 0.15s ease-in-out 0s;
@@ -117,7 +109,6 @@ body {
 .tagify__tag {
     margin: 5px 5px 5px 0 !important;
 }
-
 /* tagify 끝 */
 
 
@@ -313,14 +304,125 @@ a:hover {
 }
 
 
-.admin-header {
-    background-color: white;
-    padding-top: 70px;
-    padding-bottom: 10px;
+/*--- 헤더 끝---*/
+
+/*--- 서브바 시작 ---*/
+
+.subNav-menu-wrap{
+    -ms-overflow-style: none;
+    width: 100% !important;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.subNav-menu-wrap::-webkit-scrollbar {
+    height: 0;
+    padding-bottom: 0;
+}
+
+
+.subNavbar{
+    position: relative;
+    background-color: #fff;
     box-shadow: 1rem .1rem .1rem rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(0, 0, 0, 0.15);
 }
 
-/*--- 헤더 끝---*/
+
+
+/*
+@media (max-width: 560px) {
+    .subNavbar {
+        -ms-overflow-style: none;
+        width: 100% !important;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .subNavbar::-webkit-scrollbar {
+        height: 0;
+        padding-bottom: 0;
+    }
+}
+*/
+
+.subNav-menu{
+    list-style: none;
+    display: flex;
+    margin-bottom: 0;
+    padding-left: 0;
+}
+
+.subNav-menu-items{
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    user-select: none;
+    margin-right: .5rem;
+    line-height: initial;
+}
+
+.subNav-menu-items a{
+    display: inline-block;
+    padding: 1rem .5rem;
+}
+
+.subNav-menu-items.main-menu span{
+    color: #2c405e;
+}
+
+.subNav-menu-items.main-menu.hot{
+    display: none;
+}
+
+.subNav-menu-items.main-menu.hot i{
+    color: #e93232;
+}
+
+@media (max-width: 991px) {
+    .subNav-menu-items.main-menu.hot{
+    display: block;
+}
+
+}
+
+.subNav-menu-items span{
+    color: #97a2b3;
+    padding-bottom: .813rem;
+    border-bottom: 3px solid transparent;
+    transition: color .15s ease-in-out, border .15s ease-in-out, border-bottom-width .15s ease-in-out !important;
+}
+
+.subNav-menu-items:hover span{
+    color: #151616;
+    border-bottom: 3px solid #92a8c9;
+}
+
+.subNav-menu-items.active span{
+    color: #151616;
+    border-bottom: 3px solid #92a8c9;
+    font-weight: 600;
+}
+
+.subNav-menu-bookmark{
+    color: #fdc424;
+}
+
+@media (max-width: 560px) {
+    .subNav-menu-items{
+        margin-right: .25rem;
+    }
+
+    .subNav-menu-items a{
+        padding: .75rem .35rem;
+    }
+
+    .subNav-menu-items span{
+        padding-bottom: .55rem;
+    }
+}
+
+/*--- 서브바 끝 ---*/
+
 /*--- 검색결과 네비바 ---*/
 .nav-tabs .nav-link, nav .nav-link {
     color: #212529;
@@ -442,7 +544,7 @@ a:hover {
 
 
 .r-l-table-title {
-    font-size: 1.375rem;
+    font-size: 1.25rem;
     font-weight: 600;
     margin-bottom: .75rem;
     margin-top: 2.125rem;
@@ -559,7 +661,6 @@ a:hover {
 
 .r-l-related-person-notice-container {
     font-weight: 400;
-    font-size: .938rem;
     /*border: 1px solid #edf2f9;*/
     /*padding-left: 1.25rem;
     padding-right: 1rem;*/
@@ -567,6 +668,7 @@ a:hover {
 
 .r-l-related-person-notice-add-btn {
     /*border: 1px solid #e3ebf6;*/
+    font-size: .938rem !important;
     color: #4b729c;
     padding-top: .125rem !important;
     padding-bottom: .125rem !important;
@@ -1828,7 +1930,14 @@ a:hover {
     z-index: auto;
 }
 
-@media (max-width: 976px) {
+@media (max-width: 991px) {
+    .aside-menu-container{
+        display: none;
+    }
+}
+
+
+@media (max-width: 991px) {
     .aside-menu-container {
         margin-bottom: 1rem !important;
     }
@@ -1837,10 +1946,10 @@ a:hover {
 
 .aside-title {
     display: block;
-    font-size: 1.375rem;
+    font-size: 1.25rem;
     font-weight: 600;
     line-height: normal;
-    padding: 1rem 1.25rem;
+    padding: 1rem 1.25rem .75rem 1.25rem;
 }
 
 .aside-title i {
@@ -1860,12 +1969,12 @@ a:hover {
 .aside-remark-category-nav-items {
     font-size: .938rem;
     text-align: center;
-    padding: .25rem .5rem 1rem .75rem;
+    padding: .25rem .5rem .75rem .75rem;
     cursor: pointer;
 }
 
 .aside-remark-category-nav-items span {
-    padding-bottom: 1rem;
+    padding-bottom: .75rem;
     border-color: transparent !important;
     font-weight: 400;
     transition: color .2s ease-in-out, border-color .2s ease-in-out;
@@ -1890,7 +1999,7 @@ a:hover {
 }
 
 .aside-remark-table-row {
-    padding: 1rem 1.25rem;
+    padding: .75rem 1.25rem;
     cursor: pointer;
     transition: background-color .15s ease-in-out;
 }
@@ -1927,6 +2036,7 @@ a:hover {
 
 .aside-remark-icon-container span {
     margin-right: .75rem;
+    color: #7f8792;
 }
 
 .aside-remark-like-icon-container i {

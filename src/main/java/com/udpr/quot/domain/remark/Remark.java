@@ -12,6 +12,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -63,6 +64,9 @@ public class Remark extends BaseTimeEntity {
     @ColumnDefault("0")
     private int dislikeCount;
 
+    @Formula("(select count(*) from comment where comment.remark_id=remark_id and comment.status <> 'DELETED')")
+    private int commentCount;
+
     @JsonBackReference(value = "user")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -93,7 +97,7 @@ public class Remark extends BaseTimeEntity {
 
         List<String> tagList = new ArrayList<>();
 
-        this.getRemarkTagList().stream().forEach(
+        this.getRemarkTagList().forEach(
                 remarkTag -> tagList.add(remarkTag.getTag().getName())
         );
 

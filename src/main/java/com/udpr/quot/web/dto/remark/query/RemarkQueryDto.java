@@ -49,7 +49,7 @@ public class RemarkQueryDto {
     public RemarkQueryDto(Long remarkId, String content, LocalDate remarkDate, LocalDateTime createdDate, LocalDateTime updatedDate,
                           int likeCount, int dislikeCount, String sourceSort, String sourceUrl,
                           Long personId, String name, String alias, String job, String category,
-                          Long user_id, String nickname, Long commentCount) {
+                          Long user_id, String nickname) {
         this.remarkId = remarkId;
         this.content = content;
         this.remarkDate = remarkDateFormat(remarkDate);
@@ -66,7 +66,6 @@ public class RemarkQueryDto {
         this.category = category;
         this.user_id = user_id;
         this.nickname = nickname;
-        this.commentCount = commentCount;
     }
 
     public String createdAndUpdatedDateFormat(LocalDateTime localDateTime){

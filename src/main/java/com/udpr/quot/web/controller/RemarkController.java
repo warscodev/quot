@@ -81,12 +81,15 @@ public class RemarkController {
         return "remark/remarkUpdate";
     }
 
-
-
     //발언 리스트
     @GetMapping("/remark")
     public String remarkListPage(@ModelAttribute("cond") RemarkSearchCondition condition,
                                  Model model, @LoginUser SessionUser user) {
+        if(condition.getCategory() != null){
+            model.addAttribute("category", condition.getCategory());
+        }else {
+            model.addAttribute("category", "all");
+        }
 
         if(condition.getKeyword() != null){
             model.addAttribute("keyword",condition.getKeyword());
@@ -105,8 +108,22 @@ public class RemarkController {
         return "remark/remarkList";
     }
 
+    @GetMapping("/remark/bookmark")
+    public String getBookmarkList(@ModelAttribute("cond") RemarkSearchCondition condition,
+                                  Model model, @LoginUser SessionUser user){
 
-    //코멘트 검색결과 페이지
+        if(user != null){
+            model.addAttribute("user", user);
+            condition.setSid(user.getId());
+            condition.setCategory("bookmark");
+            model.addAttribute("category", condition.getCategory());
+            model.addAttribute("dto",remarkService.searchRemark(condition));
+        }
+
+        return "remark/remarkList";
+    }
+
+    //발언 검색결과 페이지
     @GetMapping("/remark/search")
     public String remarkSearchResultPage(@RequestParam String keyword, int tab, Long personId, Long page, Model model, @LoginUser SessionUser user) {
         model.addAttribute("keyword", keyword);

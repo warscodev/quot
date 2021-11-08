@@ -18,10 +18,10 @@ public class RemarkApiQueryDto {
     private final String name;
     private final String job;
 
-    private Long commentCount;
+    private int commentCount;
 
     @QueryProjection
-    public RemarkApiQueryDto(Long remarkId, String content, LocalDate remarkDate, int likeCount, int dislikeCount, String name, String job) {
+    public RemarkApiQueryDto(Long remarkId, String content, LocalDate remarkDate, int likeCount, int dislikeCount, String name, String job, int commentCount) {
         this.remarkId = remarkId;
         this.content = content;
         this.remarkDate = remarkDateFormat(remarkDate);
@@ -29,13 +29,14 @@ public class RemarkApiQueryDto {
         this.dislikeCount = dislikeCount;
         this.name = name;
         this.job = job;
+        this.commentCount = commentCount;
     }
 
     public String remarkDateFormat(LocalDate localDate){
         return localDate.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"));
     }
 
-    public void setCommentCount(Long commentCount){
+    /*public void setCommentCount(Long commentCount){
         this.commentCount = commentCount;
-    }
+    }*/
 }

@@ -15,6 +15,8 @@ public interface RemarkRepositoryCustom {
 
     Page<RemarkQueryDto> searchByContentOrPersonName(RemarkSearchCondition condition, Pageable pageable);
 
+    Page<RemarkQueryDto> getBookmarkList(RemarkSearchCondition condition, Pageable pageable);
+
     RemarkQueryDto getDetail(Long remarkId, Long sessionId);
     RemarkQueryDto getDetail(Long remarkId);
 }

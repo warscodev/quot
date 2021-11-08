@@ -43,6 +43,8 @@ public class CommentApiController {
     @GetMapping("/api/remark/{remarkId}/comment")
     public CommentListResponseDto getComments(@PathVariable("remarkId") Long remarkId, Pageable pageable) {
 
+        System.out.println("호출!");
+
         Pageable commentPageable = PageRequest.of(pageable.getPageNumber()-1,40);
 
         Page<CommentQueryDto> comments = commentRepository.getComments(remarkId, commentPageable);
