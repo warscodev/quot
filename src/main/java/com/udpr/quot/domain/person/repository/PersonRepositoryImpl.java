@@ -193,15 +193,12 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
 
     @Override
     public PersonQueryDto getDetail(Long id){
-
-        PersonQueryDto result = queryFactory
+        return queryFactory
                 .select(new QPersonQueryDto( person.id, person.name, person.alias, person.birth,
                         person.gender, person.job, person.summary, person.category))
                 .from(person)
                 .where(person.id.eq(id))
                 .fetchOne();
-
-        return result;
     }
 
     @Override
@@ -212,7 +209,7 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
                         remark.id, remark.content, remark.remarkDate,
                         remark.createdDate, remark.updatedDate, remark.likeCount,
                         remark.dislikeCount,remark.sourceSort, remark.sourceUrl,
-                        user.id, user.nickname, comment.count()))
+                        user.id, user.nickname))
                 .from(remark)
                 .where(remark.person.id.eq(id))
                 .leftJoin(remark.user, user)
@@ -229,7 +226,6 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
         return results;
     }
 
-
     private Map<Long, List<RemarkTagQueryDto>> findTagMap(List<Long> remarkIdList) {
         List<RemarkTagQueryDto> tagList = queryFactory
                 .select(new QRemarkTagQueryDto(
@@ -240,11 +236,8 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
                 .where(remarkTag.remark.id.in(remarkIdList))
                 .fetch();
 
-        Map<Long, List<RemarkTagQueryDto>> tagMap =
-                tagList.stream().collect(Collectors.groupingBy(RemarkTagQueryDto::getRemarkId));
-        return tagMap;
+        return tagList.stream().collect(Collectors.groupingBy(RemarkTagQueryDto::getRemarkId));
     }
-
 
     private List<Long> toRemarkIdList(List<RemarkForPersonDetailQueryDto> results) {
         return results.stream()

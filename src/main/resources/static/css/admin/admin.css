@@ -535,6 +535,8 @@ a:hover {
 
     font-size: .875rem;
     color: #6c757d;
+
+    margin-left: .25rem;
 }
 
 .remark-page-count * {
@@ -1585,6 +1587,7 @@ a:hover {
     padding: 0 !important;
     background-color: transparent;
     border: none;
+    margin: 0 !important;
 }
 
 .page-item.active > .page-link {
@@ -2002,6 +2005,11 @@ a:hover {
     padding: .75rem 1.25rem;
     cursor: pointer;
     transition: background-color .15s ease-in-out;
+}
+
+.aside-remark-table-row.last{
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
 }
 
 .aside-remark-table-row:hover {

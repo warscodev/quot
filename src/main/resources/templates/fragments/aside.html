@@ -67,8 +67,12 @@
         function toTable(list){
             let row = "";
             if(list.length > 0){
-                list.forEach(r => {
-                row += "<div class=\"aside-remark-table-row\" onclick='toRemarkDetail(this)' data-link='/remark/"+ r.remarkId + "'>";
+                list.forEach((r,index) => {
+                    if(index===list.length-1){
+                        row += "<div class=\"aside-remark-table-row last\" onclick='toRemarkDetail(this)' data-link='/remark/"+ r.remarkId + "'>";
+                    }else {
+                        row += "<div class=\"aside-remark-table-row\" onclick='toRemarkDetail(this)' data-link='/remark/"+ r.remarkId + "'>";
+                    }
                     row += "<div class=\"aside-remark-title-container\">";
                         row += "<div class=\"aside-remark-title-first-col-container\">";
                             row += "<span class=\"aside-remark-name\">" + r.name +"</span>";

@@ -9,5 +9,6 @@ import lombok.Setter;
 public class RemarkForPersonDetailSearchCondition {
 
     String sort;
+    Integer year;
 
 }

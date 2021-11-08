@@ -116,20 +116,56 @@
 /* 인물 정보 끝 */
 
 /* 발언 */
+
+.p-d-body-container{
+    margin-top: 2.125rem;
+}
+
 .p-d-body{
     padding: var(--bs-gutter-x,1.5rem);
-    margin-top: 2.125rem;
     margin-bottom: 2rem;
     background-color: #fff;
     border-radius: .75rem;
     box-shadow: 0 10px 20px 0 rgba(15, 40, 65, 0.1);
 }
 
+.p-d-year-container{
+    padding: 1rem 1.5rem .5rem 1.5rem;
+    background-color: #fff;
+    border-radius: .75rem;
+    box-shadow: 0 10px 20px 0 rgba(15, 40, 65, 0.1);
+    margin-bottom: .75rem;
+
+}
+
 @media (max-width: 575px) {
-    .p-d-body{
+    .p-d-year-container{
         margin-top: .5rem;
     }
 
+}
+
+
+.p-d-year{
+    color: #353e45;
+    display: inline-block;
+    padding: .25rem .85rem;
+    font-size: .875rem;
+    background-color: #eff3f8;
+    border-radius: 2rem;
+    margin-right: .5rem;
+    margin-bottom: .5rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.p-d-year:hover, .p-d-year.active{
+    background-color: #59a4d9;
+    color: #fff;
+    box-shadow: 0 2px 8px 0 rgba(15, 15, 65, 0.13);
+}
+
+.p-d-year.active{
+    pointer-events: none;
 }
 
 
@@ -221,6 +257,7 @@
 
 .p-d-r-source-btn{
     font-size: .9rem !important;
+    padding-right: .35rem;
 }
 
 @media (max-width: 990px) {
@@ -254,6 +291,11 @@
 
 .p-d-r-footer-cd-wrap{
     margin-left: .75rem;
+}
+
+.p-d-r-content-border{
+    color: #9aa7b1;
+    margin: 1.25rem 0;
 }
 
 .p-d-r-content-border-last-true{

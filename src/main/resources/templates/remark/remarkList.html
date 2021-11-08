@@ -71,9 +71,9 @@
                     </span>
 
 
-                        <span th:if="*{totalElements>0}" style="margin: 0 !important;"
+                        <span th:if="*{totalElements>0}" style="margin: 0 !important; padding: 0 .25rem;"
                               th:text="|*{page} / *{totalPages}|"></span>
-                        <span th:unless="*{totalElements>0}" style="margin: 0 !important;">1 / 1</span>
+                        <span th:unless="*{totalElements>0}" style="margin: 0 !important; padding: 0 .25rem;">1 / 1</span>
                         <a th:if="*{!last && totalElements!=0}" th:href="@{|${baseUrl}|(page=*{page}+1,
                 sort=${cond.sort} ? ${cond.sort} : 'cd_d', tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : 'all')}"
                            class="page-link d-inline">
@@ -116,15 +116,15 @@
                 <div class="r-l-n-search-nav-container row">
                     <div class="r-l-n-search-nav-first-col col-4">
                         <a class="r-l-n-search-nav" th:href="@{/remark(keyword=${cond.keyword},tab=1)}"
-                           th:classappend="${cond.tab} == 1 ? active"><span>&nbsp;내용 + 인물&nbsp;</span></a>
+                           th:classappend="${cond.tab == 1} ? active"><span>&nbsp;내용 + 인물&nbsp;</span></a>
                     </div>
                     <div class="r-l-n-search-nav-second-col col-4">
                         <a class="r-l-n-search-nav" th:href="@{/remark(keyword=${cond.keyword},tab=2)}"
-                           th:classappend="${cond.tab} == 2 ? active"><span>&nbsp;인물&nbsp;</span></a>
+                           th:classappend="${cond.tab == 2} ? active"><span>&nbsp;인물&nbsp;</span></a>
                     </div>
                     <div class="r-l-n-search-nav-last-col col-4">
                         <a class="r-l-n-search-nav" th:href="@{/remark(keyword=${cond.keyword},tab=3)}"
-                           th:classappend="${cond.tab} == 3 ? active"><span>&nbsp;해시태그&nbsp;</span></a>
+                           th:classappend="${cond.tab == 3} ? active"><span>&nbsp;해시태그&nbsp;</span></a>
                     </div>
                 </div>
             </div>

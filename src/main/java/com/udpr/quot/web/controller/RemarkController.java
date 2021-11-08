@@ -87,7 +87,7 @@ public class RemarkController {
                                  Model model, @LoginUser SessionUser user) {
         if(condition.getCategory() != null){
             model.addAttribute("category", condition.getCategory());
-        }else {
+        }else if(condition.getKeyword() == null){
             model.addAttribute("category", "all");
         }
 

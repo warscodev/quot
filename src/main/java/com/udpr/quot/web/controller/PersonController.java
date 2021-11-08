@@ -107,14 +107,12 @@ public class PersonController {
 
     //인물 디테일 폼
     @GetMapping("/person/{id}")
-    public String detail(@PathVariable Long id, Model model, @LoginUser SessionUser user, @ModelAttribute RemarkForPersonDetailSearchCondition condition){
+    public String detail(@PathVariable Long id, Model model, @LoginUser SessionUser user, @ModelAttribute("cond") RemarkForPersonDetailSearchCondition condition){
 
         if(user != null){
             model.addAttribute("user", user);
         }
 
-
-        model.addAttribute("cond", condition);
         model.addAttribute("info",personService.getDetail(condition,id));
 
         return "person/personDetail";

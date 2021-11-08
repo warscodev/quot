@@ -4,6 +4,7 @@ import com.udpr.quot.domain.person.Person;
 import com.udpr.quot.domain.person.PersonSearchCondition;
 import com.udpr.quot.domain.person.repository.PersonRepository;
 import com.udpr.quot.domain.person.search.RemarkForPersonDetailSearchCondition;
+import com.udpr.quot.domain.remark.repository.RemarkPersonPageQueryRepository;
 import com.udpr.quot.web.dto.person.*;
 import com.udpr.quot.web.dto.remark.RemarkForPersonDetailQueryDto;
 import com.udpr.quot.web.dto.search.SearchPersonResponseDto;
@@ -21,6 +22,7 @@ import java.util.List;
 public class PersonService {
 
     private final PersonRepository personRepository;
+    private final RemarkPersonPageQueryRepository personPageQueryRepository;
 
     //저장
     @Transactional
@@ -88,9 +90,18 @@ public class PersonService {
     public PersonDetailDto getDetail(RemarkForPersonDetailSearchCondition condition, Long id){
 
         PersonQueryDto getDetail = personRepository.getDetail(id);
-        List<RemarkForPersonDetailQueryDto> remarkList = personRepository.getRemarkListForPersonDetail(condition, id);
+        List<Integer> yearList = personPageQueryRepository.getYears(id);
 
-        return new PersonDetailDto(getDetail, remarkList);
+        if(yearList.size() ==0){
+            return new PersonDetailDto(getDetail);
+        }else {
+            if(condition.getYear() == null){
+                condition.setYear(yearList.get(0));
+            }
+            List<RemarkForPersonDetailQueryDto> remarkList = personPageQueryRepository.getRemarkListForPersonDetail(condition, id);
+            return new PersonDetailDto(getDetail, remarkList, yearList);
+        }
+
     }
 }
 
