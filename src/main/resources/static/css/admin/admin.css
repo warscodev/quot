@@ -257,6 +257,10 @@ a:hover {
     border-color: #439ff9 !important;
 }
 
+.main-header-profile{
+    padding: 0 .25rem;
+}
+
 .main-header-profile-link::after {
     color: #909bab;
 }
@@ -347,7 +351,7 @@ a:hover {
 
 .subNav-menu{
     list-style: none;
-    display: flex;
+    display: inline-flex;
     margin-bottom: 0;
     padding-left: 0;
 }
