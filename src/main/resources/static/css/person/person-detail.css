@@ -165,7 +165,7 @@
 }
 
 .p-d-year.active{
-    pointer-events: none;
+    /*pointer-events: none;*/
 }
 
 

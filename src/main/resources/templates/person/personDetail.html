@@ -71,13 +71,15 @@
             <div class="p-d-body-container">
 
                 <div th:if="*{yearList != null && yearList.size()>1}" class="p-d-year-container">
-                    <a th:if="${yStat.index==0}" class="p-d-year" th:each="y : *{yearList}" th:text="|${y}|"
+                    <a th:if="${yStat.index==0}" class="p-d-year tt" th:each="y : *{yearList}" th:text="|${y}|"
                        th:href="@{/person/{id}(id=${info.person.personId})}"
-                       th:classappend="${cond.year==y} ? active">
+                       th:classappend="${cond.year==y} ? active"
+                        th:title="|${y}년 발언|" data-bs-trigger="hover" data-bs-placement="bottom">
                     </a>
-                    <a th:unless="${yStat.index==0}"class="p-d-year" th:each="y : *{yearList}" th:text="|${y}|"
+                    <a th:unless="${yStat.index==0}"class="p-d-year tt" th:each="y : *{yearList}" th:text="|${y}|"
                        th:href="@{/person/{id}(id=${info.person.personId},year=${y})}"
-                       th:classappend="${cond.year==y} ? active">
+                       th:classappend="${cond.year==y} ? active"
+                       th:title="|${y}년 발언|" data-bs-trigger="hover" data-bs-placement="bottom">
                     </a>
                 </div>
 
