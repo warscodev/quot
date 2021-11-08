@@ -307,11 +307,16 @@ a:hover {
 /*--- 헤더 끝---*/
 
 /*--- 서브바 시작 ---*/
+.subNavbar{
+    position: relative;
+    background-color: #fff;
+    box-shadow: 1rem .1rem .1rem rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(0, 0, 0, 0.15);
+}
 
 .subNav-menu-wrap{
+    overflow-x: auto;
     -ms-overflow-style: none;
     width: 100% !important;
-    overflow-x: auto;
     white-space: nowrap;
 }
 
@@ -321,11 +326,6 @@ a:hover {
 }
 
 
-.subNavbar{
-    position: relative;
-    background-color: #fff;
-    box-shadow: 1rem .1rem .1rem rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(0, 0, 0, 0.15);
-}
 
 
 

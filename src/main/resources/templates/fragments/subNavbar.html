@@ -65,41 +65,39 @@
     <script>
 
         $(document).ready(function () {
-            var $scrItem = $('.subNav-menu-items');
-            var scrIWidth = 0;
-            for (var i = 0; i < $scrItem.length; i++) {
+            let $scrItem = $('.subNav-menu-items');
+            let scrIWidth = 0;
+            for (let i = 0; i < $scrItem.length; i++) {
                 scrIWidth += $scrItem.eq(i).outerWidth();
             }
-            $('.subNav-menu-wrap').css('width', scrIWidth)
-            muCenter();
+            alignCenter();
 
-            function muCenter() {
-                var target = $(".subNav-menu-items.active")
-                var box = $('.subNav-menu-wrap');
-                var boxItem = box.find('.subNav-menu-items');
-                var boxHarf = box.width() / 2;
-                var pos;
-                var listWidth = 0;
-                var targetLeft = 0;
+            function alignCenter() {
+                let target = $(".subNav-menu-items.active")
+                let box = $('.subNav-menu-wrap');
+                let boxItem = box.find('.subNav-menu-items');
+                let boxHalf = box.width() / 2;
+                let pos;
+                let listWidth = 0;
+                let targetLeft = 0;
 
                 boxItem.each(function () {
                     listWidth += $(this).outerWidth();
                 })
 
-                for (var i = 0; i < target.index(); i++) targetLeft += boxItem.eq(i).outerWidth(); // 선택요소 까지 길이
+                for (let i = 0; i < target.index(); i++) targetLeft += boxItem.eq(i).outerWidth();
 
-                var selectTargetPos = (targetLeft + target.outerWidth() / 2);
-                if (selectTargetPos <= boxHarf) { // left
+                let selectTargetPos = (targetLeft + target.outerWidth() / 2);
+                if (selectTargetPos <= boxHalf) { // left
                     pos = 0;
-                } else if (listWidth - selectTargetPos <= boxHarf) { //right : target 절반 이후 영역이 boxHarf 보다 작을경우 right 정렬
-                    pos = listWidth - box.width();
+                } else if (listWidth - selectTargetPos <= boxHalf) { //right
+                    pos = box.width();
                 } else {
-                    pos = selectTargetPos - boxHarf; // 중앙정렬
+                    pos = selectTargetPos - boxHalf; // 중앙
                 }
 
-                setTimeout(function () {
-                    box.animate({scrollLeft: pos}, 200)
-                }, 100);
+                box.animate({scrollLeft: pos}, 200)
+
             }
         });
 
