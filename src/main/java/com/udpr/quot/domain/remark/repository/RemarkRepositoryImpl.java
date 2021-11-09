@@ -413,10 +413,10 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
     }
 
     private BooleanExpression categoryEq(String category) {
-        if(("hot").equals(category)){
+        if(("인기").equals(category)){
             return remark.likeCount.add(remark.dislikeCount).goe(2);
         }else {
-            return isEmpty(category) || ("all").equals(category) ? null : remark.person.category.eq(category);
+            return isEmpty(category) || ("홈").equals(category) ? null : remark.person.category.eq(category);
         }
     }
 
@@ -491,7 +491,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                 break;
         }
 
-        if("hot".equals(category)){
+        if("인기".equals(category)){
             orders.add(remark.likeCount.add(remark.dislikeCount).desc());
             orders.add(remark.commentCount.desc());
         }

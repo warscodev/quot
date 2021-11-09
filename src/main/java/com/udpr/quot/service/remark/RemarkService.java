@@ -116,7 +116,7 @@ public class RemarkService {
         Page<SearchPersonResponseDto> personPage = new PageImpl<>(personContent, personPageable, total_);
 
         if (keyword == null || keyword.isBlank()) {
-            if("bookmark".equals(condition.getCategory())){
+            if("즐겨찾기".equals(condition.getCategory())){
                 remarkPage = remarkRepository.getBookmarkList(condition, remarkPageable);
             }else{
                 remarkPage = remarkRepository.searchAll(condition, remarkPageable);

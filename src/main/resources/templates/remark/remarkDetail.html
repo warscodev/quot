@@ -2,8 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-<head th:replace="fragments/header :: header(title=|${remark.name} : ${remark.tags}|)">
-
+<head th:replace="fragments/header :: header(title=|${remark.name}의 발언 : ${remark.content}|, content=|${remark.name}의 발언 : ${remark.content}|)">
 <body>
 <div th:replace="fragments/topHeader :: topHeader"></div>
 <div th:replace="fragments/subNavbar :: subNavbar"></div>
@@ -12,19 +11,6 @@
     <div class="row">
         <div class="col-lg-8">
             <div class="remark-page-wrap">
-                <div class="d-flex justify-content-end">
-                    <div sec:authorize="hasRole('ADMIN')"
-                         class="remark-delete-and-update-btn-wrap d-flex align-items-center">
-                        <!-- 수정 버튼 -->
-                        <a class="btn btn-outline-secondary btn-sm me-2"
-                           th:href="@{/remark/{remarkId}/update(remarkId=*{remarkId})}">수정</a>
-                        <!-- 삭제 버튼 -->
-                        <button class="btn btn-outline-danger btn-sm btn-delete me-2"
-                                th:onclick="|deleteRemark(*{remarkId})|">삭제
-                        </button>
-                    </div>
-                    <a class="btn btn-outline-secondary btn-sm me-2" href="javascript:history.back();">이전</a>
-                </div>
 
                 <div id="r-l-table-container" class="r-d-table-container">
                     <div id="r-l-table">
@@ -159,7 +145,7 @@
                                     <a th:if="*{isBookmarked > 0}"
                                        class="r-l-t-last-row-btn r-l-t-last-row-bookmark-btn btn bookmark-active"
                                        th:onclick="|saveOrDeleteBookmark(this, *{remarkId})|" href="javascript:;">
-                                        <div class="r-l-t-last-row-btn-icon-wrap bookmark-icon-wrap tt" title="북마크 취소"
+                                        <div class="r-l-t-last-row-btn-icon-wrap bookmark-icon-wrap tt" title="즐겨찾기 취소"
                                              data-bs-trigger="hover" data-bs-placement="bottom">
                                             <i class="r-l-t-last-row-btn-icon r-l-t-last-row-bookmark-icon bi bi-bookmark-star-fill"
                                                style="line-height: 0"></i>
@@ -168,7 +154,7 @@
                                     <a th:unless="*{isBookmarked > 0}"
                                        class="r-l-t-last-row-btn r-l-t-last-row-bookmark-btn btn"
                                        th:onclick="|saveOrDeleteBookmark(this, *{remarkId})|" href="javascript:;">
-                                        <div class="r-l-t-last-row-btn-icon-wrap bookmark-icon-wrap tt" title="북마크"
+                                        <div class="r-l-t-last-row-btn-icon-wrap bookmark-icon-wrap tt" title="즐겨찾기"
                                              data-bs-trigger="hover" data-bs-placement="bottom">
                                             <i class="r-l-t-last-row-btn-icon r-l-t-last-row-bookmark-icon bi bi-bookmark-star-fill"
                                                style="line-height: 0"></i>
@@ -239,6 +225,19 @@
                     </div>
                 </div>
 
+                <div class="d-flex justify-content-end">
+                    <div sec:authorize="hasRole('ADMIN')"
+                         class="remark-delete-and-update-btn-wrap d-flex align-items-center">
+                        <!-- 수정 버튼 -->
+                        <a class="btn btn-outline-secondary btn-sm me-2"
+                           th:href="@{/remark/{remarkId}/update(remarkId=*{remarkId})}">수정</a>
+                        <!-- 삭제 버튼 -->
+                        <button class="btn btn-outline-danger btn-sm btn-delete me-2"
+                                th:onclick="|deleteRemark(*{remarkId})|">삭제
+                        </button>
+                    </div>
+                    <a class="btn btn-outline-secondary btn-sm" href="javascript:history.back();">이전</a>
+                </div>
 
             </div>
         </div>

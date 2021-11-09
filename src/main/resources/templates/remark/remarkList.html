@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-<head th:replace="fragments/header :: header(title='홈', keyword=${keyword})">
+<head th:replace="fragments/header :: header(title='홈', keyword=${keyword}, category=${category}, content='다양한 인물들의 발언을 검색해보세요.')">
 <body>
 <div th:replace="fragments/topHeader :: topHeader"></div>
 <div th:replace="fragments/subNavbar :: subNavbar"></div>
@@ -269,7 +269,7 @@
                             <a th:if="${r.isBookmarked > 0}"
                                class="r-l-t-last-row-btn r-l-t-last-row-bookmark-btn btn bookmark-active"
                                th:onclick="|saveOrDeleteBookmark(this,${r.remarkId})|" href="javascript:;">
-                                <div class="r-l-t-last-row-btn-icon-wrap bookmark-icon-wrap tt" title="북마크 취소"
+                                <div class="r-l-t-last-row-btn-icon-wrap bookmark-icon-wrap tt" title="즐겨찾기 취소"
                                      data-bs-trigger="hover" data-bs-placement="bottom">
                                     <i class="r-l-t-last-row-btn-icon r-l-t-last-row-bookmark-icon bi bi-bookmark-star-fill"
                                        style="line-height: 0"></i>
@@ -278,7 +278,7 @@
                             <a th:unless="${r.isBookmarked > 0}"
                                class="r-l-t-last-row-btn r-l-t-last-row-bookmark-btn btn"
                                th:onclick="|saveOrDeleteBookmark(this,${r.remarkId})|" href="javascript:;">
-                                <div class="r-l-t-last-row-btn-icon-wrap bookmark-icon-wrap tt" title="북마크"
+                                <div class="r-l-t-last-row-btn-icon-wrap bookmark-icon-wrap tt" title="즐겨찾기"
                                      data-bs-trigger="hover" data-bs-placement="bottom">
                                     <i class="r-l-t-last-row-btn-icon r-l-t-last-row-bookmark-icon bi bi-bookmark-star-fill"
                                        style="line-height: 0"></i>

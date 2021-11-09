@@ -158,9 +158,9 @@ function toggleBookmarkIcon(e){
     const tooltip = bootstrap.Tooltip.getInstance(child) // Returns a Bootstrap tooltip instance
 
     if(e.classList.contains("bookmark-active")) {
-        child.setAttribute("data-bs-original-title", "북마크")
+        child.setAttribute("data-bs-original-title", "즐겨찾기")
     }else {
-        child.setAttribute("data-bs-original-title", "북마크 취소")
+        child.setAttribute("data-bs-original-title", "즐겨찾기 취소")
     }
     tooltip.show();
 
@@ -252,14 +252,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     highlightKeyword();
 
-    const quoteIcon = "<i class='r-l-t-quote-icon fas fa-quote-right' style='margin-right: .75rem'></i>";
+    const quoteIcon = "<i class='r-l-t-quote-icon fas fa-quote-right'></i>";
 
     const contents = document.querySelectorAll(".r-l-t-content");
 
     contents.forEach(c => {
-        const sourceIcon = "<a class='tt r-l-t-source-btn' data-bs-html='true' data-bs-placement='right' data-bs-trigger='click' " +
+        const sourceIcon = "<button class='tt r-l-t-source-btn' data-bs-html='true' data-bs-placement='bottom' data-bs-trigger='focus' " +
             "title='<a class=\"r-l-t-source-link\" href=\""+c.dataset.source+"\" target=\"_blank\" rel=\"noopener noreferer nofollow\">"+c.dataset.source+"</a>'</a>"+
-            "<i class='r-l-t-source-btn-icon fas fa-link'></i>출처</a>";
+            "<i class='r-l-t-source-btn-icon fas fa-link'></i>출처</button>";
 
         $(c).append(quoteIcon)
         $(c).append(sourceIcon)

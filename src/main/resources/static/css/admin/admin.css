@@ -553,7 +553,7 @@ a:hover {
     font-size: 1.25rem;
     font-weight: 600;
     margin-bottom: .75rem;
-    margin-top: 2.125rem;
+    margin-top: 1.5rem;
     padding-left: .5rem;
 }
 
@@ -768,7 +768,7 @@ a:hover {
 }
 
 .r-d-table-container {
-    margin-top: 1rem;
+    margin-top: 1.5rem;
 }
 
 .r-l-t-row-container {
@@ -778,7 +778,7 @@ a:hover {
     background-color: #fff;
     background-clip: border-box;
     border-radius: 1rem;
-    margin: 0 0 2rem 0;
+    margin: 0 0 1.75rem 0;
     box-shadow: 0 10px 20px 0 rgba(15, 40, 65, 0.1);
 }
 
@@ -800,6 +800,7 @@ a:hover {
 
 .r-d-t-row-container {
     padding: 1.25rem;
+    margin-bottom: 1rem;
 }
 
 /*#remark-row-1, .remark-empty {
@@ -1087,11 +1088,17 @@ a:hover {
     cursor: pointer;
     position: relative;
     z-index: 10;
+    border: 0;
+    background-color: transparent;
 }
 
 .r-l-t-source-btn:hover {
     color: #81b381 !important;
     text-decoration: underline;
+}
+
+.r-l-t-source-btn:focus{
+
 }
 
 .r-l-t-source-btn-icon {
@@ -1103,6 +1110,10 @@ a:hover {
 .r-l-t-source-link {
     font-size: .873rem !important;
     color: #fff !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
 }
 
 .r-l-t-source-link:hover {
@@ -1320,7 +1331,9 @@ a:hover {
 /* 코멘트 */
 
 .r-l-t-border-bottom {
-    color: #9aa7b1;
+    color: transparent;
+    height: 0 !important;
+    border: 1px dashed #bcc7cf;
 }
 
 .r-c-table-container {
@@ -1932,7 +1945,7 @@ a:hover {
     background-color: #fff;
     background-clip: border-box;
     border-radius: 1rem;
-    margin: 2.125rem 0 8.6rem 0;
+    margin: 1.5rem 0 8.6rem 0;
     box-shadow: 0 10px 20px 0 rgba(15, 40, 65, .1);
     z-index: auto;
 }
@@ -1956,7 +1969,7 @@ a:hover {
     font-size: 1.25rem;
     font-weight: 600;
     line-height: normal;
-    padding: 1rem 1.25rem .75rem 1.25rem;
+    padding: 1rem 1.25rem .55rem 1.25rem;
 }
 
 .aside-title i {
@@ -1976,12 +1989,13 @@ a:hover {
 .aside-remark-category-nav-items {
     font-size: .938rem;
     text-align: center;
-    padding: .25rem .5rem .75rem .75rem;
+    padding: .25rem .5rem .5rem .75rem;
     cursor: pointer;
 }
 
 .aside-remark-category-nav-items span {
-    padding-bottom: .75rem;
+    font-size: .875rem;
+    padding-bottom: .55rem;
     border-color: transparent !important;
     font-weight: 400;
     transition: color .2s ease-in-out, border-color .2s ease-in-out;
@@ -2014,6 +2028,7 @@ a:hover {
 .aside-remark-table-row.last{
     border-bottom-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
+    padding-bottom: 1rem !important;
 }
 
 .aside-remark-table-row:hover {
@@ -2023,16 +2038,18 @@ a:hover {
 .aside-remark-title-container {
     display: flex;
     justify-content: space-between;
-    margin-bottom: .25rem;
+    align-items: center;
+    margin-bottom: .15rem;
 }
 
 .aside-remark-name {
+    font-size: .938rem;
     font-weight: 600;
     margin-right: .25rem;
 }
 
 .aside-remark-job {
-    font-size: .815rem;
+    font-size: .75rem;
     color: #7f8a99;
 }
 
@@ -2061,6 +2078,7 @@ a:hover {
 
 
 .aside-remark-content {
+    font-size: .875rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

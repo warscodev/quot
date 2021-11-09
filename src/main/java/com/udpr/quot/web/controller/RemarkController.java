@@ -88,7 +88,7 @@ public class RemarkController {
         if(condition.getCategory() != null){
             model.addAttribute("category", condition.getCategory());
         }else if(condition.getKeyword() == null){
-            model.addAttribute("category", "all");
+            model.addAttribute("category", "홈");
         }
 
         if(condition.getKeyword() != null){
@@ -115,7 +115,7 @@ public class RemarkController {
         if(user != null){
             model.addAttribute("user", user);
             condition.setSid(user.getId());
-            condition.setCategory("bookmark");
+            condition.setCategory("즐겨찾기");
             model.addAttribute("category", condition.getCategory());
             model.addAttribute("dto",remarkService.searchRemark(condition));
         }

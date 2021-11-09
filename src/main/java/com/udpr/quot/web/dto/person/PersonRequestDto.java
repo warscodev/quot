@@ -18,7 +18,7 @@ public class PersonRequestDto {
     private Long id;
 
     @NotBlank(message = "✋ 이름은 필수입력 사항입니다.")
-    @Pattern(regexp = "^[0-9]*[a-zA-Z가-힣]+[0-9:.\\-$-()&a-zA-Z가-힣]*(?<![-(.])$", message = "✋ 사용할 수 없는 문자가 포함되었습니다.")
+    @Pattern(regexp = "^[0-9]*[a-zA-Z가-힣]+[\\s0-9:.\\-$-()&a-zA-Z가-힣]*(?<![-(.\\s])$", message = "✋ 사용할 수 없는 문자가 포함되었습니다.")
     private String name;
 
     @Pattern(regexp = "^(?<![(,])[0-9]*[a-zA-Z가-힣]*[,\\s0-9:$-()&a-zA-Z가-힣]*(?<![(,\\s])$",

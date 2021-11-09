@@ -145,9 +145,9 @@
     const contents = document.querySelectorAll(".p-d-r-content");
 
     contents.forEach(c => {
-        const sourceIcon = "<a class='tt r-l-t-source-btn p-d-r-source-btn' data-bs-html='true' data-bs-placement='right' data-bs-trigger='click' " +
+        const sourceIcon = "<button class='tt r-l-t-source-btn p-d-r-source-btn' data-bs-html='true' data-bs-placement='bottom' data-bs-trigger='focus' " +
             "title='<a class=\"r-l-t-source-link\" href=\"" + c.dataset.source + "\" target=\"_blank\" rel=\"noopener noreferer nofollow\">" + c.dataset.source + "</a>'</a>" +
-            "<i class='r-l-t-source-btn-icon fas fa-link'></i>출처</a>";
+            "<i class='r-l-t-source-btn-icon fas fa-link'></i>출처</button>";
 
         $(c).append(sourceIcon)
     });

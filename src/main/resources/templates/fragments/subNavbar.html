@@ -5,15 +5,15 @@
     <div class="subNav-menu-wrap container-xl">
         <ul class="subNav-menu">
             <li class="subNav-menu-items main-menu"
-                th:classappend="${#strings.equals(category, 'all')} ? active">
+                th:classappend="${#strings.equals(category, '홈')} ? active">
                 <a href="/remark">
                     <span>종합</span>
                 </a>
             </li>
             <li id="subNavHot" class="subNav-menu-items main-menu hot"
-                th:classappend="${#strings.equals(category, 'hot')} ? active">
+                th:classappend="${#strings.equals(category, '인기')} ? active">
 
-                <a href="/remark?category=hot">
+                <a href="/remark?category=인기">
                     <span>
                         <i class="fab fa-hotjar"></i>
                         인기
@@ -21,11 +21,11 @@
                 </a>
             </li>
             <li sec:authorize="isAuthenticated()" class="subNav-menu-items main-menu"
-                th:classappend="${#strings.equals(category, 'bookmark')} ? active">
+                th:classappend="${#strings.equals(category, '즐겨찾기')} ? active">
                 <a href="/remark/bookmark">
                     <span>
                         <i class="subNav-menu-bookmark bi bi-bookmark-star-fill" style="line-height: 0"></i>
-                        북마크
+                        즐겨찾기
                     </span>
                 </a>
             </li>

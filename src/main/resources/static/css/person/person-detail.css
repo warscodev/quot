@@ -118,7 +118,7 @@
 /* 발언 */
 
 .p-d-body-container{
-    margin-top: 2.125rem;
+    margin-top: 1.5rem;
 }
 
 .p-d-body{
@@ -173,12 +173,33 @@
     line-height: initial;
 }
 
+.p-d-r-date-wrap{
+    display: flex;
+    align-items: center;
+/*    position: relative;
+    border-bottom-right-radius: .35rem;
+    border-top-right-radius: .35rem;
+    background-color: #f4f5f9;
+    padding: .125rem 1rem .125rem 1.75rem;
+    z-index: 2;
+    margin-left: -1.5rem;*/
+}
+/*
 .p-d-r-date{
     font-family: Noto Sans KR;
     font-size: .875rem;
     font-weight: 600;
     color: #7f8a99;
 }
+*/
+
+.p-d-r-date{
+    font-family: Noto Sans KR;
+    font-size: .875rem;
+    font-weight: 600;
+    color: #777f8d;
+}
+
 
 .p-d-r-first-row-divider{
     margin:0 .25rem;
@@ -189,7 +210,9 @@
 }
 
 .p-d-r-icons-container{
+    padding-left: 1.35rem;
     display: flex;
+    justify-content: space-between;
     align-items: center;
     cursor: default;
     color: #919191;
@@ -201,6 +224,7 @@
 .p-d-r-icons-container > a{
     color: #7f8a99;
 }
+
 
 .p-d-r-icons-like, .p-d-r-icons-dislike, .p-d-r-icons-comments {
     display: flex;
@@ -219,18 +243,27 @@
 }
 
 .p-d-r-icons-info{
-    display: inline-flex;
-    color: #3f546f;
+    color: #4f5357;
+    line-height: .813rem;
 }
 
 .p-d-r-tags-wrap{
     margin-top: .25rem;
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    width: 100% !important;
+    white-space: nowrap;
 }
+
+.p-d-r-tags-wrap::-webkit-scrollbar {
+    height: 0;
+    padding-bottom: 0;
+}
+
 
 .p-d-r-tags {
     font-size: .75rem;
     display: inline-block;
-    margin-bottom: .3rem;
     margin-right: .3rem;
     padding: .3rem .6rem;
     line-height: 1;
@@ -246,6 +279,9 @@
 .p-d-r-tags:hover{
     color: #3b8bff !important;
     background-color: #ecf6ff !important;
+}
+.p-d-r-content-wrap{
+    padding: .35rem 0 .25rem 0;
 }
 
 .p-d-r-content-quotation{
@@ -295,7 +331,7 @@
 
 .p-d-r-content-border{
     color: #9aa7b1;
-    margin: 1.25rem 0;
+    margin: 1rem 0;
 }
 
 .p-d-r-content-border-last-true{
@@ -303,7 +339,9 @@
 }
 
 .p-d-r-content-border-last-false{
-    color: #9aa7b1;
-    margin: 1.25rem 0;
+    color: transparent;
+    margin: 1rem 0;
+    height: 0 !important;
+    border: 1px dashed #bcc7cf;
 }
 
