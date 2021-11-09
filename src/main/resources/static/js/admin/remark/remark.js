@@ -257,7 +257,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const contents = document.querySelectorAll(".r-l-t-content");
 
     contents.forEach(c => {
-        const sourceIcon = "<button class='tt r-l-t-source-btn' data-bs-html='true' data-bs-placement='bottom' data-bs-trigger='focus' " +
+        const sourceIcon = "<button class='tt r-l-t-source-btn' data-bs-html='true' data-bs-placement='bottom' data-bs-trigger='click' " +
             "title='<a class=\"r-l-t-source-link\" href=\""+c.dataset.source+"\" target=\"_blank\" rel=\"noopener noreferer nofollow\">"+c.dataset.source+"</a>'</a>"+
             "<i class='r-l-t-source-btn-icon fas fa-link'></i>출처</button>";
 
