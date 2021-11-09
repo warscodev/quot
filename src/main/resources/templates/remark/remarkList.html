@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-<head th:replace="fragments/header :: header(title='홈', keyword=${keyword}, category=${category}, content='다양한 인물들의 발언을 검색해보세요.')">
+<head th:replace="fragments/header :: header(title='종합', keyword=${keyword}, category=${category}, content='다양한 인물들의 발언을 검색해보세요.')">
 <body>
 <div th:replace="fragments/topHeader :: topHeader"></div>
 <div th:replace="fragments/subNavbar :: subNavbar"></div>
@@ -61,7 +61,7 @@
                 <div class="r-l-sub-pagination-container remark-page-count d-flex align-items-baseline page-item">
                     <th:block th:with="baseUrl=(${keyword}? |/remark?keyword=${keyword}| : '/remark')">
                         <a th:if="*{!first && totalElements!=0}" th:href="@{|${baseUrl}|(page=*{page}-1,
-                sort=${cond.sort} ? ${cond.sort} : 'cd_d', tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : 'all')}"
+                sort=${cond.sort} ? ${cond.sort} : 'cd_d', tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : '종합')}"
                            class="page-link d-inline">
                             <i class="fas fa-chevron-left"></i>
                         </a>
@@ -75,7 +75,7 @@
                               th:text="|*{page} / *{totalPages}|"></span>
                         <span th:unless="*{totalElements>0}" style="margin: 0 !important; padding: 0 .25rem;">1 / 1</span>
                         <a th:if="*{!last && totalElements!=0}" th:href="@{|${baseUrl}|(page=*{page}+1,
-                sort=${cond.sort} ? ${cond.sort} : 'cd_d', tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : 'all')}"
+                sort=${cond.sort} ? ${cond.sort} : 'cd_d', tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : '종합')}"
                            class="page-link d-inline">
                             <i class="fas fa-chevron-right"></i>
                         </a>
@@ -314,7 +314,7 @@
 
                     <li th:if="*{not first and totalElements != 0}" class="page-item page-chevron-left">
                         <a class="page-link" th:href="@{|${baseUrl}|(page=*{page}-1,
-                    sort=${cond.sort} ? ${cond.sort} : 'cd_d', tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : 'all') }">
+                    sort=${cond.sort} ? ${cond.sort} : 'cd_d', tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : '종합') }">
                             <span><i class="fas fa-chevron-left"></i></span>
                         </a>
                     </li>
@@ -326,7 +326,7 @@
 
                     <th:block th:if="*{startBlock>1}">
                         <li class="page-item"><a class="page-link" th:href="@{|${baseUrl}|(page=1,
-                    sort=${cond.sort} ? ${cond.sort} : 'cd_d', tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : 'all')}">1</a></li>
+                    sort=${cond.sort} ? ${cond.sort} : 'cd_d', tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : '종합')}">1</a></li>
                         <li class="page-item disabled"><span class="page-link">...</span></li>
                     </th:block>
 
@@ -337,7 +337,7 @@
                             </li>
                             <li th:unless="${pages} eq *{page}" class="page-item">
                                 <a class="page-link" th:href="@{|${baseUrl}|(page=${pages},
-                            sort=${cond.sort} ? ${cond.sort} : 'cd_d', tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : 'all')}"
+                            sort=${cond.sort} ? ${cond.sort} : 'cd_d', tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : '종합')}"
                                    th:text="${pages}"></a>
                             </li>
                         </th:block>
@@ -347,14 +347,14 @@
                         <li class="page-item disabled"><span class="page-link">...</span></li>
                         <li class="page-item">
                             <a class="page-link" th:href="@{|${baseUrl}|(page=*{totalPages}, sort=${cond.sort} ? ${cond.sort} : 'cd_d',
-                        tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : 'all')}" th:text="*{totalPages}">
+                        tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : '종합')}" th:text="*{totalPages}">
                             </a></li>
                     </th:block>
 
 
                     <li th:if="*{not last and totalElements != 0}" class="page-item page-chevron-right">
                         <a class="page-link page-chevron-right" th:href="@{|${baseUrl}|(page=*{page}+1, sort=${cond.sort} ? ${cond.sort} : 'cd_d',
-                    tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : 'all')}">
+                    tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : '종합')}">
                             <span><i class="fas fa-chevron-right"></i></span>
                         </a>
                     </li>
@@ -376,7 +376,7 @@
 
                     <li th:if="*{not first and totalElements != 0}" class="page-item page-chevron-left">
                         <a class="page-link" th:href="@{|${baseUrl}|(page=*{page}-1, sort=${cond.sort} ? ${cond.sort} : 'cd_d',
-                    tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : 'all')}">
+                    tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : '종합')}">
                             <span><i class="fas fa-chevron-left"></i></span>
                         </a>
                     </li>
@@ -388,7 +388,7 @@
 
                     <th:block th:if="*{startBlock_sm>1}">
                         <li class="page-item"><a class="page-link" th:href="@{|${baseUrl}|(page=1, sort=${cond.sort} ? ${cond.sort} : 'cd_d',
-                    tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : 'all')}">1</a></li>
+                    tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : '종합')}">1</a></li>
                         <li class="page-item disabled"><span class="page-link">...</span></li>
                     </th:block>
 
@@ -400,7 +400,7 @@
                             </li>
                             <li th:unless="${pages} eq *{page}" class="page-item">
                                 <a class="page-link" th:href="@{|${baseUrl}|(page=${pages}, sort=${cond.sort} ? ${cond.sort} : 'cd_d',
-                            tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : 'all')}" th:text="${pages}">
+                            tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : '종합')}" th:text="${pages}">
                                 </a>
                             </li>
                         </th:block>
@@ -411,7 +411,7 @@
                         <li class="page-item disabled"><span class="page-link">...</span></li>
                         <li class="page-item">
                             <a class="page-link" th:href="@{|${baseUrl}|(page=*{totalPages}, sort=${cond.sort} ? ${cond.sort} : 'cd_d',
-                    tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : 'all')}" th:text="*{totalPages}">
+                    tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : '종합')}" th:text="*{totalPages}">
                             </a>
                         </li>
                     </th:block>
@@ -419,7 +419,7 @@
 
                     <li th:if="*{not last and totalElements != 0}" class="page-item page-chevron-right">
                         <a class="page-link" th:href="@{|${baseUrl}|(page=*{page}+1, sort=${cond.sort} ? ${cond.sort} : 'cd_d',
-                     tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : 'all')}">
+                     tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : '종합')}">
                             <span><i class="fas fa-chevron-right"></i></span>
                         </a>
                     </li>

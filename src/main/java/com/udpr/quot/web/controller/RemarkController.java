@@ -88,7 +88,7 @@ public class RemarkController {
         if(condition.getCategory() != null){
             model.addAttribute("category", condition.getCategory());
         }else if(condition.getKeyword() == null){
-            model.addAttribute("category", "홈");
+            model.addAttribute("category", "종합");
         }
 
         if(condition.getKeyword() != null){
