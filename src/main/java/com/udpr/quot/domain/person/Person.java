@@ -39,13 +39,11 @@ public class Person extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private Status status; //CREATED, DELETED, UPDATED
 
-
     private String category;
 
     @JsonManagedReference(value = "person")
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Remark> remarkList = new ArrayList<>();
-
+    private final List<Remark> remarkList = new ArrayList<>();
 
     @Builder
     public Person(String name, String alias, Birth birth, String job,

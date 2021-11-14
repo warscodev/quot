@@ -39,19 +39,17 @@ public class User extends BaseTimeEntity {
     private Role role;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Remark> remarkList = new ArrayList<>();
+    private final List<Remark> remarkList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<RemarkLike> remarkLikeList = new ArrayList<>();
+    private final List<RemarkLike> remarkLikeList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Bookmark> bookmarkList = new ArrayList<>();
+    private final List<Bookmark> bookmarkList = new ArrayList<>();
 
     @Builder
     public User(String email, Role role, String nickname) {
-        /*this.name = name;*/
         this.email = email;
-        /*this.picture = picture;*/
         this.nickname = nickname;
         this.role = role;
     }
@@ -62,9 +60,8 @@ public class User extends BaseTimeEntity {
         return this;
     }*/
 
-    public User editNickname(String nickname){
+    public void editNickname(String nickname){
         this.nickname = nickname;
-        return this;
     }
 
     public String getRoleKey(){

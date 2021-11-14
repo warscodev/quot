@@ -7,14 +7,14 @@ import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.StringTemplate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.udpr.quot.domain.person.PersonSearchCondition;
 import com.udpr.quot.domain.common.Status;
+import com.udpr.quot.domain.person.PersonSearchCondition;
 import com.udpr.quot.domain.person.search.RemarkForPersonDetailSearchCondition;
-import com.udpr.quot.domain.remark.comment.QComment;
 import com.udpr.quot.web.dto.person.*;
 import com.udpr.quot.web.dto.remark.QRemarkForPersonDetailQueryDto;
 import com.udpr.quot.web.dto.remark.RemarkForPersonDetailQueryDto;
-import com.udpr.quot.web.dto.remark.query.*;
+import com.udpr.quot.web.dto.remark.query.QRemarkTagQueryDto;
+import com.udpr.quot.web.dto.remark.query.RemarkTagQueryDto;
 import com.udpr.quot.web.dto.search.QSearchPersonResponseDto;
 import com.udpr.quot.web.dto.search.SearchPersonResponseDto;
 import org.springframework.data.domain.Page;
@@ -65,35 +65,6 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
                 .orderBy(person.name.asc())
                 .fetch();
     }
-
-    /*@Override
-    public List<SearchPersonResponseDto> findByPersonName(String keyword){
-        return queryFactory
-                .select(new QSearchPersonResponseDto(
-                        person.id,
-                        person.name,
-                        person.job,
-                        person.category
-                ))
-                .from(person)
-                .where(person.name.equalsIgnoreCase(keyword)
-                        .or(person.name.likeIgnoreCase(keyword + "%"))
-                        .or(person.name.likeIgnoreCase("%" + keyword + "%"))
-                        .or(removeCommaOnPersonAlias().likeIgnoreCase(keyword + "%"))
-                        .or(removeCommaOnPersonAlias().likeIgnoreCase("%" + keyword + "%")))
-                .orderBy(new CaseBuilder()
-                        .when(person.name.equalsIgnoreCase(keyword))
-                        .then(1)
-                        .when(person.name.likeIgnoreCase(keyword + "%"))
-                        .then(2)
-                        .when(person.name.likeIgnoreCase("%" + keyword + "%"))
-                        .then(3)
-                        .when(removeCommaOnPersonAlias().likeIgnoreCase(keyword + "%"))
-                        .then(4)
-                        .otherwise(5).asc())
-                .limit(10)
-                .fetch();
-    }*/
 
     @Override
     public Page<SearchPersonResponseDto> findByPersonName(String keyword, Pageable pageable){
@@ -160,15 +131,12 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
 
     @Override
     public List<PersonAutoCompleteDto> personAutoCompleteForMainSearch(String keyword){
-
         int limit;
-
         if(keyword.length()>1){
             limit=15;
         }else{
             limit=10;
         }
-
         return queryFactory
                 .select(new QPersonAutoCompleteDto(
                         person.id,
@@ -188,8 +156,6 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
                 .limit(limit)
                 .fetch();
     }
-
-
 
     @Override
     public PersonQueryDto getDetail(Long id){
@@ -249,11 +215,6 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
             results.forEach(r -> r.setRemarkTagList(tagMap.get(r.getRemarkId())));
     }
 
-
-
-
-
-
     private Predicate nameLike(String name) {
         if (name != null && name.length() > 0)
             return person.name.likeIgnoreCase("%" + name + "%").or(person.alias.likeIgnoreCase("%" + name + "%"));
@@ -297,12 +258,10 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
         orders.add(remark.remarkDate.desc());
 
         return orders;
-
     }
 
     public StringTemplate removeCommaOnPersonAlias() {
-        StringTemplate st = Expressions.stringTemplate("replace({0},',','')", person.alias);
-        return st;
+        return Expressions.stringTemplate("replace({0},',','')", person.alias);
     }
 
 

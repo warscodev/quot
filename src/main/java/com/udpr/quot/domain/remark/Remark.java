@@ -47,7 +47,6 @@ public class Remark extends BaseTimeEntity {
     @JoinColumn(name = "person_id")
     private Person person;
 
-
     @JsonManagedReference(value = "remark")
     @OneToMany(mappedBy = "remark", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RemarkTag> remarkTagList = new ArrayList<>();
@@ -72,7 +71,6 @@ public class Remark extends BaseTimeEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-
     @Builder
     public Remark(String content, LocalDate remarkDate, Person person, User user, String sourceSort, String sourceUrl) {
         this.content = content.trim();
@@ -94,13 +92,10 @@ public class Remark extends BaseTimeEntity {
     }
 
     public List<String> TagsToStringList() {
-
         List<String> tagList = new ArrayList<>();
-
         this.getRemarkTagList().forEach(
                 remarkTag -> tagList.add(remarkTag.getTag().getName())
         );
-
         return tagList;
     }
 
@@ -119,8 +114,5 @@ public class Remark extends BaseTimeEntity {
             this.dislikeCount--;
         }
     }
-
-
-
 
 }

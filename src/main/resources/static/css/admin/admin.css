@@ -552,16 +552,26 @@ a:hover {
 .r-l-table-title {
     font-size: 1.25rem;
     font-weight: 600;
-    margin-bottom: .75rem;
-    margin-top: 1.5rem;
+    padding-bottom: .5rem;
+    padding-top: 1.5rem;
     padding-left: .5rem;
+}
+
+.r-l-table-title-empty{
+    margin-top: 1.5rem;
 }
 
 @media (max-width: 575px) {
     .r-l-table-title {
-        margin-top: 1.5rem;
-        padding-left: 1rem;
+        padding-top: .75rem;
+        padding-bottom: .25rem;
+        padding-left: .5rem;
     }
+
+    .r-l-table-title-empty{
+        margin-top: .5rem;
+    }
+
 }
 
 /* ------- 코멘트 박스 ------- */
@@ -570,10 +580,18 @@ a:hover {
     background-color: #fff;
     border: 1px solid #eef2f8;
     border-radius: .8rem;
-    margin-bottom: .75rem;
+    margin-bottom: .55rem;
     box-shadow: 0 10px 15px 0 rgba(15, 40, 65, 0.05);
-    padding: .5rem;
+    padding: .35rem .5rem;
 }
+
+@media (max-width: 575px) {
+    .r-l-navigator-container {
+        margin-bottom: .25rem;
+        padding: .35rem .5rem;
+    }
+}
+
 
 .r-l-related-person-container {
     padding: .5rem;
@@ -712,6 +730,14 @@ a:hover {
     box-shadow: none
 }
 
+@media (max-width: 575px) {
+    .r-l-sorting {
+        padding-top: .125rem;
+        padding-bottom: .125rem;
+    }
+}
+
+
 .r-l-n-search-nav-container {
     position: relative;
     z-index: 2;
@@ -729,7 +755,6 @@ a:hover {
     .r-l-n-search-nav-container {
         margin-bottom: -.5rem;
     }
-
 }
 
 .r-l-n-search-nav {
@@ -778,7 +803,7 @@ a:hover {
     background-color: #fff;
     background-clip: border-box;
     border-radius: 1rem;
-    margin: 0 0 1.75rem 0;
+    margin: 0 0 1.5rem 0;
     box-shadow: 0 10px 20px 0 rgba(15, 40, 65, 0.1);
 }
 
@@ -788,7 +813,7 @@ a:hover {
     }
 
     .r-l-t-row-container {
-        margin-bottom: 1rem;
+        margin-bottom: .75rem;
         padding: .75rem;
     }
 

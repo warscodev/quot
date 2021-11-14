@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-<head th:replace="fragments/header :: header(title='종합', keyword=${keyword}, category=${category}, content='다양한 인물들의 발언을 검색해보세요.')">
+<head th:replace="fragments/header :: header(keyword=${keyword}, category=${category}, content='다양한 인물들의 발언을 검색해보세요.')">
 <body>
 <div th:replace="fragments/topHeader :: topHeader"></div>
 <div th:replace="fragments/subNavbar :: subNavbar"></div>
@@ -52,7 +52,7 @@
         <div th:if="${keyword}" class="r-l-table-title">
             <span>발언 검색결과</span>
         </div>
-        <div th:unless="${keyword}" class="r-l-table-title">
+        <div th:unless="${keyword}" class="r-l-table-title-empty">
         </div>
 
 
