@@ -69,7 +69,7 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
     @Override
     public Page<SearchPersonResponseDto> findByPersonName(String keyword, Pageable pageable){
 
-        QueryResults results = queryFactory
+        QueryResults<SearchPersonResponseDto> results = queryFactory
                 .select(new QSearchPersonResponseDto(
                         person.id,
                         person.name,
@@ -103,7 +103,7 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
                 .fetchResults();
 
         List<SearchPersonResponseDto> content = results.getResults();
-        Long total = results.getTotal();
+        long total = results.getTotal();
 
         return new PageImpl<>(content, pageable, total);
     }
@@ -240,9 +240,9 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
         return null;
     }
 
-    private List<OrderSpecifier> getOrderSpecifier(String sort){
+    private List<OrderSpecifier<?>> getOrderSpecifier(String sort){
 
-        List<OrderSpecifier> orders = new ArrayList<>();
+        List<OrderSpecifier<?>> orders = new ArrayList<>();
 
         if(sort!=null) {
             switch (sort) {

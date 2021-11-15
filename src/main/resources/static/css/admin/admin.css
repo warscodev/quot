@@ -718,11 +718,15 @@ a:hover {
     box-shadow: 12px 0 15px -4px rgba(15, 40, 65, 0.05), -12px 0 8px -4px rgba(15, 40, 65, 0.05);
 
 }
+.r-l-sorting-container{
+    margin-bottom: .25rem;
+}
 
 .r-l-sorting {
     box-shadow: none;
     border-radius: .5rem;
     border: none;
+    background-color: transparent;
     color: #81888f;
 }
 

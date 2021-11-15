@@ -7,9 +7,9 @@
 <div th:replace="fragments/topHeader :: topHeader"></div>
 <div th:replace="fragments/subNavbar :: subNavbar"></div>
 
-<div class="p-d-header-container container-fluid">
+<div class="p-d-header-container container-xl">
     <div th:object="${info.person}">
-        <div class="p-d-header container container-xl d-flex justify-content-between">
+        <div class="p-d-header d-flex justify-content-between">
             <div class="p-d-header-row-container d-flex align-items-top">
                 <div class="p-d-profile-icon-container d-flex justify-content-end">
                     <div class="p-d-profile-icon-wrapper d-flex align-items-center justify-content-center">
@@ -75,8 +75,7 @@
                        th:href="@{/person/{id}(id=${info.person.personId})}"
                        th:classappend="${cond.year==y} ? active"
                         th:title="|${y}년 발언|" data-bs-trigger="hover" data-bs-placement="bottom">
-                    </a>
-                    <a th:unless="${yStat.index==0}"class="p-d-year tt" th:each="y : *{yearList}" th:text="|${y}|"
+                    </a><a th:unless="${yStat.index==0}"class="p-d-year tt" th:each="y : *{yearList}" th:text="|${y}|"
                        th:href="@{/person/{id}(id=${info.person.personId},year=${y})}"
                        th:classappend="${cond.year==y} ? active"
                        th:title="|${y}년 발언|" data-bs-trigger="hover" data-bs-placement="bottom">

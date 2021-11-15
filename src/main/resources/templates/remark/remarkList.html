@@ -56,7 +56,7 @@
         </div>
 
 
-        <div th:object="${dto.pageMetadata}" class="r-l-navigator-container">
+        <div th:object="${dto.pageMetadata}" class="r-l-sorting-container">
             <div class="r-l-n-first-row d-flex justify-content-between align-items-center">
                 <div class="r-l-sub-pagination-container remark-page-count d-flex align-items-baseline page-item">
                     <th:block th:with="baseUrl=(${keyword}? |/remark?keyword=${keyword}| : '/remark')">
