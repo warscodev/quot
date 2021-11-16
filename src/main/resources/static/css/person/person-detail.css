@@ -16,8 +16,15 @@
 @media (max-width: 767px) {
 
     .p-d-header-container{
-     padding-top: .75rem;
+        padding-top: .75rem;
+        padding-left: 0;
+        padding-right: 0;
     }
+
+    .p-d-header-container > div{
+        border-radius: .25rem;
+    }
+
     .p-d-header-row-container{
         padding: 1.25rem 1.25rem;
     }

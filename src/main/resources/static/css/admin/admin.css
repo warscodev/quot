@@ -855,7 +855,7 @@ a:hover {
     }
 
     .r-l-t-row-container {
-        margin-bottom: .75rem;
+        margin-bottom: 1.25rem;
         padding: .75rem;
         box-shadow: 0 5px 10px 0 rgba(15, 40, 65, 0.1);
     }
@@ -864,9 +864,6 @@ a:hover {
         padding: 1rem !important;
     }
 
-    .r-d-table-container{
-        margin-top: 1rem;
-    }
 }
 
 .r-d-t-row-container {
