@@ -44,6 +44,8 @@ public class RemarkQueryDto {
 
     private Long isBookmarked;
 
+    private String remarkSummary;
+
 
     @QueryProjection
     public RemarkQueryDto(Long remarkId, String content, LocalDate remarkDate, LocalDateTime createdDate, LocalDateTime updatedDate,
@@ -66,6 +68,7 @@ public class RemarkQueryDto {
         this.category = category;
         this.user_id = user_id;
         this.nickname = nickname;
+        this.remarkSummary = summarySubstring(content);
     }
 
     public String createdAndUpdatedDateFormat(LocalDateTime localDateTime){
@@ -76,5 +79,12 @@ public class RemarkQueryDto {
         return localDate.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"));
     }
 
+    public String summarySubstring(String remarkSummary){
+        if(remarkSummary.length()>320){
+            return remarkSummary.substring(0,317) + "...";
+        }else{
+            return remarkSummary;
+        }
+    }
 
 }

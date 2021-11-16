@@ -17,6 +17,8 @@ public interface RemarkRepositoryCustom {
 
     Page<RemarkQueryDto> getBookmarkList(RemarkSearchCondition condition, Pageable pageable);
 
+    Page<RemarkQueryDto> getFollowerRemarkList(RemarkSearchCondition condition, Pageable pageable);
+
     RemarkQueryDto getDetail(Long remarkId, Long sessionId);
     RemarkQueryDto getDetail(Long remarkId);
 }

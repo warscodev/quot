@@ -30,6 +30,7 @@ import static com.udpr.quot.domain.remark.QRemarkTag.remarkTag;
 import static com.udpr.quot.domain.remark.comment.QComment.comment;
 import static com.udpr.quot.domain.tag.QTag.tag;
 import static com.udpr.quot.domain.user.QBookmark.bookmark;
+import static com.udpr.quot.domain.user.QFollow.follow;
 import static com.udpr.quot.domain.user.QUser.user;
 import static org.springframework.util.ObjectUtils.isEmpty;
 
@@ -90,7 +91,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
         result.setRemarkTagList(tagList);
 
         result.setTags(tagList.stream()
-                .map(t->"#"+t.getName())
+                .map(RemarkTagQueryDto::getName)
                 .collect(Collectors.joining(", ")));
 
         result.setIsBookmarked(isBookmarked);
@@ -140,7 +141,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
             result.setRemarkTagList(tagList);
 
             result.setTags(tagList.stream()
-                    .map(t->"#"+t.getName())
+                    .map(RemarkTagQueryDto::getName)
                     .collect(Collectors.joining(", ")));
 
             result.setCommentCount(commentCount);
@@ -299,6 +300,39 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                 .join(remark.person, person)
                 .join(remark.user, user)
                 .on(bookmark.user.id.eq(condition.getSid()))
+
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .orderBy(getOrderSpecifier(condition.getSort()).toArray(OrderSpecifier[]::new))
+                .fetchResults();
+
+        List<Long> remarkIdList = toRemarkIdList(results);
+
+        Map<Long, List<RemarkTagQueryDto>> tagMap = findTagMap(remarkIdList);
+
+        setCollections(condition, results, remarkIdList, tagMap);
+
+        List<RemarkQueryDto> content = results.getResults();
+        long total = results.getTotal();
+
+        return new PageImpl<>(content, pageable, total);
+    }
+
+    @Override
+    public Page<RemarkQueryDto> getFollowerRemarkList(RemarkSearchCondition condition, Pageable pageable){
+
+        QueryResults<RemarkQueryDto> results = queryFactory
+                .select(new QRemarkQueryDto(
+                        remark.id, remark.content, remark.remarkDate,
+                        remark.createdDate, remark.updatedDate, remark.likeCount,
+                        remark.dislikeCount,remark.sourceSort, remark.sourceUrl,
+                        person.id, person.name, person.alias, person.job, person.category,
+                        user.id, user.nickname))
+                .from(follow)
+                .where(follow.user.id.eq(condition.getSid()))
+                .leftJoin(person).on(follow.person.id.eq(person.id))
+                .leftJoin(remark).on(remark.person.id.eq(person.id))
+                .leftJoin(user).on(remark.user.id.eq(user.id))
 
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())

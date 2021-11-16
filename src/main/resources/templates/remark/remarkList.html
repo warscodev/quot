@@ -13,11 +13,14 @@
         <input type="hidden" id="r-l-keyword" th:value="${keyword}">
         <input type="hidden" id="r-l-category" th:value="${category}">
         <input type="hidden" id="r-l-tab" th:value="${cond.tab}">
+        <input type="hidden" id="r-l-user" th:value="${userId}">
         <div th:if="${keyword}" class="r-l-table-title r-l-person-table-title">
             <span>인물 검색결과</span>
         </div>
+        <div th:unless="${keyword}" class="r-l-table-title-empty">
+        </div>
 
-        <div th:if="${keyword}" class="r-l-navigator-container r-l-related-person-container"
+        <div th:if="${keyword != null || (category !=null && #strings.equals(category, '관심인물'))}" class="r-l-navigator-container r-l-related-person-container"
              id="search-person-container">
             <div th:if="*{personList == null}" class="r-l-related-person-nav-empty">
                 <h6 class="text-center">검색 결과가 없습니다.</h6>
@@ -86,7 +89,7 @@
                     </th:block>
                 </div>
 
-                <div class="r-l-sorting-container d-flex align-items-center">
+                <div class="d-flex align-items-center">
                     <form th:action="@{/remark}" method="get" th:object="${cond}">
                         <input th:if="${keyword}" type="hidden" th:value="${keyword}" name="keyword">
                         <input th:if="${tab}" type="hidden" th:value="${tab}" name="tab">

@@ -28,4 +28,6 @@ public interface PersonRepositoryCustom{
 
     PersonQueryDto getDetail(Long id);
 
+    PersonQueryDto getDetail(Long personId, Long userId);
+
 }

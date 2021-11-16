@@ -20,8 +20,22 @@ public class PersonQueryDto {
     private String job;
     private String summary;
     private String category;
+    private Long followId;
 
     private List<RemarkForPersonDetailQueryDto> remarkList;
+
+    @QueryProjection
+    public PersonQueryDto(Long personId, String name, String alias, Birth birth, String gender, String job, String summary, String category, Long followId) {
+        this.personId = personId;
+        this.name = name;
+        this.alias = alias;
+        this.birth = birth;
+        this.gender = gender;
+        this.job = job;
+        this.summary = summary;
+        this.category = category;
+        this.followId = followId;
+    }
 
     @QueryProjection
     public PersonQueryDto(Long personId, String name, String alias, Birth birth, String gender, String job, String summary, String category) {

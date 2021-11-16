@@ -191,11 +191,11 @@ function deleteRemark(id) {
 
 function showMorePersonList(e, page) {
     const keywordDom = document.getElementById('r-l-keyword');
+    const categoryDom = document.getElementById('r-l-category');
+    const userDom = document.getElementById('r-l-user');
 
     if (typeof keywordDom !== "undefined" && keywordDom.value !== '') {
-
-        let keyword = keywordDom.value;
-
+        const keyword = keywordDom.value;
         $.ajax({
             type: 'GET',
             url: `/api/search/personList?page=${page}&size=10`,
@@ -214,6 +214,28 @@ function showMorePersonList(e, page) {
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
+    }else if(typeof categoryDom !== "undefined" && categoryDom.value === '관심인물'
+        && typeof userDom !== "undefined" && userDom.value !== null){
+
+        $.ajax({
+            type: 'GET',
+            url: `/api/search/followerList?page=${page}&size=10`,
+            data: {
+                userId: userDom.value,
+                page: page
+            },
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("XMLHttpRequest", "true");
+            }
+        }).done(function (result) {
+            $('#show-more-btn-container').remove();
+            $('#search-person-container').append(toSearchPersonContainer(result));
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+
     }
 }
 

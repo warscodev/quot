@@ -39,4 +39,8 @@
     .container-form {
         width: 800px;
     }
+
+    .container-xl{
+        width: 1200px;
+    }
 }

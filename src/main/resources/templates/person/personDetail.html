@@ -17,12 +17,13 @@
                     </div>
                 </div>
                 <div class="p-d-info-container">
-                    <div class="p-d-name d-flex justify-content-between">
-                        <span th:text="*{name}"></span>
-                        <div sec:authorize="hasRole('ADMIN')" class="d-flex align-items-start">
-                            <a class="p-d-modify-btn btn btn-sm" th:href="@{/admin/person/{id} (id=*{personId})}">편집</a>
+                    <div class="p-d-info-first-row d-flex justify-content-between">
+                        <span class="p-d-name" th:text="*{name}"></span>
+                        <div class="p-d-info-btn-container">
+                            <a sec:authorize="hasRole('ADMIN')" class="p-d-modify-btn btn" th:href="@{/admin/person/{id} (id=*{personId})}">편집</a>
+                            <span th:if="*{followId}" class="p-d-follow-btn btn followed"><i class="fas fa-user-check"></i>등록됨</span>
+                            <span th:unless="*{followId}" class="p-d-follow-btn btn"><i class="fas fa-user-plus"></i>관심 등록</span>
                         </div>
-
                     </div>
                     <div class="p-d-job">
                         <span th:if="*{not #strings.isEmpty(alias)}" th:text="|*{alias} ｜|"></span>
@@ -64,6 +65,7 @@
         </div>
     </div>
 </div>
+
 
 <div class="container-xl">
     <div class="row">
@@ -135,11 +137,65 @@
 
             </div>
         </div>
-        <div th:replace="fragments/aside :: aside"/>
+        <div th:replace="fragments/aside :: aside"></div>
 
     </div>
 </div>
-</div>
+<script th:inline="javascript">
+    let followBtn = document.querySelector(".p-d-follow-btn");
+    const personId = /*[[ ${info.person.personId} ]]*/;
+
+    function followExec(){
+        checkUser();
+        setSpinnerToBtn();
+        fetchFollow()
+            .then(()=> setTimeout(toggleBtn, 200));
+    }
+
+    function checkUser(){
+        if(!/*[[ ${user} ]]*/){
+            location.href = "/oauth_login";
+        }
+    }
+
+
+    async function fetchFollow(){
+        await fetch(`/api/person/${personId}/follow`, {
+            method: "post",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            }
+        })
+    }
+
+    function setSpinnerToBtn(){
+        const spinner = document.createElement('div');
+        spinner.className += "spinner-border spinner-border-sm";
+        spinner.setAttribute('role','status');
+        spinner.innerHTML = "<span class='visually-hidden'>Loading...</span>";
+        followBtn.replaceChild(spinner, followBtn.firstChild);
+        followBtn.classList.add('disabled');
+    }
+
+    function toggleBtn(){
+        if(followBtn.classList.contains('followed')){
+            followBtn.classList.remove('followed');
+            followBtn.innerHTML = "<i class='fas fa-user-plus'></i>관심 등록"
+        }else {
+            followBtn.classList.add('followed');
+            followBtn.innerHTML = "<i class='fas fa-user-check'></i>등록됨";
+        }
+        followBtn.classList.remove('disabled');
+    }
+
+    function popupUnfollowModal(){
+        let modal = new bootstrap.Modal(document.getElementById('unfollowModal'))
+        modal.show();
+    }
+
+
+    followBtn.addEventListener("click", followExec);
+</script>
 <script>
     const contents = document.querySelectorAll(".p-d-r-content");
 
@@ -147,12 +203,10 @@
         const sourceIcon = "<button class='tt r-l-t-source-btn p-d-r-source-btn' data-bs-html='true' data-bs-placement='bottom' data-bs-trigger='click' " +
             "title='<a class=\"r-l-t-source-link\" href=\"" + c.dataset.source + "\" target=\"_blank\" rel=\"noopener noreferer nofollow\">" + c.dataset.source + "</a>'</a>" +
             "<i class='r-l-t-source-btn-icon fas fa-link'></i>출처</button>";
-
         $(c).append(sourceIcon)
     });
-
 </script>
 
-<div th:replace="fragments/footer :: footer"/>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

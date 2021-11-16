@@ -32,6 +32,7 @@ import static com.udpr.quot.domain.remark.QRemark.remark;
 import static com.udpr.quot.domain.remark.QRemarkTag.remarkTag;
 import static com.udpr.quot.domain.remark.comment.QComment.comment;
 import static com.udpr.quot.domain.tag.QTag.tag;
+import static com.udpr.quot.domain.user.QFollow.follow;
 import static com.udpr.quot.domain.user.QUser.user;
 
 public class PersonRepositoryImpl implements PersonRepositoryCustom{
@@ -168,6 +169,19 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
     }
 
     @Override
+    public PersonQueryDto getDetail(Long personId, Long userId){
+        return queryFactory
+                .select(new QPersonQueryDto( person.id, person.name, person.alias, person.birth,
+                        person.gender, person.job, person.summary, person.category, follow.id))
+                .from(person)
+                .leftJoin(follow)
+                .on(person.id.eq(follow.person.id))
+                .on(follow.user.id.eq(userId))
+                .where(person.id.eq(personId))
+                .fetchOne();
+    }
+
+    @Override
     public List<RemarkForPersonDetailQueryDto> getRemarkListForPersonDetail(RemarkForPersonDetailSearchCondition condition, Long id){
 
         List<RemarkForPersonDetailQueryDto> results = queryFactory
@@ -214,6 +228,14 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
     private void setTagMapsToRemark(List<RemarkForPersonDetailQueryDto> results, Map<Long, List<RemarkTagQueryDto>> tagMap) {
             results.forEach(r -> r.setRemarkTagList(tagMap.get(r.getRemarkId())));
     }
+
+
+
+
+
+
+
+
 
     private Predicate nameLike(String name) {
         if (name != null && name.length() > 0)

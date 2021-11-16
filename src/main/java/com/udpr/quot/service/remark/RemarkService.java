@@ -10,6 +10,8 @@ import com.udpr.quot.domain.remark.search.RemarkSearchCondition;
 import com.udpr.quot.domain.user.Bookmark;
 import com.udpr.quot.domain.user.User;
 import com.udpr.quot.domain.user.repository.BookmarkRepository;
+import com.udpr.quot.domain.user.repository.FollowQueryRepository;
+import com.udpr.quot.domain.user.repository.FollowRepository;
 import com.udpr.quot.domain.user.repository.UserRepository;
 import com.udpr.quot.web.dto.remark.*;
 import com.udpr.quot.web.dto.remark.query.RemarkQueryDto;
@@ -37,7 +39,7 @@ public class RemarkService {
     private final RemarkLikeRepository remarkLikeRepository;
     private final UserRepository userRepository;
     private final BookmarkRepository bookmarkRepository;
-
+    private final FollowQueryRepository followQueryRepository;
     private final RemarkTagService remarkTagService;
 
     //코멘트 저장
@@ -118,9 +120,14 @@ public class RemarkService {
         if (keyword == null || keyword.isBlank()) {
             if("즐겨찾기".equals(condition.getCategory())){
                 remarkPage = remarkRepository.getBookmarkList(condition, remarkPageable);
+            }else if("관심인물".equals(condition.getCategory())){
+                remarkPage = remarkRepository.getFollowerRemarkList(condition, remarkPageable);
+                personPage = followQueryRepository.findFollowerList(condition.getSid(), personPageable);
             }else{
                 remarkPage = remarkRepository.searchAll(condition, remarkPageable);
             }
+
+
         } else {
 
             personPage = personRepository.findByPersonName(condition.getKeyword(), personPageable);

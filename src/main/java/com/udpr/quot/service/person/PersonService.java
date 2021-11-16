@@ -5,6 +5,10 @@ import com.udpr.quot.domain.person.PersonSearchCondition;
 import com.udpr.quot.domain.person.repository.PersonRepository;
 import com.udpr.quot.domain.person.search.RemarkForPersonDetailSearchCondition;
 import com.udpr.quot.domain.remark.repository.RemarkPersonPageQueryRepository;
+import com.udpr.quot.domain.user.Follow;
+import com.udpr.quot.domain.user.User;
+import com.udpr.quot.domain.user.repository.FollowRepository;
+import com.udpr.quot.domain.user.repository.UserRepository;
 import com.udpr.quot.web.dto.person.*;
 import com.udpr.quot.web.dto.remark.RemarkForPersonDetailQueryDto;
 import com.udpr.quot.web.dto.search.SearchPersonResponseDto;
@@ -22,6 +26,8 @@ import java.util.List;
 public class PersonService {
 
     private final PersonRepository personRepository;
+    private final UserRepository userRepository;
+    private final FollowRepository followRepository;
     private final RemarkPersonPageQueryRepository personPageQueryRepository;
 
     //저장
@@ -70,11 +76,6 @@ public class PersonService {
     }
 
 
-    public Person findPerson(Long personId) {
-        return personRepository.getOne(personId);
-    }
-
-
     public Page<SearchPersonResponseDto> searchPerson(String keyword, Pageable pageable) {
         return personRepository.findByPersonName(keyword, pageable);
     }
@@ -88,10 +89,8 @@ public class PersonService {
     }
 
     public PersonDetailDto getDetail(RemarkForPersonDetailSearchCondition condition, Long id){
-
         PersonQueryDto getDetail = personRepository.getDetail(id);
         List<Integer> yearList = personPageQueryRepository.getYears(id);
-
         if(yearList.size() ==0){
             return new PersonDetailDto(getDetail);
         }else {
@@ -101,7 +100,43 @@ public class PersonService {
             List<RemarkForPersonDetailQueryDto> remarkList = personPageQueryRepository.getRemarkListForPersonDetail(condition, id);
             return new PersonDetailDto(getDetail, remarkList, yearList);
         }
+    }
 
+    public PersonDetailDto getDetail(RemarkForPersonDetailSearchCondition condition, Long personId, Long userId){
+        PersonQueryDto getDetail = personRepository.getDetail(personId, userId);
+        List<Integer> yearList = personPageQueryRepository.getYears(personId);
+        if(yearList.size() ==0){
+            return new PersonDetailDto(getDetail);
+        }else {
+            if(condition.getYear() == null){
+                condition.setYear(yearList.get(0));
+            }
+            List<RemarkForPersonDetailQueryDto> remarkList = personPageQueryRepository.getRemarkListForPersonDetail(condition, personId);
+            return new PersonDetailDto(getDetail, remarkList, yearList);
+        }
+    }
+
+
+    @Transactional
+    public void saveOrDeleteFollow(Long personId, Long userId){
+
+        Person person = personRepository.findById(personId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 인물 정보가 없습니다. id = " + personId));
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 유저 정보가 없습니다. id = " + userId));
+
+        Follow follow = followRepository.findByPersonIdAndUserId(personId, userId)
+                .orElse(Follow.builder()
+                        .person(person)
+                        .user(user)
+                        .build());
+
+        if(follow.getId() != null){
+            followRepository.delete(follow);
+        }else {
+            followRepository.save(follow);
+        }
     }
 }
 
