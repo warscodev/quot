@@ -24,9 +24,10 @@
                                     <div class="p-d-info-btn-container">
                                         <a sec:authorize="hasRole('ADMIN')" class="p-d-modify-btn btn"
                                            th:href="@{/admin/person/{id} (id=*{personId})}">편집</a>
-                                        <span th:if="*{followId}" class="p-d-follow-btn btn followed"><i
+                                        <span th:if="*{followId}" class="p-d-follow-btn btn followed tt"
+                                              data-bs-placement="bottom" data-bs-trigger="hover" data-bs-title="언팔로우"><i
                                                 class="fas fa-user-check"></i>팔로잉</span>
-                                        <span th:unless="*{followId}" class="p-d-follow-btn btn"><i
+                                        <span th:unless="*{followId}" class="p-d-follow-btn btn tt"><i
                                                 class="fas fa-user-plus"></i>팔로우</span>
                                     </div>
                                 </div>
@@ -181,11 +182,20 @@
 
     function toggleBtn() {
         if (followBtn.classList.contains('followed')) {
+            let tooltip = bootstrap.Tooltip.getInstance(followBtn);
+            tooltip.dispose();
             followBtn.classList.remove('followed');
+            followBtn.classList.remove('tt');
+            followBtn.setAttribute('data-bs-original-title','');
             followBtn.innerHTML = "<i class='fas fa-user-plus'></i>팔로우"
         } else {
             followBtn.classList.add('followed');
+            followBtn.classList.add('tt');
+            followBtn.setAttribute('data-bs-placement','bottom');
+            followBtn.setAttribute('data-bs-trigger','hover');
+            followBtn.setAttribute('data-bs-title','언팔로우');
             followBtn.innerHTML = "<i class='fas fa-user-check'></i>팔로잉";
+            new bootstrap.Tooltip(followBtn);
         }
         followBtn.classList.remove('disabled');
     }

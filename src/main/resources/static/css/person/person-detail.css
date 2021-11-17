@@ -102,11 +102,13 @@
 
 .p-d-job{
     color: #7f8a99;
-    font-size: .938rem;
+    font-size: .875rem;
+    padding-left: .125rem;
 }
 
 
 .p-d-etc {
+    padding-left: .125rem;
     margin-top: .25rem;
     display: inline-block;
 }
@@ -432,7 +434,7 @@
     background-color: #ecf6ff !important;
 }
 .p-d-r-content-wrap{
-    padding: .35rem 0 .25rem 0;
+    padding: .35rem 0 0 0;
 }
 
 .p-d-r-content-quotation{

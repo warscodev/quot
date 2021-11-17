@@ -233,7 +233,7 @@
                             <a th:unless="${r.isLike eq 1}" th:id="|like-btn-${r.remarkId}|"
                                class="r-l-t-last-row-btn r-l-t-like-btn" href="javascript:;"
                                th:onclick="|like(this, ${r.remarkId}, 1)|">
-                                <div class="r-l-t-last-row-btn-icon-wrap like-icon-wrap tt" title="이 발언이 좋아요"
+                                <div class="r-l-t-last-row-btn-icon-wrap like-icon-wrap tt" title="좋아요"
                                      data-bs-trigger="hover" data-bs-placement="bottom">
                                     <i class="r-l-t-like-icon like-icon r-l-t-last-row-btn-icon fas fa-thumbs-up"></i>
                                     <span th:id="|like-count-${r.remarkId}|"
@@ -258,7 +258,7 @@
                             <a th:unless="${r.isLike eq -1}" th:id="|dislike-btn-${r.remarkId}|"
                                class="r-l-t-dislike-btn r-l-t-last-row-btn btn" href="javascript:;"
                                th:onclick="|like(this, ${r.remarkId}, -1)|">
-                                <div class="r-l-t-last-row-btn-icon-wrap dislike-icon-wrap tt" title="이 발언이 싫어요"
+                                <div class="r-l-t-last-row-btn-icon-wrap dislike-icon-wrap tt" title="싫어요"
                                      data-bs-trigger="hover" data-bs-placement="bottom">
                                     <i class="r-l-t-dislike-icon dislike-icon r-l-t-last-row-btn-icon fas fa-thumbs-down"></i>
                                     <span th:id="|dislike-count-${r.remarkId}|"
@@ -270,7 +270,7 @@
                             <a th:if="${r.isBookmarked > 0}"
                                class="r-l-t-last-row-btn r-l-t-last-row-bookmark-btn btn bookmark-active"
                                th:onclick="|saveOrDeleteBookmark(this,${r.remarkId})|" href="javascript:;">
-                                <div class="r-l-t-last-row-btn-icon-wrap bookmark-icon-wrap tt" title="즐겨찾기 취소"
+                                <div class="r-l-t-last-row-btn-icon-wrap bookmark-icon-wrap tt" title="스크랩 취소"
                                      data-bs-trigger="hover" data-bs-placement="bottom">
                                     <i class="r-l-t-last-row-btn-icon r-l-t-last-row-bookmark-icon bi bi-bookmark-star-fill"
                                        style="line-height: 0"></i>
@@ -279,7 +279,7 @@
                             <a th:unless="${r.isBookmarked > 0}"
                                class="r-l-t-last-row-btn r-l-t-last-row-bookmark-btn btn"
                                th:onclick="|saveOrDeleteBookmark(this,${r.remarkId})|" href="javascript:;">
-                                <div class="r-l-t-last-row-btn-icon-wrap bookmark-icon-wrap tt" title="즐겨찾기"
+                                <div class="r-l-t-last-row-btn-icon-wrap bookmark-icon-wrap tt" title="스크랩"
                                      data-bs-trigger="hover" data-bs-placement="bottom">
                                     <i class="r-l-t-last-row-btn-icon r-l-t-last-row-bookmark-icon bi bi-bookmark-star-fill"
                                        style="line-height: 0"></i>

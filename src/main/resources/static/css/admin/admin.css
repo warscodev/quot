@@ -597,8 +597,9 @@ a:hover {
 }
 
 .r-l-related-person-container > .r-l-related-person-nav-container:hover {
-    border-color: #bebebe;
-    box-shadow: 0px 3px 8px 0px rgba(15, 15, 65, 0.13);
+    background-color: #e4e9f1;
+    /*border-color: #bebebe;
+    box-shadow: 0px 3px 8px 0px rgba(15, 15, 65, 0.13);*/
 }
 
 .r-l-related-person-nav {
@@ -652,6 +653,7 @@ a:hover {
 .r-l-related-person-nav-more-btn-wrap:hover > .r-l-related-person-nav-more-btn-icon {
     color: #1c5396
 }
+
 
 .r-l-related-person-add-btn {
     font-size: .938rem;
@@ -1026,7 +1028,7 @@ a:hover {
 }
 
 .r-d-t-tag-container {
-    margin-top: .3rem;
+    /*margin-top: .3rem;*/
 }
 
 .r-l-t-tags {

@@ -85,25 +85,25 @@ function like(e, remarkId, isLike) {
         if (e.classList.contains("r-l-t-like-btn")) {
             otherBtn = document.getElementById("dislike-btn-" + remarkId);
             if(e.classList.contains("like-active")) {
-                child.setAttribute("data-bs-original-title", "이 발언이 좋아요");
+                child.setAttribute("data-bs-original-title", "좋아요");
             }else {
                 child.setAttribute("data-bs-original-title", "좋아요 취소")
             }
             if (otherBtn.classList.contains("like-active")) {
                 otherBtn.classList.toggle("like-active")
-                otherBtn.firstElementChild.setAttribute("data-bs-original-title", "이 발언이 싫어요")
+                otherBtn.firstElementChild.setAttribute("data-bs-original-title", "싫어요")
             }
 
         } else {
             otherBtn = document.getElementById("like-btn-" + remarkId);
             if(e.classList.contains("like-active")) {
-                child.setAttribute("data-bs-original-title", "이 발언이 싫어요");
+                child.setAttribute("data-bs-original-title", "싫어요");
             }else {
                 child.setAttribute("data-bs-original-title", "싫어요 취소")
             }
             if (otherBtn.classList.contains("like-active")) {
                 otherBtn.classList.toggle("like-active")
-                otherBtn.firstElementChild.setAttribute("data-bs-original-title", "이 발언이 좋아요")
+                otherBtn.firstElementChild.setAttribute("data-bs-original-title", "좋아요")
             }
         }
 
@@ -158,9 +158,9 @@ function toggleBookmarkIcon(e){
     const tooltip = bootstrap.Tooltip.getInstance(child) // Returns a Bootstrap tooltip instance
 
     if(e.classList.contains("bookmark-active")) {
-        child.setAttribute("data-bs-original-title", "즐겨찾기")
+        child.setAttribute("data-bs-original-title", "스크랩")
     }else {
-        child.setAttribute("data-bs-original-title", "즐겨찾기 취소")
+        child.setAttribute("data-bs-original-title", "스크랩 취소")
     }
     tooltip.show();
 
