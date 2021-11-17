@@ -157,10 +157,10 @@
     align-items: center;
     font-size: .938rem;
     font-weight: 500;
-    border: 1px solid #e3ebf6;
-    border-radius: .25rem;
+    border: 1px solid #4650dd;
+    border-radius: .375rem;
     margin-left: .5rem;
-    background-color: #2c7be5;
+    background-color: #4650dd;
 }
 
 .p-d-follow-btn i{
@@ -181,12 +181,37 @@
 .p-d-follow-btn.followed{
     font-weight: 600;
     background-color: #fff;
-    border: 1px solid #212529;
-    color: #212529;
+    border: 1px solid #4650dd;
+    color: #4650dd;
 }
 .p-d-follow-btn.followed:hover{
-    background-color: #f9fbfd;
-    color: #212529 !important;
+    background-color: #f0f1ff;
+    color: #4650dd !important;
+}
+
+.p-d-follow-toast{
+    width: 300px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-color: transparent;
+    border-radius: .25rem;
+}
+
+.p-d-follow-toast .toast-body{
+    color: #fff;
+    font-size: .938rem;
+    padding: .95rem
+}
+
+.p-d-follow-toast .toast-body i {
+    margin-right: .35rem;
+}
+
+.p-d-follow-toast .toast-body > .followed {
+    color: #00a959;
+}
+
+.p-d-follow-toast .toast-body > .unfollowed {
+    color: #dc3545!important;
 }
 
 .unfollow-modal-content{
@@ -205,6 +230,7 @@
 .p-d-modify-btn{
     font-size: .938rem;
     border: 1px solid #e3ebf6;
+    border-radius: .375rem;
     /*
     padding-top: .125rem !important;
     padding-bottom: .125rem !important;
@@ -218,7 +244,8 @@
 
 .p-d-follow-btn:hover {
     color: #fff !important;
-    background-color: #276dcb;
+    background-color: #3c44bc;
+    border-color: #3840b1;
 }
 
 .p-d-modify-btn:focus, .p-d-follow-btn:focus{
@@ -350,7 +377,7 @@
     font-family: Noto Sans KR;
     font-size: .875rem;
     font-weight: 600;
-    color: #777f8d;
+    /*color: #777f8d;*/
 }
 
 

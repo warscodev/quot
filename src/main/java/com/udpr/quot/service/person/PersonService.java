@@ -118,7 +118,7 @@ public class PersonService {
 
 
     @Transactional
-    public void saveOrDeleteFollow(Long personId, Long userId){
+    public String saveOrDeleteFollow(Long personId, Long userId){
 
         Person person = personRepository.findById(personId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 인물 정보가 없습니다. id = " + personId));
@@ -134,8 +134,10 @@ public class PersonService {
 
         if(follow.getId() != null){
             followRepository.delete(follow);
+            return "unfollowed";
         }else {
             followRepository.save(follow);
+            return "followed";
         }
     }
 }

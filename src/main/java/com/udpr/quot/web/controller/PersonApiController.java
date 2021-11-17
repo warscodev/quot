@@ -19,10 +19,10 @@ public class PersonApiController {
     private final PersonService personService;
 
     @PostMapping("/api/person/{personId}/follow")
-    public void followPerson(@PathVariable("personId") Long personId,
+    public String followPerson(@PathVariable("personId") Long personId,
                              @LoginUser SessionUser user) throws AuthenticationException {
         if(user !=null) {
-            personService.saveOrDeleteFollow(personId, user.getId());
+            return personService.saveOrDeleteFollow(personId, user.getId());
         }else {
             throw new AuthenticationException();
         }

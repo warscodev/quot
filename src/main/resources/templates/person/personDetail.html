@@ -25,7 +25,7 @@
                                         <a sec:authorize="hasRole('ADMIN')" class="p-d-modify-btn btn"
                                            th:href="@{/admin/person/{id} (id=*{personId})}">편집</a>
                                         <span th:if="*{followId}" class="p-d-follow-btn btn followed tt"
-                                              data-bs-placement="bottom" data-bs-trigger="hover" data-bs-title="언팔로우"><i
+                                              data-bs-placement="bottom" data-bs-trigger="hover" data-bs-title="팔로우 취소"><i
                                                 class="fas fa-user-check"></i>팔로잉</span>
                                         <span th:unless="*{followId}" class="p-d-follow-btn btn tt"><i
                                                 class="fas fa-user-plus"></i>팔로우</span>
@@ -140,6 +140,16 @@
                 </div>
 
             </div>
+
+            <div class="position-fixed p-2 bottom-0 end-0" style="z-index: 11">
+                <div id="liveToast" class="toast p-d-follow-toast" role="alert" aria-live="assertive" aria-atomic="false" data-bs-delay="3000">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
         <div th:replace="fragments/aside :: aside"></div>
     </div>
@@ -151,8 +161,7 @@
     function followExec() {
         checkUser();
         setSpinnerToBtn();
-        fetchFollow()
-            .then(() => setTimeout(toggleBtn, 200));
+        fetchFollow().then(r => toggleBtn(r));
     }
 
     function checkUser() {
@@ -163,12 +172,17 @@
 
 
     async function fetchFollow() {
-        await fetch(`/api/person/${personId}/follow`, {
+        const result = await fetch(`/api/person/${personId}/follow`, {
             method: "post",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
             }
         })
+        try{
+            return result.text();
+        } catch (error){
+            alert(JSON.stringify(error));
+        }
     }
 
     function setSpinnerToBtn() {
@@ -180,29 +194,50 @@
         followBtn.classList.add('disabled');
     }
 
-    function toggleBtn() {
-        if (followBtn.classList.contains('followed')) {
-            let tooltip = bootstrap.Tooltip.getInstance(followBtn);
-            tooltip.dispose();
-            followBtn.classList.remove('followed');
-            followBtn.classList.remove('tt');
-            followBtn.setAttribute('data-bs-original-title','');
-            followBtn.innerHTML = "<i class='fas fa-user-plus'></i>팔로우"
-        } else {
-            followBtn.classList.add('followed');
-            followBtn.classList.add('tt');
-            followBtn.setAttribute('data-bs-placement','bottom');
-            followBtn.setAttribute('data-bs-trigger','hover');
-            followBtn.setAttribute('data-bs-title','언팔로우');
-            followBtn.innerHTML = "<i class='fas fa-user-check'></i>팔로잉";
-            new bootstrap.Tooltip(followBtn);
-        }
-        followBtn.classList.remove('disabled');
+    function toggleBtn(r) {
+        setTimeout(function (){
+            if (r === "unfollowed") {
+                let tooltip = bootstrap.Tooltip.getInstance(followBtn);
+                tooltip.dispose();
+                followBtn.classList.remove('tt');
+                followBtn.classList.remove('followed');
+                followBtn.setAttribute('data-bs-title','');
+                followBtn.innerHTML = "<i class='fas fa-user-plus'></i>팔로우"
+            } else {
+                followBtn.classList.add('followed');
+                followBtn.classList.add('tt');
+                followBtn.setAttribute('data-bs-placement','bottom');
+                followBtn.setAttribute('data-bs-trigger','hover');
+                followBtn.setAttribute('data-bs-title','팔로우 취소');
+                followBtn.innerHTML = "<i class='fas fa-user-check'></i>팔로잉";
+                new bootstrap.Tooltip(followBtn);
+            }
+            followBtn.classList.remove('disabled');
+            followBtn = document.querySelector(".p-d-follow-btn");
+            toastTrigger();
+        },300);
     }
 
     function popupUnfollowModal() {
         let modal = new bootstrap.Modal(document.getElementById('unfollowModal'))
         modal.show();
+    }
+
+    function toastTrigger(){
+        const toastBody = document.querySelector(".toast-body");
+        if(followBtn.classList.contains("followed")){
+            toastBody.innerHTML= "<i class='fas fa-user-check followed'></i><span>팔로우 되었습니다.</span>";
+        }else {
+            toastBody.innerHTML= "<i class='fas fa-user-times unfollowed'></i><span>팔로우가 취소되었습니다.</span>";
+        }
+        const toastDom = document.getElementById('liveToast')
+        if(!bootstrap.Toast.getInstance(toastDom)){
+            const toast = new bootstrap.Toast(toastDom);
+            toast.show()
+        }else {
+            const toast = bootstrap.Toast.getInstance(toastDom);
+            toast.show()
+        }
     }
 
 
