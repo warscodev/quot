@@ -117,7 +117,7 @@ public class RemarkController {
         if(user != null){
             model.addAttribute("user", user);
             condition.setSid(user.getId());
-            condition.setCategory("즐겨찾기");
+            condition.setCategory("스크랩");
             model.addAttribute("category", condition.getCategory());
             model.addAttribute("dto",remarkService.searchRemark(condition));
         }
@@ -132,7 +132,7 @@ public class RemarkController {
         if(user != null){
             model.addAttribute("userId", user.getId());
             condition.setSid(user.getId());
-            condition.setCategory("관심인물");
+            condition.setCategory("팔로우");
             model.addAttribute("category", condition.getCategory());
             model.addAttribute("dto", remarkService.searchRemark(condition));
         }

@@ -28,6 +28,19 @@
         width: 800px;
     }
 }
+@media (max-width: 767px) {
+    .container-xl{
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .container-xl > .row, .container-xl > .row > .col-lg-8{
+        margin-right: 0;
+        margin-left: 0;
+        padding-right: 0;
+        padding-left: 0;
+    }
+}
 
 @media (min-width: 992px) {
     .container-form {

@@ -20,7 +20,7 @@
         <div th:unless="${keyword}" class="r-l-table-title-empty">
         </div>
 
-        <div th:if="${keyword != null || (category !=null && #strings.equals(category, '관심인물'))}" class="r-l-navigator-container r-l-related-person-container"
+        <div th:if="${keyword != null || (category !=null && #strings.equals(category, '팔로우'))}" class="r-l-navigator-container r-l-related-person-container"
              id="search-person-container">
             <div th:if="*{personList == null}" class="r-l-related-person-nav-empty">
                 <h6 class="text-center">검색 결과가 없습니다.</h6>
@@ -52,43 +52,41 @@
         </div>
 
 
-        <div th:if="${keyword}" class="r-l-table-title">
+        <div th:if="${keyword}" class="r-l-table-title d-flex justify-content-between">
             <span>발언 검색결과</span>
+            <div class="r-l-sorting-container">
+                <div class="r-l-n-first-row d-flex justify-content-end align-items-center">
+                    <div class="d-flex align-items-center">
+                        <form th:action="@{/remark}" method="get" th:object="${cond}">
+                            <input th:if="${keyword}" type="hidden" th:value="${keyword}" name="keyword">
+                            <input th:if="${tab}" type="hidden" th:value="${tab}" name="tab">
+                            <input th:if="${category}" type="hidden" th:value="${category}" name="category">
+                            <select th:if="${dto.pageMetadata.totalElements>0}" th:field="*{sort}"
+                                    onchange="this.form.submit()"
+                                    class="r-l-sorting form-select form-select-sm">
+                                <option value="cd_d">등록순</option>
+                                <option value="cm">댓글순</option>
+                                <option value="like">좋아요순</option>
+                                <option value="dislike">싫어요순</option>
+                                <option value="rd_d">최근 발언순</option>
+                                <option value="rd_a">과거 발언순</option>
+                            </select>
+                            <select th:unless="${dto.pageMetadata.totalElements>0}" th:field="*{sort}"
+                                    onchange="this.form.submit()"
+                                    class="r-l-sorting form-select form-select-sm" disabled>
+                                <option value="cd_d">등록순</option>
+                            </select>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
         <div th:unless="${keyword}" class="r-l-table-title-empty">
         </div>
 
 
-        <div th:object="${dto.pageMetadata}" class="r-l-sorting-container">
-            <div class="r-l-n-first-row d-flex justify-content-between align-items-center">
-                <div class="r-l-sub-pagination-container remark-page-count d-flex align-items-baseline page-item">
-                    <th:block th:with="baseUrl=(${keyword}? |/remark?keyword=${keyword}| : '/remark')">
-                        <a th:if="*{!first && totalElements!=0}" th:href="@{|${baseUrl}|(page=*{page}-1,
-                sort=${cond.sort} ? ${cond.sort} : 'cd_d', tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : '종합')}"
-                           class="page-link d-inline">
-                            <i class="fas fa-chevron-left"></i>
-                        </a>
-
-                        <span th:if="*{(first && totalElements!=0) || totalElements<1}" class="page-link d-inline">
-                    <i class="fas fa-chevron-left"></i>
-                    </span>
-
-
-                        <span th:if="*{totalElements>0}" style="margin: 0 !important; padding: 0 .25rem;"
-                              th:text="|*{page} / *{totalPages}|"></span>
-                        <span th:unless="*{totalElements>0}" style="margin: 0 !important; padding: 0 .25rem;">1 / 1</span>
-                        <a th:if="*{!last && totalElements!=0}" th:href="@{|${baseUrl}|(page=*{page}+1,
-                sort=${cond.sort} ? ${cond.sort} : 'cd_d', tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : '종합')}"
-                           class="page-link d-inline">
-                            <i class="fas fa-chevron-right"></i>
-                        </a>
-
-                        <span th:if="*{(last && totalElements!=0) || totalElements<1}" class="page-link d-inline">
-                    <i class="fas fa-chevron-right"></i>
-                </span>
-                    </th:block>
-                </div>
-
+        <div th:unless="${keyword}" class="r-l-sorting-container">
+            <div class="r-l-n-first-row d-flex justify-content-end align-items-center">
                 <div class="d-flex align-items-center">
                     <form th:action="@{/remark}" method="get" th:object="${cond}">
                         <input th:if="${keyword}" type="hidden" th:value="${keyword}" name="keyword">

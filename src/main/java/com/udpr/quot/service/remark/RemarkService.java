@@ -118,9 +118,9 @@ public class RemarkService {
         Page<SearchPersonResponseDto> personPage = new PageImpl<>(personContent, personPageable, total_);
 
         if (keyword == null || keyword.isBlank()) {
-            if("즐겨찾기".equals(condition.getCategory())){
+            if("스크랩".equals(condition.getCategory())){
                 remarkPage = remarkRepository.getBookmarkList(condition, remarkPageable);
-            }else if("관심인물".equals(condition.getCategory())){
+            }else if("팔로우".equals(condition.getCategory())){
                 remarkPage = remarkRepository.getFollowerRemarkList(condition, remarkPageable);
                 personPage = followQueryRepository.findFollowerList(condition.getSid(), personPageable);
             }else{

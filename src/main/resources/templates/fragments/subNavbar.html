@@ -11,27 +11,27 @@
                 </a>
             </li>
             <li id="subNavHot" class="subNav-menu-items main-menu hot"
-                th:classappend="${#strings.equals(category, '인기')} ? active">
+                th:classappend="${#strings.equals(category, '화제')} ? active">
 
-                <a href="/remark?category=인기">
+                <a href="/remark?category=화제">
                     <span>
-                        <i class="fab fa-hotjar"></i>인기
+                        <i class="fab fa-hotjar"></i>화제
                     </span>
                 </a>
             </li>
             <li sec:authorize="isAuthenticated()" class="subNav-menu-items main-menu"
-                th:classappend="${#strings.equals(category, '즐겨찾기')} ? active">
-                <a href="/remark/bookmark">
-                    <span>
-                        <i class="subNav-menu-bookmark bi bi-bookmark-star-fill" style="line-height: 0"></i>즐겨찾기
-                    </span>
-                </a>
-            </li>
-            <li sec:authorize="isAuthenticated()" class="subNav-menu-items main-menu"
-                th:classappend="${#strings.equals(category, '관심인물')} ? active">
+                th:classappend="${#strings.equals(category, '팔로우')} ? active">
                 <a href="/remark/follow">
                     <span>
-                        <i class="subNav-menu-follow fas fa-user-friends" style="line-height: 0"></i>관심인물
+                        <i class="subNav-menu-follow fas fa-user-friends" style="line-height: 0"></i>팔로우
+                    </span>
+                </a>
+            </li>
+            <li sec:authorize="isAuthenticated()" class="subNav-menu-items main-menu"
+                th:classappend="${#strings.equals(category, '스크랩')} ? active">
+                <a href="/remark/bookmark">
+                    <span>
+                        <i class="subNav-menu-bookmark bi bi-bookmark-star-fill" style="line-height: 0"></i>스크랩
                     </span>
                 </a>
             </li>

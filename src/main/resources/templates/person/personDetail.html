@@ -6,82 +6,83 @@
 <body th:object="${info}">
 <div th:replace="fragments/topHeader :: topHeader"></div>
 <div th:replace="fragments/subNavbar :: subNavbar"></div>
-
-<div class="p-d-header-container container-xl">
-    <div th:object="${info.person}">
-        <div class="p-d-header d-flex justify-content-between">
-            <div class="p-d-header-row-container d-flex align-items-top">
-                <div class="p-d-profile-icon-container d-flex justify-content-end">
-                    <div class="p-d-profile-icon-wrapper d-flex align-items-center justify-content-center">
-                        <i class="p-d-profile-icon fas fa-user-alt"></i>
-                    </div>
-                </div>
-                <div class="p-d-info-container">
-                    <div class="p-d-info-first-row d-flex justify-content-between">
-                        <span class="p-d-name" th:text="*{name}"></span>
-                        <div class="p-d-info-btn-container">
-                            <a sec:authorize="hasRole('ADMIN')" class="p-d-modify-btn btn" th:href="@{/admin/person/{id} (id=*{personId})}">편집</a>
-                            <span th:if="*{followId}" class="p-d-follow-btn btn followed"><i class="fas fa-user-check"></i>등록됨</span>
-                            <span th:unless="*{followId}" class="p-d-follow-btn btn"><i class="fas fa-user-plus"></i>관심 등록</span>
-                        </div>
-                    </div>
-                    <div class="p-d-job">
-                        <span th:if="*{not #strings.isEmpty(alias)}" th:text="|*{alias} ｜|"></span>
-                        <span th:text="*{job}"></span>
-                    </div>
-
-                    <div class="p-d-etc table-responsive">
-                        <table class="table table-borderless table-sm">
-                            <tbody>
-                            <tr th:if="*{not #strings.isEmpty(birth.birth_year)
-                                and not #strings.isEmpty(birth.birth_month)
-                                and not #strings.isEmpty(birth.birth_day)}">
-                                <th>출생</th>
-                                <td>
-                                    <span th:if="*{not #strings.isEmpty(birth.birth_year)}"
-                                          th:text="|*{birth.birth_year}년 |"></span>
-                                    <span th:if="*{not #strings.isEmpty(birth.birth_month)}"
-                                          th:text="|*{birth.birth_month}월 |"></span>
-                                    <span th:if="*{not #strings.isEmpty(birth.birth_day)}"
-                                          th:text="|*{birth.birth_day}일 |"></span>
-                                </td>
-                            </tr>
-                            <tr th:if="*{not #strings.isEmpty(summary)}">
-                                <th>기타</th>
-                                <td>
-                                    <pre class="p-d-etc-summary" th:text="*{summary}"></pre>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div>
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 <div class="container-xl">
     <div class="row">
         <div class="col-lg-8">
-            <div class="p-d-body-container">
+            <div class="p-d-header-container">
+                <div th:object="${info.person}">
+                    <div class="p-d-header d-flex justify-content-between">
+                        <div class="p-d-header-row-container d-flex align-items-top">
+                            <div class="p-d-profile-icon-container d-flex justify-content-end">
+                                <div class="p-d-profile-icon-wrapper d-flex align-items-center justify-content-center">
+                                    <i class="p-d-profile-icon fas fa-user-alt"></i>
+                                </div>
+                            </div>
+                            <div class="p-d-info-container">
+                                <div class="p-d-info-first-row d-flex justify-content-between">
+                                    <span class="p-d-name" th:text="*{name}"></span>
+                                    <div class="p-d-info-btn-container">
+                                        <a sec:authorize="hasRole('ADMIN')" class="p-d-modify-btn btn"
+                                           th:href="@{/admin/person/{id} (id=*{personId})}">편집</a>
+                                        <span th:if="*{followId}" class="p-d-follow-btn btn followed"><i
+                                                class="fas fa-user-check"></i>팔로잉</span>
+                                        <span th:unless="*{followId}" class="p-d-follow-btn btn"><i
+                                                class="fas fa-user-plus"></i>팔로우</span>
+                                    </div>
+                                </div>
+                                <div class="p-d-job">
+                                    <span th:if="*{not #strings.isEmpty(alias)}" th:text="|*{alias} ｜|"></span>
+                                    <span th:text="*{job}"></span>
+                                </div>
 
+                                <div class="p-d-etc table-responsive">
+                                    <table class="table table-borderless table-sm">
+                                        <tbody>
+                                        <tr th:if="*{not #strings.isEmpty(birth.birth_year)
+                                    and not #strings.isEmpty(birth.birth_month)
+                                    and not #strings.isEmpty(birth.birth_day)}">
+                                            <th>출생</th>
+                                            <td>
+                                        <span th:if="*{not #strings.isEmpty(birth.birth_year)}"
+                                              th:text="|*{birth.birth_year}년 |"></span>
+                                                <span th:if="*{not #strings.isEmpty(birth.birth_month)}"
+                                                      th:text="|*{birth.birth_month}월 |"></span>
+                                                <span th:if="*{not #strings.isEmpty(birth.birth_day)}"
+                                                      th:text="|*{birth.birth_day}일 |"></span>
+                                            </td>
+                                        </tr>
+                                        <tr th:if="*{not #strings.isEmpty(summary)}">
+                                            <th>기타</th>
+                                            <td>
+                                                <pre class="p-d-etc-summary" th:text="*{summary}"></pre>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-d-body-container">
                 <div th:if="*{yearList != null && yearList.size()>1}" class="p-d-year-container">
-                    <a th:if="${yStat.index==0}" class="p-d-year tt" th:each="y : *{yearList}" th:text="|${y}|"
+                    <a th:if="${yStat.index==0}" class="p-d-year tt" th:each="y : *{yearList}"
+                       th:text="|${y}|"
                        th:href="@{/person/{id}(id=${info.person.personId})}"
                        th:classappend="${cond.year==y} ? active"
-                        th:title="|${y}년 발언|" data-bs-trigger="hover" data-bs-placement="bottom">
-                    </a><a th:unless="${yStat.index==0}"class="p-d-year tt" th:each="y : *{yearList}" th:text="|${y}|"
-                       th:href="@{/person/{id}(id=${info.person.personId},year=${y})}"
-                       th:classappend="${cond.year==y} ? active"
                        th:title="|${y}년 발언|" data-bs-trigger="hover" data-bs-placement="bottom">
-                    </a>
+                    </a><a th:unless="${yStat.index==0}" class="p-d-year tt" th:each="y : *{yearList}"
+                           th:text="|${y}|"
+                           th:href="@{/person/{id}(id=${info.person.personId},year=${y})}"
+                           th:classappend="${cond.year==y} ? active"
+                           th:title="|${y}년 발언|" data-bs-trigger="hover" data-bs-placement="bottom">
+                </a>
                 </div>
 
                 <div class="p-d-body">
@@ -94,7 +95,8 @@
                             <!--<span class="p-d-r-first-row-divider">｜</span>-->
                             <div class="p-d-r-icons-container">
                                 <a th:href="@{/remark/{id}(id=${r.remarkId})}" class="d-flex">
-                                    <div class="p-d-r-icons-like"><i class="fas fa-thumbs-up"></i>&nbsp;<span
+                                    <div class="p-d-r-icons-like"><i
+                                            class="fas fa-thumbs-up"></i>&nbsp;<span
                                             th:text="${r.likeCount}"></span></div>
                                     <div class="p-d-r-icons-dislike"><i class="fas fa-thumbs-down"></i>&nbsp;<span
                                             th:text="${r.dislikeCount}"></span></div>
@@ -106,14 +108,15 @@
                                 <span class="p-d-r-icons-info tt bi bi-info-circle"
                                       data-bs-html="true" data-bs-placement="right"
                                       th:title="|<div class='d-flex align-items-center justify-content-center'>
-                        <span class='r-l-t-info-nickname'>작성자 : ${r.nickname}</span>
-                        </div>
-                        <div><span class='r-l-t-info-date'>${r.createdDate} 등록됨</span></div>|"></span>
+                            <span class='r-l-t-info-nickname'>작성자 : ${r.nickname}</span>
+                            </div>
+                            <div><span class='r-l-t-info-date'>${r.createdDate} 등록됨</span></div>|"></span>
                             </div>
                         </div>
 
                         <div class="p-d-r-tags-wrap">
-                            <a th:each="tag : ${r.remarkTagList}" th:href="@{/remark(keyword=${tag.name}, tab=3)}"
+                            <a th:each="tag : ${r.remarkTagList}"
+                               th:href="@{/remark(keyword=${tag.name}, tab=3)}"
                                th:text="|#${tag.name}|" class="p-d-r-tags">
                             </a>
                         </div>
@@ -138,28 +141,27 @@
             </div>
         </div>
         <div th:replace="fragments/aside :: aside"></div>
-
     </div>
 </div>
 <script th:inline="javascript">
     let followBtn = document.querySelector(".p-d-follow-btn");
     const personId = /*[[ ${info.person.personId} ]]*/;
 
-    function followExec(){
+    function followExec() {
         checkUser();
         setSpinnerToBtn();
         fetchFollow()
-            .then(()=> setTimeout(toggleBtn, 200));
+            .then(() => setTimeout(toggleBtn, 200));
     }
 
-    function checkUser(){
-        if(!/*[[ ${user} ]]*/){
+    function checkUser() {
+        if (!/*[[ ${user} ]]*/) {
             location.href = "/oauth_login";
         }
     }
 
 
-    async function fetchFollow(){
+    async function fetchFollow() {
         await fetch(`/api/person/${personId}/follow`, {
             method: "post",
             headers: {
@@ -168,27 +170,27 @@
         })
     }
 
-    function setSpinnerToBtn(){
+    function setSpinnerToBtn() {
         const spinner = document.createElement('div');
         spinner.className += "spinner-border spinner-border-sm";
-        spinner.setAttribute('role','status');
+        spinner.setAttribute('role', 'status');
         spinner.innerHTML = "<span class='visually-hidden'>Loading...</span>";
         followBtn.replaceChild(spinner, followBtn.firstChild);
         followBtn.classList.add('disabled');
     }
 
-    function toggleBtn(){
-        if(followBtn.classList.contains('followed')){
+    function toggleBtn() {
+        if (followBtn.classList.contains('followed')) {
             followBtn.classList.remove('followed');
-            followBtn.innerHTML = "<i class='fas fa-user-plus'></i>관심 등록"
-        }else {
+            followBtn.innerHTML = "<i class='fas fa-user-plus'></i>팔로우"
+        } else {
             followBtn.classList.add('followed');
-            followBtn.innerHTML = "<i class='fas fa-user-check'></i>등록됨";
+            followBtn.innerHTML = "<i class='fas fa-user-check'></i>팔로잉";
         }
         followBtn.classList.remove('disabled');
     }
 
-    function popupUnfollowModal(){
+    function popupUnfollowModal() {
         let modal = new bootstrap.Modal(document.getElementById('unfollowModal'))
         modal.show();
     }
