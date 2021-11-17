@@ -315,6 +315,11 @@ a:hover {
 
 
 @media (max-width: 767px) {
+
+    #login-btn{
+        margin-right: .75rem;
+    }
+
     .main-header-profile-link.dropdown-toggle::after, .main-header-profile-nickname {
         display: none;
     }
