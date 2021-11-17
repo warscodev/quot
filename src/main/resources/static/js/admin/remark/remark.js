@@ -214,7 +214,7 @@ function showMorePersonList(e, page) {
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
-    }else if(typeof categoryDom !== "undefined" && categoryDom.value === '관심인물'
+    }else if(typeof categoryDom !== "undefined" && categoryDom.value === '팔로우'
         && typeof userDom !== "undefined" && userDom.value !== null){
 
         $.ajax({
