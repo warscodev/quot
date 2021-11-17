@@ -1150,7 +1150,7 @@ a:hover {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: .5rem 1.25rem 0 60px;
+    padding: .5rem 1.5rem 0 60px;
 }
 
 .r-d-t-last-row-container {
@@ -1310,25 +1310,25 @@ a:hover {
 
 @media (max-width: 767px) {
     .r-l-t-last-row-container {
-        padding: .75rem .5rem 0 60px;
+        padding: .75rem .75rem 0 60px;
     }
 }
 
 @media (max-width: 575px) {
     .r-l-t-last-row-container {
-        padding: .75rem .5rem 0 54px;
+        padding: .75rem .75rem 0 54px;
     }
 }
 
 @media (max-width: 426px) {
     .r-l-t-last-row-container {
-        padding-right: .5rem;
+        padding-right: .55rem;
     }
 }
 
 @media (max-width: 360px) {
     .r-l-t-last-row-container {
-        padding: .75rem .5rem 0 43px;
+        padding: .75rem .55rem 0 43px;
     }
 
     .r-l-t-last-row-comment-count, .r-l-t-last-row-like-count, .r-l-t-last-row-dislike-count {

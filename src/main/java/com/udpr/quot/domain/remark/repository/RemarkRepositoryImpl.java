@@ -447,7 +447,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
     }
 
     private BooleanExpression categoryEq(String category) {
-        if(("인기").equals(category)){
+        if(("화제").equals(category)){
             return remark.likeCount.add(remark.dislikeCount).goe(2);
         }else {
             return isEmpty(category) || ("종합").equals(category) ? null : remark.person.category.eq(category);
