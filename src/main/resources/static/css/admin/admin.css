@@ -814,6 +814,11 @@ a:hover {
 
     .r-d-t-row-container {
         padding: .75rem !important;
+        margin-top: .75rem;
+    }
+
+    .r-d-t-bottom-btn-container{
+        margin-left: .75rem;
     }
 
 }
