@@ -803,10 +803,11 @@ a:hover {
     }
 
     .r-l-t-row-container {
-        margin-bottom: .5rem;
+        margin-right: .75rem;
+        margin-left: .75rem;
+        margin-bottom: .75rem;
         border-top: 1px solid #e6edf3;
         border-bottom: 1px solid #e6edf3;
-        border-radius: 0 0 .75rem .75rem;
         padding: .75rem;
         box-shadow: 0 5px 10px 0 rgba(15, 40, 65, 0.1);
     }
