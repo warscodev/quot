@@ -116,6 +116,7 @@ public class PersonController {
             model.addAttribute("info",personService.getDetail(condition,personId));
         }
 
+
         return "person/personDetail";
     }
 

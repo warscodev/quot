@@ -35,7 +35,7 @@
                                     <span th:if="*{not #strings.isEmpty(alias)}" th:text="|*{alias} ｜|"></span>
                                     <span th:text="*{job}"></span>
                                 </div>
-
+                                <hr class="p-d-hr">
                                 <div class="p-d-etc table-responsive">
                                     <table class="table table-borderless table-sm">
                                         <tbody>
@@ -77,13 +77,17 @@
                        th:text="|${y}|"
                        th:href="@{/person/{id}(id=${info.person.personId})}"
                        th:classappend="${cond.year==y} ? active"
-                       th:title="|${y}년 발언|" data-bs-trigger="hover" data-bs-placement="bottom">
+                       th:title="|${y}년 발언|"
+                       th:data-index="${yStat.index}"
+                       data-bs-trigger="hover" data-bs-placement="bottom" >
                     </a><a th:unless="${yStat.index==0}" class="p-d-year tt" th:each="y : *{yearList}"
                            th:text="|${y}|"
                            th:href="@{/person/{id}(id=${info.person.personId},year=${y})}"
                            th:classappend="${cond.year==y} ? active"
-                           th:title="|${y}년 발언|" data-bs-trigger="hover" data-bs-placement="bottom">
-                </a>
+                           th:title="|${y}년 발언|"
+                           th:data-index="${yStat.index}"
+                           data-bs-trigger="hover" data-bs-placement="bottom">
+                    </a>
                 </div>
 
                 <div class="p-d-body">
@@ -129,14 +133,21 @@
                                    th:utext="|${r.content} <span class='p-d-r-content-quotation'>&rdquo;</span>|"></p>
                             </a>
                         </div>
-
                         <hr th:class="|p-d-r-content-border-last-${rStat.last}|">
                     </div>
+
                     <div th:unless="*{not #lists.isEmpty(remarkList)}" class="p-d-r-row-container">
                         <h6 class="text-center my-5">등록된 발언이 없습니다.</h6>
                     </div>
+                </div>
 
-
+                <div th:if="*{yearList != null && yearList.size()>1}" class="p-d-r-pagination-container">
+                    <div class="p-d-r-pagination-left">
+                        <a th:if="*{prevYear>0}" th:utext="|<i class='fas fa-angle-left'></i> *{prevYear}년|" th:href="@{/person/{id} (id=*{person.personId},year=*{prevYear})}"></a>
+                    </div>
+                    <div class="p-d-r-pagination-right">
+                        <a th:if="*{nextYear>0}" th:utext="|*{nextYear}년 <i class='fas fa-angle-right'></i>|" th:href="@{/person/{id} (id=*{person.personId},year=*{nextYear})}"></a>
+                    </div>
                 </div>
 
             </div>
@@ -238,6 +249,7 @@
             toast.show()
         }
     }
+
 
 
     followBtn.addEventListener("click", followExec);

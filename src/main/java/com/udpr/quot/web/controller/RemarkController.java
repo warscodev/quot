@@ -141,7 +141,7 @@ public class RemarkController {
     }
 
     //발언 검색결과 페이지
-    @GetMapping("/remark/search")
+    /*@GetMapping("/remark/search")
     public String remarkSearchResultPage(@RequestParam String keyword, int tab, Long personId, Long page, Model model, @LoginUser SessionUser user) {
         model.addAttribute("keyword", keyword);
         model.addAttribute("tab", tab);
@@ -160,7 +160,7 @@ public class RemarkController {
 
         return "remark/remarkSearch";
     }
-
+*/
 
 
 }

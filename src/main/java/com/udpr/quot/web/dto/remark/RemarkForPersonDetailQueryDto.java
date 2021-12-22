@@ -54,5 +54,4 @@ public class RemarkForPersonDetailQueryDto {
     public String remarkDateFormat(LocalDate localDate){
         return localDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
     }
-
 }

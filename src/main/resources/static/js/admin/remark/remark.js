@@ -6,7 +6,7 @@ function highlightKeyword() {
     if (keywordEl) {
         let keyword = keywordEl.value;
 
-        if (keyword != null && keyword !== "" && keyword !== undefined) {
+        if (keyword != null && keyword !== "" && keyword !== undefined && keyword !== '.') {
             let tab = document.querySelector("#r-l-tab").value,
                 remarkContentEl = document.querySelectorAll(".r-l-t-content"),
                 remarkPersonEl = document.querySelectorAll(".r-l-t-person-name"),

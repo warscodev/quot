@@ -96,9 +96,11 @@ public class PersonService {
         }else {
             if(condition.getYear() == null){
                 condition.setYear(yearList.get(0));
+            }else {
+
             }
             List<RemarkForPersonDetailQueryDto> remarkList = personPageQueryRepository.getRemarkListForPersonDetail(condition, id);
-            return new PersonDetailDto(getDetail, remarkList, yearList);
+            return new PersonDetailDto(getDetail, remarkList, yearList, condition.getYear());
         }
     }
 
@@ -112,7 +114,7 @@ public class PersonService {
                 condition.setYear(yearList.get(0));
             }
             List<RemarkForPersonDetailQueryDto> remarkList = personPageQueryRepository.getRemarkListForPersonDetail(condition, personId);
-            return new PersonDetailDto(getDetail, remarkList, yearList);
+            return new PersonDetailDto(getDetail, remarkList, yearList, condition.getYear());
         }
     }
 

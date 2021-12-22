@@ -1,7 +1,6 @@
 <!DOCTYPE HTML>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header(title='로그인')"/>
-<title>Quot - 로그인</title>
 <style>
     .form-signin {
         width: 100%;
@@ -12,12 +11,12 @@
 </style>
 </head>
 <body class="text-center" style="background-color: #fff; height: 100%">
-<div class="main-header py-2 sticky-top d-flex align-items-center">
+<div class="main-header py-2 sticky-top d-flex align-items-center" style="border-bottom: solid 1px #eee">
     <div class="container d-flex justify-content-center main-header-container align-items-center">
         <!-- 로고 -->
         <div>
             <a href="/">
-                <span class="login-logo">Quot.</span>
+                <img class="login-header-logo" src="/css/images/logo.png">
             </a>
         </div>
     </div>
@@ -25,7 +24,7 @@
 
 
 <main class="form-signin text-center">
-    <h2 class="login-title">로그인</h2>
+    <h3 class="login-title">로그인</h3>
     <hr class="login-sub-title-divider">
     <div class="login-sub-title"><span>간편 로그인</span></div>
 <!--

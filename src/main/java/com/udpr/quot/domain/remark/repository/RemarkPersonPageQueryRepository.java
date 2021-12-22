@@ -98,9 +98,6 @@ public class RemarkPersonPageQueryRepository {
         });
     }
 
-
-
-
     public List<Integer> getYears(Long id){
         return queryFactory.select(remark.remarkDate.year()).distinct()
                 .from(remark)

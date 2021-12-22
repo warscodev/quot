@@ -106,10 +106,14 @@
     padding-left: .125rem;
 }
 
+.p-d-hr{
+    color: #bcc7cf;
+    margin: .5rem 0 !important;
+}
+
 
 .p-d-etc {
     padding-left: .125rem;
-    margin-top: .25rem;
     display: inline-block;
 }
 
@@ -282,7 +286,7 @@
 
 .p-d-body{
     padding: 1rem 1.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     background-color: #fff;
     border-radius: 1rem;
     box-shadow: 0 10px 20px 0 rgba(15, 40, 65, 0.1);
@@ -317,7 +321,7 @@
 }
 
 .p-d-year:hover, .p-d-year.active{
-    background-color: #59a4d9;
+    background-color: #2678b3;
     color: #fff;
     box-shadow: 0 2px 8px 0 rgba(15, 15, 65, 0.13);
 }
@@ -529,6 +533,19 @@
     .p-d-r-content-border-last-false{
         margin: .75rem;
     }
+}
 
+.p-d-r-pagination-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.p-d-r-pagination-left, .p-d-r-pagination-right{
+    padding: 0 1rem;
+}
+
+.p-d-r-pagination-container a{
+    font-size: .875rem;
+    color: rgba(0,0,0,0.54);
 }
 
