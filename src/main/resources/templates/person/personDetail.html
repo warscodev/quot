@@ -98,17 +98,17 @@
                             </div>
                             <!--<span class="p-d-r-first-row-divider">｜</span>-->
                             <div class="p-d-r-icons-container">
-                                <a th:href="@{/remark/{id}(id=${r.remarkId})}" class="d-flex">
+                                <div class="d-flex">
                                     <div class="p-d-r-icons-like"><i
-                                            class="fas fa-thumbs-up"></i>&nbsp;<span
+                                            class="fas fa-thumbs-up"></i>&nbsp;<span class="p-d-r-icons-text"
                                             th:text="${r.likeCount}"></span></div>
-                                    <div class="p-d-r-icons-dislike"><i class="fas fa-thumbs-down"></i>&nbsp;<span
+                                    <div class="p-d-r-icons-dislike"><i class="fas fa-thumbs-down"></i>&nbsp;<span class="p-d-r-icons-text"
                                             th:text="${r.dislikeCount}"></span></div>
-                                </a>
-                                <a th:href="@{/remark/{id}#cmCont(id=${r.remarkId})}">
-                                    <div class="p-d-r-icons-comments"><i class="far fa-comment-dots"></i>&nbsp;<span
+                                </div>
+                                <div>
+                                    <div class="p-d-r-icons-comments"><i class="far fa-comment-dots"></i>&nbsp;<span class="p-d-r-icons-text"
                                             th:text="${r.commentCount}"></span></div>
-                                </a>
+                                </div>
                                 <span class="p-d-r-icons-info tt bi bi-info-circle"
                                       data-bs-html="true" data-bs-placement="right"
                                       th:title="|<div class='d-flex align-items-center justify-content-center'>

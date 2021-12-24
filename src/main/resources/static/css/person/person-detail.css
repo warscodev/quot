@@ -398,11 +398,15 @@
     color: #919191;
     font-size: .813rem;
 }
-.p-d-r-icons-container > a > div{
+.p-d-r-icons-container > div > div{
     margin-right: 1rem;
 }
 .p-d-r-icons-container > a{
     color: #7f8a99;
+}
+
+.p-d-r-icons-text{
+    color: #606060;
 }
 
 
@@ -413,12 +417,14 @@
 
 .p-d-r-icons-like > i {
     font-size: .75rem;
-    color: #77c5ef;
+    color: #bcc0c5;
+    /*color: #77c5ef;*/
     /*color: #338ebf;*/
 }
 .p-d-r-icons-dislike > i {
     font-size: .75rem;
-    color: #ffacac;
+    color: #bcc0c5;
+    /*color: #ffacac;*/
     /*color: #fc7b7b;*/
 }
 
