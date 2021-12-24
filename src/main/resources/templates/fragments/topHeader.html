@@ -33,10 +33,10 @@
             <div sec:authorize="isAuthenticated()" class="main-header-profile flex-shrink-0 dropdown">
                  <a href="#" class="main-header-profile-link d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser2"
                     data-bs-toggle="dropdown" aria-expanded="false">
-                     <span class="main-header-profile-nickname" th:text="${session.user.nickname}"></span>
+                     <i class="fas fa-cog main-header-profile-btn-icon"></i><span class="main-header-profile-nickname" th:text="${session.user.nickname}"></span>
                      <i class="main-header-profile-bar-icon fas fa-bars" style="display: none"></i>
                  </a>
-                 <ul class="main-header-profile-dropdown dropdown-menu" aria-labelledby="dropdownUser2">
+                 <ul class="main-header-profile-dropdown dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser2">
                      <li><a class="dropdown-item" href="/profile">내 정보</a></li>
                      <li><hr sec:authorize="hasRole('ADMIN')" class="dropdown-divider">
                      <li><a sec:authorize="hasRole('ADMIN')" class="dropdown-item" href="/admin/person">인물목록</a></li>
@@ -53,9 +53,9 @@
         </div>
 
         <script>
-            const header = $('.main-header');
-            const headerHeight =header.css('height');
-            const headerPaddingTop =header.css('padding-top');
+            /*let header = $('.main-header');
+            let headerHeight = header.css('height');
+            let headerPaddingTop = header.css('padding-top');*/
 
             function validate(event) {
                 const searchInput = document.getElementById("search-input");
@@ -69,27 +69,34 @@
                 }
             }
 
-            function checkScrolling() {
+            /*function checkScrolling() {
                 if(!detectTop()){
                     header.css('border-bottom','1px solid #ede7e7');
-                    header.css('height','60px');
+                    header.css('height',headerHeight-'10px');
                     header.css('padding-top','.5rem');
                 }else {
                     header.css('border-bottom','none');
                     header.css('height',headerHeight);
                     header.css('padding-top',headerPaddingTop);
-
                 }
-            }
+            }*/
 
-            function detectTop() {
+            /*function detectTop() {
                 let scrollTop = $(window).scrollTop();
                 return scrollTop === 0;
+            }
+
+            function resizeInit(){
+                let initializedHeader = $('.main-header');
+                headerHeight = initializedHeader.css('height');
+                headerPaddingTop = initializedHeader.css('padding-top');
             }
 
             $(window).on('scroll', function() {
                 checkScrolling();
             });
+
+            window.addEventListener('resize', resizeInit);*/
 
 
 
