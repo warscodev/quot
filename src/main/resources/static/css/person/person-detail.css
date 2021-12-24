@@ -1,3 +1,7 @@
+.person-detail-container{
+    margin-top: .75rem;
+}
+
 .p-d-header-container{
     padding-top: 1.75rem;
 }
@@ -322,6 +326,8 @@
 
 @media (max-width: 767px) {
     .p-d-year-container{
+        padding-left: .75rem;
+        padding-right: .75rem;
         margin-top: .75rem;
         overflow-x: auto;
         -ms-overflow-style: none;
@@ -530,6 +536,14 @@
     justify-content: space-between;
     margin-bottom: 1rem;
 }
+
+@media (max-width: 767px) {
+    .p-d-r-pagination-container{
+        padding-left: .75rem;
+        padding-right: .75rem;
+    }
+}
+
 
 .p-d-r-pagination-left, .p-d-r-pagination-right{
 }

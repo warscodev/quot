@@ -180,7 +180,7 @@ a:hover {
 
 @media (max-width: 767px) {
     .main-header-logo{
-        height: 32px;
+        height: 38px;
     }
 
     .login-header-logo{
@@ -192,8 +192,6 @@ a:hover {
         position: relative;
         top: 0;
         z-index: 1020;
-        padding-top: .5rem;
-        padding-bottom: .5rem;
     }
 
     .main-header-logo {
@@ -205,7 +203,7 @@ a:hover {
 @media (max-width: 575px) {
 
     .main-header-logo{
-        height: 28px;
+        height: 32px;
     }
 
     .login-header-logo{
@@ -252,13 +250,18 @@ a:hover {
 @media (max-width: 767px) {
     .main-search-bar {
         min-width: auto;
+        padding-top: .3rem;
+        padding-bottom: .3rem;
     }
+
+    .main-search-form {
+        margin-left: .75rem;
+    }
+
 }
 
 @media (max-width: 575px) {
     .main-search-bar {
-        padding-top: .45rem;
-        padding-bottom: .45rem;
         padding-left: 2.5rem;
     }
 }
@@ -599,7 +602,7 @@ a:hover {
     }
 
     .r-l-table-title-empty {
-        margin-top: .25rem;
+        margin-top: .75rem;
     }
 
 }
