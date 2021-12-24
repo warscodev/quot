@@ -44,13 +44,6 @@
                 </a>
             </div>
         </div>
-        <div sec:authorize="hasRole('ADMIN')" th:if="${keyword}"
-             class="r-l-related-person-notice-container d-flex justify-content-end align-items-center">
-            <a href="/admin/person/new" class="btn btn-sm r-l-related-person-notice-add-btn">
-                <span>찾는 인물이 없다면 직접 <b>[등록]</b> 해보세요!</span>
-            </a>
-        </div>
-
 
         <div th:if="${keyword}" class="r-l-table-title d-flex justify-content-between">
             <span>발언 검색결과</span>

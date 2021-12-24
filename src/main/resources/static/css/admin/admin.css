@@ -163,7 +163,7 @@ a:hover {
     z-index: 1020;*/
 }
 .main-header-logo{
-    height: 40px;
+    height: 42px;
 }
 
 .login-header-logo{
@@ -188,7 +188,7 @@ a:hover {
     }
 
     .main-header {
-        height: 60px;
+        height: 65px;
         position: relative;
         top: 0;
         z-index: 1020;
@@ -211,7 +211,7 @@ a:hover {
     }
 
     .main-header {
-        height: 50px;
+        height: 55px;
     }
 
     .main-header-logo {
@@ -414,7 +414,7 @@ a:hover {
         font-size: 1.25rem;
         color: #878d9f;
         display: inline-block !important;
-        padding-right: .75rem;
+        padding-right: .875rem;
     }
 
     .main-header-profile-link{
@@ -489,7 +489,8 @@ a:hover {
     list-style: none;
     display: inline-flex;
     margin-bottom: 0;
-    padding-left: 0;
+    padding-left: .25rem;
+    padding-right: .25rem;
 }
 
 .subNav-menu-items {
@@ -497,17 +498,17 @@ a:hover {
     font-size: 1rem;
     font-weight: 500;
     user-select: none;
-    margin-right: .5rem;
+    margin-right: .75rem;
     line-height: initial;
 }
 
 .subNav-menu-items a {
     display: inline-block;
-    padding: .75rem .375rem 1rem .375rem;
+    padding: .75rem .313rem .938rem .313rem;
 }
 
 .subNav-menu-items.main-menu span {
-    color: #2c405e;
+    color: #151616;
 }
 
 .subNav-menu-items.main-menu.hot {
@@ -527,9 +528,10 @@ a:hover {
 
 .subNav-menu-items span {
     font-size: .938rem;
+    font-weight: 600;
     color: #151616;
-    padding-bottom: .813rem;
-    border-bottom: 3px solid transparent;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid transparent;
     transition: color .15s ease-in-out, border .15s ease-in-out, border-bottom-width .15s ease-in-out !important;
 }
 
@@ -543,10 +545,8 @@ a:hover {
     /*border-bottom: 3px solid #72849d;*/
 }
 
-.subNav-menu-items.active span {
-    color: #151616;
-    border-bottom: 3px solid #72849d;
-    font-weight: 600;
+.subNav-menu-items.active{
+    border-bottom: 2px solid #72849d;
 }
 
 .subNav-menu-bookmark {
@@ -562,12 +562,18 @@ a:hover {
 
 @media (max-width: 767px) {
 
+    .subNav-menu-items{
+        margin-right: .5rem;
+    }
+
     .subNav-menu-items a {
-        padding: .875rem .188rem;
+        /*padding: .75rem .313rem .938rem .313rem;*/
+        padding: .875rem .25rem .875rem .25rem;
+
     }
 
     .subNav-menu-items span {
-        padding-bottom: .7rem;
+        padding-bottom: .938rem;
     }
 }
 
@@ -627,9 +633,9 @@ a:hover {
 
 .r-l-table-title {
     font-size: 1.25rem;
-    font-weight: 500;
-    padding-bottom: .688rem;
-    padding-top: 1.25rem;
+    font-weight: 600;
+    padding-bottom: .75rem;
+    padding-top: 1.5rem;
     padding-left: .5rem;
     /*
     line-height: initial;
@@ -642,8 +648,6 @@ a:hover {
 
 @media (max-width: 767px) {
     .r-l-table-title {
-        padding-top: 1rem;
-        padding-bottom: .35rem;
         padding-left: .75rem;
     }
 
@@ -811,8 +815,8 @@ a:hover {
     border-radius: .5rem;
     border: none;
     background-color: transparent;
-    color: #81888f;
     cursor: pointer;
+    font-weight: 500;
 }
 
 .r-l-sorting:focus, .r-l-sorting:active {
@@ -1138,8 +1142,9 @@ a:hover {
 }
 
 .r-d-t-tag-container {
-    margin-top: .25rem;
+    margin-top: .313rem;
 }
+
 
 .r-l-t-tags {
     font-size: .813rem;
@@ -1160,7 +1165,7 @@ a:hover {
 @media (max-width: 767px) {
     .r-l-t-tags {
         word-break: break-all;
-        margin-bottom: 0;
+        margin-bottom: .125rem;
     }
 }
 
@@ -2121,7 +2126,7 @@ a:hover {
 .aside-title {
     display: block;
     font-size: 1.25rem;
-    font-weight: 600;
+    font-weight: 700;
     line-height: normal;
     padding: 1rem 1.25rem .55rem 1.25rem;
 }

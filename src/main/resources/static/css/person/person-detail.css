@@ -10,14 +10,14 @@
 }
 
 .p-d-header-row-container{
-    padding: 1.75rem;
+    padding: 1.25rem 1.25rem 1.75rem 1.25rem;
     width: 100%;
 }
 
 @media (max-width: 767px) {
 
     .p-d-header-container{
-        padding-top: 0;
+        padding-top: .75rem;
         padding-left: 0;
         padding-right: 0;
     }
@@ -80,7 +80,6 @@
 .p-d-info-first-row{
     align-items: center;
     flex-wrap: wrap;
-    padding-top: .25rem;
 }
 
 @media (max-width: 767px) {
@@ -97,8 +96,9 @@
 
 .p-d-name{
     line-height: initial;
-    font-size: 1.75rem;
-    font-weight: 600;
+    font-size: 1.563rem;
+    font-weight: 700;
+    margin-top: .5rem;
 }
 
 .p-d-job{
@@ -108,18 +108,20 @@
 }
 
 .p-d-hr{
+    width: 80%;
     color: #bcc7cf;
     margin: .5rem 0 !important;
 }
 
 
 .p-d-etc {
+    padding-top: .25rem;
     padding-left: .125rem;
     display: inline-block;
 }
 
 .p-d-etc > table{
-    font-size: .875rem;
+    font-size: .813rem;
     margin: 0;
     /*border-radius: .25rem;
     box-shadow: 0 2px 3px 0 rgb(0 0 0 / 5%), 0 0 2px 0 rgb(0 0 0 / 7%);*/
@@ -142,7 +144,7 @@
 
 .p-d-etc-summary{
     font-family: Pretendard , Noto Sans KR, Apple SD Gothic Neo, Malgun Gothic, 맑은 고딕, sans-serif;
-    font-size: .875rem;
+    font-size: .813rem;
     margin-bottom: 0;
     white-space: pre-wrap;
     white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
@@ -255,6 +257,7 @@
 @media (max-width: 767px) {
 
     .p-d-name{
+        margin-top: 0;
         font-size: 1.5rem;
     }
 
