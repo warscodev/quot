@@ -169,14 +169,17 @@
     const personId = /*[[ ${info.person.personId} ]]*/;
 
     function followExec() {
-        checkUser();
-        setSpinnerToBtn();
-        fetchFollow().then(r => toggleBtn(r));
+        if(checkUser()){
+            setSpinnerToBtn();
+            fetchFollow().then(r => toggleBtn(r));
+        }
     }
 
     function checkUser() {
         if (!/*[[ ${user} ]]*/) {
             location.href = "/oauth_login";
+        }else {
+            return true;
         }
     }
 
