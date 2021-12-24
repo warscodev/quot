@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-<head th:replace="fragments/header :: header(title=|${remark.name}의 발언 (${remark.tags})|, content=${remark.remarkSummary})">
+<head th:replace="fragments/header :: header(title=|${remark.name} 발언 &#34;${remark.remarkSummaryForTitle}&#34;|, content=${remark.remarkSummary})">
 <body>
 <div th:replace="fragments/topHeader :: topHeader"></div>
 <div th:replace="fragments/subNavbar :: subNavbar"></div>

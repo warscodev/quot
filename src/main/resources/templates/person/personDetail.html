@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-<head th:replace="fragments/header :: header(title=|${info.person.name} : 인물페이지|)">
+<head th:replace="fragments/header :: header(title=|${info.person.name} 발언 모음 : 인물페이지|)">
 <body th:object="${info}">
 <div th:replace="fragments/topHeader :: topHeader"></div>
 <div th:replace="fragments/subNavbar :: subNavbar"></div>
@@ -143,10 +143,10 @@
 
                 <div th:if="*{yearList != null && yearList.size()>1}" class="p-d-r-pagination-container">
                     <div class="p-d-r-pagination-left">
-                        <a th:if="*{prevYear>0}" th:utext="|<i class='fas fa-angle-left'></i> *{prevYear}년|" th:href="@{/person/{id} (id=*{person.personId},year=*{prevYear})}"></a>
+                        <a class="p-d-r-pagination-btn btn" th:if="*{prevYear>0}" th:utext="|<i class='fas fa-angle-left'></i> *{prevYear}년|" th:href="@{/person/{id} (id=*{person.personId},year=*{prevYear})}"></a>
                     </div>
                     <div class="p-d-r-pagination-right">
-                        <a th:if="*{nextYear>0}" th:utext="|*{nextYear}년 <i class='fas fa-angle-right'></i>|" th:href="@{/person/{id} (id=*{person.personId},year=*{nextYear})}"></a>
+                        <a class="p-d-r-pagination-btn btn" th:if="*{nextYear>0}" th:utext="|*{nextYear}년 <i class='fas fa-angle-right'></i>|" th:href="@{/person/{id} (id=*{person.personId},year=*{nextYear})}"></a>
                     </div>
                 </div>
 

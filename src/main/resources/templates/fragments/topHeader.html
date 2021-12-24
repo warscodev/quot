@@ -3,13 +3,12 @@
 <html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <!-- 헤더 네비바 -->
-<header class="main-header py-2 sticky-top d-flex align-items-center" th:fragment="topHeader" style="z-index: 99!important;">
+<header id="mainHeader" class="main-header d-flex align-items-center" th:fragment="topHeader" style="z-index: 99!important;">
     <div class="container-xl d-flex justify-content-between main-header-container align-items-center">
         <!-- 로고 -->
         <div>
             <a href="/">
-                <img class="main-header-logo" src="/css/images/logo.png">
-                <!--<span class="main-header-logo">Quot.</span>-->
+                <img class="main-header-logo" src="/css/images/logo.png" alt="쿼트위키">
             </a>
         </div>
 
@@ -17,9 +16,6 @@
         <form action="/remark" id="main-search-bar" method="get" class="main-search-form d-flex align-items-center" autocomplete="off" maxlength="255"
               onsubmit="return validate(this)">
             <button type="submit" class="main-search-button">
-<!--
-                <i class="main-search-button-icon fas fa-search"></i>
--->
                 <i class="main-search-button-icon bi bi-search"></i>
 
             </button>
@@ -57,6 +53,10 @@
         </div>
 
         <script>
+            const header = $('.main-header');
+            const headerHeight =header.css('height');
+            const headerPaddingTop =header.css('padding-top');
+
             function validate(event) {
                 const searchInput = document.getElementById("search-input");
                 let keyword = searchInput.value;
@@ -70,11 +70,15 @@
             }
 
             function checkScrolling() {
-                let header = $('.main-header');
                 if(!detectTop()){
                     header.css('border-bottom','1px solid #ede7e7');
+                    header.css('height','60px');
+                    header.css('padding-top','.5rem');
                 }else {
                     header.css('border-bottom','none');
+                    header.css('height',headerHeight);
+                    header.css('padding-top',headerPaddingTop);
+
                 }
             }
 

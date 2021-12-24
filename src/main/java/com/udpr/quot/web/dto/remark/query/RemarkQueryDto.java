@@ -46,6 +46,8 @@ public class RemarkQueryDto {
 
     private String remarkSummary;
 
+    private String remarkSummaryForTitle;
+
 
     @QueryProjection
     public RemarkQueryDto(Long remarkId, String content, LocalDate remarkDate, LocalDateTime createdDate, LocalDateTime updatedDate,
@@ -69,6 +71,7 @@ public class RemarkQueryDto {
         this.user_id = user_id;
         this.nickname = nickname;
         this.remarkSummary = summarySubstring(content);
+        this.remarkSummaryForTitle = summaryForTitleSubstring(content);
     }
 
     public String createdAndUpdatedDateFormat(LocalDateTime localDateTime){
@@ -86,5 +89,14 @@ public class RemarkQueryDto {
             return remarkSummary;
         }
     }
+    public String summaryForTitleSubstring(String remarkSummary){
+        if(remarkSummary.length()>32){
+            return remarkSummary.substring(0,29) + "...";
+        }else{
+            return remarkSummary;
+        }
+    }
+
+
 
 }

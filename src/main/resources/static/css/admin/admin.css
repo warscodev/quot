@@ -155,15 +155,20 @@ a:hover {
     /*box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);*/
     border-bottom: none;
     height: 70px;
+    padding-top: .75rem;
+    padding-bottom: .5rem;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1020;
 }
 .main-header-logo{
-    padding-top: .188rem;
-    height: 45px;
+    height: 42px;
 }
 
 .login-header-logo{
     padding-top: .188rem;
-    height: 55px;
+    height: 50px;
 }
 
 .login-logo {
@@ -175,15 +180,20 @@ a:hover {
 
 @media (max-width: 767px) {
     .main-header-logo{
-        height: 40px;
+        height: 32px;
     }
 
     .login-header-logo{
-        height: 45px;
+        height: 40px;
     }
 
     .main-header {
         height: 60px;
+        position: relative;
+        top: 0;
+        z-index: 1020;
+        padding-top: .5rem;
+        padding-bottom: .5rem;
     }
 
     .main-header-logo {
@@ -195,11 +205,11 @@ a:hover {
 @media (max-width: 575px) {
 
     .main-header-logo{
-        height: 35px;
+        height: 28px;
     }
 
     .login-header-logo{
-        height: 40px;
+        height: 35px;
     }
 
     .main-header {
@@ -231,10 +241,10 @@ a:hover {
     min-width: 400px;
     font-weight: 500;
     border: 1px solid transparent;
-    border-radius: 2rem;
+    border-radius: .5rem;
     padding-left: 3rem;
-    padding-bottom: .6rem;
-    padding-top: .6rem;
+    padding-bottom: .5rem;
+    padding-top: .5rem;
     transition: box-shadow .2s ease-in, border-color .2s ease-in;
     background-color: #eef3fa !important;
 }
@@ -311,6 +321,10 @@ a:hover {
 #login-btn:hover {
     border: 1px solid #d2ddec;
     background-color: #f9fbfd;
+}
+
+#login-btn:focus{
+    box-shadow: none;
 }
 
 .login-btn-icon{
@@ -440,7 +454,7 @@ a:hover {
 
 .subNav-menu-items a {
     display: inline-block;
-    padding: 1rem .375rem;
+    padding: .75rem .375rem 1rem .375rem;
 }
 
 .subNav-menu-items.main-menu span {
@@ -504,7 +518,7 @@ a:hover {
     }
 
     .subNav-menu-items span {
-        padding-bottom: .688rem;
+        padding-bottom: .7rem;
     }
 }
 
@@ -565,13 +579,16 @@ a:hover {
 .r-l-table-title {
     font-size: 1.25rem;
     font-weight: 500;
-    padding-bottom: .5rem;
+    padding-bottom: .688rem;
     padding-top: 1.25rem;
     padding-left: .5rem;
+    /*
+    line-height: initial;
+    */
 }
 
 .r-l-table-title-empty {
-    margin-top: 1rem;
+    margin-top: 1.75rem;
 }
 
 @media (max-width: 767px) {
@@ -816,7 +833,7 @@ a:hover {
 }
 
 .r-d-table-container {
-    margin-top: 1rem;
+    margin-top: 1.75rem;
 }
 
 .r-l-t-row-container {
@@ -1109,7 +1126,7 @@ a:hover {
 
 .r-d-t-second-row-container {
     margin-top: .5rem;
-    margin-bottom: .25rem;
+    margin-bottom: .75rem;
 }
 
 .r-d-t-first-col {
@@ -1233,7 +1250,7 @@ a:hover {
 }
 
 .r-d-t-last-row-btn-icon-wrap{
-    width: 65px;
+    width: 68px;
     height: 30px;
 
 }
@@ -1691,7 +1708,7 @@ a:hover {
 }
 
 .page-item.active {
-    background-color: #5fa3e3;
+    background-color: #72849d;
     box-shadow: 2px 5px 10px 0px rgba(40, 70, 90, 0.3);
 }
 
@@ -1704,7 +1721,7 @@ a:hover {
 }
 
 .pagination > .page-item:hover {
-    background-color: #5fa3e3;
+    background-color: #72849d;
 }
 
 .pagination > .page-item:hover > .page-link {
@@ -2025,7 +2042,7 @@ a:hover {
     background-color: #fff;
     background-clip: border-box;
     border-radius: 1rem;
-    margin: 1rem 0 8.6rem 0;
+    margin: 1.75rem 0 8.6rem 0;
     box-shadow: 0 10px 20px 0 rgba(15, 40, 65, .1);
     z-index: auto;
 }
@@ -2053,14 +2070,16 @@ a:hover {
 }
 
 .aside-title i {
+    font-size: 1.188rem;
     color: #e93232;
     margin-right: .5rem;
 }
 
 .aside-remark-category-nav {
-    padding: 0 .5rem;
+    padding: 0 1.5em;
     list-style: none;
     display: flex;
+    justify-content: space-between;
     margin: 0;
     flex-wrap: wrap;
     border-bottom: 1px solid #eee;
@@ -2069,7 +2088,7 @@ a:hover {
 .aside-remark-category-nav-items {
     font-size: .938rem;
     text-align: center;
-    padding: .25rem .5rem .5rem .75rem;
+    padding: .25rem .25rem .5rem .25rem;
     cursor: pointer;
 }
 
@@ -2162,6 +2181,8 @@ a:hover {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
 
+.footer{
 }
 
