@@ -395,18 +395,18 @@
     justify-content: space-between;
     align-items: center;
     cursor: default;
-    color: #919191;
+    color: #c1ccdb;
     font-size: .813rem;
 }
 .p-d-r-icons-container > div > div{
     margin-right: 1rem;
 }
 .p-d-r-icons-container > a{
-    color: #7f8a99;
+    color: #c1ccdb;
 }
 
 .p-d-r-icons-text{
-    color: #606060;
+    color: #70737a;
 }
 
 
@@ -417,13 +417,13 @@
 
 .p-d-r-icons-like > i {
     font-size: .75rem;
-    color: #bcc0c5;
+    color: #c1ccdb;
     /*color: #77c5ef;*/
     /*color: #338ebf;*/
 }
 .p-d-r-icons-dislike > i {
     font-size: .75rem;
-    color: #bcc0c5;
+    color: #c1ccdb;
     /*color: #ffacac;*/
     /*color: #fc7b7b;*/
 }
