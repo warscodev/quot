@@ -53,7 +53,7 @@
                                     </div>
                                     <div class="r-d-t-tag-container d-flex align-items-top">
                                         <div class="r-l-t-tags-wrap">
-                                            <a class="r-l-t-tags" th:each="tag : *{remarkTagList}"
+                                            <a class="r-l-t-tags r-d-t-tags" th:each="tag : *{remarkTagList}"
                                                th:href="@{/remark(keyword=${tag.name}, tab=3)}">
                                                 <span th:text="|#${tag.name}|"></span>
                                             </a>

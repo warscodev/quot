@@ -1141,9 +1141,6 @@ a:hover {
     height: 1.125rem;
 }
 
-.r-d-t-tag-container {
-    margin-top: .313rem;
-}
 
 
 .r-l-t-tags {
@@ -1162,11 +1159,21 @@ a:hover {
     transition: color .3s ease-in-out, background-color .3s ease-in-out, font-weight .15s ease-in-out;
 }
 
+.r-d-t-tags{
+    margin-bottom: .25rem;
+    margin-right: .25rem;
+}
+
 @media (max-width: 767px) {
     .r-l-t-tags {
         word-break: break-all;
         margin-bottom: .125rem;
     }
+
+    .r-d-t-tags{
+        margin-bottom: .25rem;
+    }
+
 }
 
 
@@ -1179,7 +1186,7 @@ a:hover {
 
 
 .r-d-t-second-row-container {
-    margin-top: .5rem;
+    margin-top: .25rem;
     margin-bottom: .5rem;
 }
 
@@ -1509,7 +1516,7 @@ a:hover {
 .r-c-t-row-container {
     background-color: #f8fafd;
     border-radius: .5rem;
-    padding: .75rem 1.25rem;
+    padding: 1rem 1.25rem;
     margin-bottom: .5rem;
 }
 
