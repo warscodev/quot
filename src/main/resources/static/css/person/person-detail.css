@@ -1,10 +1,11 @@
 
 .p-d-header-container{
-    padding-top: 1.75rem;
+    padding-top: 1.5rem;
 }
 
 .p-d-header-container >div{
-    box-shadow: 0px 3px 15px 0px rgba(15, 13, 63, 0.05);
+    box-shadow: 0 3px 12px 0 rgba(15, 40, 65, 0.08);
+    border: .0625rem solid rgba(231,234,243,.7);
     background-color: #fff;
     border-radius: 1rem;
 }
@@ -286,11 +287,12 @@
 }
 
 .p-d-body{
-    padding: 1rem 1.5rem;
+    padding: 1rem 1.25rem;
     margin-bottom: 1rem;
     background-color: #fff;
     border-radius: 1rem;
-    box-shadow: 0 10px 20px 0 rgba(15, 40, 65, 0.1);
+    box-shadow: 0 3px 12px 0 rgba(15, 40, 65, 0.08);
+    border: .0625rem solid rgba(231,234,243,.7);
 }
 
 @media (max-width: 767px) {
@@ -371,7 +373,7 @@
 .p-d-r-date{
     font-family: Noto Sans KR;
     font-size: .875rem;
-    font-weight: 600;
+    font-weight: 500;
     /*color: #777f8d;*/
 }
 
@@ -429,7 +431,7 @@
 }
 
 .p-d-r-tags-wrap{
-    margin-top: .25rem;
+    line-height: initial;
     overflow-x: auto;
     -ms-overflow-style: none;
     white-space: nowrap;
@@ -443,23 +445,17 @@
 
 
 .p-d-r-tags {
-    font-size: .75rem;
+    font-size: .813rem;
     display: inline-block;
-    margin-right: .3rem;
-    padding: .3rem .6rem;
-    line-height: 1;
-    /*color: #8193a8 !important;*/
-    color: #5893e2 !important;
-    /*background-color: #f4f7fa;*/
-    background-color: #f4f9ff;
-    border-radius: 25px;
+    margin-right: .5rem;
+    color: #53B7D0 !important;
     width: auto;
-    transition: color .3s ease-in-out, background-color .3s ease-in-out;
+    transition: color .3s ease-in-out, background-color .3s ease-in-out, font-weight .15s ease-in-out;
 }
 
 .p-d-r-tags:hover{
-    color: #3b8bff !important;
-    background-color: #ecf6ff !important;
+    font-weight: 500;
+    color: #1C9CBC !important;
 }
 .p-d-r-content-wrap{
     padding: .35rem 0 0 0;
@@ -468,7 +464,6 @@
 .p-d-r-content-quotation{
     font-family: Noto Sans KR;
     font-weight: 700;
-    margin: 0 .25rem;
     color: #9fa5ac;
 }
 
@@ -492,6 +487,7 @@
     font-size: .938rem;
     /*overflow: auto;*/
     word-break: keep-all;
+    line-height: 1.4;
 }
 
 .p-d-r-footer-container{

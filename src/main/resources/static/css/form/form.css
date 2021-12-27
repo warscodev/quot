@@ -48,12 +48,12 @@
     }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1080px) {
     .container-form {
         width: 800px;
     }
 
     .container-xl{
-        width: 1200px;
+        width: 1080px;
     }
 }
