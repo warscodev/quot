@@ -7,6 +7,8 @@ import com.udpr.quot.web.dto.remark.query.RemarkApiQueryDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,8 +29,10 @@ public class RemarkApiQueryRepository {
                 ))
                 .from(remark)
                 .leftJoin(remark.person, person)
-                .where(person.category.eq(category))
-                .orderBy(remark.likeCount.add(remark.dislikeCount).desc())
+                .where(person.category.eq(category)
+                        .and(remark.createdDate.between(LocalDateTime.now().minusDays(7),LocalDateTime.now()))
+                        .and(remark.likeCount.add(remark.dislikeCount).add(remark.commentCount).goe(1)))
+                .orderBy(remark.likeCount.add(remark.dislikeCount).add(remark.commentCount).desc())
                 .orderBy(remark.commentCount.desc())
                 .orderBy(Expressions.numberTemplate(Double.class, "function('rand')").asc())
                 /*.orderBy(NumberExpression.random().asc())*/
