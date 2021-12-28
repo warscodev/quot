@@ -1153,6 +1153,7 @@ a:hover {
 
 .r-l-t-tags {
     font-size: .813rem;
+    font-weight: 500;
     display: inline-block;
     margin-bottom: .188rem;
     margin-right: .5rem;
@@ -1548,7 +1549,7 @@ a:hover {
 
 .r-c-t-comment-writer {
     font-size: .875rem;
-    font-weight: 500;
+    font-weight: 600;
     margin-right: .5rem;
     color: #293648;
     letter-spacing: -.025rem;
@@ -1650,6 +1651,7 @@ a:hover {
     white-space: pre-wrap;
     margin-bottom: 0;
     word-break: break-all;
+    line-height: 1.4;
 }
 
 .deleted-comment {
