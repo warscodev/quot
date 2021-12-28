@@ -1182,6 +1182,7 @@ a:hover {
 
 @media (max-width: 767px) {
     .r-d-t-second-row-container {
+        margin-top: 0;
         margin-bottom: .25rem;
     }
 }
@@ -2136,7 +2137,7 @@ a:hover {
 }
 
 .aside-title i {
-    font-size: 1.125rem;
+    font-size: 1.063rem;
     color: #e93232;
     margin-right: .375rem;
 }
