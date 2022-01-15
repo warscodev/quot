@@ -85,7 +85,7 @@
             searchConsoleBtn.addEventListener("click", searchFromConsole);
             const searchInput = document.getElementById("search-input");
             searchInput.addEventListener("keyup", function (e){
-                if(e.code === "Enter"){
+                if(e.code === "Enter" || e.code === "Send"){
                     searchFromConsole()
                 }
             })

@@ -395,15 +395,12 @@ a:hover {
 
     .main-search-bar-input{
         height: 100%;
+        font-size: 1rem !important;
     }
 
     .main-search-button-icon{
         font-size: 1.25rem !important;
         margin-right: .5rem;
-    }
-
-    .main-search-bar-input{
-        font-size: 1rem !important;
     }
 
     .main-search-bar-input::-webkit-input-placeholder {
@@ -1222,8 +1219,8 @@ a:hover {
 
 
 .r-l-t-person-name-link {
-    font-weight: 700;
     font-size: 1.063rem;
+    font-weight: 700;
     margin-right: .25rem;
     line-height: initial;
 }
@@ -1257,7 +1254,7 @@ a:hover {
 }
 
 .r-l-t-date-container{
-    display: flex;
+    display: inline-flex;
     line-height: initial;
 }
 
@@ -1299,7 +1296,7 @@ a:hover {
 
 @media (max-width: 767px) {
     .r-l-t-first-row-third-col{
-        align-items: center;
+        align-items: baseline;
     }
 }
 
@@ -1443,7 +1440,6 @@ a:hover {
 
 .r-l-t-tags{
     font-size: .813rem;
-    font-weight: 600;
     display: inline-block;
     margin-bottom: .188rem;
     margin-right: .25rem;
@@ -1453,7 +1449,7 @@ a:hover {
     line-height: initial;
     padding: .063rem .375rem;
     border-radius: 2rem;
-    border: .025rem solid #ffa594;
+    border: .025rem solid #FF674A;
 }
 
 .r-l-t-tags-hash{
@@ -1467,6 +1463,7 @@ a:hover {
 
 @media (max-width: 767px) {
     .r-l-t-tags {
+        font-weight: 400;
         word-break: break-all;
         margin-bottom: .125rem;
     }
@@ -1503,7 +1500,7 @@ a:hover {
     display: flex;
     justify-content: end;
     padding-top: .125rem;
-    float: inline-end;
+    float: right;
 }
 
 .r-d-t-quote-icon-wrap {
@@ -1655,7 +1652,7 @@ a:hover {
 }
 
 .bookmark-icon-wrap {
-    /*width: 40px;*/
+    padding: 0;
 }
 
 
@@ -1700,7 +1697,7 @@ a:hover {
 
 @media (max-width: 575px) {
     .r-l-t-btn{
-        margin-right: 0;
+        margin-right: .25rem;
     }
 }
 
@@ -1863,8 +1860,6 @@ a:hover {
 
     .r-c-count{
         font-size: .875rem;
-        margin-top: .5rem;
-        margin-bottom: .5rem;
     }
 
 }
