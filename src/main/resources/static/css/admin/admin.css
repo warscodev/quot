@@ -34,6 +34,7 @@ body {
 .btn.btn-sm{
     font-size: .813rem;
     font-weight: 500;
+    padding: .188rem .375rem;
 }
 
 .fieldError {
@@ -1999,7 +2000,6 @@ a:hover {
 }
 
 .r-c-t-child-modify-textarea-container {
-    margin-left: 2rem !important;
 }
 
 .r-c-t-reply-textarea-container, .r-c-t-modify-textarea-container {

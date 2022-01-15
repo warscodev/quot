@@ -696,7 +696,9 @@
             row += "</div>";
             row += "</div>";
 
-            $("#comment-" + commentId).after(row);
+            $("#comment-" + commentId).children().last().after(row);
+            $("#cmReplyTextarea-" + commentId).focus();
+
             $("#cmModifyTextarea-" + commentId).focus();
         } else if (textareaContainer != null && textareaContainer.style.display === 'none') {
             hideAllCmReplyTextarea();
