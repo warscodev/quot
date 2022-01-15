@@ -76,7 +76,7 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <div class="r-l-t-tag-container d-flex align-items-top">
+                                    <div class="r-l-t-tag-container r-d-t">
                                         <div class="r-l-t-tags-wrap">
                                             <a th:class="|r-l-t-category r-d-t-category *{catClassName}|" th:text="*{category}"></a><a class="r-l-t-tags r-d-t-tags" th:each="tag : *{remarkTagList}" th:href="@{/remark(keyword=${tag.name}, tab=3)}"><span th:text="|#${tag.name}|"></span></a>
                                         </div>

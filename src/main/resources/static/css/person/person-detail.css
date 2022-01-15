@@ -393,7 +393,7 @@
     justify-content: space-between;
     align-items: center;
     cursor: default;
-    color: #666;
+    color: #999;
     font-size: .813rem;
 }
 .p-d-r-icons-container > div > div{
@@ -404,7 +404,7 @@
 }
 
 .p-d-r-icons-text{
-    color: #777;
+    color: #999;
     font-size: .75rem;
 }
 

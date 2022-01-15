@@ -1367,11 +1367,15 @@ a:hover {
 }
 
 .r-l-t-tag-container{
-    margin-top: .25rem;
+    margin-top: .125rem;
     line-height: initial;
     overflow-x: auto;
     -ms-overflow-style: none;
     white-space: nowrap;
+}
+
+.r-l-t-tag-container.r-d-t{
+    margin-top: .25rem;
 }
 
 .r-d-t-tag-container{
@@ -1397,7 +1401,7 @@ a:hover {
     width: auto;
     transition: color .3s ease-in-out, background-color .3s ease-in-out, font-weight .15s ease-in-out;
     line-height: initial;
-    padding: .063rem .375rem;
+    padding: .07rem .375rem;
     border-radius: .25rem;
     border: .025rem solid transparent;
 }
@@ -1438,6 +1442,11 @@ a:hover {
     font-size: .75rem;
     margin-right: .313rem;
     color: #999;
+}
+
+.r-l-t-tags-wrap{
+    display: flex;
+    align-items: center;
 }
 
 .r-l-t-tags{
@@ -1744,21 +1753,9 @@ a:hover {
     }
 }
 
-@media (max-width: 575px) {
-    .r-l-t-last-row-container {
-        padding: .125rem 0 0 54px;
-    }
-}
-
-@media (max-width: 426px) {
-    .r-l-t-last-row-container {
-        /*padding-right: .55rem;*/
-    }
-}
-
 @media (max-width: 360px) {
     .r-l-t-last-row-container {
-        padding: .125rem .55rem 0 43px;
+        padding: .125rem .55rem 0 45px;
     }
 
     .r-l-t-comment-count, .r-l-t-like-count, .r-l-t-dislike-count {
@@ -2269,7 +2266,7 @@ a:hover {
 }
 
 .search-tag-highlight {
-    color: #1C9CBC;
+    color: #ff6143;
     font-weight: 700;
 }
 
@@ -2601,17 +2598,23 @@ a:hover {
 
 .aside-remark-title-second-col-container {
     display: flex;
-    font-size: .688rem;
+    font-size: .75rem;
+}
+
+.aside-remark-icon-container{
+    display: flex;
+    align-items: center;
 }
 
 .aside-remark-icon-container i {
     margin-right: .2rem;
-    color: #666;
+    color: #999;
 }
 
 .aside-remark-icon-container span {
+    font-size: .688rem;
     margin-right: .75rem;
-    color: #7f8792;
+    color: #999;
 }
 
 .aside-remark-like-icon-container i {

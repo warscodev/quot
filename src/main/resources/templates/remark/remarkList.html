@@ -173,7 +173,7 @@
                             </div>
 
 
-                            <div class="r-l-t-tag-container d-flex align-items-top">
+                            <div class="r-l-t-tag-container">
                                 <div class="r-l-t-tags-wrap">
                                     <a th:class="|r-l-t-category ${r.catClassName}|" th:text="${r.category}"></a><!--<span class="r-l-t-cat-tag-divider">|</span>--><a class="r-l-t-tags" th:each="tag : ${r.remarkTagList}"
                                        th:href="@{/remark(keyword=${tag.name}, tab=3)}" th:text="|#${tag.name}|">
