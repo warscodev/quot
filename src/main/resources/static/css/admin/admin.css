@@ -1808,7 +1808,7 @@ a:hover {
 }
 
 .r-c-t-row-reply-container {
-    padding-left: 1.25rem;
+    padding-left: 1rem;
     background-color: #f8f8f8;
 }
 
@@ -1826,7 +1826,7 @@ a:hover {
 }
 
 .r-c-t-comment-writer {
-    font-size: .75rem;
+    font-size: .813rem;
     font-weight: 500;
     margin-right: .5rem;
     color: #333;
@@ -1842,7 +1842,8 @@ a:hover {
 @media (max-width: 767px) {
 
     .r-c-t-row-container{
-        padding: .625rem .5rem .5rem .5rem;
+        padding-left: .5rem;
+        padding-right: .5rem;
     }
     .r-c-table-inner-container{
         padding: 0;
@@ -1851,9 +1852,9 @@ a:hover {
         padding-left: 1rem !important;
     }
 
-    .r-c-t-last-row-btn-container{
+    /*.r-c-t-last-row-btn-container{
         padding-top: .5rem !important;
-    }
+    }*/
 
     .r-c-t-first-row-container{
         margin-bottom: 0!important;
@@ -1862,10 +1863,9 @@ a:hover {
         font-size: .715rem;
     }
 
-    .r-c-count{
-        font-size: .875rem;
+    .r-c-t-reply-textarea-container, .r-c-t-modify-textarea-container{
+        padding-left: .5rem;
     }
-
 }
 
 
@@ -2007,7 +2007,7 @@ a:hover {
 }
 
 .r-c-t-reply-textarea-container, .r-c-t-modify-textarea-container {
-    margin-left: 1.25rem;
+    padding-left: 1rem;
     padding-right: .5rem;
 }
 
@@ -2025,7 +2025,7 @@ a:hover {
 
 .r-c-t-textarea::placeholder {
     font-size: .875rem;
-    color: #333;
+    color: #666;
 }
 
 .r-c-t-textarea-disabled {
