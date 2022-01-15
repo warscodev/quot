@@ -1,0 +1,94 @@
+@font-face {
+  font-family: 'Custom Icon';
+  src:  url('fonts/custom-icon.eot?vos4ih');
+  src:  url('fonts/custom-icon.eot?vos4ih#iefix') format('embedded-opentype'),
+    url('fonts/custom-icon.ttf?vos4ih') format('truetype'),
+    url('fonts/custom-icon.woff?vos4ih') format('woff'),
+    url('fonts/custom-icon.svg?vos4ih#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'Custom Icon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/*
+.icon-more-horiz:before {
+  content: "\e900";
+}
+.icon-more-vert:before {
+  content: "\e901";
+}
+.icon-bookmark.fill:before {
+  content: "\e902";
+}
+.icon-bookmark:before {
+  content: "\e903";
+}
+.icon-thumb-down.fill:before {
+  content: "\e904";
+}
+.icon-thumb-down:before {
+  content: "\e905";
+}
+.icon-thumb-up.fill:before {
+  content: "\e906";
+}
+.icon-thumb-up:before {
+  content: "\e907";
+}
+.icon-comment:before {
+  content: "\e908";
+}
+*/
+
+
+.icon-bookmark.fill:before{
+  content: "\e90b";
+}
+.icon-bookmark-add-border:before {
+  content: "\e900";
+}
+.icon-bookmark-added.fill:before {
+  content: "\e901";
+}
+.icon-bookmark:before {
+  content: "\e902";
+}
+.icon-comment-empty:before {
+  content: "\e903";
+}
+.icon-comment:before {
+  content: "\e904";
+}
+.icon-more-horiz:before {
+  content: "\e905";
+}
+.icon-more-vert:before {
+  content: "\e906";
+}
+.icon-thumb-down.fill:before {
+  content: "\e907";
+}
+.icon-thumb-down:before {
+  content: "\e908";
+}
+.icon-thumb-up.fill:before {
+  content: "\e909";
+}
+.icon-thumb-up:before {
+  content: "\e90a";
+}

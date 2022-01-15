@@ -3,7 +3,9 @@
 <head th:replace="fragments/header :: header"/>
 
 <body>
-<div th:replace="fragments/topHeader :: topHeader"/>
+<div th:replace="fragments/loginHeader :: loginHeader"></div>
+<div th:replace="fragments/topHeader :: topHeader"></div>
+<div th:replace="fragments/subNavbar :: subNavbar"></div>
 <style>
     input[type="number"]::-webkit-outer-spin-button,
     input[type="number"]::-webkit-inner-spin-button {
@@ -12,7 +14,7 @@
     }
 </style>
 
-<div class="container container-main col-md">
+<div class="container-xl col-md">
 
     </br>
     <div class="py-2 row">

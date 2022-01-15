@@ -80,16 +80,16 @@
                         row += "</div>";
                         row += "<div class=\"aside-remark-title-second-col-container\">";
                             row += "<div class=\"aside-remark-like-icon-container aside-remark-icon-container\">";
-                                row += "<i class=\"fas fa-thumbs-up\"></i>";
+                                row += "<i class=\"icon-thumb-up\"></i>";
                                 row += "<span>"+r.likeCount+"</span>";
                             row += "</div>";
                             row += "<div class=\"aside-remark-dislike-icon-container aside-remark-icon-container\">";
-                                row += "<i class=\"fas fa-thumbs-down\"></i>";
+                                row += "<i class=\"icon-thumb-down\"></i>";
                                 row += "<span>"+r.dislikeCount+"</span>";
                             row += "</div>";
                             row += "<div class=\"aside-remark-comment-icon-container aside-remark-icon-container\">";
-                                row += "<i class=\"far fa-comment-dots\"></i>";
-                                row += "<span>"+r.commentCount+"</span>";
+                                row += "<i class=\"icon-comment\"></i>";
+                                row += "<span style='margin-right: 0'>"+r.commentCount+"</span>";
                             row += "</div>";
                         row += "</div>";
                     row += "</div>";
@@ -99,8 +99,8 @@
                 row += "</div>";
             })
             }else{
-                row += "<div class=\"aside-remark-table-row\" style='text-align: center'>";
-                row += "<span>결과가 없습니다.</span>";
+                row += "<div class=\"aside-remark-table-empty-row\" style='text-align: center'>";
+                row += "<span class='aside-remark-table-empty-msg'>결과가 없습니다.</span>";
                 row += "</div>";
             }
 

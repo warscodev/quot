@@ -10,7 +10,7 @@ function highlightKeyword() {
             let tab = document.querySelector("#r-l-tab").value,
                 remarkContentEl = document.querySelectorAll(".r-l-t-content"),
                 remarkPersonEl = document.querySelectorAll(".r-l-t-person-name"),
-                regex = new RegExp(keyword, "g");
+                regex = new RegExp(keyword.replace("."), "g");
 
             switch (tab) {
                 case '1':
@@ -86,10 +86,11 @@ function like(e, remarkId, isLike) {
             otherBtn = document.getElementById("dislike-btn-" + remarkId);
             if(e.classList.contains("like-active")) {
                 child.setAttribute("data-bs-original-title", "좋아요");
-            }else {
+            } else {
                 child.setAttribute("data-bs-original-title", "좋아요 취소")
             }
             if (otherBtn.classList.contains("like-active")) {
+                otherBtn.firstElementChild.firstElementChild.classList.toggle('fill');
                 otherBtn.classList.toggle("like-active")
                 otherBtn.firstElementChild.setAttribute("data-bs-original-title", "싫어요")
             }
@@ -102,10 +103,15 @@ function like(e, remarkId, isLike) {
                 child.setAttribute("data-bs-original-title", "싫어요 취소")
             }
             if (otherBtn.classList.contains("like-active")) {
+                otherBtn.firstElementChild.firstElementChild.classList.toggle('fill');
                 otherBtn.classList.toggle("like-active")
                 otherBtn.firstElementChild.setAttribute("data-bs-original-title", "좋아요")
             }
+
+
         }
+
+        child.firstElementChild.classList.toggle('fill');
 
         tooltip.show();
 
@@ -165,7 +171,7 @@ function toggleBookmarkIcon(e){
     tooltip.show();
 
     e.classList.toggle("bookmark-active");
-
+    child.firstElementChild.classList.toggle('fill');
 
 }
 
@@ -279,16 +285,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const contents = document.querySelectorAll(".r-l-t-content");
 
     contents.forEach(c => {
-        const sourceIcon = "<button class='tt r-l-t-source-btn' data-bs-html='true' data-bs-placement='bottom' data-bs-trigger='click' " +
-            "title='<a class=\"r-l-t-source-link\" href=\""+c.dataset.source+"\" target=\"_blank\" rel=\"noopener noreferer nofollow\">"+c.dataset.source+"</a>'</a>"+
-            "<i class='r-l-t-source-btn-icon fas fa-link'></i>출처</button>";
-
-        $(c).append(quoteIcon)
-        $(c).append(sourceIcon)
-
         c.addEventListener("click", function (e){
             location.href = c.nextElementSibling.getAttribute('href');
         })
+
+        $(c).append(quoteIcon)
     });
 
     const tooltips = document.querySelectorAll(".tt");
@@ -296,14 +297,5 @@ document.addEventListener("DOMContentLoaded", function () {
     tooltips.forEach(t => {
         new bootstrap.Tooltip(t)
     });
-
-    const sourceBtn = document.querySelectorAll(".r-l-t-source-btn");
-    sourceBtn.forEach(s => {
-        s.addEventListener("click", function (e){
-            e.preventDefault();
-            e.stopPropagation();
-        })
-    })
-
 
 })

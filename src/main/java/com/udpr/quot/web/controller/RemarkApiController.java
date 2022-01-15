@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Objects;
 
 @RequiredArgsConstructor
-@Slf4j
 @RestController
 public class RemarkApiController {
 

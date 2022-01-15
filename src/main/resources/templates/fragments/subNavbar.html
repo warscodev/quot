@@ -23,7 +23,7 @@
                 th:classappend="${#strings.equals(category, '팔로우')} ? active">
                 <a href="/remark/follow">
                     <span>
-                        <i class="subNav-menu-follow bi bi-people" style="line-height: 0"></i>팔로우
+                        <!--<i class="subNav-menu-follow bi bi-people" style="line-height: 0"></i>-->팔로우
                     </span>
                 </a>
             </li>
@@ -31,9 +31,13 @@
                 th:classappend="${#strings.equals(category, '스크랩')} ? active">
                 <a href="/remark/bookmark">
                     <span>
-                        <i class="subNav-menu-bookmark bi bi-bookmark-star" style="line-height: 0"></i>스크랩
+                        <!--<i class="subNav-menu-bookmark bi bi-bookmark" style="line-height: 0"></i>-->스크랩
                     </span>
                 </a>
+            </li>
+
+            <li class="subNav-menu-items divider">
+                <a>|</a>
             </li>
             <li class="subNav-menu-items"
                 th:classappend="${#strings.equals(category, '정치')} ? active">

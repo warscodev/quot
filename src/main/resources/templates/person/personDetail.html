@@ -2,8 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-<head th:replace="fragments/header :: header(title=|${info.person.name} 발언 모음 : 인물페이지|)">
+<head th:replace="fragments/header :: header(title=|${info.person.name} 발언 모음 : 인물페이지|, content=|${info.person.name} 인물 페이지. ${info.person.name} 인물정보, 연도별 ${info.person.name} 발언 모음.|)">
 <body th:object="${info}">
+<div th:replace="fragments/loginHeader :: loginHeader"></div>
 <div th:replace="fragments/topHeader :: topHeader"></div>
 <div th:replace="fragments/subNavbar :: subNavbar"></div>
 <div class="container-xl person-detail-container">
@@ -100,13 +101,13 @@
                             <div class="p-d-r-icons-container">
                                 <div class="d-flex">
                                     <div class="p-d-r-icons-like"><i
-                                            class="fas fa-thumbs-up"></i>&nbsp;<span class="p-d-r-icons-text"
+                                            class="icon-thumb-up"></i>&nbsp;<span class="p-d-r-icons-text"
                                             th:text="${r.likeCount}"></span></div>
-                                    <div class="p-d-r-icons-dislike"><i class="fas fa-thumbs-down"></i>&nbsp;<span class="p-d-r-icons-text"
+                                    <div class="p-d-r-icons-dislike"><i class="icon-thumb-down"></i>&nbsp;<span class="p-d-r-icons-text"
                                             th:text="${r.dislikeCount}"></span></div>
                                 </div>
                                 <div>
-                                    <div class="p-d-r-icons-comments"><i class="far fa-comment-dots"></i>&nbsp;<span class="p-d-r-icons-text"
+                                    <div class="p-d-r-icons-comments"><i class="icon-comment"></i>&nbsp;<span class="p-d-r-icons-text"
                                             th:text="${r.commentCount}"></span></div>
                                 </div>
                                 <span class="p-d-r-icons-info tt bi bi-info-circle"
@@ -125,12 +126,13 @@
                             </a>
                         </div>
 
-                        <div class="p-d-r-content-wrap d-flex">
+                        <div class="p-d-r-content-container d-flex">
                             <span class="p-d-r-content-quotation">&ldquo;&nbsp;</span>
-                            <a th:href="@{/remark/{id} (id=${r.remarkId})}">
-                                <p class="p-d-r-content" th:data-source="${r.sourceUrl}"
-                                   th:utext="|${r.content} <span class='p-d-r-content-quotation'>&rdquo;</span>|"></p>
-                            </a>
+                            <div>
+                                <span class="p-d-r-content" th:data-source="${r.sourceUrl}"
+                                       th:text="${r.content}"></span>
+                                <a class="p-d-r-content-link" th:href="@{/remark/{id} (id=${r.remarkId})}"></a>
+                            </div>
                         </div>
                         <hr th:class="|p-d-r-content-border-last-${rStat.last}|">
                     </div>
@@ -258,12 +260,12 @@
 </script>
 <script>
     const contents = document.querySelectorAll(".p-d-r-content");
-
+    const quoteIcon = "<span class='p-d-r-content-quotation right'>&rdquo;</span>";
     contents.forEach(c => {
-        const sourceIcon = "<button class='tt r-l-t-source-btn p-d-r-source-btn' data-bs-html='true' data-bs-placement='bottom' data-bs-trigger='click' " +
-            "title='<a class=\"r-l-t-source-link\" href=\"" + c.dataset.source + "\" target=\"_blank\" rel=\"noopener noreferer nofollow\">" + c.dataset.source + "</a>'</a>" +
-            "<i class='r-l-t-source-btn-icon fas fa-link'></i>출처</button>";
-        $(c).append(sourceIcon)
+        c.addEventListener("click", function (e){
+            location.href = c.nextElementSibling.getAttribute('href');
+        })
+        $(c).append(quoteIcon);
     });
 </script>
 

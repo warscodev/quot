@@ -36,6 +36,7 @@ public class RemarkQueryDto {
     private String alias;
     private String job;
     private String category;
+    private String catClassName;
 
     private Long user_id;
     private String nickname;
@@ -68,6 +69,7 @@ public class RemarkQueryDto {
         this.alias = alias;
         this.job = job;
         this.category = category;
+        this.catClassName = setCatClassName(category);
         this.user_id = user_id;
         this.nickname = nickname;
         this.remarkSummary = summarySubstring(content);
@@ -75,11 +77,11 @@ public class RemarkQueryDto {
     }
 
     public String createdAndUpdatedDateFormat(LocalDateTime localDateTime){
-        return localDateTime.format(DateTimeFormatter.ofPattern("yyyy.MM.dd. HH:mm"));
+        return localDateTime.format(DateTimeFormatter.ofPattern("yyyy. MM. dd. HH:mm"));
     }
 
     public String remarkDateFormat(LocalDate localDate){
-        return localDate.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"));
+        return localDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
     }
 
     public String summarySubstring(String remarkSummary){
@@ -97,6 +99,19 @@ public class RemarkQueryDto {
         }
     }
 
+    public String setCatClassName(String category){
 
+        String className = "";
 
+        switch (category){
+            case "정치": className = "politics"; break;
+            case "방송연예": className = "broadcast-enter"; break;
+            case "사회문화" : className = "society-culture"; break;
+            case "스포츠" : className = "sports"; break;
+            case "창작물" : className = "creations"; break;
+            default: className = "basic"; break;
+        }
+
+        return className;
+    }
 }

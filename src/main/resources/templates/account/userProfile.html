@@ -5,6 +5,7 @@
 <head th:replace="fragments/header :: header(title='내 정보')">
 
 <body>
+<div th:replace="fragments/loginHeader :: loginHeader"></div>
 <div th:replace="fragments/topHeader :: topHeader"></div>
 <div th:replace="fragments/subNavbar :: subNavbar"></div>
 <div class="container container-main" th:object="${user}">
@@ -133,7 +134,7 @@
     }
 
     function setNewNicknameToPage(newNickname){
-        const mainHeaderNicknameSpan = document.querySelector(".main-header-profile-nickname");
+        const mainHeaderNicknameSpan = document.querySelector(".login-header-profile-nickname");
         const nicknameEditBtnContainer = document.querySelector(".u-p-nickname-btn-container");
         mainHeaderNicknameSpan.innerText = newNickname;
         nicknameEditBtnContainer.remove();

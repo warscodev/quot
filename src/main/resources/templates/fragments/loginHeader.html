@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<!-- 헤더 네비바 -->
+<div class="login-header" th:fragment="loginHeader">
+    <div class="login-header-container container-xl">
+        <div class="login-header-title-wrap">
+            <span><i class="fas fa-quote-left"></i><span class="login-header-title-name">Quot.wiki</span> - 화제의 발언 모음</span>
+        </div>
+        <div th:if="${session.user==null}">
+            <a href="/oauth_login" id="" class="login-temp" style="color: #fff"><i class="fas fa-user-circle" style="margin-right: .25rem"></i><span style="line-height: initial">로그인</span></a>
+        </div>
+
+        <div sec:authorize="isAuthenticated()" class="login-header-profile flex-shrink-0 dropdown">
+            <a href="#" class="login-header-profile-link d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser2"
+               data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-user-circle" style="margin-right: .25rem"></i><span class="login-header-profile-nickname" th:text="${session.user.nickname}"></span>
+            </a>
+            <ul class="login-header-profile-dropdown dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser2">
+                <li><a class="dropdown-item" href="/profile">내 정보</a></li>
+                <li><hr sec:authorize="hasRole('ADMIN')" class="dropdown-divider">
+                <li><a sec:authorize="hasRole('ADMIN')" class="dropdown-item" href="/admin/person">인물목록</a></li>
+                <li><a sec:authorize="hasRole('ADMIN')" class="dropdown-item" href="/admin/person/new">인물등록</a></li>
+                <li><a sec:authorize="hasRole('ADMIN')" class="dropdown-item" href="/remark/new">발언등록</a></li>
+                <li><hr sec:authorize="hasRole('ADMIN')" class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="/logout">로그아웃</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div sec:authorize="isAuthenticated()">
+        <input type="hidden" th:value="${session.user.id}" id="user_id">
+    </div>
+
+</div>

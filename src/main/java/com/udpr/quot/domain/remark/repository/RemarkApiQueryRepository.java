@@ -30,7 +30,7 @@ public class RemarkApiQueryRepository {
                 .from(remark)
                 .leftJoin(remark.person, person)
                 .where(person.category.eq(category)
-                        .and(remark.createdDate.between(LocalDateTime.now().minusDays(7),LocalDateTime.now()))
+                        .and(remark.createdDate.between(LocalDateTime.now().minusDays(14),LocalDateTime.now()))
                         .and(remark.likeCount.add(remark.dislikeCount).add(remark.commentCount).goe(1)))
                 .orderBy(remark.likeCount.add(remark.dislikeCount).add(remark.commentCount).desc())
                 .orderBy(remark.commentCount.desc())

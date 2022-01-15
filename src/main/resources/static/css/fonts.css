@@ -110,7 +110,19 @@
     url('fonts/Pretendard-Thin.subset.woff2') format('woff2');
 }
 
+/*
+@font-face {
+    font-family: 'MaruBuri';
+    font-display: swap;
+    font-weight: 400;
+    src: local("@"),
+    url('fonts/MaruBuri-Regular.woff2') format('woff2');
+}
 
-
-
-
+@font-face {
+    font-family: 'MaruBuri';
+    font-display: swap;
+    font-weight: 500;
+    src: local("@"),
+    url('fonts/MaruBuri-SemiBold.woff2') format('woff2');
+}*/

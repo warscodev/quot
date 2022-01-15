@@ -1,10 +1,12 @@
 <!DOCTYPE HTML>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header"/>
+<head th:replace="fragments/header :: header"></head>
 
 <body>
 
-<div th:replace="fragments/topHeader :: topHeader"/>
+<div th:replace="fragments/loginHeader :: loginHeader"></div>
+<div th:replace="fragments/topHeader :: topHeader"></div>
+<div th:replace="fragments/subNavbar :: subNavbar"></div>
 <style>
     input[type="number"]::-webkit-outer-spin-button,
     input[type="number"]::-webkit-inner-spin-button {
@@ -13,7 +15,7 @@
     }
 </style>
 
-<div class="container container-main">
+<div class="container-xl">
     </br>
     <div class="py-2 row">
         <h4>인물 정보</h4>
@@ -83,11 +85,6 @@
 
         <!-- 월 -->
         <div class="col-4">
-            <!--<select class="form-select" th:field="*{birth.birth_month}">
-                <option value="">월</option>
-                <option th:each="i : ${#numbers.sequence(1, 9)}" th:value="'0'+${i}" th:text="'0'+${i}"></option>
-                <option th:each="i : ${#numbers.sequence(10, 12)}" th:value="${i}" th:text="${i}"></option>
-            </select>-->
             <input type="number" th:field="*{birth.birth_month}" class="form-control" placeholder="월" maxlength="2" min="0" oninput="monthMaxLength(this)">
         </div>
 
