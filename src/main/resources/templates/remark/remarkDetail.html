@@ -310,7 +310,7 @@
                     }
                 }
                 row += "<div class=\"r-c-t-first-row-container d-flex justify-content-between\">";
-                row += "<div class=\"r-c-t-first-row-first-col-container d-flex align-items-baseline\">";
+                row += "<div class=\"r-c-t-first-row-first-col-container\">";
 
                 if (c.parentId != null) {
                     row += "<div id='comment-writer-" + c.commentId + "' class=\"r-c-t-comment-writer\"><i class=\"r-c-t-comment-reply-icon fas fa-level-up-alt fa-rotate-90\"></i>" + c.nickname + "</div>";
@@ -374,9 +374,9 @@
                 row += "</div>";
 
                 row += "<div class='r-c-t-last-row-btn-container'>";
-                if (sid !== '' && c.parentId != null) {
+                if (c.parentId != null) {
                     row += "<a id='openCmReplyBtn-" + c.commentId + "' onclick='openCmReplyTextarea(this)' class='r-c-t-reply-btn' data-writer='" + c.nickname + "' data-aid='" + c.ancestorId + "' data-cid='" + c.commentId + "'><i class=\"r-c-t-etc-btn-icon icon-comment\"></i>답글</a>";
-                } else if (sid !== '' && c.parentId === null) {
+                } else if (c.parentId === null) {
                     row += "<a id='openCmReplyBtn-" + c.commentId + "' onclick='openCmReplyTextarea(this)' class='r-c-t-reply-btn' data-writer='" + c.nickname + "' data-cid='" + c.commentId + "'><i class=\"r-c-t-etc-btn-icon icon-comment\"></i>답글</a>";
                 }
 
@@ -591,6 +591,11 @@
     }
 
     function openCmReplyTextarea(e) {
+
+        if (sid == null || sid === '') {
+            location.href = "/oauth_login"
+        }else{
+
         let parentId = e.dataset.cid,
             parentNickname = e.dataset.writer,
             row = "",
@@ -628,6 +633,7 @@
 
         let location = document.querySelector('#comment-' + parentId).offsetTop;
         window.scrollTo({top: location + 60});
+        }
     }
 
     function hideAllCmReplyTextarea() {
