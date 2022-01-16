@@ -96,7 +96,9 @@
             }
 
             let sendText = date + ". " + name + " 발언 " + contentForSend;
-            window.open("https://twitter.com/intent/tweet?text=" + sendText + "&hashtags=쿼트위키,"+ name +"&url=" + urlInput.value);
+
+            let encodedUri = encodeURI("https://twitter.com/intent/tweet?text=" + sendText + "&hashtags=쿼트위키,"+ name +"&url=" + urlInput.value);
+            window.open(encodedUri);
         }
 
         function shareFacebook() {
