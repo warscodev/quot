@@ -91,7 +91,13 @@ public class RemarkController {
 
 
         if (condition.getCategory() != null) {
-            model.addAttribute("category", condition.getCategory());
+            if (condition.getCategory().equals("스크랩") && user == null){
+                return "redirect:/remark";
+            } else if(condition.getCategory().equals("팔로우") && user == null){
+                return "redirect:/remark";
+            }else {
+                model.addAttribute("category", condition.getCategory());
+            }
         } else if (condition.getKeyword() == null) {
             condition.setCategory("종합");
             model.addAttribute("category", "종합");
@@ -118,7 +124,7 @@ public class RemarkController {
         return "remark/remarkList";
     }
 
-    @GetMapping("/remark/bookmark")
+    @GetMapping("/remark/scrap")
     public String getBookmarkList(@ModelAttribute("cond") RemarkSearchCondition condition,
                                   Model model, @LoginUser SessionUser user) {
 

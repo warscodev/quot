@@ -37,6 +37,10 @@ body {
     padding: .188rem .375rem;
 }
 
+.btn.btn-sm:focus{
+    box-shadow: none;
+}
+
 .fieldError {
     transition: border-color 0.15s ease-in-out 0s;
     border: 2px solid #ff8383 !important;
@@ -1310,25 +1314,25 @@ a:hover {
 }
 
 .tooltip-inner {
-    background-color: rgba(50, 50, 50, 0.95);
+    background-color: rgba(50, 50, 50, 0.85);
     color: #fff;
     box-shadow: 0 3px 10px 0 rgba(15, 40, 65, 0.15);
 }
 
 .bs-tooltip-bottom .tooltip-arrow::before {
-    border-bottom-color: rgba(50, 50, 50, 0.95) !important;
+    border-bottom-color: transparent !important;
 }
 
 .bs-tooltip-end .tooltip-arrow::before {
-    border-right-color: rgba(50, 50, 50, 0.95) !important;
+    border-right-color: transparent !important;
 }
 
 .bs-tooltip-top .tooltip-arrow::before {
-    border-top-color: rgba(50, 50, 50, 0.95) !important;
+    border-top-color: transparent !important;
 }
 
 .bs-tooltip-start .tooltip-arrow::before {
-    border-left-color: rgba(50, 50, 50, 0.95) !important;
+    border-left-color: transparent !important;
 }
 
 .r-l-t-info-icon {

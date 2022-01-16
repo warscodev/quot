@@ -43,28 +43,22 @@ public class RemarkSearchCondition {
 
         if(getKeyword() != null){
             paramList.add("keyword="+getKeyword());
-            System.out.println(getKeyword());
         }
 
-        if(getPage() > 1){
+        if(getPage() > 1 && (getCategory() != null && (!getCategory().equals("스크랩") || !getCategory().equals("팔로우")))){
             paramList.add("page="+getPage());
-            System.out.println(getPage());
         }
 
         if(getTab() > 1){
             paramList.add("tab="+getTab());
-            System.out.println(getTab());
         }
 
-        if(getCategory() != null){
+        if(getCategory() != null && (!getCategory().equals("스크랩") || !getCategory().equals("팔로우"))){
             paramList.add("category="+getCategory());
-            System.out.println(getCategory());
         }
 
-        if(getSort() != null && !getSort().equals("cd_d")){
+        if(getSort() != null && !getSort().equals("cd_d") && (!getCategory().equals("스크랩") || !getCategory().equals("팔로우"))){
             paramList.add("sort="+getSort());
-            System.out.println(getSort());
-
         }
 
         if(paramList.size() > 0){
