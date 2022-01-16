@@ -233,6 +233,7 @@
                     </th:block>
                     <th:block sec:authorize="isAnonymous()">
                         <a th:if="${#strings.equals(category,'스크랩') or #strings.equals(category, '팔로우')}" class="btn btn-outline-secondary btn-sm" href="/remark">목록</a>
+                        <a th:unless="${#strings.equals(category,'스크랩') or #strings.equals(category, '팔로우')}" class="btn btn-outline-secondary btn-sm" th:href="${prevPageLink}">목록</a>
                     </th:block>
                 </div>
 

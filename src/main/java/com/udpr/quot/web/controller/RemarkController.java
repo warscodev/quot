@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,10 +33,18 @@ public class RemarkController {
         return "redirect:/remark";
     }
 
+    @GetMapping("/remark/{remarkId}/tmp")
+    public String detailTemp(@PathVariable("remarkId") Long remarkId, RedirectAttributes rtt, RemarkSearchCondition condition){
+        rtt.addFlashAttribute("condition", condition);
+        return "redirect:/remark/"+remarkId;
+    }
+
 
     //코멘트 디테일 폼
     @GetMapping("/remark/{remarkId}")
-    public String detail(@PathVariable("remarkId") Long remarkId, Model model, @LoginUser SessionUser user, RemarkSearchCondition condition) {
+    public String detail(@PathVariable("remarkId") Long remarkId, Model model, @LoginUser SessionUser user) {
+
+        RemarkSearchCondition condition = (RemarkSearchCondition)model.asMap().get("condition");
 
         if(condition != null){
             condition.setPrevPageLink();

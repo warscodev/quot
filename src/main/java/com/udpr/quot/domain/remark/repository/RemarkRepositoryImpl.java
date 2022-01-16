@@ -451,7 +451,6 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
 
     private BooleanExpression categoryEq(String category) {
 
-        System.out.println(category);
         if(("화제").equals(category)){
             return remark.likeCount.add(remark.dislikeCount).goe(2);
         }else {
