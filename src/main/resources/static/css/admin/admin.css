@@ -228,7 +228,7 @@ a:hover {
 
 @media (max-width: 767px) {
     #mainLogo{
-        width: 110px;
+        width: 114px;
         margin-left: .75rem;
     }
 
@@ -645,7 +645,7 @@ a:hover {
 }
 
 .subNav-menu-items.main-menu span {
-    font-weight: 600;
+    font-weight: 700;
     color: #333;
 }
 
@@ -654,7 +654,7 @@ a:hover {
 }
 
 .subNav-menu-items.main-menu.hot i {
-    color: #f97c7c;
+    color: #FF310A;
     font-size: .875rem;
 }
 
@@ -666,7 +666,7 @@ a:hover {
 
 .subNav-menu-items span {
     font-size: .938rem;
-    font-weight: 500;
+    font-weight: 700;
     color: #333;
     padding-bottom: 1rem;
     border-bottom: 2px solid transparent;
@@ -972,7 +972,7 @@ a:hover {
     padding: 0;
     margin-bottom: .875rem;
     box-shadow: 12px 0 15px -4px rgba(15, 40, 65, 0.05), -12px 0 8px -4px rgba(15, 40, 65, 0.05);
-    border: 3px solid #fff;
+    border: 2px solid transparent;
 }
 
 .r-l-sorting-container {
@@ -1826,7 +1826,7 @@ a:hover {
     font-size: .813rem;
     font-weight: 500;
     margin-right: .5rem;
-    color: #333;
+    color: #777;
     letter-spacing: -.025rem;
 }
 
@@ -2090,6 +2090,9 @@ a:hover {
 /* 페이징 */
 #r-l-pagination-sm {
     display: none;
+}
+
+#r-l-pagination-sm .page-item{
 }
 
 .pagination {

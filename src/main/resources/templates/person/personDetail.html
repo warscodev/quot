@@ -121,7 +121,7 @@
 
                         <div class="p-d-r-tags-wrap">
                             <a th:each="tag : ${r.remarkTagList}"
-                               th:href="@{/remark(keyword=${tag.name}, tab=3)}"
+                               th:href="@{/remark(keyword=${tag.name}, tab=1)}"
                                th:text="|#${tag.name}|" class="p-d-r-tags">
                             </a>
                         </div>

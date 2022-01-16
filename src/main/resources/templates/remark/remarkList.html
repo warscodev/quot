@@ -175,8 +175,8 @@
 
                             <div class="r-l-t-tag-container">
                                 <div class="r-l-t-tags-wrap">
-                                    <a th:class="|r-l-t-category ${r.catClassName}|" th:text="${r.category}"></a><!--<span class="r-l-t-cat-tag-divider">|</span>--><a class="r-l-t-tags" th:each="tag : ${r.remarkTagList}"
-                                       th:href="@{/remark(keyword=${tag.name}, tab=3)}" th:text="|#${tag.name}|">
+                                    <a th:class="|r-l-t-category ${r.catClassName}|" th:text="${r.category}" th:href="@{/remark(category=${r.category})}"></a><!--<span class="r-l-t-cat-tag-divider">|</span>--><a class="r-l-t-tags" th:each="tag : ${r.remarkTagList}"
+                                       th:href="@{/remark(keyword=${tag.name}, tab=1)}" th:text="|#${tag.name}|">
                                     </a>
                                 </div>
                             </div>
@@ -197,7 +197,7 @@
                             <span th:id="|remark-content-${rStat.index+1}|" th:data-source="${r.sourceUrl}"
                                class="r-l-t-content" th:text="${r.content}"></span>
                             <a class="r-l-t-content-link d-flex align-items-center"
-                               th:href="@{/remark/{id}(id=${r.remarkId})}"></a>
+                               th:href="|/remark/${r.remarkId}${rdParam}|"></a>
                         </div>
                     </div>
 

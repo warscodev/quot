@@ -10,6 +10,7 @@ function highlightKeyword() {
             let tab = document.querySelector("#r-l-tab").value,
                 remarkContentEl = document.querySelectorAll(".r-l-t-content"),
                 remarkPersonEl = document.querySelectorAll(".r-l-t-person-name"),
+                remarkTagEl = document.querySelectorAll(".r-l-t-tags"),
                 regex = new RegExp(keyword.replace("."), "g");
 
             switch (tab) {
@@ -20,6 +21,9 @@ function highlightKeyword() {
                     remarkPersonEl.forEach(e => {
                         e.innerHTML = e.innerHTML.replace(regex, "<span class='search-highlight'>" + keyword + "</span>");
                     })
+                    remarkTagEl.forEach(e => {
+                        e.innerHTML = e.innerHTML.replace(regex, "<span class='search-tag-highlight'>" + keyword + "</span>");
+                    })
                     break;
 
                 case '2':
@@ -29,7 +33,6 @@ function highlightKeyword() {
                     break;
 
                 case '3':
-                    let remarkTagEl = document.querySelectorAll(".r-l-t-tags");
                     remarkTagEl.forEach(e => {
                         e.innerHTML = e.innerHTML.replace(regex, "<span class='search-tag-highlight'>" + keyword + "</span>");
                     })

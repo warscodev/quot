@@ -34,6 +34,7 @@
                                             <a class="r-d-t-person-name-link"
                                                th:href="@{/person/{personId}(personId=*{personId})}">
                                                 <span class="r-l-t-person-name r-d-t-person-name" th:text="*{name}"></span>
+                                                <span th:text="${prevPageLink}"></span>
                                             </a>
                                             <!-- 다른이름, 직업, 날짜 -->
                                             <span class="r-l-t-person-job" th:text="*{job}"></span>
@@ -78,7 +79,7 @@
                                     </div>
                                     <div class="r-l-t-tag-container r-d-t">
                                         <div class="r-l-t-tags-wrap">
-                                            <a th:class="|r-l-t-category r-d-t-category *{catClassName}|" th:text="*{category}"></a><a class="r-l-t-tags r-d-t-tags" th:each="tag : *{remarkTagList}" th:href="@{/remark(keyword=${tag.name}, tab=3)}"><span th:text="|#${tag.name}|"></span></a>
+                                            <a th:class="|r-l-t-category r-d-t-category *{catClassName}|" th:text="*{category}"></a><a class="r-l-t-tags r-d-t-tags" th:each="tag : *{remarkTagList}" th:href="@{/remark(keyword=${tag.name}, tab=1)}"><span th:text="|#${tag.name}|"></span></a>
                                         </div>
                                     </div>
 
@@ -228,7 +229,7 @@
                                 th:onclick="|deleteRemark(*{remarkId})|">삭제
                         </button>
                     </div>
-                    <!--<a class="btn btn-outline-secondary btn-sm" href="javascript:history.back();">이전</a>-->
+                    <a class="btn btn-outline-secondary btn-sm" th:href="${prevPageLink}">목록</a>
                 </div>
 
             </div>

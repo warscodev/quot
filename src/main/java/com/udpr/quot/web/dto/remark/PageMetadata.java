@@ -1,23 +1,25 @@
 package com.udpr.quot.web.dto.remark;
 
+import com.udpr.quot.domain.remark.search.RemarkSearchCondition;
 import lombok.Getter;
 import org.springframework.data.domain.Page;
 
 @Getter
 public class PageMetadata {
 
-    private int size;
-    private long totalElements;
-    private int totalPages;
-    private int page;
-    private boolean isFirst;
-    private boolean isLast;
-    private int blockSize;
-    private int startBlock;
-    private int blockSize_sm;
-    private int startBlock_sm;
-    private int endBlock;
-    private int endBlock_sm;
+    private final int size;
+    private final long totalElements;
+    private final int totalPages;
+    private final int page;
+    private final boolean isFirst;
+    private final boolean isLast;
+    private final int blockSize;
+    private final int startBlock;
+    private final int blockSize_sm;
+    private final int startBlock_sm;
+    private final int endBlock;
+    private final int endBlock_sm;
+
 
     public PageMetadata(Page page) {
         this.size = page.getSize();
