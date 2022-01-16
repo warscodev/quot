@@ -46,12 +46,14 @@ public class RemarkController {
 
         RemarkSearchCondition condition = (RemarkSearchCondition)model.asMap().get("condition");
 
-        if(condition != null){
-            condition.setPrevPageLink();
-            model.addAttribute("prevPageLink", condition.getPrevPageLink());
-            if(condition.getCategory() != null){
-                model.addAttribute("category", condition.getCategory());
-            }
+        if(condition == null){
+            condition = new RemarkSearchCondition();
+        }
+
+        condition.setPrevPageLink();
+        model.addAttribute("prevPageLink", condition.getPrevPageLink());
+        if(condition.getCategory() != null){
+            model.addAttribute("category", condition.getCategory());
         }
 
         if (user != null) {

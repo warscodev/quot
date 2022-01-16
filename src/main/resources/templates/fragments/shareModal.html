@@ -52,8 +52,7 @@
         Kakao.init('d98279dd490fad82032e7f644c8af31c');
 
         function openShareModal(e, id) {
-            let remarkUrl = `https://quot.wiki/remark/${id}`;
-            urlInput.value = remarkUrl;
+            urlInput.value = `https://quot.wiki/remark/${id}`;
 
             name = e.dataset.name;
             date = e.dataset.date;
@@ -96,8 +95,8 @@
                 contentForSend = "\"" + content + "\" 👉";
             }
 
-            let sendText = date + " " + name + "의 발언 : " + contentForSend;
-            window.open("https://twitter.com/intent/tweet?text=" + sendText + "&hashtags=QuotWiki,"+ name +"&url=" + urlInput.value);
+            let sendText = date + " " + name + " 발언 : " + contentForSend;
+            window.open("https://twitter.com/intent/tweet?text=" + sendText + "&hashtags=쿼트위키,"+ name +"&url=" + urlInput.value);
         }
 
         function shareFacebook() {
@@ -107,15 +106,23 @@
 
         function shareKakao() {
 
+            let contentForSend = '';
+
+            if(content.length > 80){
+                contentForSend = "\"" + content.substr(0,80) + "...\"";
+            }else{
+                contentForSend = "\"" + content + "\"";
+            }
+
 
             // 카카오링크 버튼 생성
             Kakao.Link.createDefaultButton({
                 container: '#kakaoShareBtn',
                 objectType: 'feed',
                 content: {
-                    title: "Quot.wiki",
-                    description: date + " " + name + "의 발언 [Quot.wiki]",
-                    imageUrl: urlInput.value,
+                    title: date + " " + name + " 발언 - 쿼트위키",
+                    description: contentForSend,
+                    imageUrl: '/css/images/logo.png',
                     link: {
                         mobileWebUrl: urlInput.value,
                         webUrl: urlInput.value
