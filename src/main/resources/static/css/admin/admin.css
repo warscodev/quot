@@ -1537,19 +1537,20 @@ a:hover {
 }
 
 .r-l-t-content {
-    margin: 0;
     font-family: Pretendard, Noto Sans KR;
-    font-weight: 400;
     font-size: .938rem;
+    font-weight: 400;
+    margin: 0;
     overflow: auto;
-    /*white-space: pre-wrap;*/
     cursor: pointer;
-    /*line-height: 1.45;*/
 }
 
 .r-d-t-content {
+    font-family: Pretendard, Noto Sans KR;
     font-size: 1rem;
-    font-weight: 400 !important;
+    font-weight: 400;
+    margin: 0;
+    overflow: auto;
     cursor: text;
     padding-top: 0;
 }
