@@ -90,12 +90,12 @@
         function shareTwitter() {
             let contentForSend = '';
             if(content.length > 80){
-                contentForSend = "\"" + content.substr(0,80) + "...\" *더보기👉";
+                contentForSend = "\"" + content.substr(0,80) + "...\" - 더보기👉";
             }else{
                 contentForSend = "\"" + content + "\" 👉";
             }
 
-            let sendText = date + " " + name + " 발언 : " + contentForSend;
+            let sendText = date + " " + name + " 발언 " + contentForSend;
             window.open("https://twitter.com/intent/tweet?text=" + sendText + "&hashtags=쿼트위키,"+ name +"&url=" + urlInput.value);
         }
 
