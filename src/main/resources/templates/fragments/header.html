@@ -11,7 +11,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name=”description” th:content="${content}"/>
     <meta property="og:image" content="/css/images/logo.png">
-    <meta property="og:title" content="쿼트위키 - 🔥화제의 발언 모음}">
+    <meta th:if="${category != null && !(#strings.equals(category, '종합'))}" th:content="|${category} - 쿼트위키|" property="og:title">
+    <meta th:if="${category != null && (#strings.equals(category, '종합'))}" th:content="|쿼트위키 - 화제의 발언 모음|" property="og:title">
+    <meta th:if="${keyword}" th:content="|${content} : 검색 - 쿼트위키|" property="og:title">
+    <meta th:if="${keyword==null && title != null}" th:content="|${title} - 쿼트위키|" property="og:title">
     <meta property="og:description" th:content="${content}">
 
     <!-- Bootstrap CSS -->

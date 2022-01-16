@@ -106,28 +106,27 @@
 
         function shareKakao() {
 
-            let contentForSend = '';
-
-            if(content.length > 80){
-                contentForSend = "\"" + content.substr(0,80) + "...\"";
-            }else{
-                contentForSend = "\"" + content + "\"";
-            }
-
-
             // 카카오링크 버튼 생성
             Kakao.Link.createDefaultButton({
                 container: '#kakaoShareBtn',
                 objectType: 'feed',
                 content: {
-                    title: date + " " + name + " 발언 - 쿼트위키",
-                    description: contentForSend,
-                    imageUrl: '/css/images/logo.png',
+                    title: name + " 발언 | "+date+" - 쿼트위키",
+                    description: "\""+content+"\"",
+                    imageUrl: 'https://quot.wiki/css/images/logo.png',
                     link: {
                         mobileWebUrl: urlInput.value,
                         webUrl: urlInput.value
                     }
-                }
+                },
+                buttons:
+                    {
+                        title:"자세히 보기",
+                        link: {
+                            mobileWebUrl: urlInput.value,
+                            webUrl: urlInput.value
+                        }
+                    }
             });
         }
     </script>
