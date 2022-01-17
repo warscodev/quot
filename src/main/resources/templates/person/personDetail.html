@@ -32,9 +32,14 @@
                                                 class="fas fa-user-plus"></i>팔로우</span>
                                     </div>
                                 </div>
-                                <div class="p-d-job">
-                                    <span th:if="*{not #strings.isEmpty(alias)}" th:text="|*{alias} ｜|"></span>
-                                    <span th:text="*{job}"></span>
+                                <div class="p-d-job-alias-container">
+                                    <div class="p-d-alias-wrap">
+                                        <span class="p-d-alias" th:if="*{not #strings.isEmpty(alias)}" th:text="*{alias}"></span>
+                                    </div>
+                                        <span class="p-d-alias-divider" th:if="*{not #strings.isEmpty(alias)}">|</span>
+                                    <div class="p-d-job-wrap">
+                                        <span class="p-d-job" th:text="*{job}"></span>
+                                    </div>
                                 </div>
                                 <div class="p-d-etc table-responsive">
                                     <table class="table table-borderless table-sm">
@@ -252,6 +257,10 @@
             const toast = bootstrap.Toast.getInstance(toastDom);
             toast.show()
         }
+    }
+
+    function openPersonInfoEditor(){
+
     }
 
 

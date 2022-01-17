@@ -1983,6 +1983,7 @@ a:hover {
     margin-bottom: 0;
     word-break: break-all;
     line-height: 1.4;
+    margin-right: .5rem;
 }
 
 .deleted-comment {
@@ -2593,14 +2594,22 @@ a:hover {
     margin-bottom: .125rem;
 }
 
+.aside-remark-title-first-col-container{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: .125rem;
+}
+
+
 .aside-remark-name {
     font-size: .875rem;
     font-weight: 700;
-    margin-right: .188rem;
+    margin-right: .25rem;
 }
 
 .aside-remark-job {
-    font-size: .75rem;
+    font-size: .688rem;
     color: #999;
 }
 

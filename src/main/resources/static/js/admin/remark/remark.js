@@ -285,7 +285,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const quoteIcon = "<i class='r-l-t-quote-icon fas fa-quote-right'></i>";
 
-    const contents = document.querySelectorAll(".r-l-t-content");
+    const contents = document.querySelectorAll(".r-l-t-content, .r-d-t-content");
 
     contents.forEach(c => {
         c.addEventListener("click", function (e){

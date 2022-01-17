@@ -67,7 +67,7 @@
 
 /* 인물 정보 */
 .p-d-info-container{
-    padding-left: 1.25rem;
+    padding-left: 1rem;
     width: 100%;
 }
 
@@ -84,28 +84,33 @@
 }
 
 @media (max-width: 767px) {
-    .p-d-info-first-row{
-        padding-top: .125rem;
-    }
 }
 
 
 .p-d-info-btn-container{
     display: flex;
     align-items: center;
+    padding: .125rem .125rem 0;
 }
 
 .p-d-name{
     line-height: initial;
     font-size: 1.5rem;
     font-weight: 700;
-    margin-top: .5rem;
+    margin-top: .25rem;
 }
 
-.p-d-job{
+.p-d-job-alias-container{
     color: #7f8a99;
     font-size: .875rem;
     padding-left: .125rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.p-d-alias-divider{
+    color: #d6d8e1;
+    padding: 0 .25rem;
 }
 
 .p-d-hr{
@@ -116,7 +121,7 @@
 
 
 .p-d-etc {
-    padding-top: .25rem;
+    padding-top: .375rem;
     padding-left: .125rem;
     display: inline-block;
 }
