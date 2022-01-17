@@ -1114,7 +1114,6 @@ a:hover {
 
 .r-d-t-row-container {
     margin-bottom: 1rem;
-    padding: .875rem;
 }
 
 
@@ -1379,7 +1378,7 @@ a:hover {
 }
 
 .r-l-t-tag-container.r-d-t{
-    margin-top: .25rem;
+    margin-top: .125rem;
 }
 
 .r-d-t-tag-container{
@@ -1398,14 +1397,13 @@ a:hover {
 .r-l-t-category{
     font-size: .75rem;
     /*display: inline-block;*/
-    margin-bottom: .188rem;
     margin-right: .313rem;
     background-color: #999;
     color: #fff;
     width: auto;
     transition: color .3s ease-in-out, background-color .3s ease-in-out, font-weight .15s ease-in-out;
     line-height: initial;
-    padding: .07rem .375rem;
+    padding: .1rem .375rem;
     border-radius: .25rem;
     border: .025rem solid transparent;
 }
@@ -1456,7 +1454,6 @@ a:hover {
 .r-l-t-tags{
     font-size: .813rem;
     display: inline-block;
-    margin-bottom: .188rem;
     margin-right: .25rem;
     color: #FF674A !important;
     width: auto;
@@ -1477,10 +1474,9 @@ a:hover {
 
 
 @media (max-width: 767px) {
-    .r-l-t-tags {
+    .r-l-t-category, .r-l-t-tags {
         font-weight: 400;
         word-break: break-all;
-        margin-bottom: .125rem;
     }
 
     .r-d-t-tags{
