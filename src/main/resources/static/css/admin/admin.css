@@ -1527,10 +1527,22 @@ a:hover {
 }
 
 .r-l-t-quote-icon {
-    display: table-caption;
+    /*display: table-caption;*/
     color: #777;
     margin: 0 .4rem;
     font-size: .75rem;
+}
+
+.r-l-t-quote-icon.fa-quote-right{
+    position: absolute;
+    padding-top: .25rem;
+}
+
+@media (max-width: 575px) {
+    .r-l-t-quote-icon.fa-quote-right{
+        position: absolute;
+        padding-top: .188rem;
+    }
 }
 
 .r-l-t-content-container{
@@ -1545,11 +1557,12 @@ a:hover {
 .r-l-t-content {
     font-family: Pretendard, Noto Sans KR;
     font-size: .938rem;
-    font-weight: 500;
+    font-weight: 400;
     margin: 0;
     overflow: auto;
     cursor: pointer;
     color: black;
+    padding-right: .5rem;
 }
 
 .r-d-t-content {
@@ -1561,11 +1574,13 @@ a:hover {
     cursor: text;
     padding-top: 0;
     color: black;
+    padding-right: .5rem;
+
 }
 
 @media (max-width: 767px) {
     .r-l-t-content {
-        word-break: break-all;
+        padding-right: .5rem;
     }
     .r-l-t-content-container{
         line-height: 1.4 !important;
