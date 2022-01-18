@@ -442,6 +442,14 @@ a:hover {
     font-size: 1.125rem;
 }
 
+@media (max-width: 575px){
+    /*
+    .open-search-bar-btn-icon{
+        font-size: 1.25rem;
+    }
+    */
+}
+
 
 
 
@@ -557,7 +565,7 @@ a:hover {
     }
 
     .login-header-profile-icon {
-        font-size: 1.625rem;
+        font-size: 1.55rem;
         color: #ddd;
         display: inline-block !important;
         padding-right: .875rem;
@@ -565,7 +573,7 @@ a:hover {
 
     .login-header-login-icon{
         display: inline-block !important;
-        font-size: 1.5rem;
+        font-size: 1.55rem;
         padding-right: .875rem;
         color: #333;
     }
