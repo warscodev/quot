@@ -34,7 +34,12 @@
                                 </div>
                                 <div class="p-d-job-alias-container">
                                     <div class="p-d-alias-wrap">
-                                        <span class="p-d-alias" th:if="*{not #strings.isEmpty(alias)}" th:text="*{alias}"></span>
+                                        <th:block th:if="*{not #strings.isEmpty(aliasReps)}">
+                                            <span class="p-d-alias" th:text="*{aliasReps}" th:title="*{alias}"></span>
+                                        </th:block>
+                                        <th:block th:unless="*{not #strings.isEmpty(aliasReps)}">
+                                            <span class="p-d-alias" th:if="*{not #strings.isEmpty(alias)}" th:text="*{alias}"></span>
+                                        </th:block>
                                     </div>
                                         <span class="p-d-alias-divider" th:if="*{not #strings.isEmpty(alias)}">|</span>
                                     <div class="p-d-job-wrap">
@@ -44,17 +49,12 @@
                                 <div class="p-d-etc table-responsive">
                                     <table class="table table-borderless table-sm">
                                         <tbody>
-                                        <tr th:if="*{not #strings.isEmpty(birth.birth_year)
-                                    and not #strings.isEmpty(birth.birth_month)
-                                    and not #strings.isEmpty(birth.birth_day)}">
-                                            <th>출생</th>
-                                            <td>
-                                        <span th:if="*{not #strings.isEmpty(birth.birth_year)}"
-                                              th:text="|*{birth.birth_year}년 |"></span>
-                                                <span th:if="*{not #strings.isEmpty(birth.birth_month)}"
-                                                      th:text="|*{birth.birth_month}월 |"></span>
-                                                <span th:if="*{not #strings.isEmpty(birth.birth_day)}"
-                                                      th:text="|*{birth.birth_day}일 |"></span>
+                                        <tr>
+                                            <th><span th:if="*{not #strings.isEmpty(birthday)}" th:text="출생"></span></th>
+                                            <td class="p-d-birth-container">
+                                                <div class="p-d-birth-wrap">
+                                                    <span th:text="*{birthday}"></span>
+                                                </div>
                                             </td>
                                         </tr>
                                         <tr th:if="*{not #strings.isEmpty(summary)}">
@@ -96,7 +96,7 @@
                 </div>
 
                 <div class="p-d-body">
-                    <div th:if="*{not #lists.isEmpty(remarkList)}" class="p-d-r-row-container"
+                    <div th:if="*{not #lists.isEmpty(remarkList)}" th:class="|p-d-r-row-container p-d-r-content-border-last-${rStat.last}|"
                          th:each="r : *{remarkList}">
                         <div class="p-d-r-first-row-container d-flex align-items-center justify-content-between">
                             <div class="p-d-r-date-wrap">
@@ -115,7 +115,7 @@
                                     <div class="p-d-r-icons-comments"><i class="icon-comment"></i>&nbsp;<span class="p-d-r-icons-text"
                                             th:text="${r.commentCount}"></span></div>
                                 </div>
-                                <span class="p-d-r-icons-info tt bi bi-info-circle"
+                                <span class="p-d-r-icons-info tt fas fa-info-circle"
                                       data-bs-html="true" data-bs-placement="right"
                                       th:title="|<div class='d-flex align-items-center justify-content-center'>
                             <span class='r-l-t-info-nickname'>작성자 : ${r.nickname}</span>
@@ -139,7 +139,6 @@
                                 <a class="p-d-r-content-link" th:href="@{/remark/{id} (id=${r.remarkId})}"></a>
                             </div>
                         </div>
-                        <hr th:class="|p-d-r-content-border-last-${rStat.last}|">
                     </div>
 
                     <div th:unless="*{not #lists.isEmpty(remarkList)}" class="p-d-r-row-container">

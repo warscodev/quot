@@ -37,7 +37,7 @@
                                             </a>
                                             <!-- 다른이름, 직업, 날짜 -->
                                             <span class="r-l-t-person-job" th:text="*{job}"></span>
-                                            <span class="r-l-t-date-divider">·</span>
+                                            <span class="r-l-t-date-divider" th:if="*{!#strings.isEmpty(job)}">·</span>
                                             <div class="r-l-t-date-container">
                                                 <span class="r-l-t-date" th:text="|*{remarkDate}|"></span>
                                                 <span class="r-l-t-info-icon r-d-t-info-icon tt bi bi-info-circle"
@@ -77,7 +77,10 @@
                                         </div>
                                     </div>
                                     <div class="r-l-t-tag-container r-d-t">
-                                        <div class="r-l-t-tags-wrap">
+                                        <div th:if="*{#strings.equals(category, 'none')}" class="r-l-t-tags-wrap">
+                                            <span class="r-l-t-category r-d-t-category">기타</span><a class="r-l-t-tags r-d-t-tags" th:each="tag : *{remarkTagList}" th:href="@{/remark(keyword=${tag.name}, tab=1)}"><span th:text="|#${tag.name}|"></span></a>
+                                        </div>
+                                        <div th:unless="*{#strings.equals(category, 'none')}"  class="r-l-t-tags-wrap">
                                             <a th:class="|r-l-t-category r-d-t-category *{catClassName}|" th:text="*{category}"></a><a class="r-l-t-tags r-d-t-tags" th:each="tag : *{remarkTagList}" th:href="@{/remark(keyword=${tag.name}, tab=1)}"><span th:text="|#${tag.name}|"></span></a>
                                         </div>
                                     </div>
@@ -94,9 +97,9 @@
                                     </div>
                                 </div>
 
-                                <div class="r-l-t-content-container r-d-t r-l-t-second-col d-flex">
-                                    <p class="r-d-t-content"
-                                       th:text="*{content}" th:data-source="*{sourceUrl}" id="remark-content-999"></p>
+                                <div class="r-l-t-content-container r-d-t r-l-t-second-col">
+                                    <span class="r-d-t-content"
+                                       th:text="*{content}" th:data-source="*{sourceUrl}" id="remark-content-999"></span>
                                 </div>
 
                             </div>

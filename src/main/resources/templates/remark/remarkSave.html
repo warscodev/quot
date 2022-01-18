@@ -108,6 +108,7 @@
     // init Tagify script on the above inputs
     tagify = new Tagify(input, {
         pattern: /^.{0,20}$/,
+        delimiters: ",| ",
         whitelist: JSON.parse(document.querySelector("#whitelist").textContent),
         maxTags: 10
     });

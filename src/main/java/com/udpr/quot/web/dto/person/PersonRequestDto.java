@@ -29,8 +29,7 @@ public class PersonRequestDto {
 
     private String gender;
 
-    @NotBlank(message = "✋ 직업은 필수입력 사항입니다.")
-        @Pattern(regexp = "^(?<![(,])[0-9]*[a-zA-Z가-힣]*[,\\s0-9:$-()&a-zA-Z가-힣]*(?<![(,\\s])$",
+    @Pattern(regexp = "^(?<![(,])[0-9]*[a-zA-Z가-힣]*[,\\s0-9:$-()&a-zA-Z가-힣]*(?<![(,\\s])$",
             message = "✋ 사용할 수 없는 문자가 포함되었습니다. 2개 이상의 직업은 콤마(,)로 구분하여주세요.")
     private String job;
 
@@ -54,16 +53,16 @@ public class PersonRequestDto {
         String requestedDay = this.birth.getBirth_day();
         String requestedMonth = this.birth.getBirth_month();
 
-        if (requestedDay.length() < 2 && !requestedDay.equals("0") && !requestedDay.equals("")) {
-            this.birth.setBirth_day("0" + requestedDay);
-        } else if (requestedDay.equals("0") || requestedDay.equals("00")) {
+        if (requestedDay.length() < 1 || requestedDay.equals("0") || requestedDay.equals("00")) {
             this.birth.setBirth_day("");
+        }else if(requestedDay.charAt(0) == '0'){
+            this.birth.setBirth_day(requestedDay.substring(1));
         }
 
-        if (requestedMonth.length() < 2 && !requestedMonth.equals("0") && !requestedMonth.equals("")) {
-            this.birth.setBirth_month("0" + requestedMonth);
-        } else if (requestedMonth.equals("0") || requestedMonth.equals("00")) {
+        if (requestedMonth.length() < 1 || requestedMonth.equals("0") || requestedMonth.equals("00")) {
             this.birth.setBirth_month("");
+        }else if(requestedMonth.charAt(0) == '0'){
+            this.birth.setBirth_month(requestedMonth.substring(1));
         }
 
 

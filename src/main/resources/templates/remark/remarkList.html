@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-<head th:replace="fragments/header :: header(keyword=${keyword}, category=${category}, content='다양한 인물들의 발언을 검색해보세요.')">
+<head th:replace="fragments/header :: header(keyword=${keyword}, category=${category})">
 <body>
 <div th:replace="fragments/loginHeader :: loginHeader"></div>
 <div th:replace="fragments/topHeader :: topHeader"></div>
@@ -123,24 +123,14 @@
                                        th:href="@{/person/{personId}(personId=${r.personId})}">
                                         <span class="r-l-t-person-name" th:text="${r.name}"></span>
                                     </a>
-                                    <!--<a style="border: 1px solid #eee; border-radius: 5rem;">
-                                        <i class="far fa-star" style="font-size: .85rem;"></i>
-                                    </a>-->
                                     <!-- 다른이름, 직업 -->
                                     <div class="r-l-t-person-and-alias-container">
                                         <span th:title="${r.job}" class="r-l-t-person-job tt" th:text="${r.job}"
                                               data-bs-trigger="hover"></span>
                                     </div>
-                                    <span class="r-l-t-date-divider">·</span>
+                                    <span th:if="${!#strings.isEmpty(r.job)}" class="r-l-t-date-divider">·</span>
                                     <div class="r-l-t-date-container">
                                         <span class="r-l-t-date" th:text="${r.remarkDate}"></span>
-                                        <!-- data-bs-trigger="hover focus click"-->
-                                        <!--<span class="r-l-t-info tt r-l-t-info-icon bi bi-info-circle"
-                                              data-bs-html="true" data-bs-placement="right"
-                                              th:title="|<div class='d-flex align-items-center justify-content-center'>
-                                        <span class='r-l-t-info-nickname'>작성자 : ${r.nickname}</span>
-                                        </div>
-                                        <div><span class='r-l-t-info-date'>${r.createdDate} 등록됨</span></div>|"></span>-->
                                     </div>
                                 </div>
                                 <div class="r-l-t-first-row-third-col d-flex justify-content-end">
@@ -174,7 +164,10 @@
 
 
                             <div class="r-l-t-tag-container">
-                                <div class="r-l-t-tags-wrap">
+                                <div th:if="${#strings.equals(r.category, 'none')}" class="r-l-t-tags-wrap">
+                                    <span class="r-l-t-category">기타</span><!--<span class="r-l-t-cat-tag-divider">|</span>--><a class="r-l-t-tags" th:each="tag : ${r.remarkTagList}" th:href="@{/remark(keyword=${tag.name}, tab=1)}" th:text="|#${tag.name}|"></a>
+                                </div>
+                                <div th:unless="${#strings.equals(r.category, 'none')}"  class="r-l-t-tags-wrap">
                                     <a th:class="|r-l-t-category ${r.catClassName}|" th:text="${r.category}" th:href="@{/remark(category=${r.category})}"></a><!--<span class="r-l-t-cat-tag-divider">|</span>--><a class="r-l-t-tags" th:each="tag : ${r.remarkTagList}"
                                        th:href="@{/remark(keyword=${tag.name}, tab=1)}" th:text="|#${tag.name}|">
                                     </a>
@@ -196,7 +189,7 @@
                         <div class="r-l-t-content-container r-l-t-second-col">
                             <span th:id="|remark-content-${rStat.index+1}|" th:data-source="${r.sourceUrl}"
                                class="r-l-t-content" th:text="${r.content}"></span>
-                            <a class="r-l-t-content-link d-flex align-items-center"
+                            <a class="r-l-t-content-link"
                                th:href="|/remark/${r.remarkId}/tmp${rdParam}|"></a>
                         </div>
                     </div>
@@ -204,7 +197,6 @@
                     <div class="r-l-t-last-row-container">
                         <div class="r-l-t-source-wrap">
                             <a class="r-l-t-source tt" th:href="${r.sourceUrl}" title="출처" data-bs-trigger="hover" data-bs-placement="bottom" target="_blank" rel="noopener noreferer nofollow">
-                                <!--<i class="bi bi-youtube" style="color: #666; font-size: .875rem; margin-right: .25rem;"></i>-->
                                 <span th:text="${r.sourceUrl}"></span>
                             </a>
                         </div>

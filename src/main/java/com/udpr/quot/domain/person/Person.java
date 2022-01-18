@@ -33,6 +33,8 @@ public class Person extends BaseTimeEntity {
 
     private String gender;
 
+    private String organization;
+
     @Column(columnDefinition = "TEXT")
     private String summary;
 

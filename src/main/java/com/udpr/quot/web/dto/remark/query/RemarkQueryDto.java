@@ -81,7 +81,7 @@ public class RemarkQueryDto {
     }
 
     public String remarkDateFormat(LocalDate localDate){
-        return localDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+        return localDate.format(DateTimeFormatter.ofPattern("yyyy. MM. dd"));
     }
 
     public String summarySubstring(String remarkSummary){
@@ -109,7 +109,7 @@ public class RemarkQueryDto {
             case "사회문화" : className = "society-culture"; break;
             case "스포츠" : className = "sports"; break;
             case "창작물" : className = "creations"; break;
-            default: className = "basic"; break;
+            default: className = "etc"; break;
         }
 
         return className;

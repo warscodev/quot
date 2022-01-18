@@ -3,6 +3,7 @@ package com.udpr.quot.web.dto.person;
 import com.udpr.quot.domain.person.Birth;
 import com.udpr.quot.domain.person.Person;
 import com.udpr.quot.domain.common.Status;
+import com.udpr.quot.web.dto.person.utils.PersonDtoUtils;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -16,6 +17,7 @@ public class PersonResponseDto {
     private Birth birth;
     private String gender;
     private String job;
+    private String organization;
     private String summary;
     private Status status;
     private LocalDateTime createdDate;
@@ -35,5 +37,6 @@ public class PersonResponseDto {
         this.createdDate = entity.getCreatedDate();
         this.updatedDate = entity.getUpdatedDate();
     }
+
 
 }

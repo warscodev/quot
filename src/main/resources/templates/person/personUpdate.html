@@ -35,7 +35,7 @@
             <input type="text" th:field="*{name}" class="form-control"
                    placeholder="이름을 입력하세요"
                    th:class="${#fields.hasErrors('name')}? 'form-control fieldError' : 'form-control'">
-            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Incorrect date</p>
+            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Incorrect data</p>
         </div>
 
         <!-- 성별 -->
@@ -67,9 +67,9 @@
             <label th:for="categoryId" class="form-label">카테고리</label>
             <select th:field="*{category}" class="form-select">
                 <option th:value="none">카테고리</option>
-                <option th:value="정치">정치/사회</option>
+                <option th:value="정치">정치</option>
                 <option th:value="방송연예">방송/연예</option>
-                <option th:value="사회문화">문화</option>
+                <option th:value="사회문화">사회/문화</option>
                 <option th:value="스포츠">스포츠</option>
                 <option th:value="창작물">창작물</option>
             </select>
@@ -97,7 +97,7 @@
 
         <!-- 요약 -->
         <div class="col-12">
-            <label th:for="summary" class="form-label">요약</label>
+            <label th:for="summary" class="form-label">기타</label>
             <textarea th:field="*{summary}" class="form-control" rows="10"></textarea>
         </div>
 

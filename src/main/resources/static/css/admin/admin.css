@@ -259,7 +259,7 @@ a:hover {
 @media (max-width: 575px) {
 
     #mainLogo{
-        width: 90px;
+        width: 95px;
     }
 
     .login-header-logo{
@@ -669,9 +669,8 @@ a:hover {
 }
 
 .subNav-menu-items span {
-    font-size: .938rem;
     font-weight: 700;
-    color: #333;
+    color: #9f9f9f;
     padding-bottom: 1rem;
     border-bottom: 2px solid transparent;
     transition: color .15s ease-in-out, border .15s ease-in-out, border-bottom-width .15s ease-in-out !important;
@@ -715,9 +714,6 @@ a:hover {
 
 
 @media (max-width: 767px) {
-    .subNav-menu-items span,.subNav-menu-follow {
-        font-size: .875rem !important;
-    }
 
     .subNav-menu-items.main-menu.hot i,.subNav-menu-bookmark {
         font-size: .813rem !important;
@@ -1069,7 +1065,7 @@ a:hover {
 .r-l-t-row-container {
     position: relative;
     z-index: 1;
-    padding: .875rem .875rem .5rem .875rem;
+    padding: .75rem .875rem .375rem .875rem;
     background-color: #fff;
     background-clip: border-box;
     border-radius: .75rem;
@@ -1097,7 +1093,7 @@ a:hover {
         margin-bottom: .5rem;
         border-top: 1px solid #e6edf3;
         border-bottom: 1px solid #e6edf3;
-        padding: .75rem .75rem .313rem .75rem;
+        padding: .625rem .75rem .313rem .75rem;
         box-shadow: 2px 2px 10px 0 rgba(15, 40, 65, 0.12);
     }
 
@@ -1124,6 +1120,10 @@ a:hover {
 
 .r-l-t-first-row-container, .r-l-t-second-row-container {
     padding: 0;
+}
+
+.r-l-t-title-container{
+    display: grid;
 }
 
 .r-l-t-second-row-container{
@@ -1190,7 +1190,7 @@ a:hover {
     }
 
     .r-l-t-second-col {
-        padding-left:.5rem;
+        padding-left:.375rem !important;
     }
 
     .r-l-t-picture{
@@ -1201,8 +1201,7 @@ a:hover {
 
 
 .r-l-t-second-col {
-    padding-left: .75rem;
-    display: grid;
+    padding-left: .625rem;
 }
 
 .r-l-t-person-and-date-container {
@@ -1223,7 +1222,6 @@ a:hover {
 
 
 .r-l-t-person-name-link {
-    font-size: 1.063rem;
     font-weight: 700;
     margin-right: .25rem;
     line-height: initial;
@@ -1252,7 +1250,7 @@ a:hover {
 .r-l-t-date-divider{
     font-size: .813rem;
     color: #999;
-    padding: 0 .25rem;
+    padding: 0 .125rem;
     user-select: none;
     line-height: initial;
 }
@@ -1270,6 +1268,7 @@ a:hover {
     color: #999;
     font-size: .813rem;
     margin-right: .313rem;
+    word-spacing: -1px;
 }
 
 .r-d-t-person-alias-and-job-container {
@@ -1308,7 +1307,7 @@ a:hover {
 .tooltip {
     font-family: Pretendard, Noto Sans KR, Apple SD Gothic Neo, Malgun Gothic, 맑은 고딕, sans-serif !important;
     z-index: 98 !important;
-    font-size: .75rem !important;
+    font-size: .68rem !important;
 
 }
 
@@ -1337,7 +1336,7 @@ a:hover {
 .r-l-t-info-icon {
     display: flex;
     font-size: .813rem;
-    color: #3f546f;
+    color: #777;
 }
 
 
@@ -1408,7 +1407,10 @@ a:hover {
     border: .025rem solid transparent;
 }
 
-.r-d-t-category{
+.r-l-t-category{
+    color: #fff;
+    background-color: #999;
+    border-color: #999;
 }
 
 .r-l-t-category.politics{
@@ -1519,6 +1521,7 @@ a:hover {
 }
 
 .r-l-t-quote-icon {
+    display: table-caption;
     color: #777;
     margin: 0 .4rem;
     font-size: .75rem;
@@ -1529,6 +1532,7 @@ a:hover {
 }
 
 .r-l-t-content-container.r-d-t{
+    line-height: 1.5;
     padding-top: .125rem;
 }
 
@@ -1539,16 +1543,18 @@ a:hover {
     margin: 0;
     overflow: auto;
     cursor: pointer;
+    color: black;
 }
 
 .r-d-t-content {
     font-family: Pretendard, Noto Sans KR;
     font-size: 1rem;
-    font-weight: 400;
+    font-weight: 500;
     margin: 0;
     overflow: auto;
     cursor: text;
     padding-top: 0;
+    color: black;
 }
 
 @media (max-width: 767px) {
@@ -1574,7 +1580,9 @@ a:hover {
     position: static;
     bottom: inherit;
     left: inherit;
-    padding: .5rem 0 0 52px;
+    padding-top: .25rem;
+    padding-right: 0;
+    padding-left: calc(40px + .5rem);
 }
 
 .r-d-t-last-row-container {
@@ -1588,21 +1596,23 @@ a:hover {
 
 .r-l-t-source{
     color: #bbbbbb;
-    font-size: .75rem;
+    font-size: .813rem;
     font-weight: 300;
     padding-top: .25rem;
     display: inline-block;
     align-items: center;
 
-    max-width: 300px;
+    max-width: 200px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
+
+
 @media (max-width: 575px) {
     .r-l-t-source {
-        max-width: 120px;
+        max-width: 150px;
     }
 }
 
@@ -1619,7 +1629,7 @@ a:hover {
 
 
 .r-l-t-btn{
-    font-size: 1rem;
+    font-size: 1.063rem;
     display: flex;
     align-items: center;
     margin-right: .5rem;
@@ -1629,6 +1639,7 @@ a:hover {
 }
 
 .r-l-t-btn.r-d-t{
+    font-size: 1.125rem;
 }
 
 
@@ -1724,6 +1735,7 @@ a:hover {
 }
 
 .r-l-t-bookmark-icon.r-d-t{
+    font-size: 1.188rem;
 }
 
 
@@ -1750,13 +1762,13 @@ a:hover {
 
 @media (max-width: 767px) {
     .r-l-t-last-row-container {
-        padding: .125rem 0 0 52px;
+        padding-top: .125rem;
     }
 }
 
 @media (max-width: 360px) {
     .r-l-t-last-row-container {
-        padding: .125rem .55rem 0 45px;
+        padding-left: calc(35px + .375rem);
     }
 
     .r-l-t-comment-count, .r-l-t-like-count, .r-l-t-dislike-count {
@@ -1881,20 +1893,12 @@ a:hover {
     color: #a0acbc !important;
 }
 
-.r-c-t-etc-btn-container > a:hover {
-    color: #79adf1 !important;
-}
-
-.r-c-t-etc-btn-container > a:hover > .r-c-t-etc-btn-icon {
-    color: #79adf1 !important;
-}
-
 .r-c-t-modify-btn-icon, .r-c-t-delete-btn-icon {
     /*margin-right: 0 !important;*/
 }
 .r-c-t-etc-btn.dropdown-toggle{
     font-size: 1rem;
-    color: #666;
+    color: #999 !important;
     display: inline-flex;
 }
 
@@ -2208,6 +2212,10 @@ a:hover {
 /* 페이지네이션 끝 */
 /* 코멘트 공유 모달 */
 
+.modal-title{
+    font-weight: 700;
+}
+
 .remark-share-icon > a {
     font-size: .875rem;
     border: 1px solid transparent;
@@ -2228,7 +2236,8 @@ a:hover {
 }
 
 .remark-share-icon > a > div {
-    font-size: .875rem;
+    font-weight: 500;
+    font-size: .813rem;
     text-align: center;
     padding-bottom: .3rem;
 }
@@ -2244,6 +2253,7 @@ a:hover {
 
 .remark-share-url-wrap > input {
     font-size: .875rem;
+    color: #666;
     background-color: #EEF1F4;
     border-color: #ddd;
 }

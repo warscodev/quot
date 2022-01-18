@@ -15,9 +15,12 @@ public class PersonQueryDto {
     private Long personId;
     private String name;
     private String alias;
+    private String aliasReps;
     private Birth birth;
+    private String birthday;
     private String gender;
     private String job;
+    private String organization;
     private String summary;
     private String category;
     private Long followId;
@@ -29,7 +32,11 @@ public class PersonQueryDto {
         this.personId = personId;
         this.name = name;
         this.alias = alias;
+        if(alias !=null && alias.contains(",")){
+            this.aliasReps = substringAlias(alias);
+        }
         this.birth = birth;
+        this.birthday = setBirthday(birth);
         this.gender = gender;
         this.job = job;
         this.summary = summary;
@@ -42,10 +49,36 @@ public class PersonQueryDto {
         this.personId = personId;
         this.name = name;
         this.alias = alias;
+        if(alias !=null && alias.contains(",")){
+            this.aliasReps = substringAlias(alias);
+        }
         this.birth = birth;
+        this.birthday = setBirthday(birth);
         this.gender = gender;
         this.job = job;
         this.summary = summary;
         this.category = category;
     }
+
+    public String substringAlias(String alias){
+        return alias.substring(0,alias.indexOf(","));
+    }
+
+    public String setBirthday(Birth birth){
+
+        StringBuilder birthToString = new StringBuilder("");
+
+        if(!birth.getBirth_year().isEmpty()){
+            birthToString.append(birth.getBirth_year()).append("년 ");
+        }
+        if(!birth.getBirth_month().isEmpty()){
+            birthToString.append(birth.getBirth_month()).append("월 ");
+        }
+        if(!birth.getBirth_day().isEmpty()){
+            birthToString.append(birth.getBirth_day()).append("일");
+        }
+
+        return birthToString.toString().trim();
+    }
+
 }

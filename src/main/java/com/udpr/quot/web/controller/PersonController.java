@@ -83,7 +83,20 @@ public class PersonController {
         return "person/personUpdate";
 
     }
-    
+
+    @GetMapping("/admin/person/{id}/test")
+    public String updateForm2(@PathVariable("id") Long id, Model model , @LoginUser SessionUser user){
+
+        if(user != null){
+            model.addAttribute("user", user);
+        }
+
+        PersonResponseDto responseDto= personService.findById(id);
+        model.addAttribute("info", responseDto);
+        return "person/personUpdate2";
+
+    }
+
     //인물 수정
     @PostMapping("/admin/person/{id}")
     public String update(@ModelAttribute("form") @Valid PersonRequestDto form, BindingResult result , @LoginUser SessionUser user) {
@@ -95,7 +108,7 @@ public class PersonController {
         form.setBirthDay();
 
         personService.update(form.getId(), form);
-        return "redirect:/admin/person";
+        return "redirect:/person/"+form.getId();
     }
 
     //인물 삭제
