@@ -1545,7 +1545,7 @@ a:hover {
 .r-l-t-content {
     font-family: Pretendard, Noto Sans KR;
     font-size: .938rem;
-    font-weight: 400;
+    font-weight: 500;
     margin: 0;
     overflow: auto;
     cursor: pointer;
@@ -1568,7 +1568,7 @@ a:hover {
         word-break: break-all;
     }
     .r-l-t-content-container{
-        line-height: 1.4;
+        line-height: 1.4 !important;
     }
 
 }
