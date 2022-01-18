@@ -23,9 +23,6 @@
         padding-right: 0;
     }
 
-    .p-d-header-container > div{
-        border-radius: .25rem;
-    }
 
     .p-d-header-row-container{
         padding: 1.25rem 1.25rem;
@@ -355,6 +352,12 @@
 }
 
 @media (max-width: 767px) {
+    .p-d-body, .p-d-header-container >div{
+        border-radius: 0;
+        border-left-color: transparent;
+        border-right-color: transparent;
+    }
+
     .p-d-body-container{
         margin-top: .75rem;
     }

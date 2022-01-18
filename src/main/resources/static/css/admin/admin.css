@@ -1383,7 +1383,7 @@ a:hover {
 }
 
 .r-l-t-tag-container.r-d-t{
-    margin-top: .125rem;
+    margin-top: .25rem;
 }
 
 .r-d-t-tag-container{
@@ -1631,6 +1631,14 @@ a:hover {
         max-width: 150px;
     }
 }
+
+@media (max-width: 360px) {
+    .r-l-t-source {
+        max-width: 100px;
+    }
+}
+
+
 
 .r-l-t-source.r-d-t{
     font-size: .813rem;
