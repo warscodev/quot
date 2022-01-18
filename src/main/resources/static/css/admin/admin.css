@@ -294,6 +294,7 @@ a:hover {
 }
 
 .main-header-category-divider{
+
     color: #909bab;
     font-weight: 200 !important;
 }
@@ -640,6 +641,11 @@ a:hover {
     margin-right: .5rem;
     line-height: initial;
     border-bottom: 3px solid transparent;
+}
+
+.subNav-menu-items.divider{
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .subNav-menu-items a {
