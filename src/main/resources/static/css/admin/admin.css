@@ -162,6 +162,7 @@ a:hover {
 
 /* --- 헤더 ---*/
 .main-header {
+    position: relative;
     background: #fff;
     border-bottom: none;
     height: 70px;
