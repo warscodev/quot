@@ -1536,14 +1536,9 @@ a:hover {
 .r-l-t-quote-icon.fa-quote-right{
     position: absolute;
     padding-top: .25rem;
+    margin-left: .375rem;
 }
 
-@media (max-width: 575px) {
-    .r-l-t-quote-icon.fa-quote-right{
-        position: absolute;
-        padding-top: .188rem;
-    }
-}
 
 .r-l-t-content-container{
     line-height: 1.4;
