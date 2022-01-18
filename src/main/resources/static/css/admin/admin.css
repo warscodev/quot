@@ -162,7 +162,6 @@ a:hover {
 
 /* --- 헤더 ---*/
 .main-header {
-    position: relative;
     background: #fff;
     border-bottom: none;
     height: 70px;
@@ -233,7 +232,6 @@ a:hover {
 @media (max-width: 767px) {
     #mainLogo{
         width: 114px;
-        margin-left: .75rem;
     }
 
     .login-logo {
@@ -243,11 +241,12 @@ a:hover {
 
     .main-header {
         height: 55px;
-        position: relative;
         top: 0;
         z-index: 1020;
         padding-top: .75rem;
         padding-bottom: .25rem;
+        padding-left: .75rem;
+        padding-right: .75rem;
     }
 
     .main-header-logo {
@@ -568,13 +567,11 @@ a:hover {
         font-size: 1.55rem;
         color: #ddd;
         display: inline-block !important;
-        padding-right: .875rem;
     }
 
     .login-header-login-icon{
         display: inline-block !important;
         font-size: 1.55rem;
-        padding-right: .875rem;
         color: #333;
     }
 
