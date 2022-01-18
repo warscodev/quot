@@ -24,11 +24,11 @@
                                     <div class="me-3">
                                         <label class="form-label" th:for="name">이름</label>
                                         <input type="text" th:class="${#fields.hasErrors('name')}? 'p-u-name form-control form-control-sm fieldError' : 'form-control form-control-sm p-u-name'"
-                                               th:field="*{name}" placeholder="이름">
+                                               th:field="*{name}"/>
                                     </div>
                                     <div>
                                         <label class="form-label" th:for="category">카테고리</label>
-                                        <select class="p-d-job form-select form-select-sm"
+                                        <select class="form-select form-select-sm"
                                                 th:field="*{category}">
                                             <option th:value="기타">카테고리</option>
                                             <option th:value="정치">정치</option>
@@ -43,18 +43,18 @@
                                     <div class="me-3 mt-3">
                                         <label class="form-label" th:for="alias">본명, 예명</label>
                                         <input type="text" class="p-d-alias form-control form-control-sm"
-                                               th:field="*{alias}" placeholder="콤마(,)로 구분">
+                                               th:field="*{alias}" placeholder="콤마(,)로 구분"/>
                                     </div>
 
                                     <div class="me-3 mt-3">
                                         <label class="form-label" th:for="job">직업</label>
                                         <input type="text" class="p-d-job form-control form-control-sm"
-                                               th:field="*{job}" placeholder="직업"/>
+                                               th:field="*{job}"/>
                                     </div>
                                     <div class="mt-3">
                                         <label class="form-label" th:for="organization">소속</label>
                                         <input type="text" class="p-d-job form-control form-control-sm"
-                                               th:field="*{organization}" placeholder="소속"/>
+                                               th:field="*{organization}"/>
                                     </div>
                                 </div>
                                 <div>
