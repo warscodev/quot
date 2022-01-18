@@ -344,7 +344,7 @@
 }
 
 .p-d-body{
-    padding-bottom: 1rem;
+    padding-bottom: .5rem;
     padding-right: 1.25rem;
     padding-left: 1.25rem;
     margin-bottom: 1rem;
@@ -358,8 +358,9 @@
     .p-d-body-container{
         margin-top: .75rem;
     }
-    .p-d-body{
-        padding: 1rem;
+
+    .p-d-r-row-container{
+
     }
 }
 
@@ -414,6 +415,12 @@
 }
 
 @media (max-width: 767px) {
+
+    .p-d-r-row-container{
+        padding-top: .75rem;
+        padding-bottom: .875rem;
+    }
+
     .p-d-r-content-border-last-false{
     }
 }
