@@ -2719,7 +2719,7 @@ a:hover {
 }
 
 .aside-remark-table-row {
-    padding: .25rem .75rem .25rem 1.25rem;
+    padding: .375rem .75rem .438rem 1.25rem;
     cursor: pointer;
     transition: background-color .15s ease-in-out;
     /*border-bottom: 1px solid #eee;*/
