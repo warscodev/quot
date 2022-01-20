@@ -81,7 +81,7 @@ public class RemarkQueryDto {
     }
 
     public String remarkDateFormat(LocalDate localDate){
-        return localDate.format(DateTimeFormatter.ofPattern("yyyy. MM. dd"));
+        return localDate.format(DateTimeFormatter.ofPattern("yyyy. MM. dd."));
     }
 
     public String summarySubstring(String remarkSummary){

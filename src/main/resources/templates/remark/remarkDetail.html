@@ -33,11 +33,12 @@
                                             <!-- 이름 -->
                                             <a class="r-d-t-person-name-link"
                                                th:href="@{/person/{personId}(personId=*{personId})}">
-                                                <span class="r-l-t-person-name r-d-t-person-name" th:text="*{name}"></span>
+                                                <span class="r-l-t-person-name r-d-t-person-name"
+                                                      th:text="*{name}"></span>
                                             </a>
                                             <!-- 다른이름, 직업, 날짜 -->
                                             <span class="r-l-t-person-job" th:text="*{job}"></span>
-                                            <span class="r-l-t-date-divider" th:if="*{!#strings.isEmpty(job)}">·</span>
+                                            <span class="r-l-t-date-divider" th:if="*{!#strings.isEmpty(job)}">|</span>
                                             <div class="r-l-t-date-container">
                                                 <span class="r-l-t-date" th:text="|*{remarkDate}|"></span>
                                                 <span class="r-l-t-info-icon r-d-t-info-icon tt bi bi-info-circle"
@@ -51,7 +52,8 @@
                                         <div class="r-l-t-first-row-third-col d-flex justify-content-end">
                                             <a th:if="*{isBookmarked > 0}"
                                                class="r-l-t-btn r-d-t r-l-t-bookmark-btn btn bookmark-active"
-                                               th:onclick="|saveOrDeleteBookmark(this,*{remarkId})|" href="javascript:;">
+                                               th:onclick="|saveOrDeleteBookmark(this,*{remarkId})|"
+                                               href="javascript:;">
                                                 <div class="r-l-t-btn-icon-wrap bookmark-icon-wrap tt" title="스크랩 취소"
                                                      data-bs-trigger="hover" data-bs-placement="bottom">
                                                     <i class="r-l-t-btn-icon r-l-t-bookmark-icon r-d-t icon-bookmark fill"></i>
@@ -59,7 +61,8 @@
                                             </a>
                                             <a th:unless="*{isBookmarked > 0}"
                                                class="r-l-t-btn r-d-t r-l-t-bookmark-btn btn"
-                                               th:onclick="|saveOrDeleteBookmark(this,*{remarkId})|" href="javascript:;">
+                                               th:onclick="|saveOrDeleteBookmark(this,*{remarkId})|"
+                                               href="javascript:;">
                                                 <div class="r-l-t-btn-icon-wrap bookmark-icon-wrap tt" title="스크랩"
                                                      data-bs-trigger="hover" data-bs-placement="bottom">
                                                     <i class="r-l-t-btn-icon r-l-t-bookmark-icon r-d-t icon-bookmark"></i>
@@ -78,10 +81,17 @@
                                     </div>
                                     <div class="r-l-t-tag-container r-d-t">
                                         <div th:if="*{#strings.equals(category, 'none')}" class="r-l-t-tags-wrap">
-                                            <span class="r-l-t-category r-d-t-category">기타</span><a class="r-l-t-tags r-d-t-tags" th:each="tag : *{remarkTagList}" th:href="@{/remark(keyword=${tag.name}, tab=1)}"><span th:text="|#${tag.name}|"></span></a>
+                                            <span class="r-l-t-category r-d-t-category">기타</span><a
+                                                class="r-l-t-tags r-d-t-tags" th:each="tag : *{remarkTagList}"
+                                                th:href="@{/remark(keyword=${tag.name}, tab=1)}"><span
+                                                th:text="|#${tag.name}|"></span></a>
                                         </div>
-                                        <div th:unless="*{#strings.equals(category, 'none')}"  class="r-l-t-tags-wrap">
-                                            <a th:class="|r-l-t-category r-d-t-category *{catClassName}|" th:text="*{category}"></a><a class="r-l-t-tags r-d-t-tags" th:each="tag : *{remarkTagList}" th:href="@{/remark(keyword=${tag.name}, tab=1)}"><span th:text="|#${tag.name}|"></span></a>
+                                        <div th:unless="*{#strings.equals(category, 'none')}" class="r-l-t-tags-wrap">
+                                            <a th:class="|r-l-t-category r-d-t-category *{catClassName}|"
+                                               th:text="*{category}"></a><a class="r-l-t-tags r-d-t-tags"
+                                                                            th:each="tag : *{remarkTagList}"
+                                                                            th:href="@{/remark(keyword=${tag.name}, tab=1)}"><span
+                                                th:text="|#${tag.name}|"></span></a>
                                         </div>
                                     </div>
 
@@ -99,14 +109,17 @@
 
                                 <div class="r-l-t-content-container r-d-t r-l-t-second-col">
                                     <span class="r-d-t-content"
-                                       th:text="*{content}" th:data-source="*{sourceUrl}" id="remark-content-999"></span>
+                                          th:text="*{content}" th:data-source="*{sourceUrl}"
+                                          id="remark-content-999"></span>
                                 </div>
 
                             </div>
 
                             <div id="cmCont" class="r-l-t-last-row-container">
                                 <div class="r-l-t-source-wrap">
-                                    <a class="r-l-t-source r-d-t tt" th:href="*{sourceUrl}" th:text="*{sourceUrl}" data-bs-trigger="hover" data-bs-placement="bottom" title="출처" target="_blank" rel="noopener noreferer nofollow"></a>
+                                    <a class="r-l-t-source r-d-t tt" th:href="*{sourceUrl}" th:text="*{sourceUrl}"
+                                       data-bs-trigger="hover" data-bs-placement="bottom" title="출처" target="_blank"
+                                       rel="noopener noreferer nofollow"></a>
                                 </div>
 
                                 <div class="r-l-t-last-row-btn-container">
@@ -174,7 +187,6 @@
                             </div>
 
 
-
                             <div class="r-c-table-container" id="comment-container">
                                 <hr class="r-l-t-border-bottom">
                                 <div class="r-c-table-inner-container">
@@ -182,22 +194,16 @@
                                         댓글 <span class="r-c-count-number r-d-changing-comment-count"
                                                  th:text="*{commentCount}"></span>
                                     </div>
-                                    <div class="r-c-table" id="comment-table"></div>
-
-                                    <div class="r-c-pagination-container" id="comment-pagination"></div>
-
-                                    <div class="r-c-pagination-container" id="comment-pagination-sm"></div>
 
                                     <div sec:authorize="hasAnyRole('ADMIN,USER')" class="r-c-t-textarea-container">
                                         <div class="r-c-t-textarea-wrap">
-                                    <textarea id="cmTextarea" class="r-c-t-textarea form-control" rows="3" maxlength="300"
+                                    <textarea id="cmTextarea" class="r-c-t-textarea form-control" rows="1"
+                                              maxlength="300"
                                               placeholder="댓글을 입력하세요."></textarea>
-                                            <div class="d-flex justify-content-end">
-                                                <button class="r-c-t-save-btn btn btn-sm"
-                                                        th:onclick="|submitCm(this,*{remarkId})|">
-                                                    등록
-                                                </button>
-                                            </div>
+                                            <button class="r-c-t-save-btn btn btn-sm"
+                                                    th:onclick="|submitCm(this,*{remarkId})|">
+                                                등록
+                                            </button>
                                         </div>
                                     </div>
 
@@ -205,14 +211,20 @@
                                         <!--<div>
                                             <span class="r-c-t-textarea-label">댓글쓰기</span>
                                         </div>-->
-                                        <a href="/oauth_login"><textarea
-                                                class="r-c-t-textarea form-control r-c-t-textarea-disabled" readonly
-                                                rows="3"
-                                                placeholder="댓글을 입력하시려면 로그인 하세요."></textarea></a>
-                                        <div class="d-flex justify-content-end">
-                                            <button disabled class="r-c-t-save-btn btn btn-sm">등록</button>
+                                        <div class="r-c-t-textarea-wrap">
+                                            <a href="/oauth_login" style="display: contents;"><textarea
+                                                    class="r-c-t-textarea form-control r-c-t-textarea-disabled"
+                                                    rows="1"
+                                                    placeholder="댓글을 입력하세요."></textarea>
+                                                <button disabled class="r-c-t-save-btn btn btn-sm">등록</button></a>
                                         </div>
                                     </div>
+
+                                    <div class="r-c-table" id="comment-table"></div>
+
+                                    <div class="r-c-pagination-container" id="comment-pagination"></div>
+
+                                    <div class="r-c-pagination-container" id="comment-pagination-sm"></div>
                                 </div>
                             </div>
                         </div>
@@ -235,8 +247,10 @@
                         <a class="btn btn-outline-secondary btn-sm" th:href="${prevPageLink}">목록</a>
                     </th:block>
                     <th:block sec:authorize="isAnonymous()">
-                        <a th:if="${#strings.equals(category,'스크랩') or #strings.equals(category, '팔로우')}" class="btn btn-outline-secondary btn-sm" href="/remark">목록</a>
-                        <a th:unless="${#strings.equals(category,'스크랩') or #strings.equals(category, '팔로우')}" class="btn btn-outline-secondary btn-sm" th:href="${prevPageLink}">목록</a>
+                        <a th:if="${#strings.equals(category,'스크랩') or #strings.equals(category, '팔로우')}"
+                           class="btn btn-outline-secondary btn-sm" href="/remark">목록</a>
+                        <a th:unless="${#strings.equals(category,'스크랩') or #strings.equals(category, '팔로우')}"
+                           class="btn btn-outline-secondary btn-sm" th:href="${prevPageLink}">목록</a>
                     </th:block>
                 </div>
 
@@ -321,76 +335,101 @@
                 row += "<div class=\"r-c-t-first-row-container d-flex justify-content-between\">";
                 row += "<div class=\"r-c-t-first-row-first-col-container\">";
 
+                /*
+                                if (c.parentId != null) {
+                                    row += "<div id='comment-writer-" + c.commentId + "' class=\"r-c-t-comment-writer\"><i class=\"r-c-t-comment-reply-icon fas fa-level-up-alt fa-rotate-90\"></i>" + c.nickname + "</div>";
+                                } else {
+                                    row += "<div id='comment-writer-" + c.commentId + "' class=\"r-c-t-comment-writer\">" + c.nickname + "</div>";
+                                }
+                */
+
+                row += "<div class=\"r-c-t-comment-content-container\">";
+
                 if (c.parentId != null) {
-                    row += "<div id='comment-writer-" + c.commentId + "' class=\"r-c-t-comment-writer\"><i class=\"r-c-t-comment-reply-icon fas fa-level-up-alt fa-rotate-90\"></i>" + c.nickname + "</div>";
+                    if (c.status === "DELETED_ANCESTOR") {
+                        row += "<span id='comment-writer-" + c.commentId + "' class=\"r-c-t-comment-writer\"><i class=\"r-c-t-comment-reply-icon fas fa-level-up-alt fa-rotate-90\"></i>" + c.nickname + "</span>";
+                        row += "<pre class=\"r-c-t-comment-content-wrap\">" + "<span class='r-c-t-comment-parent-nickname'>@" + c.parentWriter + "</span>" + c.content + "</pre>";
+                        row += "<span class='r-c-t-comment-parent-nickname'>@" + c.parentWriter + "</span>" + c.content;
+                        row += "<span id='comment-content-" + c.commentId + "' class=\"r-c-t-comment-content deleted-comment\">" + c.content + "</span>";
+
+                        row += "</pre>";
+                    } else {
+                        row += "<pre class=\"r-c-t-comment-content-wrap\">" +
+                            "<span id='comment-writer-" + c.commentId + "' class=\"r-c-t-comment-writer\"><i class=\"r-c-t-comment-reply-icon fas fa-level-up-alt fa-rotate-90\"></i>" + c.nickname + "</span>" +
+                            "<span class='r-c-t-comment-parent-nickname'>@" + c.parentWriter + "</span>";
+                        row += "<span id='comment-content-" + c.commentId + "' class=\"r-c-t-comment-content\">" + c.content + "</span>";
+                        row += "</pre>";
+                    }
                 } else {
-                    row += "<div id='comment-writer-" + c.commentId + "' class=\"r-c-t-comment-writer\">" + c.nickname + "</div>";
+                    if (c.status === "DELETED_ANCESTOR") {
+                        row += "<pre class=\"r-c-t-comment-content-wrap\">" +
+                            "<span id='comment-writer-" + c.commentId + "' class=\"r-c-t-comment-writer\">" + c.nickname + "</span>";
+                        row += "<span id='comment-content-" + c.commentId + "' class=\"r-c-t-comment-content deleted-comment\"></span></pre>"
+                    } else {
+                        row += "<pre class=\"r-c-t-comment-content-wrap\">" +
+                            "<span id='comment-writer-" + c.commentId + "' class=\"r-c-t-comment-writer\">" + c.nickname + "</span>";
+                        row += "<span id='comment-content-" + c.commentId + "' class=\"r-c-t-comment-content\">" + c.content + "</span></pre>"
+
+                    }
+                }
+
+                row += "</div>";
+
+
+                row += "</div>";
+
+
+                row += "</div>";
+
+
+                row += "<div class='r-c-t-last-row-btn-container'>";
+                row += "<div class='d-flex'>";
+                if (c.parentId != null) {
+                    row += "<a id='openCmReplyBtn-" + c.commentId + "' onclick='openCmReplyTextarea(this)' class='r-c-t-reply-btn' data-writer='" + c.nickname + "' data-aid='" + c.ancestorId + "' data-cid='" + c.commentId + "'><i class=\"icon-comment\"></i><span>답글</span></a>";
+                } else if (c.parentId === null) {
+                    row += "<a id='openCmReplyBtn-" + c.commentId + "' onclick='openCmReplyTextarea(this)' class='r-c-t-reply-btn' data-writer='" + c.nickname + "' data-cid='" + c.commentId + "'><i class=\"icon-comment\"></i><span>답글</span></a>";
                 }
 
                 if (c.status === "UPDATED") {
-                    row += "<div class=\"r-c-t-comment-date\">" + c.createdDate + "(수정됨)</div>";
+                    row += "<div class=\"r-c-t-comment-date\"><i class=\"far fa-clock\"></i><span>" + c.createdDate + "(수정됨)</span></div>";
                 } else {
-                    row += "<div class=\"r-c-t-comment-date\">" + c.createdDate + "</div>";
+                    row += "<div class=\"r-c-t-comment-date\"><i class=\"far fa-clock\"></i><span>" + c.createdDate + "</span></div>";
                 }
-                row += "</div>";
-
 
                 row += "<div class=\"r-c-t-etc-btn-container\">";
 
                 row += "<a class='r-c-t-etc-btn dropdown-toggle' id='commentDropdown' data-bs-toggle=\"dropdown\" aria-expanded=\"false\">";
-                row += "<i class='icon-more-vert'></i>";
+                row += "<i class=\"fas fa-ellipsis-h\"></i>";
                 row += "</a>";
 
                 row += "<ul class='r-c-t-etc-dropdown-menu dropdown-menu' aria-labelledby='commentDropdown'>";
-                if (sid === c.userId && c.status !== "DELETED_ANCESTOR") {
-                    row += "<li>";
-                    row += "<a class='r-c-t-modify-btn dropdown-item' onclick='openCmModifyTextArea(" + c.commentId + ")'><i class=\"r-c-t-etc-btn-icon r-c-t-modify-btn-icon bi bi-pencil-square\"></i>수정</a>";
-                    row += "</li>";
-                    row += "<li>";
-                    row += "<a class='r-c-t-delete-btn dropdown-item' data-cid='" + c.commentId + "'><i class=\"r-c-t-etc-btn-icon r-c-t-delete-btn-icon bi bi-trash\"></i>삭제</a>";
-                    row += "</li>";
-                }
+                /*
+                                if (sid === c.userId && c.status !== "DELETED_ANCESTOR") {
+                                    row += "<li>";
+                                    row += "<a class='r-c-t-modify-btn dropdown-item' onclick='openCmModifyTextArea(" + c.commentId + ")'><i class=\"r-c-t-etc-btn-icon r-c-t-modify-btn-icon bi bi-pencil-square\"></i>수정</a>";
+                                    row += "</li>";
+                                    row += "<li>";
+                                    row += "<a class='r-c-t-delete-btn dropdown-item' data-cid='" + c.commentId + "'><i class=\"r-c-t-etc-btn-icon r-c-t-delete-btn-icon bi bi-trash\"></i>삭제</a>";
+                                    row += "</li>";
+                                }
+                */
                 row += "<li>";
                 row += "<a class='r-c-t-report-btn dropdown-item' data-bs-toggle='modal' data-bs-target='#reportingCmModal' onclick='openReportingModal(" + c.commentId + ")'><i class=\"r-c-t-etc-btn-icon bi bi-flag\"></i>신고</a>";
                 row += "</li>";
-
-
                 row += "</ul>";
+                row += "</div>";
 
                 row += "</div>";
 
-
-
-
-                row += "</div>";
-
-                row += "<div class=\"r-c-t-comment-content-wrap\">";
-
-                if (c.parentId != null) {
-                    if (c.status === "DELETED_ANCESTOR") {
-                        row += "<pre id='comment-content-" + c.commentId + "' class=\"r-c-t-comment-content deleted-comment\"><span class='r-c-t-comment-parent-nickname'>@" + c.parentWriter + "</span>" + c.content + "</pre>";
-                    } else {
-                        row += "<pre id='comment-content-" + c.commentId + "' class=\"r-c-t-comment-content\"><span class='r-c-t-comment-parent-nickname'>@" + c.parentWriter + "</span>" + c.content + "</pre>";
-                    }
-                } else {
-                    if (c.status === "DELETED_ANCESTOR") {
-                        row += "<pre id='comment-content-" + c.commentId + "' class=\"r-c-t-comment-content deleted-comment\">" + c.content + "</pre>";
-                    } else {
-                        row += "<pre id='comment-content-" + c.commentId + "' class=\"r-c-t-comment-content\">" + c.content + "</pre>";
-                    }
+                row += "<div class='d-flex'>";
+                if (sid === c.userId && c.status !== "DELETED_ANCESTOR") {
+                    row += "<a class='r-c-t-modify-btn' onclick='openCmModifyTextArea(" + c.commentId + ")'><!--<i class=\"r-c-t-modify-btn-icon bi bi-pencil-square\"></i>-->수정</a>";
+                    row += "<a class='r-c-t-delete-btn' data-cid='" + c.commentId + "'><!--<i class=\"r-c-t-delete-btn-icon bi bi-trash\"></i>-->삭제</a>";
                 }
-
                 row += "</div>";
 
-                row += "<div class='r-c-t-last-row-btn-container'>";
-                if (c.parentId != null) {
-                    row += "<a id='openCmReplyBtn-" + c.commentId + "' onclick='openCmReplyTextarea(this)' class='r-c-t-reply-btn' data-writer='" + c.nickname + "' data-aid='" + c.ancestorId + "' data-cid='" + c.commentId + "'><i class=\"r-c-t-etc-btn-icon icon-comment\"></i>답글</a>";
-                } else if (c.parentId === null) {
-                    row += "<a id='openCmReplyBtn-" + c.commentId + "' onclick='openCmReplyTextarea(this)' class='r-c-t-reply-btn' data-writer='" + c.nickname + "' data-cid='" + c.commentId + "'><i class=\"r-c-t-etc-btn-icon icon-comment\"></i>답글</a>";
-                }
 
                 row += "</div>";
-
 
 
                 row += "</div>";
@@ -540,7 +579,7 @@
 
 
     function submitCm(e, remarkId) {
-        let textarea = $(e).parent().prev(),
+        let textarea = $(e).prev(),
             content = textarea.val(),
             data = {
                 content: content
@@ -594,7 +633,7 @@
         const textarea = document.querySelectorAll('.r-c-t-textarea');
         for (let i = 0; i < textarea.length; i++) {
             textarea[i].value = '';
-            textarea[i].style.height = '80px';
+            textarea[i].style.height = '35px';
         }
 
     }
@@ -603,45 +642,45 @@
 
         if (sid == null || sid === '') {
             location.href = "/oauth_login"
-        }else{
-
-        let parentId = e.dataset.cid,
-            parentNickname = e.dataset.writer,
-            row = "",
-            textareaContainer = document.getElementById("cmReplyTextareaContainer-" + parentId);
-
-        if (textareaContainer === null) {
-            hideAllCmReplyTextarea();
-            row += "<div class=\"r-c-t-textarea-container r-c-t-reply-textarea-container\" id='cmReplyTextareaContainer-" + parentId + "'>";
-            row += "<div><i class=\"r-c-t-comment-reply-icon fas fa-level-up-alt fa-rotate-90\"></i><span class=\"r-c-t-writer\">@" + parentNickname + "</span></div>";
-            row += "<textarea id='cmReplyTextarea-" + parentId + "' class=\"r-c-t-textarea form-control\" rows=\"3\" maxLength=\"300\" placeholder=\"댓글을 입력하세요.\"></textarea>";
-            row += "<div class='d-flex justify-content-end'>";
-
-            if (e.dataset.aid != null) {
-                row += "<button class='r-c-t-save-btn btn btn-sm' data-parent='" + parentId + "' data-ancestor='" + e.dataset.aid + "' onclick='submitCm(this," + rdRemarkId + ")'>등록</button>";
-            } else {
-                row += "<button class='r-c-t-save-btn btn btn-sm' data-parent='" + parentId + "' onclick='submitCm(this," + rdRemarkId + ")'>등록</button>";
-            }
-            row += "</div>";
-            row += "</div>";
-
-            $("#comment-" + parentId).children().last().after(row);
-            $("#cmReplyTextarea-" + parentId).focus();
-
-        } else if (textareaContainer != null && textareaContainer.style.display === 'none') {
-            hideAllCmReplyTextarea();
-            textareaContainer.style.display = "block";
-            $("#cmReplyTextarea-" + parentId).focus();
-        } else if (textareaContainer != null && textareaContainer.style.display !== 'none') {
-            hideAllCmReplyTextarea();
         } else {
-        }
 
-        let openedTextarea = document.querySelector('#cmReplyTextarea-' + parentId)
-        autosize(openedTextarea);
+            let parentId = e.dataset.cid,
+                parentNickname = e.dataset.writer,
+                row = "",
+                textareaContainer = document.getElementById("cmReplyTextareaContainer-" + parentId);
 
-        let location = document.querySelector('#comment-' + parentId).offsetTop;
-        window.scrollTo({top: location + 60});
+            if (textareaContainer === null) {
+                hideAllCmReplyTextarea();
+                row += "<div class=\"r-c-t-textarea-container r-c-t-reply-textarea-container\" id='cmReplyTextareaContainer-" + parentId + "'>";
+                row += "<div><i class=\"r-c-t-comment-reply-icon fas fa-level-up-alt fa-rotate-90\"></i><span class=\"r-c-t-writer\">@" + parentNickname + "</span></div>";
+                row += "<div class='r-c-t-textarea-wrap'>";
+                row += "<textarea id='cmReplyTextarea-" + parentId + "' class=\"r-c-t-textarea form-control\" rows=\"1\" maxLength=\"300\" placeholder=\"댓글을 입력하세요.\"></textarea>";
+
+                if (e.dataset.aid != null) {
+                    row += "<button class='r-c-t-save-btn btn btn-sm' data-parent='" + parentId + "' data-ancestor='" + e.dataset.aid + "' onclick='submitCm(this," + rdRemarkId + ")'>등록</button>";
+                } else {
+                    row += "<button class='r-c-t-save-btn btn btn-sm' data-parent='" + parentId + "' onclick='submitCm(this," + rdRemarkId + ")'>등록</button>";
+                }
+                row += "</div>";
+                row += "</div>";
+
+                $("#comment-" + parentId).children().last().after(row);
+                $("#cmReplyTextarea-" + parentId).focus();
+
+            } else if (textareaContainer != null && textareaContainer.style.display === 'none') {
+                hideAllCmReplyTextarea();
+                textareaContainer.style.display = "block";
+                $("#cmReplyTextarea-" + parentId).focus();
+            } else if (textareaContainer != null && textareaContainer.style.display !== 'none') {
+                hideAllCmReplyTextarea();
+            } else {
+            }
+
+            let openedTextarea = document.querySelector('#cmReplyTextarea-' + parentId)
+            autosize(openedTextarea);
+
+            let location = document.querySelector('#comment-' + parentId).offsetTop;
+            window.scrollTo({top: location + 60});
         }
     }
 
@@ -696,17 +735,13 @@
 
         if (textareaContainer === null) {
             hideAllCmReplyTextarea();
-            if (commentEl.dataset.aid != null) {
-                originContent = $("#comment-content-" + commentId).html().split('>')[2];
-            } else {
-                originContent = document.getElementById("comment-content-" + commentId).innerText;
-            }
+            originContent = document.getElementById("comment-content-" + commentId).innerText;
             row += "<div id='cmModifyTextareaContainer-" + commentId + "' class=\"r-c-t-textarea-container r-c-t-reply-textarea-container r-c-t-child-modify-textarea-container\">";
             row += "<div><i class=\"r-c-t-comment-reply-icon fas fa-level-up-alt fa-rotate-90\"></i><label class='r-c-t-textarea-label'>댓글수정</label></div>";
-            row += "<textarea id='cmModifyTextarea-" + commentId + "' class=\"r-c-t-textarea form-control\" rows=\"3\" maxLength=\"300\" placeholder=\"댓글을 입력하세요.\">" + originContent + "</textarea>";
-            row += "<div class='d-flex justify-content-end'>";
-            row += "<button class='r-c-t-modify-cancel-btn btn btn-secondary btn-sm' onclick='clearCmModifyTextArea(" + commentId + ")'>취소</button>";
+            row += "<div class='r-c-t-textarea-wrap'>";
+            row += "<textarea id='cmModifyTextarea-" + commentId + "' class=\"r-c-t-textarea form-control\" rows=\"1\" maxLength=\"300\" placeholder=\"댓글을 입력하세요.\">" + originContent + "</textarea>";
             row += "<button class='r-c-t-save-btn btn btn-sm' onclick='modifyCm(" + commentId + ")'>수정</button>";
+            row += "<button class='r-c-t-modify-cancel-btn btn btn-secondary btn-sm' onclick='clearCmModifyTextArea(" + commentId + ")'>취소</button>";
 
             row += "</div>";
             row += "</div>";
@@ -738,12 +773,7 @@
     function modifyCm(commentId) {
         let originContent = '',
             content = document.getElementById("cmModifyTextarea-" + commentId).value;
-
-        if (document.getElementById("comment-" + commentId).dataset.aid != null) {
-            originContent = $("#comment-content-" + commentId).html().split('>')[2];
-        } else {
-            originContent = document.getElementById("comment-content-" + commentId).innerText;
-        }
+        originContent = document.getElementById("comment-content-" + commentId).innerText;
 
         if (!content || content.replace(blank_pattern, "") === "") {
             alert("내용을 입력해주세요.")
@@ -937,6 +967,7 @@
             });
         }
     }
+
 
     function toggleComment() {
         $("#comment-container").toggle();

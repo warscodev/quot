@@ -24,6 +24,7 @@ public class Comment extends BaseTimeEntity {
     @Column(columnDefinition = "TEXT")
     private String content;
 
+    @Column(columnDefinition = "TEXT")
     private String deletedContent;
 
     @Enumerated(value = EnumType.STRING)

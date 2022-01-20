@@ -44,3 +44,6 @@ application-oauth.yml
 
 ### lucy-xss-servlet-filter ###
 lucy-xss-servlet-filter-rule.xml
+
+### aws ###
+aws.yml
