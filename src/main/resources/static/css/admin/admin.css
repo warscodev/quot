@@ -350,25 +350,8 @@ a:hover {
     border: none;
 }
 
-.main-search-bar::-webkit-input-placeholder {
+.main-search-bar-input::-webkit-input-placeholder {
     font-weight: 400;
-    font-size: .875rem; /* Chrome/Opera/Safari */
-    line-height: initial;
-}
-
-.main-search-bar::-moz-placeholder {
-    font-weight: 400;
-    font-size: 1rem; /* Firefox 19+ */
-}
-
-.main-search-bar:-ms-input-placeholder {
-    font-weight: 400;
-    font-size: 1rem; /* IE 10+ */
-}
-
-.main-search-bar:-moz-placeholder {
-    font-weight: 400;
-    font-size: 1rem; /* Firefox 18- */
 }
 
 .close-search-bar-btn-icon{
@@ -1969,8 +1952,12 @@ a:hover {
 .r-c-t-etc-btn.dropdown-toggle{
     font-size: .75rem;
     line-height: .75rem;
-    color: #c9c9c9 !important;
+    color: #e3e3e3 !important;
     display: inline-flex;
+}
+
+.r-c-t-etc-btn.dropdown-toggle:hover{
+    color: #333 !important;
 }
 
 .r-c-t-etc-btn.dropdown-toggle:after{

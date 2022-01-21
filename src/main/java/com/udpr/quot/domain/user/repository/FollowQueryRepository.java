@@ -1,7 +1,6 @@
 package com.udpr.quot.domain.user.repository;
 
 import com.querydsl.core.QueryResults;
-import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.udpr.quot.web.dto.search.QSearchPersonResponseDto;
 import com.udpr.quot.web.dto.search.SearchPersonResponseDto;
@@ -15,7 +14,6 @@ import java.util.List;
 
 import static com.udpr.quot.domain.person.QPerson.person;
 import static com.udpr.quot.domain.user.QFollow.follow;
-import static com.udpr.quot.domain.user.QUser.user;
 
 @RequiredArgsConstructor
 @Repository
