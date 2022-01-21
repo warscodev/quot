@@ -43,13 +43,15 @@ public class Person extends BaseTimeEntity {
 
     private String category;
 
+    private String image;
+
     @JsonManagedReference(value = "person")
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Remark> remarkList = new ArrayList<>();
 
     @Builder
     public Person(String name, String alias, Birth birth, String job,
-                  String gender, String summary, String category) {
+                  String gender, String summary, String category, String organization, String image) {
         this.name = name.trim();
         this.alias = alias.trim();
         this.birth = birth;
@@ -58,9 +60,12 @@ public class Person extends BaseTimeEntity {
         this.summary = summary.trim();
         this.status = Status.CREATED;
         this.category = category;
+        this.organization = organization;
+        this.image = image;
     }
 
-    public void update(String name, String alias, Birth birth, String job, String gender, String summary, String category){
+    public void update(String name, String alias, Birth birth, String job, String gender,
+                       String summary, String category, String organization, String image){
         this.name = name.trim();
         this.alias = alias.trim();
         this.birth = birth;
@@ -69,5 +74,7 @@ public class Person extends BaseTimeEntity {
         this.summary = summary.trim();
         this.status = Status.UPDATED;
         this.category = category;
+        this.organization = organization;
+        this.image = image;
     }
 }

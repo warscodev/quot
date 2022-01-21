@@ -10,7 +10,6 @@ plugins {
 
 group = 'com.udpr'
 version = '0.0.2-SNAPSHOT-'+new Date().format("yyyyMMddHHmmss")
-sourceCompatibility = '11'
 
 configurations {
 	compileOnly {
@@ -32,7 +31,7 @@ dependencies {
 	//querydsl 추가
 	implementation 'com.querydsl:querydsl-jpa'
 	//p6spy 추가
-	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.6'
+	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.0'
 	//spring security
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -40,10 +39,10 @@ dependencies {
 	/*implementation 'org.springframework.session:spring-session-jdbc'*/
 
 	//lombok, h2
-	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'com.h2database:h2'
+	compileOnly 'org.projectlombok:lombok:1.18.22'
+	runtimeOnly 'com.h2database:h2:2.1.210'
 
-	annotationProcessor 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok:1.18.22'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 	//Maria DB
@@ -52,9 +51,12 @@ dependencies {
 	//RandomStringUtils
 	implementation group: 'org.apache.commons', name: 'commons-text', version: '1.9'
 
+	//spring-cloud(s3)
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+
 
 	//JUnit4 추가
-	testImplementation("org.junit.vintage:junit-vintage-engine") {
+	testImplementation('org.junit.vintage:junit-vintage-engine:5.8.2') {
 		exclude group: "org.hamcrest", module: "hamcrest-core"
 	}
 }

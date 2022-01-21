@@ -162,7 +162,7 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
     public PersonQueryDto getDetail(Long id){
         return queryFactory
                 .select(new QPersonQueryDto( person.id, person.name, person.alias, person.birth,
-                        person.gender, person.job, person.summary, person.category))
+                        person.gender, person.job, person.summary, person.category, person.organization, person.image))
                 .from(person)
                 .where(person.id.eq(id))
                 .fetchOne();
@@ -172,7 +172,7 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
     public PersonQueryDto getDetail(Long personId, Long userId){
         return queryFactory
                 .select(new QPersonQueryDto( person.id, person.name, person.alias, person.birth,
-                        person.gender, person.job, person.summary, person.category, follow.id))
+                        person.gender, person.job, person.summary, person.category, follow.id, person.organization, person.image))
                 .from(person)
                 .leftJoin(follow)
                 .on(person.id.eq(follow.person.id))

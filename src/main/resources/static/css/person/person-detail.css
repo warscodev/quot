@@ -33,16 +33,6 @@
 
 
 
-/* 인물 아이콘 */
-.p-d-profile-icon-wrapper{
-    width: 90px;
-    height: 90px;
-    background-color: #c1c8d0;
-    border: 1px solid rgba(0, 0, 0, 0.04);
-    transition: background-color .3s;
-    border-radius: 50%;
-    box-shadow: 5px 5px 20px -5px rgba(0, 0, 0, .2);
-}
 
 
 
@@ -52,14 +42,20 @@
 }
 
 @media (max-width: 767px) {
-    .p-d-profile-icon-wrapper{
-        width: 60px;
-        height: 60px;
+    .p-d-image-wrap{
+        width: 60px !important;
+        height: 60px !important;
     }
-    .p-d-profile-icon-wrapper.p-u{
-        width: 40px;
-        height: 40px;
+    .p-d-image-wrap.p-u{
+        width: 40px !important;
+        height: 40px !important;
     }
+
+    .p-d-image-wrap.i-u-m{
+        width: 90px;
+        height: 90px;
+    }
+
 
     .p-d-profile-icon{
         font-size: 2rem;
@@ -85,9 +81,9 @@
 }
 
 .p-d-info-container.p-u .form-label{
-    font-size: .813rem;
+    font-size: .688rem;
     font-weight: 700;
-    margin-bottom: .25rem;
+    margin-bottom: .125rem;
     color: #333;
 }
 .p-d-info-container.p-u .form-control, .p-d-info-container.p-u .form-select{
@@ -654,6 +650,75 @@
     background-color: #404243;
     color: #fff;
 }
+
+.p-u-image-upload-btn{
+    font-size: .813rem;
+    font-weight: 600;
+    border: 1px solid #e3ebf6;
+    border-radius: .375rem;
+    width: 100%;
+}
+
+.p-u-image-upload-btn:hover {
+    border: 1px solid #d2ddec;
+    background-color: #f9fbfd;
+}
+
+.p-u-image-upload-btn:focus{
+    box-shadow: none;
+}
+
+.image-upload-modal-title{
+}
+
+.image-upload-modal-row{
+}
+
+.image-upload-modal-image-container{
+    margin: 0;
+    border: 1px solid #eee;
+    border-radius: .25rem;
+}
+
+.p-u-image-preview-wrap{
+    display: inline-block;
+    width: 90px;
+    height: 90px;
+    border-radius: 70%;
+    overflow: hidden;
+    border: 1px solid #eee;
+    background-color: #fff;
+}
+#preview-image{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.p-u-file-name-container{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.p-u-file-name-input{
+    font-size: .75rem;
+    color: #999;
+}
+
+.p-d-image-wrap{
+    width: 90px;
+    height: 90px;
+    border-radius: 70%;
+    overflow: hidden;
+    border: 1px solid #eee;
+    box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, .2);
+}
+.p-d-image{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 
 
 

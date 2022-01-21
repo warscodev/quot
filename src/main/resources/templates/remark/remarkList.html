@@ -8,7 +8,22 @@
 <div th:replace="fragments/topHeader :: topHeader"></div>
 <div th:replace="fragments/subNavbar :: subNavbar"></div>
 <div class="container-xl">
-<div class="row">
+    <div>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5145635293228409"
+                crossorigin="anonymous"></script>
+        <!-- 상단 -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-5145635293228409"
+             data-ad-slot="4360616521"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <div class="row">
     <div class="col-lg-8">
     <div class="r-l-page-container" th:object="${dto}">
         <input type="hidden" id="r-l-keyword" th:value="${keyword}">
@@ -107,10 +122,11 @@
                     <div class="r-l-t-first-row-container d-flex justify-content-between">
 
                         <div class="r-l-t-picture-container r-l-t-first-col">
-                            <div class="r-l-t-picture-wrap">
-                                <a class="r-l-t-picture-link d-flex align-items-center justify-content-center"
+                            <div class="r-l-t-image-wrap">
+                                <a class="r-l-t-image-link"
                                    th:href="@{/person/{personId}(personId=${r.personId})}">
-                                    <i class="r-l-t-picture fas fa-user-alt"></i>
+                                    <img th:if="${r.image!= null && !#strings.isEmpty(r.image)}" th:src="${r.image}" class="r-l-t-image">
+                                    <img th:unless="${r.image!= null && !#strings.isEmpty(r.image)}" src="/css/images/basic_image.svg" class="r-l-t-image">
                                 </a>
                             </div>
                         </div>

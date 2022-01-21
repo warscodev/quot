@@ -9,6 +9,21 @@
 <div th:replace="fragments/subNavbar :: subNavbar"></div>
 
 <div class="container-xl">
+    <div>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5145635293228409"
+                crossorigin="anonymous"></script>
+        <!-- 상단 -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-5145635293228409"
+             data-ad-slot="4360616521"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
     <div class="row">
         <div class="col-lg-8">
             <div class="remark-page-wrap">
@@ -19,10 +34,11 @@
                             <div class="r-l-t-first-row-container d-flex justify-content-between">
 
                                 <div class="r-l-t-picture-container r-l-t-first-col">
-                                    <div class="r-l-t-picture-wrap">
-                                        <a class="r-l-t-picture-link r-d-t-picture-link d-flex align-items-center justify-content-center"
+                                    <div class="r-l-t-image-wrap">
+                                        <a class="r-l-t-image-link r-d-t"
                                            th:href="@{/person/{personId}(personId=*{personId})}">
-                                            <i class="r-l-t-picture r-d-t-picture fas fa-user-alt"></i>
+                                            <img th:if="*{image!= null && !#strings.isEmpty(image)}" th:src="*{image}" class="r-l-t-image" alt="사진">
+                                            <img th:unless="*{image!= null && !#strings.isEmpty(image)}" src="/css/images/basic_image.svg" class="r-l-t-image" alt="사진">
                                         </a>
                                     </div>
                                 </div>
@@ -31,7 +47,7 @@
                                     <div class="r-l-t-first-row-container">
                                         <div class="r-l-t-person-and-date-container">
                                             <!-- 이름 -->
-                                            <a class="r-d-t-person-name-link"
+                                            <a class="r-l-t-person-name-link r-d-t"
                                                th:href="@{/person/{personId}(personId=*{personId})}">
                                                 <span class="r-l-t-person-name r-d-t-person-name"
                                                       th:text="*{name}"></span>

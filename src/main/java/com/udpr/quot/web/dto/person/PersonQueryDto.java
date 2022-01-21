@@ -24,11 +24,13 @@ public class PersonQueryDto {
     private String summary;
     private String category;
     private Long followId;
+    private String image;
 
     private List<RemarkForPersonDetailQueryDto> remarkList;
 
     @QueryProjection
-    public PersonQueryDto(Long personId, String name, String alias, Birth birth, String gender, String job, String summary, String category, Long followId) {
+    public PersonQueryDto(Long personId, String name, String alias, Birth birth, String gender, String job,
+                          String summary, String category, Long followId, String organization, String image) {
         this.personId = personId;
         this.name = name;
         this.alias = alias;
@@ -42,10 +44,13 @@ public class PersonQueryDto {
         this.summary = summary;
         this.category = category;
         this.followId = followId;
+        this.organization = organization;
+        this.image = image;
     }
 
     @QueryProjection
-    public PersonQueryDto(Long personId, String name, String alias, Birth birth, String gender, String job, String summary, String category) {
+    public PersonQueryDto(Long personId, String name, String alias, Birth birth, String gender,
+                          String job, String summary, String category, String organization, String image) {
         this.personId = personId;
         this.name = name;
         this.alias = alias;
@@ -58,6 +63,8 @@ public class PersonQueryDto {
         this.job = job;
         this.summary = summary;
         this.category = category;
+        this.organization = organization;
+        this.image = image;
     }
 
     public String substringAlias(String alias){

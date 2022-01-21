@@ -23,6 +23,7 @@ public class PersonResponseDto {
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
     private String category;
+    private String image;
 
     public PersonResponseDto(Person entity) {
         this.id = entity.getId();;
@@ -36,6 +37,8 @@ public class PersonResponseDto {
         this.category = entity.getCategory();
         this.createdDate = entity.getCreatedDate();
         this.updatedDate = entity.getUpdatedDate();
+        this.organization = entity.getOrganization();
+        this.image = entity.getImage();
     }
 
 

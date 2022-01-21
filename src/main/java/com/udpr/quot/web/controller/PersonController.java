@@ -14,8 +14,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.naming.AuthenticationException;
 import javax.validation.Valid;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -79,36 +83,29 @@ public class PersonController {
         }
 
         PersonResponseDto responseDto= personService.findById(id);
-        model.addAttribute("form", responseDto);
-        return "person/personUpdate";
-
-    }
-
-    @GetMapping("/admin/person/{id}/test")
-    public String updateForm2(@PathVariable("id") Long id, Model model , @LoginUser SessionUser user){
-
-        if(user != null){
-            model.addAttribute("user", user);
-        }
-
-        PersonResponseDto responseDto= personService.findById(id);
         model.addAttribute("info", responseDto);
-        return "person/personUpdate2";
+        return "person/personUpdate";
 
     }
 
     //인물 수정
     @PostMapping("/admin/person/{id}")
-    public String update(@ModelAttribute("form") @Valid PersonRequestDto form, BindingResult result , @LoginUser SessionUser user) {
+    public String update(@ModelAttribute("info") @Valid PersonRequestDto dto, @PathVariable("id") Long id,
+                         BindingResult result , @LoginUser SessionUser user) throws AuthenticationException, IOException {
+
+        if (user == null) {
+            throw new AuthenticationException();
+        }
 
         if(result.hasErrors()){
             return "person/personUpdate";
         }
-        //생일
-        form.setBirthDay();
 
-        personService.update(form.getId(), form);
-        return "redirect:/person/"+form.getId();
+        dto.setId(id);
+
+
+        personService.update(dto);
+        return "redirect:/person/"+id;
     }
 
     //인물 삭제

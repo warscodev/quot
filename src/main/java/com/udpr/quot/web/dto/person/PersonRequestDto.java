@@ -5,6 +5,7 @@ import com.udpr.quot.domain.person.Person;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -36,6 +37,12 @@ public class PersonRequestDto {
     private String summary;
     private String category;
 
+    private String organization;
+
+    private String image;
+
+    private MultipartFile multipartFile;
+
 
     public Person toEntity() {
         return Person.builder()
@@ -46,6 +53,8 @@ public class PersonRequestDto {
                 .job(job)
                 .summary(summary)
                 .category(category)
+                .organization(organization)
+                .image(image)
                 .build();
     }
 

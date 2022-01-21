@@ -1,5 +1,6 @@
 package com.udpr.quot.service.person;
 
+import com.udpr.quot.config.S3Uploader;
 import com.udpr.quot.domain.person.Person;
 import com.udpr.quot.domain.person.PersonSearchCondition;
 import com.udpr.quot.domain.person.repository.PersonRepository;
@@ -18,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -29,6 +31,8 @@ public class PersonService {
     private final UserRepository userRepository;
     private final FollowRepository followRepository;
     private final RemarkPersonPageQueryRepository personPageQueryRepository;
+    private final S3Uploader s3Uploader;
+    private static final String dirName = "person";
 
     //저장
     @Transactional
@@ -38,13 +42,29 @@ public class PersonService {
 
     //수정
     @Transactional
-    public Long update(Long id, PersonRequestDto requestDto) {
+    public Long update(PersonRequestDto dto) throws IOException {
+        Long id = dto.getId();
 
         Person person = personRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 인물정보가 없습니다. id = " + id));
 
-        person.update(requestDto.getName(), requestDto.getAlias(), requestDto.getBirth(),
-                requestDto.getJob(), requestDto.getGender(), requestDto.getSummary(), requestDto.getCategory());
+        if(!dto.getMultipartFile().isEmpty()){
+            String imageUrl = s3Uploader.upload(dto.getMultipartFile(),dirName);
+            if(person.getImage() != null && !person.getImage().isEmpty() && !imageUrl.equals(person.getImage())){
+                s3Uploader.delete(person.getImage());
+            }
+            dto.setImage(imageUrl);
+        }else{
+            if(!dto.getImage().equals(person.getImage()) && person.getImage() != null && !person.getImage().isEmpty()){
+                s3Uploader.delete(person.getImage());
+            }
+        }
+
+        dto.setBirthDay();
+
+        person.update(dto.getName(), dto.getAlias(), dto.getBirth(),
+                dto.getJob(), dto.getGender(), dto.getSummary(),
+                dto.getCategory(), dto.getOrganization(), dto.getImage());
 
         return id;
     }

@@ -10,23 +10,23 @@
                 </div>
                 <div class="modal-body">
                     <div class="row justify-content-center">
-                        <inpu id="remark-share-modal-name" type="hidden"></inpu>
-                        <inpu id="remark-share-modal-date" type="hidden"></inpu>
+                        <input id="remark-share-modal-name" type="hidden"/>
+                        <input id="remark-share-modal-date" type="hidden"/>
                         <div class="col-auto remark-share-icon">
                             <a id="kakaoShareBtn" class="kakao" href="javascript:;">
-                                <img src="/css/images/kakaotalk_logo.png">
+                                <img src="/css/images/kakaotalk_logo.png" alt="카카오톡">
                                 <div>카카오톡</div>
                             </a>
                         </div>
                         <div class="col-auto remark-share-icon">
                             <a class="facebook" href="javascript:shareFacebook();">
-                                <img src="/css/images/facebook_logo.png">
+                                <img src="/css/images/facebook_logo.png" alt="페이스북">
                                 <div>페이스북</div>
                             </a>
                         </div>
                         <div class="col-auto remark-share-icon">
                             <a class="twitter" href="javascript:shareTwitter();">
-                                <img src="/css/images/twitter_logo.png">
+                                <img src="/css/images/twitter_logo.png" alt="트위터">
                                 <div>트위터</div>
                             </a>
                         </div>
@@ -90,7 +90,7 @@
         function shareTwitter() {
             let contentForSend = '';
             if(content.length > 100){
-                contentForSend = "\"" + content.substr(0,100) + "...\" - 더보기👉";
+                contentForSend = "\"" + content.substr(0,100) + "...\" - 더보기 ";
             }else{
                 contentForSend = "\"" + content + "\" 👉";
             }

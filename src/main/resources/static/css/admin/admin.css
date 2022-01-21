@@ -35,6 +35,7 @@ body {
     font-size: .813rem;
     font-weight: 500;
     padding: .188rem .375rem;
+    word-break: keep-all;
 }
 
 .btn.btn-sm:focus{
@@ -1155,28 +1156,34 @@ a:hover {
     flex-basis: 40px;
 }
 
-.r-l-t-picture-link {
+.r-l-t-image-wrap {
     width: 40px;
     height: 40px;
-    background-color: #c1c8d0;
-    border: 1px solid rgba(0, 0, 0, 0.04);
-    transition: background-color .3s, box-shadow .3s;
-    border-radius: 50%;
-    /*box-shadow: 5px 5px 20px -5px rgba(0, 0, 0, .15);*/
+    border-radius: 70%;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px #0000000d;
+    background-color: #ffffff;
 }
 
-.r-l-t-picture-link:hover {
-    box-shadow: 5px 5px 20px -5px rgba(0, 0, 0, .3);
-    background-color: #637286;
+.r-l-t-image-wrap:hover{
+    box-shadow: 0px 10px 10px -2px rgba(0, 0, 0, .15);
+    transform: translateY(-.5px);
+    transition: transform .5s, box-shadow .5s;
 }
 
-.r-l-t-picture{
-    font-size: 1.25rem;
-    color: #fff;
+.r-l-t-image-wrap:hover img {
+    transition: filter .5s linear;
+    filter: brightness(92%);
+}
+
+.r-l-t-image{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 @media (max-width: 575px) {
-    /*.r-l-t-picture-link {
+    /*.r-l-t-image-wrap {
         width: 38px;
         height: 38px;
     }
@@ -1193,7 +1200,7 @@ a:hover {
 }
 
 @media (max-width: 360px) {
-    .r-l-t-picture-link {
+    .r-l-t-image-wrap {
         width: 35px;
         height: 35px;
     }
@@ -1205,10 +1212,6 @@ a:hover {
 
     .r-l-t-second-col {
         padding-left:.375rem !important;
-    }
-
-    .r-l-t-picture{
-    font-size: 1.188rem;
     }
 
 }
@@ -1245,15 +1248,9 @@ a:hover {
     text-decoration: underline;
 }
 
-.r-d-t-person-name-link {
-    font-weight: 700;
+.r-l-t-person-name-link.r-d-t {
     font-size: 1.063rem;
     margin-right: .313rem;
-    line-height: initial;
-}
-
-.r-d-t-person-name-link:hover {
-    text-decoration: none;
 }
 
 
@@ -1527,12 +1524,12 @@ a:hover {
 .r-l-t-quote-icon-wrap {
     display: flex;
     justify-content: end;
-    padding-top: .125rem;
+    padding-top: .188rem;
     float: right;
 }
 
 .r-d-t-quote-icon-wrap {
-    padding-top: .188rem;
+    padding-top: .3rem;
 }
 
 .r-l-t-quote-icon {
@@ -2634,7 +2631,7 @@ a:hover {
     background-color: #fff;
     background-clip: border-box;
     border-radius: .75rem;
-    margin: 1.5rem 0 8.6rem 0;
+    margin: 1.5rem 0 1rem 0;
     box-shadow: 0 3px 12px 0 rgba(100, 100, 100, 0.08);
     border: .0625rem solid #f7f7f7;
     z-index: auto;

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div class="imageUploadModal" th:fragment="imageUploadModal">
+    <div class="modal fade" id="imageUploadModal" tabindex="-1" aria-labelledby="imageUploadModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title image-upload-modal-title" id="shareModalLabel">사진 업로드</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="image-upload-modal-row pb-3 justify-content-center">
+                        <div class="image-upload-modal-image-container">
+                            <div class="p-d-profile-icon-container py-4 d-flex justify-content-center">
+                                <div class="p-d-image-wrap i-u-m d-flex align-items-center justify-content-center">
+                                    <i class="p-d-profile-icon i-u-m fas fa-user-alt"></i>
+                                </div>
+                            </div>
+                            <div class="input-group px-4 pb-4">
+                                <input class="form-control form-control-sm" id="formFileSm" type="file">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-4 d-flex justify-content-center">
+                        <button class="btn btn-secondary btn-sm image-upload-cancel-btn me-2" data-bs-dismiss="modal">취소</button>
+                        <button class="btn btn-primary btn-sm image-upload-btn">확인</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

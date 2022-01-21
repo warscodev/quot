@@ -51,7 +51,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                         remark.id, remark.content, remark.remarkDate,
                         remark.createdDate, remark.updatedDate, remark.likeCount,
                         remark.dislikeCount,remark.sourceSort, remark.sourceUrl,
-                        person.id, person.name, person.alias, person.job, person.category,
+                        person.id, person.name, person.alias, person.job, person.category, person.image,
                         user.id, user.nickname))
                 .from(remark)
                 .leftJoin(remark.person, person)
@@ -112,7 +112,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                         remark.id, remark.content, remark.remarkDate,
                         remark.createdDate, remark.updatedDate, remark.likeCount,
                         remark.dislikeCount,remark.sourceSort, remark.sourceUrl,
-                        person.id, person.name, person.alias, person.job, person.category,
+                        person.id, person.name, person.alias, person.job, person.category, person.image,
                         user.id, user.nickname))
                 .from(remark)
                 .leftJoin(remark.person, person)
@@ -161,7 +161,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                                 remark.id, remark.content, remark.remarkDate,
                                 remark.createdDate, remark.updatedDate, remark.likeCount,
                                 remark.dislikeCount, remark.sourceSort, remark.sourceUrl,
-                                person.id, person.name, person.alias, person.job, person.category,
+                                person.id, person.name, person.alias, person.job, person.category, person.image,
                                 user.id, user.nickname))
                         .from(remark)
                         .leftJoin(remark.person, person)
@@ -193,7 +193,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                                 remark.id, remark.content, remark.remarkDate,
                                 remark.createdDate, remark.updatedDate, remark.likeCount,
                                 remark.dislikeCount,remark.sourceSort, remark.sourceUrl,
-                                person.id, person.name, person.alias, person.job, person.category,
+                                person.id, person.name, person.alias, person.job, person.category, person.image,
                                 user.id, user.nickname))
                         .from(remark)
                         .join(remark.person, person)
@@ -230,7 +230,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                                 remark.id, remark.content, remark.remarkDate,
                                 remark.createdDate, remark.updatedDate, remark.likeCount,
                                 remark.dislikeCount,remark.sourceSort, remark.sourceUrl,
-                                person.id, person.name, person.alias, person.job, person.category,
+                                person.id, person.name, person.alias, person.job, person.category, person.image,
                                 user.id, user.nickname))
                         .from(remark)
                         .join(remark.person, person)
@@ -263,7 +263,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                         remark.id, remark.content, remark.remarkDate,
                         remark.createdDate, remark.updatedDate, remark.likeCount,
                         remark.dislikeCount,remark.sourceSort, remark.sourceUrl,
-                        person.id, person.name, person.alias, person.job, person.category,
+                        person.id, person.name, person.alias, person.job, person.category, person.image,
                         user.id, user.nickname))
                 .from(remarkTag)
                 .join(remarkTag.remark, remark)
@@ -296,7 +296,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                         remark.id, remark.content, remark.remarkDate,
                         remark.createdDate, remark.updatedDate, remark.likeCount,
                         remark.dislikeCount,remark.sourceSort, remark.sourceUrl,
-                        person.id, person.name, person.alias, person.job, person.category,
+                        person.id, person.name, person.alias, person.job, person.category, person.image,
                         user.id, user.nickname))
                 .from(bookmark)
                 .join(bookmark.remark, remark)
@@ -329,7 +329,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                         remark.id, remark.content, remark.remarkDate,
                         remark.createdDate, remark.updatedDate, remark.likeCount,
                         remark.dislikeCount,remark.sourceSort, remark.sourceUrl,
-                        person.id, person.name, person.alias, person.job, person.category,
+                        person.id, person.name, person.alias, person.job, person.category, person.image,
                         user.id, user.nickname))
                 .from(follow)
                 .where(follow.user.id.eq(condition.getSid()))

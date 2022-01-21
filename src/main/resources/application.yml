@@ -2,6 +2,7 @@ spring:
   profiles:
     include:
       - oauth
+      - aws
 #  session:
 #    store-type: jdbc
 #    jdbc.initialize-schema: always
@@ -39,7 +40,6 @@ spring:
         default_batch_fetch_size: 100
     open-in-view: false
 
-
 server:
   servlet:
     encoding:
@@ -47,7 +47,7 @@ server:
       force: true
 
 
+
 logging.level:
   org.hibernate.SQL: debug
   # org.hibernate.type: trace
-

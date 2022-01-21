@@ -8,6 +8,20 @@
 <div th:replace="fragments/topHeader :: topHeader"></div>
 <div th:replace="fragments/subNavbar :: subNavbar"></div>
 <div class="container-xl person-detail-container">
+    <div>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5145635293228409"
+                crossorigin="anonymous"></script>
+        <!-- 상단 -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-5145635293228409"
+             data-ad-slot="4360616521"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
     <div class="row">
         <div class="col-lg-8">
             <div class="p-d-header-container">
@@ -15,9 +29,13 @@
                     <div class="p-d-header d-flex justify-content-between">
                         <div class="p-d-header-row-container d-flex align-items-top">
                             <div class="p-d-profile-icon-container d-flex justify-content-end">
-                                <div class="p-d-profile-icon-wrapper d-flex align-items-center justify-content-center">
-                                    <i class="p-d-profile-icon fas fa-user-alt"></i>
+                                <div class="p-d-image-wrap">
+                                    <img th:if="*{image != null && !#strings.isEmpty(image)}" th:src="*{image}" class="p-d-image" alt="사진">
+                                    <img th:unless="*{image != null && !#strings.isEmpty(image)}" src="/css/images/basic_image.svg" class="p-d-image" alt="사진">
                                 </div>
+                                <!--<div th:unless="*{image != null || !#strings.isEmpty(image)}" class="p-d-image-wrap d-flex align-items-center justify-content-center">
+                                    <i class="p-d-profile-icon fas fa-user-alt"></i>
+                                </div>-->
                             </div>
                             <div class="p-d-info-container">
                                 <div class="p-d-info-first-row d-flex justify-content-between">
@@ -49,12 +67,18 @@
                                 <div class="p-d-etc table-responsive">
                                     <table class="table table-borderless table-sm">
                                         <tbody>
-                                        <tr>
-                                            <th><span th:if="*{not #strings.isEmpty(birthday)}" th:text="출생"></span></th>
+                                        <tr th:if="*{not #strings.isEmpty(birthday)}" >
+                                            <th><span>출생</span></th>
                                             <td class="p-d-birth-container">
                                                 <div class="p-d-birth-wrap">
                                                     <span th:text="*{birthday}"></span>
                                                 </div>
+                                            </td>
+                                        </tr>
+                                        <tr th:if="*{not #strings.isEmpty(organization)}">
+                                            <th><span>소속</span></th>
+                                            <td class="">
+                                                <span th:text="*{organization}"></span>
                                             </td>
                                         </tr>
                                         <tr th:if="*{not #strings.isEmpty(summary)}">
