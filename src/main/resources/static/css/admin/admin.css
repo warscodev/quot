@@ -1896,7 +1896,7 @@ a:hover {
 .r-c-t-comment-writer {
     font-size: .813rem;
     font-weight: 600;
-    margin-right: .25rem;
+    margin-right: .375rem;
     letter-spacing: -.025rem;
 }
 
@@ -2058,7 +2058,7 @@ a:hover {
 
 .r-c-t-comment-parent-nickname {
     font-size: .813rem;
-    margin-right: .25rem;
+    margin-right: .375rem;
     color: #6089c8;
     word-spacing: -.025rem;
 }
