@@ -666,8 +666,9 @@ a:hover {
 }
 
 .subNav-menu-items span {
-    font-weight: 700;
-    color: #9f9f9f;
+    font-size: .938rem;
+    font-weight: 600;
+    color: #909396;
     padding-bottom: 1rem;
     border-bottom: 2px solid transparent;
     transition: color .15s ease-in-out, border .15s ease-in-out, border-bottom-width .15s ease-in-out !important;
@@ -1727,6 +1728,7 @@ a:hover {
 }
 
 .like-active .like-count,.like-active .dislike-count  {
+    color: #222;
 }
 
 .r-l-t-btn-icon {
@@ -1777,6 +1779,7 @@ a:hover {
 }
 
 .r-l-t-btn-text.r-d-t{
+    font-size: .813rem;
 }
 
 .r-l-t-comment-count, .r-l-t-like-count, .r-l-t-dislike-count {
@@ -2644,8 +2647,8 @@ a:hover {
     display: block;
     font-weight: 700;
     line-height: normal;
-    padding-top: .875rem;
-    padding-left: 1.25rem;
+    padding-top: 1rem;
+    padding-left: 1.5rem;
     padding-bottom: .25rem;
 }
 
@@ -2705,7 +2708,7 @@ a:hover {
 }
 
 .aside-remark-table-row {
-    padding: .375rem .75rem .438rem 1.25rem;
+    padding: .375rem 1.25rem .438rem 1.5rem;
     cursor: pointer;
     transition: background-color .15s ease-in-out;
     /*border-bottom: 1px solid #eee;*/

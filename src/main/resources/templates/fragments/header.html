@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head th:fragment="header">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5145635293228409"
+            crossorigin="anonymous"></script>
     <title th:if="${category != null && !(#strings.equals(category, '종합'))}" th:text="|${category} - 쿼트위키|"></title>
     <title th:if="${category != null && (#strings.equals(category, '종합')) && content == null}" th:text="|쿼트위키 - 화제의 발언 모음|"></title>
     <title th:if="${keyword}" th:text="|${keyword} : 검색 - 쿼트위키|"></title>
@@ -8,10 +10,6 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5145635293228409"
-            crossorigin="anonymous"></script>
-
     <meta name=”description” th:content="${content}"/>
     <meta property="og:image" content="/css/images/logo.png">
     <meta th:if="${category != null && !(#strings.equals(category, '종합'))}" th:content="|${category} - 쿼트위키|" property="og:title">
@@ -38,7 +36,7 @@
     <!-- container 사이즈 조절 custom -->
     <link rel="stylesheet" href="/css/form/form.css?ver=20220116_001">
     <!-- admin 커스텀 css (fieldError)-->
-    <link rel="stylesheet" href="/css/admin/admin.css?ver=20220122_005">
+    <link rel="stylesheet" href="/css/admin/admin.css?ver=20220123_001">
     <link rel="stylesheet" href="/css/icon/style.css">
     <!-- person-detail -->
     <link rel="stylesheet" href="/css/person/person-detail.css?ver=20220122_003">
