@@ -376,7 +376,6 @@
 }
 
 .p-d-year:hover, .p-d-year.active{
-    font-weight: 400;
     color: #fff;
     background-color: #404243;
     border-color: transparent;
