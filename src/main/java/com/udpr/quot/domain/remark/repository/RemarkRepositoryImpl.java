@@ -17,6 +17,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import javax.persistence.EntityManager;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -287,6 +288,41 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
 
         return new PageImpl<>(content, pageable, total);
     }
+
+
+    @Override
+    public Page<RemarkQueryDto> getHotList(RemarkSearchCondition condition, Pageable pageable) {
+        QueryResults<RemarkQueryDto> results = queryFactory
+                .select(new QRemarkQueryDto(
+                        remark.id, remark.content, remark.remarkDate,
+                        remark.createdDate, remark.updatedDate, remark.likeCount,
+                        remark.dislikeCount, remark.sourceSort, remark.sourceUrl,
+                        person.id, person.name, person.alias, person.job, person.category, person.image,
+                        user.id, user.nickname))
+                .from(remark)
+                .leftJoin(remark.person, person)
+                .leftJoin(remark.user, user)
+                .where(remark.createdDate.between(LocalDateTime.now().minusDays(14),LocalDateTime.now())
+                    .and(remark.likeCount.add(remark.dislikeCount).add(remark.commentCount).goe(1)))
+                .orderBy(remark.likeCount.add(remark.dislikeCount).add(remark.commentCount).desc())
+                .orderBy(remark.commentCount.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .orderBy(getOrderSpecifierForSearchAll(condition.getSort(), condition.getCategory()).toArray(OrderSpecifier[]::new))
+                .fetchResults();
+
+        List<Long> remarkIdList = toRemarkIdList(results);
+        Map<Long, List<RemarkTagQueryDto>> tagMap = findTagMap(remarkIdList);
+
+        setCollections(condition, results, remarkIdList, tagMap);
+
+        List<RemarkQueryDto> content = results.getResults();
+        long total = results.getTotal();
+
+        return new PageImpl<>(content, pageable, total);
+    }
+
+
 
     @Override
     public Page<RemarkQueryDto> getBookmarkList(RemarkSearchCondition condition, Pageable pageable){

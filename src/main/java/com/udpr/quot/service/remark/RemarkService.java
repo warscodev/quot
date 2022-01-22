@@ -123,6 +123,8 @@ public class RemarkService {
             }else if("팔로우".equals(condition.getCategory())){
                 remarkPage = remarkRepository.getFollowerRemarkList(condition, remarkPageable);
                 personPage = followQueryRepository.findFollowerList(condition.getSid(), personPageable);
+            }else if("화제".equals(condition.getCategory())){
+                remarkPage = remarkRepository.getHotList(condition, remarkPageable);
             }else{
                 remarkPage = remarkRepository.searchAll(condition, remarkPageable);
             }
