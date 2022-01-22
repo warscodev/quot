@@ -201,7 +201,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                         .join(remark.remarkTagList, remarkTag).on(remark.eq(remarkTag.remark))
                         .groupBy(remark.id)
 
-                        .where(keywordLike(condition.getKeyword())
+                        .where(keywordLike().likeIgnoreCase("%" + condition.getKeyword().replace(" ", "") + "%")
                                 .or(person.name.likeIgnoreCase("%" + condition.getKeyword() + "%"))
                                 .or(removeCommaOnPersonAlias().likeIgnoreCase("%" + condition.getKeyword() + "%"))
                                 .or(remarkTag.tag.name.eq(condition.getKeyword())))
@@ -462,18 +462,18 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
         return isEmpty(personId) || personId == 0L ? null : remark.person.id.eq(personId);
     }
 
-    private BooleanBuilder keywordLike(String keyword) {
+    private StringTemplate keywordLike() {
 
-        String[] keywords = keyword.split(" ");
+        return Expressions.stringTemplate("replace({0},' ','')", remark.content);
 
-        BooleanBuilder builder = new BooleanBuilder();
-
+/*
         if (keywords.length == 1) {
             builder.or(remark.content.likeIgnoreCase("%" + keyword + "%"));
         } else {
             Arrays.stream(keywords).forEach(r -> builder.and(remark.content.likeIgnoreCase("%" + r + "%")));
         }
         return builder;
+*/
     }
 
 

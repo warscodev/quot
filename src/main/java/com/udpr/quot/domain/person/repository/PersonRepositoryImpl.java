@@ -80,20 +80,20 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
 
                 .from(person)
 
-                .where(person.name.equalsIgnoreCase(keyword)
-                        .or(person.name.likeIgnoreCase(keyword + "%"))
-                        .or(person.name.likeIgnoreCase("%" + keyword + "%"))
-                        .or(removeCommaOnPersonAlias().likeIgnoreCase(keyword + "%"))
-                        .or(removeCommaOnPersonAlias().likeIgnoreCase("%" + keyword + "%")))
+                .where(replaceSpacePersonName().equalsIgnoreCase(keyword)
+                        .or(replaceSpacePersonName().likeIgnoreCase(keyword + "%"))
+                        .or(replaceSpacePersonName().likeIgnoreCase("%" + keyword + "%"))
+                        .or(replaceCommaOnPersonAlias().likeIgnoreCase(keyword + "%"))
+                        .or(replaceCommaOnPersonAlias().likeIgnoreCase("%" + keyword + "%")))
 
                 .orderBy(new CaseBuilder()
-                        .when(person.name.equalsIgnoreCase(keyword))
+                        .when(replaceSpacePersonName().equalsIgnoreCase(keyword))
                         .then(1)
-                        .when(person.name.likeIgnoreCase(keyword + "%"))
+                        .when(replaceSpacePersonName().likeIgnoreCase(keyword + "%"))
                         .then(2)
-                        .when(person.name.likeIgnoreCase("%" + keyword + "%"))
+                        .when(replaceSpacePersonName().likeIgnoreCase("%" + keyword + "%"))
                         .then(3)
-                        .when(removeCommaOnPersonAlias().likeIgnoreCase(keyword + "%"))
+                        .when(replaceCommaOnPersonAlias().likeIgnoreCase(keyword + "%"))
                         .then(4)
                         .otherwise(5).asc())
                 .orderBy(person.name.asc())
@@ -118,13 +118,13 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
                         person.job
                 ))
                 .from(person)
-                .where(person.name.likeIgnoreCase(keyword + "%")
-                .or(removeCommaOnPersonAlias().likeIgnoreCase(keyword + "%")))
+                .where(replaceSpacePersonName().likeIgnoreCase(keyword + "%")
+                .or(replaceCommaOnPersonAlias().likeIgnoreCase(keyword + "%")))
                 .orderBy(new CaseBuilder()
-                        .when(person.name.equalsIgnoreCase(keyword))
+                        .when(replaceSpacePersonName().equalsIgnoreCase(keyword))
                         .then(1)
-                        .when(person.name.likeIgnoreCase(keyword + "%")
-                                .or(removeCommaOnPersonAlias().likeIgnoreCase(keyword + "%")))
+                        .when(replaceSpacePersonName().likeIgnoreCase(keyword + "%")
+                                .or(replaceCommaOnPersonAlias().likeIgnoreCase(keyword + "%")))
                         .then(2)
                         .otherwise(3).asc())
                 .fetch();
@@ -145,13 +145,13 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
                         person.job
                 ))
                 .from(person)
-                .where(person.name.likeIgnoreCase(keyword + "%")
+                .where(replaceSpacePersonName().likeIgnoreCase(keyword + "%")
                         .or(person.alias.likeIgnoreCase("%" + keyword + "%")))
                 .orderBy(new CaseBuilder()
-                        .when(person.name.equalsIgnoreCase(keyword))
+                        .when(replaceSpacePersonName().equalsIgnoreCase(keyword))
                         .then(1)
-                        .when(person.name.likeIgnoreCase("%" + keyword + "%")
-                                .or(removeCommaOnPersonAlias().likeIgnoreCase(keyword + "%")))
+                        .when(replaceSpacePersonName().likeIgnoreCase("%" + keyword + "%")
+                                .or(replaceCommaOnPersonAlias().likeIgnoreCase(keyword + "%")))
                         .then(2)
                         .otherwise(3).asc())
                 .limit(limit)
@@ -282,8 +282,12 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
         return orders;
     }
 
-    public StringTemplate removeCommaOnPersonAlias() {
+    public StringTemplate replaceCommaOnPersonAlias() {
         return Expressions.stringTemplate("replace({0},',','')", person.alias);
+    }
+
+    public StringTemplate replaceSpacePersonName() {
+        return Expressions.stringTemplate("replace({0},' ','')", person.name);
     }
 
 
