@@ -90,14 +90,14 @@
         function shareTwitter() {
             let contentForSend = '';
             if(content.length > 100){
-                contentForSend = "\"" + content.substr(0,100) + "...\" - 더보기 ";
+                contentForSend = "\"" + content.substr(0,100) + "...\"";
             }else{
-                contentForSend = "\"" + content + "\" 👉";
+                contentForSend = "\"" + content + "\"";
             }
 
-            let sendText = date + ". " + name + " 발언 " + contentForSend;
+            let sendText = date.replace(/(\s*)/g, "") + " " + name.replace(/(\s*)/g, "") + " 발언 " + contentForSend;
 
-            let encodedUri = encodeURI("https://twitter.com/intent/tweet?text=" + sendText + "&hashtags=쿼트위키,"+ name +"&url=" + urlInput.value);
+            let encodedUri = encodeURI("https://twitter.com/intent/tweet?text=" + sendText + "&hashtags=쿼트위키,"+ name.replace(/(\s*)/g, "") +"&url=" + urlInput.value);
             window.open(encodedUri);
         }
 

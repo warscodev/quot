@@ -153,16 +153,14 @@
                                     <a th:if="${r.isBookmarked > 0}"
                                        class="r-l-t-btn r-l-t-bookmark-btn btn bookmark-active"
                                        th:onclick="|saveOrDeleteBookmark(this,${r.remarkId})|" href="javascript:;">
-                                        <div class="r-l-t-btn-icon-wrap bookmark-icon-wrap tt" title="스크랩 취소"
-                                             data-bs-trigger="hover" data-bs-placement="bottom">
+                                        <div class="r-l-t-btn-icon-wrap bookmark-icon-wrap">
                                             <i class="r-l-t-btn-icon r-l-t-bookmark-icon icon-bookmark fill"></i>
                                         </div>
                                     </a>
                                     <a th:unless="${r.isBookmarked > 0}"
                                        class="r-l-t-btn r-l-t-bookmark-btn btn"
                                        th:onclick="|saveOrDeleteBookmark(this,${r.remarkId})|" href="javascript:;">
-                                        <div class="r-l-t-btn-icon-wrap bookmark-icon-wrap tt" title="스크랩"
-                                             data-bs-trigger="hover" data-bs-placement="bottom">
+                                        <div class="r-l-t-btn-icon-wrap bookmark-icon-wrap">
                                             <i class="r-l-t-btn-icon r-l-t-bookmark-icon icon-bookmark"></i>
                                         </div>
                                     </a>
@@ -212,7 +210,7 @@
 
                     <div class="r-l-t-last-row-container">
                         <div class="r-l-t-source-wrap">
-                            <a class="r-l-t-source tt" th:href="${r.sourceUrl}" title="출처" data-bs-trigger="hover" data-bs-placement="bottom" target="_blank" rel="noopener noreferer nofollow">
+                            <a class="r-l-t-source" th:href="${r.sourceUrl}" title="출처" target="_blank" rel="noopener noreferer nofollow">
                                 <span th:text="${r.sourceUrl}"></span>
                             </a>
                         </div>
@@ -223,8 +221,7 @@
                                th:id="|like-btn-${r.remarkId}|"
                                href="javascript:;"
                                th:onclick="|like(this, ${r.remarkId}, 1)|">
-                                <div class="r-l-t-btn-icon-wrap like-icon-wrap tt" title="좋아요 취소"
-                                     data-bs-trigger="hover" data-bs-placement="bottom">
+                                <div class="r-l-t-btn-icon-wrap like-icon-wrap">
                                     <i class="r-l-t-like-icon like-icon r-l-t-btn-icon icon-thumb-up fill"></i>
                                     <span th:id="|like-count-${r.remarkId}|"
                                           class="r-l-t-btn-text r-l-t-like-count like-count"
@@ -234,8 +231,7 @@
                             <a th:unless="${r.isLike eq 1}" th:id="|like-btn-${r.remarkId}|"
                                class="r-l-t-btn r-l-t-like-btn btn" href="javascript:;"
                                th:onclick="|like(this, ${r.remarkId}, 1)|">
-                                <div class="r-l-t-btn-icon-wrap like-icon-wrap tt" title="좋아요"
-                                     data-bs-trigger="hover" data-bs-placement="bottom">
+                                <div class="r-l-t-btn-icon-wrap like-icon-wrap">
                                     <i class="r-l-t-like-icon like-icon r-l-t-btn-icon icon-thumb-up"></i>
                                     <span th:id="|like-count-${r.remarkId}|"
                                           class="r-l-t-btn-text r-l-t-like-count like-count"
@@ -247,8 +243,7 @@
                                th:id="|dislike-btn-${r.remarkId}|"
                                class="r-l-t-dislike-btn r-l-t-btn btn like-active" href="javascript:;"
                                th:onclick="|like(this, ${r.remarkId}, -1)|">
-                                <div class="r-l-t-btn-icon-wrap dislike-icon-wrap tt" title="싫어요 취소"
-                                     data-bs-trigger="hover" data-bs-placement="bottom">
+                                <div class="r-l-t-btn-icon-wrap dislike-icon-wrap">
                                     <i class="r-l-t-dislike-icon dislike-icon r-l-t-btn-icon icon-thumb-down fill"></i>
                                     <span th:id="|dislike-count-${r.remarkId}|"
                                           class="r-l-t-btn-text r-l-t-dislike-count dislike-count"
@@ -259,8 +254,7 @@
                             <a th:unless="${r.isLike eq -1}" th:id="|dislike-btn-${r.remarkId}|"
                                class="r-l-t-dislike-btn r-l-t-btn btn" href="javascript:;"
                                th:onclick="|like(this, ${r.remarkId}, -1)|">
-                                <div class="r-l-t-btn-icon-wrap dislike-icon-wrap tt" title="싫어요"
-                                     data-bs-trigger="hover" data-bs-placement="bottom">
+                                <div class="r-l-t-btn-icon-wrap dislike-icon-wrap">
                                     <i class="r-l-t-dislike-icon dislike-icon r-l-t-btn-icon icon-thumb-down"></i>
                                     <span th:id="|dislike-count-${r.remarkId}|"
                                           class="r-l-t-btn-text r-l-t-dislike-count dislike-count"
@@ -269,8 +263,7 @@
                                 </div>
                             </a>
 
-                            <a class="r-l-t-btn r-l-t-comment-count-btn btn tt" title="댓글"
-                               data-bs-trigger="hover focus click" data-bs-placement="bottom"
+                            <a class="r-l-t-btn r-l-t-comment-count-btn btn"
                                th:href="@{/remark/{id}#cmCont(id=${r.remarkId})}">
                                 <div class="r-l-t-btn-icon-wrap">
                                     <i class="r-l-t-btn-icon r-l-t-comment-count-icon icon-comment-empty"></i>

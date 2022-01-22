@@ -22,7 +22,7 @@ import java.util.UUID;
 public class S3Uploader {
 
     private final AmazonS3Client amazonS3Client;
-    private final String basicUrl = "https://udpr-quot-images.s3.ap-northeast-2.amazonaws.com";
+    private static final String basicUrl = "https://udpr-quot-images.s3.ap-northeast-2.amazonaws.com";
 
     @Value("${cloud.aws.s3.bucket}")
     public String bucket;  // S3 버킷 이름

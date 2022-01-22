@@ -1156,7 +1156,7 @@ a:hover {
 
 .r-l-t-image-wrap:hover img {
     transition: filter .5s linear;
-    filter: brightness(92%);
+    filter: brightness(95%);
 }
 
 .r-l-t-image{
@@ -1877,7 +1877,7 @@ a:hover {
 }
 
 .r-c-t-comment-writer {
-    font-size: .813rem;
+    font-size: .875rem;
     font-weight: 600;
     margin-right: .375rem;
     letter-spacing: -.025rem;
@@ -1906,7 +1906,7 @@ a:hover {
 @media (max-width: 767px) {
 
     .r-c-t-row-container{
-        padding-top: .875rem;
+        padding-top: .938rem;
     }
     .r-c-table-inner-container{
         padding: 0;
@@ -1916,6 +1916,7 @@ a:hover {
     }
 
     .r-c-t-last-row-btn-container{
+        padding-top: .375rem !important;
     }
 
     .r-c-t-first-row-container{
@@ -1957,7 +1958,7 @@ a:hover {
 }
 
 .r-c-t-etc-btn.dropdown-toggle:hover{
-    color: #333 !important;
+    color: #999 !important;
 }
 
 .r-c-t-etc-btn.dropdown-toggle:after{
@@ -2085,7 +2086,8 @@ a:hover {
 }
 
 .r-c-t-textarea-container {
-    padding-top: .5rem;
+    padding-top: .75rem;
+    padding-bottom: .125rem;
 }
 
 .r-c-t-child-modify-textarea-container {
@@ -2658,9 +2660,9 @@ a:hover {
     list-style: none;
     display: flex;
     justify-content: space-between;
-    margin: 0;
     flex-wrap: wrap;
     border-bottom: 1px solid #eee;
+    margin-bottom: .125rem;
 }
 
 .aside-remark-category-nav-items {
@@ -2755,7 +2757,7 @@ a:hover {
 
 .aside-remark-icon-container i {
     margin-right: .125rem;
-    color: #999;
+    color: #a7a7a7;
 }
 
 .aside-remark-icon-container span {

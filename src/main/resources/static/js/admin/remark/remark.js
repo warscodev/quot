@@ -83,32 +83,32 @@ function like(e, remarkId, isLike) {
     function changeLikeIcon() {
         let otherBtn = '';
         const child = e.firstElementChild;
-        const tooltip = bootstrap.Tooltip.getInstance(child);
+        /*const tooltip = bootstrap.Tooltip.getInstance(child);*/
 
         if (e.classList.contains("r-l-t-like-btn")) {
             otherBtn = document.getElementById("dislike-btn-" + remarkId);
-            if(e.classList.contains("like-active")) {
+            /*if(e.classList.contains("like-active")) {
                 child.setAttribute("data-bs-original-title", "좋아요");
             } else {
                 child.setAttribute("data-bs-original-title", "좋아요 취소")
-            }
+            }*/
             if (otherBtn.classList.contains("like-active")) {
                 otherBtn.firstElementChild.firstElementChild.classList.toggle('fill');
                 otherBtn.classList.toggle("like-active")
-                otherBtn.firstElementChild.setAttribute("data-bs-original-title", "싫어요")
+                /*otherBtn.firstElementChild.setAttribute("data-bs-original-title", "싫어요")*/
             }
 
         } else {
             otherBtn = document.getElementById("like-btn-" + remarkId);
-            if(e.classList.contains("like-active")) {
+            /*if(e.classList.contains("like-active")) {
                 child.setAttribute("data-bs-original-title", "싫어요");
             }else {
                 child.setAttribute("data-bs-original-title", "싫어요 취소")
-            }
+            }*/
             if (otherBtn.classList.contains("like-active")) {
                 otherBtn.firstElementChild.firstElementChild.classList.toggle('fill');
                 otherBtn.classList.toggle("like-active")
-                otherBtn.firstElementChild.setAttribute("data-bs-original-title", "좋아요")
+                /*otherBtn.firstElementChild.setAttribute("data-bs-original-title", "좋아요")*/
             }
 
 
@@ -116,7 +116,7 @@ function like(e, remarkId, isLike) {
 
         child.firstElementChild.classList.toggle('fill');
 
-        tooltip.show();
+        /*tooltip.show();*/
 
         e.classList.toggle("like-active");
 
@@ -164,14 +164,14 @@ async function saveOrDeleteBookmark(e, remarkId) {
 function toggleBookmarkIcon(e){
 
     const child = e.firstElementChild;
-    const tooltip = bootstrap.Tooltip.getInstance(child) // Returns a Bootstrap tooltip instance
+    /*const tooltip = bootstrap.Tooltip.getInstance(child)*/ // Returns a Bootstrap tooltip instance
 
-    if(e.classList.contains("bookmark-active")) {
+    /*if(e.classList.contains("bookmark-active")) {
         child.setAttribute("data-bs-original-title", "스크랩")
     }else {
         child.setAttribute("data-bs-original-title", "스크랩 취소")
-    }
-    tooltip.show();
+    }*/
+    /*tooltip.show();*/
 
     e.classList.toggle("bookmark-active");
     child.firstElementChild.classList.toggle('fill');

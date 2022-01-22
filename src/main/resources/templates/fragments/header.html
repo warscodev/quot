@@ -8,6 +8,10 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5145635293228409"
+            crossorigin="anonymous"></script>
+
     <meta name=”description” th:content="${content}"/>
     <meta property="og:image" content="/css/images/logo.png">
     <meta th:if="${category != null && !(#strings.equals(category, '종합'))}" th:content="|${category} - 쿼트위키|" property="og:title">
@@ -15,27 +19,6 @@
     <meta th:if="${keyword}" th:content="|${content} : 검색 - 쿼트위키|" property="og:title">
     <meta th:if="${keyword==null && title != null}" th:content="|${title} - 쿼트위키|" property="og:title">
     <meta property="og:description" th:content="${content}">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/node_modules/bootstrap-icons/font/bootstrap-icons.css">
-    <!-- FontAwesome CSS -->
-    <link rel="stylesheet" href="/node_modules/@fortawesome/fontawesome-free/css/all.min.css">
-    <!-- container 사이즈 조절 custom -->
-    <link rel="stylesheet" href="/css/form/form.css?ver=20220116_001">
-    <!-- admin 커스텀 css (fieldError)-->
-    <link rel="stylesheet" href="/css/admin/admin.css?ver=20220122_004">
-    <link rel="stylesheet" href="/css/icon/style.css">
-    <!-- person-detail -->
-    <link rel="stylesheet" href="/css/person/person-detail.css?ver=20220122_002">
-    <!-- fonts -->
-    <link rel="stylesheet" href="/css/fonts.css?ver=20220116_001">
-    <!-- tagify & dragsort -->
-    <link rel="stylesheet" href="/node_modules/@yaireo/tagify/dist/tagify.css">
-    <link rel="stylesheet" href="/node_modules/@yaireo/dragsort/dist/dragsort.css">
-    <!-- jquery -->
-    <link rel="stylesheet" href="/vendor/jquery-ui/jquery-ui.min.css">
-    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-56R6B1WGZN"></script>
@@ -46,7 +29,26 @@
 
         gtag('config', 'G-56R6B1WGZN');
     </script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5145635293228409"
-            crossorigin="anonymous"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href="/node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+    <!-- container 사이즈 조절 custom -->
+    <link rel="stylesheet" href="/css/form/form.css?ver=20220116_001">
+    <!-- admin 커스텀 css (fieldError)-->
+    <link rel="stylesheet" href="/css/admin/admin.css?ver=20220122_005">
+    <link rel="stylesheet" href="/css/icon/style.css">
+    <!-- person-detail -->
+    <link rel="stylesheet" href="/css/person/person-detail.css?ver=20220122_003">
+    <!-- fonts -->
+    <link rel="stylesheet" href="/css/fonts.css?ver=20220116_001">
+    <!-- tagify & dragsort -->
+    <link rel="stylesheet" href="/node_modules/@yaireo/tagify/dist/tagify.css">
+    <link rel="stylesheet" href="/node_modules/@yaireo/dragsort/dist/dragsort.css">
+    <!-- jquery -->
+    <link rel="stylesheet" href="/vendor/jquery-ui/jquery-ui.min.css">
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
 
 </head>
