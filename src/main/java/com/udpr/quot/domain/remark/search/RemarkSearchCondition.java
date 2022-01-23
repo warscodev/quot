@@ -57,7 +57,7 @@ public class RemarkSearchCondition {
             paramList.add("category="+getCategory());
         }
 
-        if(getSort() != null && !getSort().equals("cd_d") && (!getCategory().equals("스크랩") || !getCategory().equals("팔로우"))){
+        if(getSort() != null && !getSort().equals("cd_d") && (getCategory() != null && (!getCategory().equals("스크랩") || !getCategory().equals("팔로우")))){
             paramList.add("sort="+getSort());
         }
 
