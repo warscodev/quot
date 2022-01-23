@@ -54,10 +54,11 @@ body {
 }
 
 .fieldError + p {
-    font-size: .875rem;
+    font-size: .813rem;
     font-weight: 500;
     color: #e86161;
     margin-left: .25rem;
+    margin-bottom: 0;
 }
 
 

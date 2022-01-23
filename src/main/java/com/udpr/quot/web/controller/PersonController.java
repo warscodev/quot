@@ -90,8 +90,8 @@ public class PersonController {
 
     //인물 수정
     @PostMapping("/admin/person/{id}")
-    public String update(@ModelAttribute("info") @Valid PersonRequestDto dto, @PathVariable("id") Long id,
-                         BindingResult result , @LoginUser SessionUser user) throws AuthenticationException, IOException {
+    public String update(@ModelAttribute("info") @Valid PersonRequestDto dto, BindingResult result, @PathVariable("id") Long id,
+                         @LoginUser SessionUser user) throws AuthenticationException, IOException {
 
         if (user == null) {
             throw new AuthenticationException();

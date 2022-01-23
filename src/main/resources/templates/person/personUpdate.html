@@ -41,6 +41,7 @@
                                         <input type="text"
                                                th:class="${#fields.hasErrors('name')}? 'p-u-name form-control form-control-sm fieldError' : 'form-control form-control-sm p-u-name'"
                                                th:field="*{name}"/>
+                                        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Incorrect data</p>
                                     </div>
                                     <div>
                                         <label class="form-label" th:for="category">카테고리</label>
@@ -60,15 +61,15 @@
                                         <label class="form-label" th:for="alias">본명, 예명</label>
                                         <input type="text" class="p-d-alias form-control form-control-sm"
                                                th:field="*{alias}" placeholder="콤마(,)로 구분"
-                                               th:class="${#fields.hasErrors('alias')}? 'form-control fieldError' : 'form-control'"/>
+                                               th:class="${#fields.hasErrors('alias')}? 'p-d-alias form-control form-control-sm fieldError' : 'p-d-alias form-control form-control-sm'"/>
                                         <p th:if="${#fields.hasErrors('alias')}" th:errors="*{alias}">Incorrect data</p>
                                     </div>
 
                                     <div class="me-3 mt-3">
                                         <label class="form-label" th:for="job">직업</label>
                                         <input type="text" class="p-d-job form-control form-control-sm"
-                                               th:field="*{job}" th:class="${#fields.hasErrors('job')}? 'form-control fieldError' : 'form-control'"/>
-                                        <p th:if="${#fields.hasErrors('job')}" th:errors="*{job}">Incorrect data</p>/>
+                                               th:field="*{job}" th:class="${#fields.hasErrors('job')}? 'p-d-alias form-control form-control-sm fieldError' : 'p-d-alias form-control form-control-sm'"/>
+                                        <p th:if="${#fields.hasErrors('job')}" th:errors="*{job}">Incorrect data</p>
                                     </div>
                                     <div class="mt-3">
                                         <label class="form-label" th:for="organization">소속</label>
