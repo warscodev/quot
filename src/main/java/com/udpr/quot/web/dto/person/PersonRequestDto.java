@@ -22,7 +22,7 @@ public class PersonRequestDto {
     @Pattern(regexp = "^[0-9]*[a-zA-Z가-힣]+[\\s0-9:.\\-$-()&a-zA-Z가-힣]*(?<![-(.\\s])$", message = "✋ 사용할 수 없는 문자가 포함되었습니다.")
     private String name;
 
-    @Pattern(regexp = "^(?<![(,])[0-9]*[a-zA-Z가-힣]*[,\\s0-9:$-()&a-zA-Z가-힣]*(?<![(,\\s])$",
+    @Pattern(regexp = "^(?<![(,])[0-9]*[a-zA-Z가-힣]*[.,\\s0-9:$-()&a-zA-Z가-힣]*(?<![(,\\s])$",
             message = "✋ 사용할 수 없는 문자가 포함되었습니다. 2개 이상의 단어는 콤마(,)로 구분하여주세요.")
     private String alias;
 
@@ -30,7 +30,7 @@ public class PersonRequestDto {
 
     private String gender;
 
-    @Pattern(regexp = "^(?<![(,])[0-9]*[a-zA-Z가-힣]*[,\\s0-9:$-()&a-zA-Z가-힣]*(?<![(,\\s])$",
+    @Pattern(regexp = "^(?<![(,])[0-9]*[a-zA-Z가-힣]*[.,\\s0-9:$-()&a-zA-Z가-힣]*(?<![(,\\s])$",
             message = "✋ 사용할 수 없는 문자가 포함되었습니다. 2개 이상의 직업은 콤마(,)로 구분하여주세요.")
     private String job;
 
