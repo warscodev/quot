@@ -1240,7 +1240,8 @@ a:hover {
 
 
 .r-l-t-person-job {
-    font-size: .8125rem;
+    font-size: .813rem;
+    color: #777;
 }
 
 .r-l-t-date-divider{
@@ -1261,8 +1262,7 @@ a:hover {
 
 .r-l-t-date {
     /*font-family: 'Open Sans', sans-serif;*/
-    color: #999;
-    font-weight: 500;
+    color: #777;
     font-size: .813rem;
     margin-right: .313rem;
     word-spacing: -1px;
@@ -1536,7 +1536,7 @@ a:hover {
 }
 
 .r-l-t-content-container.r-d-t{
-    line-height: 1.5;
+    line-height: 1.45;
     padding-top: .125rem;
 }
 
@@ -1554,7 +1554,6 @@ a:hover {
 .r-d-t-content {
     font-family: Pretendard, Noto Sans KR;
     font-size: 1rem;
-    font-weight: 500;
     margin: 0;
     overflow: auto;
     cursor: text;
@@ -1641,7 +1640,7 @@ a:hover {
 }
 
 .r-l-t-source:hover{
-    color: #999999;
+    color: #666;
     text-decoration: underline;
 }
 
@@ -1772,9 +1771,9 @@ a:hover {
 
 .r-l-t-btn-text {
     margin-left: .35rem;
-    color: #777;
+    color: #888;
     font-size: .75rem;
-    font-weight: 600;
+    font-weight: 500;
     line-height: 0;
     transition: color .15s linear, font-weight .15s linear;
 }

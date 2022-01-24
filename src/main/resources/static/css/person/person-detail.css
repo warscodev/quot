@@ -87,8 +87,7 @@
     color: #333;
 }
 .p-d-info-container.p-u .form-control, .p-d-info-container.p-u .form-select{
-    font-weight: 600;
-    color: #666;
+    color: #333;
     border: 1px solid #e7e7e7;
     box-shadow: none;
     background-color: #f9fafb;

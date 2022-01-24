@@ -102,7 +102,7 @@
                                         </div>
                                         <div th:unless="*{#strings.equals(category, 'none')}" class="r-l-t-tags-wrap">
                                             <a th:class="|r-l-t-category r-d-t-category *{catClassName}|"
-                                               th:text="*{category}"></a><a class="r-l-t-tags r-d-t-tags"
+                                               th:text="*{category}" th:href="@{/remark(category=*{category})}"></a><a class="r-l-t-tags r-d-t-tags"
                                                                             th:each="tag : *{remarkTagList}"
                                                                             th:href="@{/remark(keyword=${tag.name}, tab=1)}"><span
                                                 th:text="|#${tag.name}|"></span></a>
