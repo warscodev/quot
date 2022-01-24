@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-<head th:replace="fragments/header :: header(title=|${info.name} : 인물정보 수정|, content=|${info.name}의 정보 수정 페이지입니다.|)">
+<head th:replace="fragments/header :: header(title=|${info.name} : 인물정보 수정|, content=|${info.name}의 정보 수정 페이지입니다|)">
 <body th:object="${info}">
 <div th:replace="fragments/loginHeader :: loginHeader"></div>
 <div th:replace="fragments/topHeader :: topHeader"></div>
@@ -39,9 +39,9 @@
                                     <div class="me-3">
                                         <label class="form-label" th:for="name">이름</label>
                                         <input type="text"
-                                               th:class="${#fields.hasErrors('name')}? 'p-u-name form-control form-control-sm fieldError' : 'form-control form-control-sm p-u-name'"
-                                               th:field="*{name}"/>
-                                        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Incorrect data</p>
+                                               th:class="${#fields.hasErrors('name')}? 'p-u-name form-control form-control-sm is-invalid' : 'form-control form-control-sm p-u-name'"
+                                               th:field="*{name}" required/>
+                                        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="invalid-feedback">Incorrect data</p>
                                     </div>
                                     <div>
                                         <label class="form-label" th:for="category">카테고리</label>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="ko">
+<head th:replace="fragments/header :: header(title='페이지를 찾을 수 없습니다.', content='존재하지 않는 페이지입니다.')">
+<body class="d-flex h-100 text-center">
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <main style="padding-top: 5rem">
+        <div class="mb-4">
+            <div style="font-size: 5rem; font-weight: 700">4<span style="color: #1c5396">0</span>4</div>
+            <p style="font-size: 1.5rem; margin-bottom: 1.25rem;">페이지를 찾을 수 없습니다 :(</p>
+            <span style="font-size: .938rem; color: #777">요청하신 페이지의 주소가 삭제, 변경되었거나 <br> 잘못된 경로를 입력하셨습니다.</span>
+        </div>
+
+        <div class="d-flex justify-content-center">
+            <a class="btn btn-outline-secondary btn-sm me-2" href="javascript:history.back();">뒤로가기</a>
+            <a class="btn btn-dark btn-sm" href="/">홈으로</a>
+        </div>
+    </main>
+
+
+</div>
+
+</body>
+</html>
