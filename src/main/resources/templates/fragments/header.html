@@ -11,10 +11,11 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name=”description” th:content="${content}"/>
+    <meta th:if="${content}" name=”description” th:content="${content}"/>
+    <meta th:unless="${content}" name=”description” content="화제의 발언, 어록 위키입니다."/>
     <meta property="og:image" content="/css/images/logo.png">
     <meta th:if="${category != null && !(#strings.equals(category, '종합'))}" th:content="|${category} - 쿼트위키|" property="og:title">
-    <meta th:if="${category != null && (#strings.equals(category, '종합'))}" th:content="|쿼트위키 - 화제의 발언 모음|" property="og:title">
+    <meta th:if="${category != null && (#strings.equals(category, '종합'))}" th:content="|쿼트위키 - 화제의 발언, 어록 모음|" property="og:title">
     <meta th:if="${keyword}" th:content="|${content} : 검색 - 쿼트위키|" property="og:title">
     <meta th:if="${keyword==null && title != null}" th:content="|${title} - 쿼트위키|" property="og:title">
     <meta property="og:description" th:content="${content}">

@@ -277,6 +277,30 @@ function toSearchPersonContainer(pageObj) {
     return row;
 }
 
+function setCookie(name, value, exp) {
+    const date = new Date();
+    date.setTime(date.getTime() + exp*24*60*60*1000);
+    document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
+}
+
+function getCookie(name){
+    const value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+    return value? value[2] : null;
+}
+
+function makeBackUrl(){
+    setCookie("listBtnUrl", location.href, 1);
+}
+
+function goToList(){
+    const listBtnUrl = getCookie("listBtnUrl");
+    if(listBtnUrl != null){
+        location.href= listBtnUrl;
+    } else{
+        location.href = "/remark"
+    }
+}
+
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -289,6 +313,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     contents.forEach(c => {
         c.addEventListener("click", function (e){
+            makeBackUrl();
             location.href = c.nextElementSibling.getAttribute('href');
         })
 

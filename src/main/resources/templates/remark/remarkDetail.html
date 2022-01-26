@@ -252,15 +252,7 @@
                                 th:onclick="|deleteRemark(*{remarkId})|">삭제
                         </button>
                     </div>
-                    <th:block sec:authorize="isAuthenticated()">
-                        <a class="btn btn-outline-secondary btn-sm" th:href="${prevPageLink}">목록</a>
-                    </th:block>
-                    <th:block sec:authorize="isAnonymous()">
-                        <a th:if="${#strings.equals(category,'스크랩') or #strings.equals(category, '팔로우')}"
-                           class="btn btn-outline-secondary btn-sm" href="/remark">목록</a>
-                        <a th:unless="${#strings.equals(category,'스크랩') or #strings.equals(category, '팔로우')}"
-                           class="btn btn-outline-secondary btn-sm" th:href="${prevPageLink}">목록</a>
-                    </th:block>
+                        <a class="btn btn-outline-secondary btn-sm" onclick="goToList()">목록</a>
                 </div>
 
             </div>

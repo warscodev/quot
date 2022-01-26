@@ -33,18 +33,18 @@ public class RemarkController {
         return "redirect:/remark";
     }
 
-    @GetMapping("/remark/{remarkId}/tmp")
+    /*@GetMapping("/remark/{remarkId}/tmp")
     public String detailTemp(@PathVariable("remarkId") Long remarkId, RedirectAttributes rtt, RemarkSearchCondition condition){
         rtt.addFlashAttribute("condition", condition);
         return "redirect:/remark/"+remarkId;
     }
-
+*/
 
     //코멘트 디테일 폼
     @GetMapping("/remark/{remarkId}")
     public String detail(@PathVariable("remarkId") Long remarkId, Model model, @LoginUser SessionUser user) {
 
-        RemarkSearchCondition condition = (RemarkSearchCondition)model.asMap().get("condition");
+        /*RemarkSearchCondition condition = (RemarkSearchCondition)model.asMap().get("condition");
 
         if(condition == null){
             condition = new RemarkSearchCondition();
@@ -54,7 +54,7 @@ public class RemarkController {
         model.addAttribute("prevPageLink", condition.getPrevPageLink());
         if(condition.getCategory() != null){
             model.addAttribute("category", condition.getCategory());
-        }
+        }*/
 
         if (user != null) {
             model.addAttribute("user", user);
