@@ -1,12 +1,10 @@
 package com.udpr.quot.config.auth;
 
-import com.udpr.quot.config.auth.handler.CustomAccessDeniedHandler;
-import com.udpr.quot.config.auth.handler.CustomAuthenticationEntryPoint;
-import com.udpr.quot.config.auth.handler.CustomLoginSuccessHandler;
-import com.udpr.quot.config.auth.handler.OAuth2AuthenticationFailureHandler;
+import com.udpr.quot.config.auth.handler.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,6 +13,9 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.ForwardLogoutSuccessHandler;
+import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 @RequiredArgsConstructor
 @EnableWebSecurity
@@ -59,8 +60,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                     .logout()
-                        .logoutSuccessUrl("/") // 로그아웃 성공시 리다이렉트 주소*/
-                        .invalidateHttpSession(true) // 세션 날리기
+                    .logoutSuccessHandler(customLogoutSuccessHandler())
+                    .invalidateHttpSession(true) // 세션 날리기
 
                 .and()
                     .oauth2Login()
@@ -87,6 +88,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthenticationFailureHandler oAuth2AuthenticationFailureHandler() { return new OAuth2AuthenticationFailureHandler();}
 
+
+    @Bean
+    public CustomLogoutSuccessHandler customLogoutSuccessHandler(){return new CustomLogoutSuccessHandler();}
     /*@Bean
     public OAuth2AuthorizationRequestResolver oAuth2AuthorizationRequestResolver(){ return new CustomOAuth2AuthorizationRequestResolver();}
 

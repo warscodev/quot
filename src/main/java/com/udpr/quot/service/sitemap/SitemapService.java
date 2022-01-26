@@ -43,7 +43,7 @@ public class SitemapService {
         sb.append(new Sitemap(BASE_URL+"/remark", now, CHANGEFREQ_DAILY));
 
         //카테고리
-        List<String> categoryList = List.of("정치","방송연예","사회문화", "스포츠");
+        List<String> categoryList = List.of("정치","방송연예","사회문화","스포츠");
         categoryList.forEach(list ->{
             String encodedCategory = URLEncoder.encode(list, StandardCharsets.UTF_8);
             sb.append(new Sitemap(BASE_URL+"/remark?category="+encodedCategory));
