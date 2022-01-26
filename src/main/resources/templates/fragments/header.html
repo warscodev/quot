@@ -11,14 +11,20 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta th:if="${content}" name=”description” th:content="${content}"/>
-    <meta th:unless="${content}" name=”description” content="화제의 발언, 어록 위키입니다."/>
+
+    <meta th:if="${content != null && !(#strings.equals(content, '종합'))}" name=”description” th:content="${content}"/>
+    <meta th:unless="${content != null && !(#strings.equals(content, '종합'))}" name=”description” content="화제의 발언, 어록 위키입니다."/>
+
+    <meta property="og:type" content="website">
     <meta property="og:image" content="/css/images/logo.png">
-    <meta th:if="${category != null && !(#strings.equals(category, '종합'))}" th:content="|${category} - 쿼트위키|" property="og:title">
-    <meta th:if="${category != null && (#strings.equals(category, '종합'))}" th:content="|쿼트위키 - 화제의 발언, 어록 모음|" property="og:title">
-    <meta th:if="${keyword}" th:content="|${content} : 검색 - 쿼트위키|" property="og:title">
-    <meta th:if="${keyword==null && title != null}" th:content="|${title} - 쿼트위키|" property="og:title">
-    <meta property="og:description" th:content="${content}">
+
+    <meta th:if="${category != null && !(#strings.equals(category, '종합'))}" property="og:title" th:content="|${category} - 쿼트위키|" >
+    <meta th:if="${category != null && (#strings.equals(category, '종합'))}" property="og:title" th:content="|쿼트위키 - 화제의 발언, 어록 모음|" >
+    <meta th:if="${keyword}"property="og:title" th:content="|${content} : 검색 - 쿼트위키|">
+    <meta th:if="${keyword==null && title != null}" property="og:title" th:content="|${title} - 쿼트위키|" >
+
+    <meta th:if="${content != null && !(#strings.equals(content, '종합'))}" property="og:description" th:content="${content}">
+    <meta th:unless="${content != null && !(#strings.equals(content, '종합'))}" property="og:description" content="화제의 발언, 어록 위키입니다."/>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-56R6B1WGZN"></script>
