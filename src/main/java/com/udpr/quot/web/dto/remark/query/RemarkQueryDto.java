@@ -49,6 +49,7 @@ public class RemarkQueryDto {
     private String remarkSummary;
 
     private String remarkSummaryForTitle;
+    private String remarkDateForDescription;
 
 
     @QueryProjection
@@ -76,6 +77,7 @@ public class RemarkQueryDto {
         this.nickname = nickname;
         this.remarkSummary = summarySubstring(content);
         this.remarkSummaryForTitle = summaryForTitleSubstring(content);
+        this.remarkDateForDescription = remarkDate.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"));
     }
 
     public String createdAndUpdatedDateFormat(LocalDateTime localDateTime){
