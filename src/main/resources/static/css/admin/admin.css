@@ -2079,7 +2079,7 @@ a:hover {
     display: flex;
     justify-content: space-between;
     line-height: initial;
-    padding-left: .75rem;
+    padding-left: .375rem;
     padding-top: .25rem;
 }
 
@@ -2303,6 +2303,10 @@ a:hover {
 .r-d-l-job{
     font-size: .75rem;
     color: #999;
+}
+
+.r-d-l-name-job-wrap{
+    margin-bottom: .125rem;
 }
 
 .r-d-l-content-quotation{
@@ -2782,7 +2786,7 @@ a:hover {
 }
 
 .aside-remark-category-nav {
-    padding: 0 1.5em;
+    padding: 0 2rem;
     list-style: none;
     display: flex;
     justify-content: space-between;

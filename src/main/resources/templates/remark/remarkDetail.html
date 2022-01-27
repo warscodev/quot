@@ -281,8 +281,8 @@
                                     </div>
                                     <div class="r-d-l-table">
                                         <div class="r-d-l-t-row" th:each="c : ${categoryRemarkList}">
-                                            <div class="r-d-l-name-job-date-container">
-                                                <div class="d-flex align-items-baseline mb-1 flex-wrap">
+                                            <div class="r-d-l-name-job-container">
+                                                <div class="r-d-l-name-job-wrap d-flex align-items-baseline flex-wrap">
                                                     <a class="r-d-l-name" th:href="@{/person/{id}(id=${c.personId})}"
                                                        th:text="${c.name}"></a>
                                                     <span class="r-d-l-job" th:text="${c.job}"></span>
@@ -447,17 +447,19 @@
 
                 row += "<div class='r-c-t-last-row-btn-container'>";
                 row += "<div class='d-flex'>";
-                if (c.parentId != null) {
-                    row += "<a id='openCmReplyBtn-" + c.commentId + "' onclick='openCmReplyTextarea(this)' class='r-c-t-reply-btn' data-writer='" + c.nickname + "' data-aid='" + c.ancestorId + "' data-cid='" + c.commentId + "'><i class=\"icon-comment\"></i><span>답글</span></a>";
-                } else if (c.parentId === null) {
-                    row += "<a id='openCmReplyBtn-" + c.commentId + "' onclick='openCmReplyTextarea(this)' class='r-c-t-reply-btn' data-writer='" + c.nickname + "' data-cid='" + c.commentId + "'><i class=\"icon-comment\"></i><span>답글</span></a>";
-                }
 
                 if (c.status === "UPDATED") {
                     row += "<div class=\"r-c-t-comment-date\"><i class=\"far fa-clock\"></i><span>" + c.createdDate + "(수정됨)</span></div>";
                 } else {
                     row += "<div class=\"r-c-t-comment-date\"><i class=\"far fa-clock\"></i><span>" + c.createdDate + "</span></div>";
                 }
+
+                if (c.parentId != null) {
+                    row += "<a id='openCmReplyBtn-" + c.commentId + "' onclick='openCmReplyTextarea(this)' class='r-c-t-reply-btn' data-writer='" + c.nickname + "' data-aid='" + c.ancestorId + "' data-cid='" + c.commentId + "'><i class=\"icon-comment\"></i><span>답글</span></a>";
+                } else if (c.parentId === null) {
+                    row += "<a id='openCmReplyBtn-" + c.commentId + "' onclick='openCmReplyTextarea(this)' class='r-c-t-reply-btn' data-writer='" + c.nickname + "' data-cid='" + c.commentId + "'><i class=\"icon-comment\"></i><span>답글</span></a>";
+                }
+
 
                 row += "<div class=\"r-c-t-etc-btn-container\">";
 
