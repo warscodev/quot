@@ -188,8 +188,7 @@
                                         </div>
                                     </a>
 
-                                    <a class="r-l-t-btn r-d-t r-l-t-comment-count-btn btn"
-                                       th:href="@{/remark/{id}#cmCont(id=*{remarkId})}" onclick="toggleComment()">
+                                    <a class="r-l-t-btn r-d-t r-l-t-comment-count-btn btn" onclick="toggleComment()">
                                         <div class="r-l-t-btn-icon-wrap">
                                             <i class="r-l-t-btn-icon r-d-t r-l-t-last-row-comment-count-icon icon-comment-empty"></i>
                                             <span class="r-l-t-comment-count r-l-t-btn-text r-d-t"
@@ -1037,8 +1036,8 @@
 
     function toggleComment() {
         $("#comment-container").toggle();
-        let location = document.querySelector("#comment-container").offsetTop;
-        window.scrollTo({top: location + 60});
+        /*let location = document.querySelector("#comment-container").offsetTop;
+        window.scrollTo({top: location + 60});*/
     }
 
     document.addEventListener("DOMContentLoaded", loadComments(commentPageForInit));
