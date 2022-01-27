@@ -1035,9 +1035,7 @@
 
 
     function toggleComment() {
-        $("#comment-container").toggle();
-        /*let location = document.querySelector("#comment-container").offsetTop;
-        window.scrollTo({top: location + 60});*/
+        $("#comment-container").slideToggle();
     }
 
     document.addEventListener("DOMContentLoaded", loadComments(commentPageForInit));
