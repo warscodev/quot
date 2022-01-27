@@ -80,6 +80,23 @@ public class RemarkQueryDto {
         this.remarkDateForDescription = remarkDate.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"));
     }
 
+    @QueryProjection
+    public RemarkQueryDto(Long remarkId, String content){
+        this.remarkId = remarkId;
+        this.content = content;
+        this.remarkSummary = summarySubstring(content);
+    }
+
+    @QueryProjection
+    public RemarkQueryDto(Long remarkId, String content, String name, String job, Long personId){
+        this.remarkId = remarkId;
+        this.content = content;
+        this.remarkSummary = summarySubstring(content);
+        this.name = name;
+        this.job = job;
+        this.personId = personId;
+    }
+
     public String createdAndUpdatedDateFormat(LocalDateTime localDateTime){
         return localDateTime.format(DateTimeFormatter.ofPattern("yyyy. MM. dd. HH:mm"));
     }
@@ -88,11 +105,11 @@ public class RemarkQueryDto {
         return localDate.format(DateTimeFormatter.ofPattern("yyyy. MM. dd."));
     }
 
-    public String summarySubstring(String remarkSummary){
-        if(remarkSummary.length()>320){
-            return remarkSummary.substring(0,317) + "...";
+    public String summarySubstring(String content){
+        if(content.trim().length()>185){
+            return content.trim().substring(0,182).trim() + "...";
         }else{
-            return remarkSummary;
+            return content;
         }
     }
     public String summaryForTitleSubstring(String remarkSummary){

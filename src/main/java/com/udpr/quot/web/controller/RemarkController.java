@@ -7,6 +7,7 @@ import com.udpr.quot.config.auth.dto.SessionUser;
 import com.udpr.quot.domain.remark.search.RemarkSearchCondition;
 import com.udpr.quot.domain.tag.repository.TagRepository;
 import com.udpr.quot.service.remark.RemarkService;
+import com.udpr.quot.web.dto.remark.query.RemarkQueryDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Controller;
@@ -14,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,25 +44,19 @@ public class RemarkController {
     @GetMapping("/remark/{remarkId}")
     public String detail(@PathVariable("remarkId") Long remarkId, Model model, @LoginUser SessionUser user) {
 
-        /*RemarkSearchCondition condition = (RemarkSearchCondition)model.asMap().get("condition");
-
-        if(condition == null){
-            condition = new RemarkSearchCondition();
-        }
-
-        condition.setPrevPageLink();
-        model.addAttribute("prevPageLink", condition.getPrevPageLink());
-        if(condition.getCategory() != null){
-            model.addAttribute("category", condition.getCategory());
-        }*/
+        RemarkQueryDto dto;
 
         if (user != null) {
+            dto = remarkService.getDetail(remarkId, user.getId());
             model.addAttribute("user", user);
-            model.addAttribute("remark", remarkService.getDetail(remarkId, user.getId()));
         } else {
-            model.addAttribute("remark", remarkService.getDetail(remarkId));
+            dto = remarkService.getDetail(remarkId);
         }
 
+
+        model.addAttribute("personRemarkList", remarkService.getPersonRemarkList(remarkId, dto.getPersonId()));
+        model.addAttribute("categoryRemarkList", remarkService.getOtherCategoryRemarkList(remarkId, dto.getCategory()));
+        model.addAttribute("remark", dto);
 
         return "remark/remarkDetail";
     }

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="30"
+   height="30"
+   viewBox="0 0 7.9375 7.9375"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.1 (c3084ef, 2021-09-22)"
+   sodipodi:docname="quot_title_icon.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="2.9198058"
+     inkscape:cx="-26.200373"
+     inkscape:cy="45.37973"
+     inkscape:window-width="1440"
+     inkscape:window-height="847"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1"
+     units="px"
+     showborder="false" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="레이어 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <circle
+       style="fill:#222;fill-opacity:1;stroke-width:0.0142586"
+       id="path879"
+       cx="3.96875"
+       cy="3.96875"
+       inkscape:export-filename="/Users/warsco/path879.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"
+       r="3.96875" />
+    <path
+       fill="currentColor"
+       d="m 5.5810555,3.9687502 h -0.620115 v -0.566965 c 0,-0.312715 0.222465,-0.5669651 0.49609,-0.5669651 h 0.062015 c 0.1030942,0 0.1860348,-0.09479 0.1860348,-0.21261 V 2.196985 c 0,-0.1178206 -0.08294,-0.21261 -0.1860348,-0.21261 h -0.062015 c -0.6852302,0 -1.2402353,0.63429 -1.2402353,1.4174102 v 2.1261149 c 0,0.2347602 0.1666601,0.4252249 0.3720751,0.4252249 h 0.9921852 c 0.2054146,0 0.3720695,-0.1904647 0.3720695,-0.4252249 V 4.3939753 c 0,-0.23476 -0.1666549,-0.425225 -0.3720695,-0.4252251 z m -2.2324204,0 h -0.62012 v -0.566965 c 0,-0.312715 0.2224699,-0.5669651 0.4960951,-0.5669651 h 0.062009 c 0.1030942,0 0.186035,-0.09479 0.186035,-0.21261 V 2.196985 c 0,-0.1178206 -0.08294,-0.21261 -0.186035,-0.21261 h -0.062009 c -0.6852301,0 -1.2402352,0.63429 -1.2402352,1.4174102 v 2.1261149 c 0,0.2347602 0.1666551,0.4252249 0.37207,0.4252249 h 0.9921901 c 0.2054102,0 0.3720701,-0.1904647 0.3720701,-0.4252249 V 4.3939753 c 0,-0.23476 -0.1666599,-0.425225 -0.3720701,-0.4252251 z"
+       id="path848"
+       style="fill:#ff674a;fill-opacity:1;stroke-width:0.00828665"
+       inkscape:export-filename="/Users/warsco/path879.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+  </g>
+</svg>

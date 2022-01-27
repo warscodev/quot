@@ -45,13 +45,13 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
     }
 
     @Override
-    public RemarkQueryDto getDetail(Long remarkId, Long sessionId){
+    public RemarkQueryDto getDetail(Long remarkId, Long sessionId) {
 
         RemarkQueryDto result = queryFactory
                 .select(new QRemarkQueryDto(
                         remark.id, remark.content, remark.remarkDate,
                         remark.createdDate, remark.updatedDate, remark.likeCount,
-                        remark.dislikeCount,remark.sourceSort, remark.sourceUrl,
+                        remark.dislikeCount, remark.sourceSort, remark.sourceUrl,
                         person.id, person.name, person.alias, person.job, person.category, person.image,
                         user.id, user.nickname))
                 .from(remark)
@@ -99,20 +99,20 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
 
         result.setCommentCount(commentCount);
 
-        if(isLike!=null) {
+        if (isLike != null) {
             result.setIsLike(isLike);
         }
         return result;
     }
 
     @Override
-    public RemarkQueryDto getDetail(Long remarkId){
+    public RemarkQueryDto getDetail(Long remarkId) {
 
         RemarkQueryDto result = queryFactory
                 .select(new QRemarkQueryDto(
                         remark.id, remark.content, remark.remarkDate,
                         remark.createdDate, remark.updatedDate, remark.likeCount,
-                        remark.dislikeCount,remark.sourceSort, remark.sourceUrl,
+                        remark.dislikeCount, remark.sourceSort, remark.sourceUrl,
                         person.id, person.name, person.alias, person.job, person.category, person.image,
                         user.id, user.nickname))
                 .from(remark)
@@ -139,40 +139,66 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
 
 
         assert result != null;
-            result.setRemarkTagList(tagList);
+        result.setRemarkTagList(tagList);
 
-            result.setTags(tagList.stream()
-                    .map(RemarkTagQueryDto::getName)
-                    .collect(Collectors.joining(", ")));
+        result.setTags(tagList.stream()
+                .map(RemarkTagQueryDto::getName)
+                .collect(Collectors.joining(", ")));
 
-            result.setCommentCount(commentCount);
+        result.setCommentCount(commentCount);
 
         return result;
     }
 
 
+    @Override
+    public List<RemarkQueryDto> getPersonsRemarkList(Long remarkId, Long personID) {
 
+        return queryFactory
+                .select(new QRemarkQueryDto(
+                        remark.id, remark.content
+                ))
+                .from(remark)
+                .leftJoin(remark.person, person)
+                .where(person.id.eq(personID)
+                        .and(remark.id.ne(remarkId)))
+                .orderBy(Expressions.numberTemplate(Double.class, "function('rand')").asc())
+                .limit(3)
+                .fetch();
+    }
 
+    @Override
+    public List<RemarkQueryDto> getOtherCategoryRemarkList(Long remarkId, String category) {
+        return queryFactory.select(new QRemarkQueryDto(
+                        remark.id, remark.content, person.name, person.job, person.id
+                )).from(remark)
+                .leftJoin(remark.person, person)
+                .where(remark.id.ne(remarkId)
+                        .and(person.category.eq(category)))
+                .orderBy(Expressions.numberTemplate(Double.class, "function('rand')").asc())
+                .limit(3)
+                .fetch();
+    }
 
 
     @Override
     public Page<RemarkQueryDto> searchAll(RemarkSearchCondition condition, Pageable pageable) {
         QueryResults<RemarkQueryDto> results = queryFactory
-                        .select(new QRemarkQueryDto(
-                                remark.id, remark.content, remark.remarkDate,
-                                remark.createdDate, remark.updatedDate, remark.likeCount,
-                                remark.dislikeCount, remark.sourceSort, remark.sourceUrl,
-                                person.id, person.name, person.alias, person.job, person.category, person.image,
-                                user.id, user.nickname))
-                        .from(remark)
-                        .leftJoin(remark.person, person)
-                        .leftJoin(remark.user, user)
-                        .where(categoryEq(condition.getCategory()))
+                .select(new QRemarkQueryDto(
+                        remark.id, remark.content, remark.remarkDate,
+                        remark.createdDate, remark.updatedDate, remark.likeCount,
+                        remark.dislikeCount, remark.sourceSort, remark.sourceUrl,
+                        person.id, person.name, person.alias, person.job, person.category, person.image,
+                        user.id, user.nickname))
+                .from(remark)
+                .leftJoin(remark.person, person)
+                .leftJoin(remark.user, user)
+                .where(categoryEq(condition.getCategory()))
 
-                        .offset(pageable.getOffset())
-                        .limit(pageable.getPageSize())
-                        .orderBy(getOrderSpecifierForSearchAll(condition.getSort(), condition.getCategory()).toArray(OrderSpecifier[]::new))
-                        .fetchResults();
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .orderBy(getOrderSpecifierForSearchAll(condition.getSort(), condition.getCategory()).toArray(OrderSpecifier[]::new))
+                .fetchResults();
 
         List<Long> remarkIdList = toRemarkIdList(results);
         Map<Long, List<RemarkTagQueryDto>> tagMap = findTagMap(remarkIdList);
@@ -190,26 +216,26 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
     public Page<RemarkQueryDto> searchByContentOrPersonName(RemarkSearchCondition condition, Pageable pageable) {
 
         QueryResults<RemarkQueryDto> results = queryFactory
-                        .select(new QRemarkQueryDto(
-                                remark.id, remark.content, remark.remarkDate,
-                                remark.createdDate, remark.updatedDate, remark.likeCount,
-                                remark.dislikeCount,remark.sourceSort, remark.sourceUrl,
-                                person.id, person.name, person.alias, person.job, person.category, person.image,
-                                user.id, user.nickname))
-                        .from(remark)
-                        .join(remark.person, person)
-                        .join(remark.user, user)
-                        .join(remark.remarkTagList, remarkTag).on(remark.eq(remarkTag.remark))
-                        .groupBy(remark.id)
+                .select(new QRemarkQueryDto(
+                        remark.id, remark.content, remark.remarkDate,
+                        remark.createdDate, remark.updatedDate, remark.likeCount,
+                        remark.dislikeCount, remark.sourceSort, remark.sourceUrl,
+                        person.id, person.name, person.alias, person.job, person.category, person.image,
+                        user.id, user.nickname))
+                .from(remark)
+                .join(remark.person, person)
+                .join(remark.user, user)
+                .join(remark.remarkTagList, remarkTag).on(remark.eq(remarkTag.remark))
+                .groupBy(remark.id)
 
-                        .where(keywordLike().likeIgnoreCase("%" + condition.getKeyword().replace(" ", "") + "%")
-                                .or(person.name.likeIgnoreCase("%" + condition.getKeyword() + "%"))
-                                .or(removeCommaOnPersonAlias().likeIgnoreCase("%" + condition.getKeyword() + "%"))
-                                .or(remarkTag.tag.name.eq(condition.getKeyword())))
-                        .offset(pageable.getOffset())
-                        .limit(pageable.getPageSize())
-                        .orderBy(getOrderSpecifier(condition.getSort()).toArray(OrderSpecifier[]::new))
-                        .fetchResults();
+                .where(keywordLike().likeIgnoreCase("%" + condition.getKeyword().replace(" ", "") + "%")
+                        .or(person.name.likeIgnoreCase("%" + condition.getKeyword() + "%"))
+                        .or(removeCommaOnPersonAlias().likeIgnoreCase("%" + condition.getKeyword() + "%"))
+                        .or(remarkTag.tag.name.eq(condition.getKeyword())))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .orderBy(getOrderSpecifier(condition.getSort()).toArray(OrderSpecifier[]::new))
+                .fetchResults();
 
         List<Long> remarkIdList = toRemarkIdList(results);
 
@@ -227,23 +253,23 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
     public Page<RemarkQueryDto> searchByPersonName(RemarkSearchCondition condition, Pageable pageable) {
 
         QueryResults<RemarkQueryDto> results = queryFactory
-                        .select(new QRemarkQueryDto(
-                                remark.id, remark.content, remark.remarkDate,
-                                remark.createdDate, remark.updatedDate, remark.likeCount,
-                                remark.dislikeCount,remark.sourceSort, remark.sourceUrl,
-                                person.id, person.name, person.alias, person.job, person.category, person.image,
-                                user.id, user.nickname))
-                        .from(remark)
-                        .join(remark.person, person)
-                        .join(remark.user, user)
+                .select(new QRemarkQueryDto(
+                        remark.id, remark.content, remark.remarkDate,
+                        remark.createdDate, remark.updatedDate, remark.likeCount,
+                        remark.dislikeCount, remark.sourceSort, remark.sourceUrl,
+                        person.id, person.name, person.alias, person.job, person.category, person.image,
+                        user.id, user.nickname))
+                .from(remark)
+                .join(remark.person, person)
+                .join(remark.user, user)
 
-                        .where(person.name.likeIgnoreCase("%" + condition.getKeyword() + "%")
-                                .or(removeCommaOnPersonAlias().likeIgnoreCase("%" + condition.getKeyword() + "%"))
-                                .and(personIdEq(condition.getPersonId())))
-                        .offset(pageable.getOffset())
-                        .limit(pageable.getPageSize())
-                        .orderBy(getOrderSpecifier(condition.getSort()).toArray(OrderSpecifier[]::new))
-                        .fetchResults();
+                .where(person.name.likeIgnoreCase("%" + condition.getKeyword() + "%")
+                        .or(removeCommaOnPersonAlias().likeIgnoreCase("%" + condition.getKeyword() + "%"))
+                        .and(personIdEq(condition.getPersonId())))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .orderBy(getOrderSpecifier(condition.getSort()).toArray(OrderSpecifier[]::new))
+                .fetchResults();
 
         List<Long> remarkIdList = toRemarkIdList(results);
 
@@ -263,7 +289,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                 .select(new QRemarkQueryDto(
                         remark.id, remark.content, remark.remarkDate,
                         remark.createdDate, remark.updatedDate, remark.likeCount,
-                        remark.dislikeCount,remark.sourceSort, remark.sourceUrl,
+                        remark.dislikeCount, remark.sourceSort, remark.sourceUrl,
                         person.id, person.name, person.alias, person.job, person.category, person.image,
                         user.id, user.nickname))
                 .from(remarkTag)
@@ -302,8 +328,8 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                 .from(remark)
                 .leftJoin(remark.person, person)
                 .leftJoin(remark.user, user)
-                .where(remark.createdDate.between(LocalDateTime.now().minusDays(14),LocalDateTime.now())
-                    .and(remark.likeCount.add(remark.dislikeCount).add(remark.commentCount).goe(1)))
+                .where(remark.createdDate.between(LocalDateTime.now().minusDays(14), LocalDateTime.now())
+                        .and(remark.likeCount.add(remark.dislikeCount).add(remark.commentCount).goe(1)))
                 .orderBy(remark.likeCount.add(remark.dislikeCount).add(remark.commentCount).desc())
                 .orderBy(remark.commentCount.desc())
                 .offset(pageable.getOffset())
@@ -323,15 +349,14 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
     }
 
 
-
     @Override
-    public Page<RemarkQueryDto> getBookmarkList(RemarkSearchCondition condition, Pageable pageable){
+    public Page<RemarkQueryDto> getBookmarkList(RemarkSearchCondition condition, Pageable pageable) {
 
         QueryResults<RemarkQueryDto> results = queryFactory
                 .select(new QRemarkQueryDto(
                         remark.id, remark.content, remark.remarkDate,
                         remark.createdDate, remark.updatedDate, remark.likeCount,
-                        remark.dislikeCount,remark.sourceSort, remark.sourceUrl,
+                        remark.dislikeCount, remark.sourceSort, remark.sourceUrl,
                         person.id, person.name, person.alias, person.job, person.category, person.image,
                         user.id, user.nickname))
                 .from(bookmark)
@@ -358,13 +383,13 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
     }
 
     @Override
-    public Page<RemarkQueryDto> getFollowerRemarkList(RemarkSearchCondition condition, Pageable pageable){
+    public Page<RemarkQueryDto> getFollowerRemarkList(RemarkSearchCondition condition, Pageable pageable) {
 
         QueryResults<RemarkQueryDto> results = queryFactory
                 .select(new QRemarkQueryDto(
                         remark.id, remark.content, remark.remarkDate,
                         remark.createdDate, remark.updatedDate, remark.likeCount,
-                        remark.dislikeCount,remark.sourceSort, remark.sourceUrl,
+                        remark.dislikeCount, remark.sourceSort, remark.sourceUrl,
                         person.id, person.name, person.alias, person.job, person.category, person.image,
                         user.id, user.nickname))
                 .from(follow)
@@ -418,7 +443,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
     }
 
 
-    private Map<Long, List<BookmarkQueryDto>> findIsBookmarkedMap(List<Long> remarkIdList, Long sid){
+    private Map<Long, List<BookmarkQueryDto>> findIsBookmarkedMap(List<Long> remarkIdList, Long sid) {
         List<BookmarkQueryDto> isBookmarkedList = queryFactory
                 .select(new QBookmarkQueryDto(
                         bookmark.remark.id, bookmark.count()
@@ -431,7 +456,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
         return isBookmarkedList.stream().collect(Collectors.groupingBy(BookmarkQueryDto::getRemarkId));
     }
 
-    private Map<Long, List<RemarkCommentQueryDto>> findCommentCountMap(List<Long> remarkIdList){
+    private Map<Long, List<RemarkCommentQueryDto>> findCommentCountMap(List<Long> remarkIdList) {
         List<RemarkCommentQueryDto> remarkCommentList = queryFactory
                 .select(new QRemarkCommentQueryDto(
                         remark.id, comment.count()
@@ -455,7 +480,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
 
     private void setCollections(RemarkSearchCondition condition, QueryResults<RemarkQueryDto> results, List<Long> remarkIdList, Map<Long, List<RemarkTagQueryDto>> tagMap) {
         Map<Long, List<RemarkCommentQueryDto>> commentCountMap = findCommentCountMap(remarkIdList);
-        if(condition.getSid()!=null){
+        if (condition.getSid() != null) {
             Map<Long, List<RemarkLikeQueryDto>> likeMap = findLikeMap(remarkIdList, condition.getSid());
             Map<Long, List<BookmarkQueryDto>> bookmarkMap = findIsBookmarkedMap(remarkIdList, condition.getSid());
 
@@ -466,7 +491,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                         .collect(Collectors.joining(", ")));
                 r.setCommentCount(commentCountMap.get(r.getRemarkId()).get(0).getCommentCount());
 
-                if(likeMap.get(r.getRemarkId())!=null) {
+                if (likeMap.get(r.getRemarkId()) != null) {
                     r.setIsLike(likeMap.get(r.getRemarkId()).get(0).getIsLike());
                 }
 
@@ -474,7 +499,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                     r.setIsBookmarked(bookmarkMap.get(r.getRemarkId()).get(0).getIsBookmarked());
                 }
             });
-        }else{
+        } else {
             results.getResults().forEach(r -> {
                 r.setRemarkTagList(tagMap.get(r.getRemarkId()));
                 r.setTags(tagMap.get(r.getRemarkId()).stream()
@@ -487,9 +512,9 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
 
     private BooleanExpression categoryEq(String category) {
 
-        if(("화제").equals(category)){
+        if (("화제").equals(category)) {
             return remark.likeCount.add(remark.dislikeCount).goe(2);
-        }else {
+        } else {
             return isEmpty(category) || ("종합").equals(category) ? null : remark.person.category.eq(category);
         }
     }
@@ -513,13 +538,11 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
     }
 
 
-
-
-    private List<OrderSpecifier> getOrderSpecifier(String sort){
+    private List<OrderSpecifier> getOrderSpecifier(String sort) {
 
         List<OrderSpecifier> orders = new ArrayList<>();
 
-        switch (sort){
+        switch (sort) {
             case "rd_d":
                 orders.add(remark.remarkDate.desc());
                 break;
@@ -543,11 +566,11 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
     }
 
 
-    private List<OrderSpecifier> getOrderSpecifierForSearchAll(String sort, String category){
+    private List<OrderSpecifier> getOrderSpecifierForSearchAll(String sort, String category) {
 
         List<OrderSpecifier> orders = new ArrayList<>();
 
-        switch (sort){
+        switch (sort) {
             case "rd_d":
                 orders.add(remark.remarkDate.desc());
                 break;
@@ -565,12 +588,12 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                 break;
         }
 
-        if("화제".equals(category)){
+        if ("화제".equals(category)) {
             orders.add(remark.likeCount.add(remark.dislikeCount).desc());
             orders.add(remark.commentCount.desc());
         }
 
-            orders.add(remark.createdDate.desc());
+        orders.add(remark.createdDate.desc());
 
         return orders;
     }

@@ -11,7 +11,6 @@ import com.udpr.quot.domain.user.Bookmark;
 import com.udpr.quot.domain.user.User;
 import com.udpr.quot.domain.user.repository.BookmarkRepository;
 import com.udpr.quot.domain.user.repository.FollowQueryRepository;
-import com.udpr.quot.domain.user.repository.FollowRepository;
 import com.udpr.quot.domain.user.repository.UserRepository;
 import com.udpr.quot.web.dto.remark.*;
 import com.udpr.quot.web.dto.remark.query.RemarkQueryDto;
@@ -155,7 +154,6 @@ public class RemarkService {
             return new RemarkListResponseDto(personPage, remarkList, pageMetadata);
         }else{
             return new RemarkListResponseDto(remarkList, pageMetadata);
-
         }
     }
 
@@ -163,15 +161,20 @@ public class RemarkService {
         return remarkRepository.getDetail(remarkId, SessionId);
     }
 
+    public List<RemarkQueryDto> getPersonRemarkList(Long remarkId, Long personId){
+        return remarkRepository.getPersonsRemarkList(remarkId, personId);
+    }
+    public List<RemarkQueryDto> getOtherCategoryRemarkList(Long remarkId, String category){
+        return remarkRepository.getOtherCategoryRemarkList(remarkId, category);
+    }
+
     public RemarkQueryDto getDetail(Long remarkId) {
         return remarkRepository.getDetail(remarkId);
     }
 
     public RemarkResponseDto findById(Long id) {
-
         Remark entity = remarkRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 발언 정보가 없습니다. id = " + id));
-
         return new RemarkResponseDto(entity);
     }
 

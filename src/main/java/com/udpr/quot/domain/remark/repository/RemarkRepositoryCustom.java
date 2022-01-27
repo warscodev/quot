@@ -5,6 +5,8 @@ import com.udpr.quot.web.dto.remark.query.RemarkQueryDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface RemarkRepositoryCustom {
 
     Page<RemarkQueryDto> searchAll(RemarkSearchCondition condition, Pageable pageable);
@@ -23,4 +25,7 @@ public interface RemarkRepositoryCustom {
 
     RemarkQueryDto getDetail(Long remarkId, Long sessionId);
     RemarkQueryDto getDetail(Long remarkId);
+
+    List<RemarkQueryDto> getPersonsRemarkList(Long remarkId, Long personId);
+    List<RemarkQueryDto> getOtherCategoryRemarkList(Long remarkId, String category);
 }

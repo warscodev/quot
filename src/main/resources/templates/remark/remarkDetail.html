@@ -10,7 +10,8 @@
 
 <div class="container-xl">
     <div>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5145635293228409"
+        <script async
+                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5145635293228409"
                 crossorigin="anonymous"></script>
         <!-- 상단 -->
         <!--<ins class="adsbygoogle"
@@ -37,8 +38,10 @@
                                     <div class="r-l-t-image-wrap">
                                         <a class="r-l-t-image-link r-d-t"
                                            th:href="@{/person/{personId}(personId=*{personId})}">
-                                            <img th:if="*{image!= null && !#strings.isEmpty(image)}" th:src="*{image}" class="r-l-t-image" alt="사진">
-                                            <img th:unless="*{image!= null && !#strings.isEmpty(image)}" src="/css/images/basic_image.svg" class="r-l-t-image" alt="사진">
+                                            <img th:if="*{image!= null && !#strings.isEmpty(image)}" th:src="*{image}"
+                                                 class="r-l-t-image" alt="사진">
+                                            <img th:unless="*{image!= null && !#strings.isEmpty(image)}"
+                                                 src="/css/images/basic_image.svg" class="r-l-t-image" alt="사진">
                                         </a>
                                     </div>
                                 </div>
@@ -102,9 +105,10 @@
                                         </div>
                                         <div th:unless="*{#strings.equals(category, 'none')}" class="r-l-t-tags-wrap">
                                             <a th:class="|r-l-t-category r-d-t-category *{catClassName}|"
-                                               th:text="*{category}" th:href="@{/remark(category=*{category})}"></a><a class="r-l-t-tags r-d-t-tags"
-                                                                            th:each="tag : *{remarkTagList}"
-                                                                            th:href="@{/remark(keyword=${tag.name}, tab=1)}"><span
+                                               th:text="*{category}" th:href="@{/remark(category=*{category})}"></a><a
+                                                class="r-l-t-tags r-d-t-tags"
+                                                th:each="tag : *{remarkTagList}"
+                                                th:href="@{/remark(keyword=${tag.name}, tab=1)}"><span
                                                 th:text="|#${tag.name}|"></span></a>
                                         </div>
                                     </div>
@@ -225,7 +229,8 @@
                                                     class="r-c-t-textarea form-control r-c-t-textarea-disabled"
                                                     rows="1"
                                                     placeholder="댓글을 입력하세요."></textarea>
-                                                <button disabled class="r-c-t-save-btn btn btn-sm">등록</button></a>
+                                                <button disabled class="r-c-t-save-btn btn btn-sm">등록</button>
+                                            </a>
                                         </div>
                                     </div>
 
@@ -234,6 +239,63 @@
                                     <div class="r-c-pagination-container" id="comment-pagination"></div>
 
                                     <div class="r-c-pagination-container" id="comment-pagination-sm"></div>
+                                </div>
+                                <hr class="r-l-t-border-bottom">
+                            </div>
+
+                            <div class="r-d-l-container">
+                                <div class="r-d-l-person-container">
+                                    <div class="r-d-l-title">
+                                        <div class="d-flex align-items-center">
+                                            <img src="/css/images/quot_title_icon.svg" alt="icon" width="20"
+                                                 height="20"><span class="r-d-l-title-name"
+                                                                   th:text="|&#39;${remark.name}&#39;|"></span><span>&nbsp;님의 다른 발언</span>
+                                        </div>
+                                        <div>
+                                            <a class="r-d-l-title-btn" th:href="@{/person/{id}(id=${remark.personId})}">전체 보기</a>
+                                        </div>
+
+                                    </div>
+                                    <div class="r-d-l-table">
+                                        <div class="r-d-l-t-row d-flex" th:each="p : ${personRemarkList}">
+                                            <span class="r-d-l-content-quotation">&ldquo;</span><a class="r-d-l-content"
+                                                                                                   th:href="@{/remark/{id}(id=${p.remarkId})}"
+                                                                                                   th:utext="|${p.remarkSummary}<span class='r-d-l-content-quotation right'>”</span>|"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="r-d-l-container category">
+                                <div class="r-d-l-category-container">
+                                    <div class="r-d-l-title">
+                                        <div class="d-flex align-items-center">
+                                            <img src="/css/images/quot_title_icon_b.svg" alt="icon" width="20"
+                                                 height="20"><span class="r-d-l-title-name"
+                                                                   th:text="|&#39;${remark.category}&#39;|"></span><span>&nbsp;카테고리의 다른 발언</span>
+                                        </div>
+                                        <div>
+                                            <a class="r-d-l-title-btn"
+                                               th:href="@{/remark(category=${remark.category})}">전체 보기</a>
+                                        </div>
+                                    </div>
+                                    <div class="r-d-l-table">
+                                        <div class="r-d-l-t-row" th:each="c : ${categoryRemarkList}">
+                                            <div class="r-d-l-name-job-date-container">
+                                                <div class="d-flex align-items-baseline mb-1 flex-wrap">
+                                                    <a class="r-d-l-name" th:href="@{/person/{id}(id=${c.personId})}"
+                                                       th:text="${c.name}"></a>
+                                                    <span class="r-d-l-job" th:text="${c.job}"></span>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex">
+                                                <span class="r-d-l-content-quotation">&ldquo;</span>
+                                                <a class="r-d-l-content"
+                                                   th:href="@{/remark/{id}(id=${c.remarkId})}"
+                                                   th:utext="|${c.remarkSummary}<span class='r-d-l-content-quotation right'>”</span>|"></a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -252,7 +314,7 @@
                                 th:onclick="|deleteRemark(*{remarkId})|">삭제
                         </button>
                     </div>
-                        <a class="btn btn-outline-secondary btn-sm" onclick="goToList()">목록</a>
+                    <a class="btn btn-outline-secondary btn-sm" onclick="goToList()">목록</a>
                 </div>
 
             </div>
@@ -445,19 +507,19 @@
 
         row += "<nav aria-label='Page navigator'>";
 
-        if (data.totalPages > 1) {
+        if (data.totalElements > 0) {
             row += "<ul class='pagination pagination-sm d-flex'>";
 
             if (!data.first) {
                 row += "<li class='page-item page-chevron-left'>";
                 row += "<a class='page-link' data-page='" + (data.page - 1) + "'>";
-                row += "<span><i class='fas fa-chevron-left'></i></span>";
+                row += "<span><i class='bi bi-chevron-left'></i></span>";
                 row += "</a>";
                 row += "</li>";
             } else {
                 row += "<li class='page-item page-chevron-left disabled'>";
                 row += "<a class='page-link'>";
-                row += "<span><i class='fas fa-chevron-left'></i></span>";
+                row += "<span><i class='bi bi-chevron-left'></i></span>";
                 row += "</a>";
                 row += "</li>";
             }
@@ -492,13 +554,13 @@
             if (!data.last && data.totalElements !== 0) {
                 row += "<li class='page-item page-chevron-right'>";
                 row += "<a class='page-link' data-page='" + (data.page + 1) + "'>";
-                row += "<span><i class='fas fa-chevron-right'></i></span>";
+                row += "<span><i class='bi bi-chevron-right'></i></span>";
                 row += "</a>";
                 row += "</li>";
             } else if (data.last && data.totalElements !== 0) {
                 row += "<li class='page-item page-chevron-right disabled'>";
                 row += "<a class='page-link'>";
-                row += "<span><i class='fas fa-chevron-right'></i></span>";
+                row += "<span><i class='bi bi-chevron-right'></i></span>";
                 row += "</a>";
                 row += "</li>";
             }
@@ -514,7 +576,7 @@
 
         row += "<nav aria-label='Page navigator'>";
 
-        if (data.totalPages > 1) {
+        if (data.totalElements > 0) {
             row += "<ul class='pagination pagination-sm d-flex'>";
 
             if (!data.first) {
