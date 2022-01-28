@@ -1325,6 +1325,8 @@ a:hover {
 @media (max-width: 787px) {
     .adsbygoogle.between{
         margin-bottom: .5rem;
+        margin-right: 0.75rem;
+        margin-left: 0.75rem;
     }
 }
 
