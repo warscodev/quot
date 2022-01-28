@@ -2789,6 +2789,20 @@ a:hover {
     font-size: .875rem;
 }
 
+@media (max-width: 767px) {
+    .aside {
+        padding: 0;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .aside-ads-container{
+        margin-left: .75rem;
+        margin-right: .75rem;
+    }
+}
+
+
 .aside-menu-container {
     top: 5.25rem;
     background-color: #fff;
@@ -2812,6 +2826,7 @@ a:hover {
         margin-bottom: 1rem !important;
     }
 }
+
 
 
 .aside-title {
