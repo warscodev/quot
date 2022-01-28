@@ -301,7 +301,7 @@ function goToList(){
     }
 }
 
-function setAds(){
+function setAdsBetweenRemarks(){
     if(document.querySelectorAll(".r-l-t-row-container.row") != null){
 
 
@@ -314,11 +314,11 @@ function setAds(){
                 adScript = document.createElement("script"),
                 indexForAd = Math.ceil(numberOfRows/2) -1;
 
-            adDom.setAttribute("class", "adsbygoogle max-height-90");
+            adDom.setAttribute("class", "adsbygoogle max-height-90 between");
             adDom.style.display = "block";
             adDom.setAttribute("data-ad-client", "ca-pub-5145635293228409");
             adDom.setAttribute("data-ad-slot", "4360616521");
-            adDom.setAttribute("data-ad-format", "horizontal");
+            adDom.setAttribute("data-ad-format", "fluid");
             adDom.setAttribute("data-full-width-responsive", "true");
 
             adScript.innerHTML = "(adsbygoogle = window.adsbygoogle || []).push({});";
@@ -334,7 +334,7 @@ function setAds(){
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    setAds();
+    setAdsBetweenRemarks();
 
     highlightKeyword();
 

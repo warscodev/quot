@@ -1312,10 +1312,20 @@ a:hover {
 }
 
 .infeed{
-    height: 90px;
+    height: 90px !important;
 }
 .max-height-90{
-    height: 90px;
+    height: 90px !important;
+}
+
+.adsbygoogle.between{
+    margin-bottom: .875rem;
+}
+
+@media (max-width: 787px) {
+    .adsbygoogle.between{
+        margin-bottom: .5rem;
+    }
 }
 
 
