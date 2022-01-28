@@ -1312,10 +1312,10 @@ a:hover {
 }
 
 .r-l-t-ads-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: .875rem;
+    text-align: center;
+    padding-top: .875rem;
+    padding-left: .875rem;
+    padding-right: .875rem;
     background-color: #fff;
     border-radius: .75rem;
     margin-bottom: .875rem;
@@ -1329,7 +1329,9 @@ a:hover {
 
 @media (max-width: 787px) {
     .r-l-t-ads-container{
-        padding: .75rem;
+        padding-top: .75rem;
+        padding-left: .75rem;
+        padding-right: .75rem;
         margin-bottom: .5rem;
         margin-right: 0.75rem;
         margin-left: 0.75rem;
