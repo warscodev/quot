@@ -596,7 +596,7 @@ a:hover {
 .subNavbar {
     background-color: #fff;
     border-bottom: #eee;
-    box-shadow: 0 0 10px 0 rgb(15 40 65 / 8%)
+    box-shadow: 0 0 5px 0 rgb(15 40 65 / 15%)
 }
 
 .subNav-menu-wrap {
@@ -1305,6 +1305,19 @@ a:hover {
         align-items: baseline;
     }
 }
+
+.r-d-t-ads-container{
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.infeed{
+    height: 90px;
+}
+.max-height-90{
+    height: 90px;
+}
+
 
 .tooltip {
     font-family: Pretendard, Noto Sans KR, Apple SD Gothic Neo, Malgun Gothic, 맑은 고딕, sans-serif !important;

@@ -301,9 +301,40 @@ function goToList(){
     }
 }
 
+function setAds(){
+    if(document.querySelectorAll(".r-l-t-row-container.row") != null){
+
+
+        const remarkRowElements = document.querySelectorAll(".r-l-t-row-container.row"),
+            numberOfRows = remarkRowElements.length;
+
+        if(numberOfRows > 2){
+
+            const adDom = document.createElement("ins"),
+                adScript = document.createElement("script"),
+                indexForAd = Math.ceil(numberOfRows/2) -1;
+
+            adDom.setAttribute("class", "adsbygoogle max-height-90");
+            adDom.style.display = "block";
+            adDom.setAttribute("data-ad-client", "ca-pub-5145635293228409");
+            adDom.setAttribute("data-ad-slot", "4360616521");
+            adDom.setAttribute("data-ad-format", "horizontal");
+            adDom.setAttribute("data-full-width-responsive", "true");
+
+            adScript.innerHTML = "(adsbygoogle = window.adsbygoogle || []).push({});";
+
+            remarkRowElements[indexForAd].after(adDom);
+            remarkRowElements[indexForAd].after(adScript);
+        }
+    }
+
+}
+
 
 
 document.addEventListener("DOMContentLoaded", function () {
+
+    setAds();
 
     highlightKeyword();
 

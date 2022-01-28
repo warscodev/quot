@@ -8,9 +8,9 @@
 <div th:replace="fragments/topHeader :: topHeader"></div>
 <div th:replace="fragments/subNavbar :: subNavbar"></div>
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5145635293228409"
-        crossorigin="anonymous"></script>
-<!-- 가로 수평 상단 -->
+
+<div class="container-xl">
+</div>
 <div class="container-xl">
     <div>
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5145635293228409"
@@ -40,29 +40,45 @@
         <div th:unless="${keyword}" class="r-l-table-title-empty">
         </div>
 
-        <div th:if="${keyword != null || (category !=null && #strings.equals(category, '팔로우'))}" class="r-l-navigator-container r-l-related-person-container"
-             id="search-person-container">
-            <div th:if="*{personList == null}" class="r-l-related-person-nav-empty">
-                <span class="text-center">검색 결과가 없습니다.</span>
+        <div th:if="${keyword != null || (category !=null && #strings.equals(category, '팔로우'))}" >
+            <div class="r-l-navigator-container r-l-related-person-container"
+                 id="search-person-container">
+                <div th:if="*{personList == null}" class="r-l-related-person-nav-empty">
+                    <span class="text-center">검색 결과가 없습니다.</span>
+                </div>
+
+                <div th:each="p : *{personList}" class="r-l-related-person-nav-container">
+                    <a class="r-l-related-person-nav" th:href="@{/person/{id}(id=${p.id})}">
+                        <div class="r-l-related-person-nav-row">
+                            <span class="r-l-related-person-nav-name" th:text="${p.name}"></span>
+                            <span class="r-l-related-person-nav-job" th:text="${p.job}"></span>
+                        </div>
+                    </a>
+                </div>
+
+
+                <div class="r-l-related-person-nav-more-btn-container" id="show-more-btn-container">
+                    <a th:if="*{personList != null && personList.getTotalElements()>10}" id="show-more-btn"
+                       class="r-l-related-person-nav-more-btn-wrap" onclick="showMorePersonList(this, 1)">
+                        <span class="r-l-related-person-nav-more-btn-text">더보기</span>
+                        <i class="r-l-related-person-nav-more-btn-icon bi bi-chevron-down"></i>
+                    </a>
+                </div>
             </div>
 
-            <div th:each="p : *{personList}" class="r-l-related-person-nav-container">
-                <a class="r-l-related-person-nav" th:href="@{/person/{id}(id=${p.id})}">
-                    <div class="r-l-related-person-nav-row">
-                        <span class="r-l-related-person-nav-name" th:text="${p.name}"></span>
-                        <span class="r-l-related-person-nav-job" th:text="${p.job}"></span>
-                    </div>
-                </a>
+            <div>
+                <!-- 상단 horizon -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-5145635293228409"
+                     data-ad-slot="4360616521"
+                     data-ad-format="horizontal"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
             </div>
 
-
-            <div class="r-l-related-person-nav-more-btn-container" id="show-more-btn-container">
-                <a th:if="*{personList != null && personList.getTotalElements()>10}" id="show-more-btn"
-                   class="r-l-related-person-nav-more-btn-wrap" onclick="showMorePersonList(this, 1)">
-                    <span class="r-l-related-person-nav-more-btn-text">더보기</span>
-                    <i class="r-l-related-person-nav-more-btn-icon bi bi-chevron-down"></i>
-                </a>
-            </div>
         </div>
 
         <div th:if="${keyword}" class="r-l-table-title d-flex justify-content-between">
