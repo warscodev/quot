@@ -319,10 +319,10 @@ function setAdsBetweenRemarks(){
 
             adDom.setAttribute("class", "adsbygoogle between");
             adDom.style.display = "block";
+            adDom.setAttribute("data-ad-format", "fluid");
+            adDom.setAttribute("data-ad-layout-key", "-gw-3+1f-3d+2z");
             adDom.setAttribute("data-ad-client", "ca-pub-5145635293228409");
             adDom.setAttribute("data-ad-slot", "3028451032");
-            adDom.setAttribute("data-ad-layout-key", "-gw-3+1f-3d+2z");
-            adDom.setAttribute("data-ad-format", "fluid");
 
             adScript.innerHTML = "(adsbygoogle = window.adsbygoogle || []).push({});";
 
