@@ -1492,12 +1492,12 @@ a:hover {
 
 
 .r-d-t-second-row-container {
-    margin-top: .25rem;
+    margin-top: .5rem;
+    margin-bottom: .25rem;
 }
 
 @media (max-width: 767px) {
     .r-d-t-second-row-container {
-        margin-bottom: .25rem;
     }
 }
 
@@ -1553,7 +1553,7 @@ a:hover {
 
 .r-d-t-content {
     font-family: Pretendard, Noto Sans KR;
-    font-size: 1rem;
+    font-size: 1.25rem;
     margin: 0;
     overflow: auto;
     cursor: text;
@@ -1586,6 +1586,7 @@ a:hover {
     padding-top: .25rem;
     padding-right: 0;
     padding-left: calc(40px + .625rem);
+    margin-bottom: .25rem;
 }
 
 .r-d-t-last-row-container {
