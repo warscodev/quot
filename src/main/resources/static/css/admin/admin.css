@@ -2787,7 +2787,7 @@ a:hover {
     background-color: #fff;
     background-clip: border-box;
     border-radius: .75rem;
-    margin: 1.5rem 0 1.5rem 0;
+    margin: 1.5rem 0 .875rem 0;
     box-shadow: 0 3px 12px 0 rgba(100, 100, 100, 0.08);
     border: .0625rem solid #f7f7f7;
     z-index: auto;
