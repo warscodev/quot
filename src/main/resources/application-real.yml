@@ -3,6 +3,14 @@ spring:
     group:
       "real": "real-db,oauth,aws"
 ---
+server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+  forward-headers-strategy: native
+
+
 spring:
   config:
     activate:
@@ -31,9 +39,8 @@ spring:
             enabled: true
             paths: /**
 
-server:
-  servlet:
-    encoding:
-      charset: UTF-8
-      force: true
-  forward-headers-strategy: native
+
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: false

@@ -17,7 +17,6 @@ spring:
     activate:
       on-profile: "real1"
 
-
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
@@ -40,3 +39,9 @@ spring:
           content:
             enabled: true
             paths: /**
+
+
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: false
