@@ -310,21 +310,26 @@ function setAdsBetweenRemarks(){
 
         if(numberOfRows > 2){
 
-            const adDom = document.createElement("ins"),
+            const adContainer = document.createElement("div"),
+                adDom = document.createElement("ins"),
                 adScript = document.createElement("script"),
                 indexForAd = Math.ceil(numberOfRows/2) -1;
 
-            adDom.setAttribute("class", "adsbygoogle max-height-90 between");
+            adContainer.setAttribute("class", "r-l-t-ads-container");
+
+            adDom.setAttribute("class", "adsbygoogle between");
             adDom.style.display = "block";
             adDom.setAttribute("data-ad-client", "ca-pub-5145635293228409");
-            adDom.setAttribute("data-ad-slot", "4360616521");
+            adDom.setAttribute("data-ad-slot", "3028451032");
+            adDom.setAttribute("data-ad-layout-key", "-gw-3+1f-3d+2z");
             adDom.setAttribute("data-ad-format", "fluid");
-            adDom.setAttribute("data-full-width-responsive", "true");
 
             adScript.innerHTML = "(adsbygoogle = window.adsbygoogle || []).push({});";
 
-            remarkRowElements[indexForAd].after(adDom);
-            remarkRowElements[indexForAd].after(adScript);
+            adContainer.appendChild(adDom);
+            adContainer.appendChild(adScript);
+
+            remarkRowElements[indexForAd].after(adContainer);
         }
     }
 

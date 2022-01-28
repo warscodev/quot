@@ -1311,19 +1311,20 @@ a:hover {
     padding-right: 0;
 }
 
-.infeed{
-    height: 90px !important;
+.r-l-t-ads-container{
+    background-color: #fff;
+    border-radius: .75rem;
+    margin-bottom: .875rem;
+    box-shadow: 0 3px 12px 0 rgb(100 100 100 / 8%);
+    border: 0.0625rem solid #f7f7f7;
 }
+
 .max-height-90{
     height: 90px !important;
 }
 
-.adsbygoogle.between{
-    margin-bottom: .875rem;
-}
-
 @media (max-width: 787px) {
-    .adsbygoogle.between{
+    .r-l-t-ads-container{
         margin-bottom: .5rem;
         margin-right: 0.75rem;
         margin-left: 0.75rem;
