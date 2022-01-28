@@ -1312,6 +1312,9 @@ a:hover {
 }
 
 .r-l-t-ads-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: .875rem;
     background-color: #fff;
     border-radius: .75rem;
