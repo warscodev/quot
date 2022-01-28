@@ -1112,6 +1112,11 @@ a:hover {
     padding-bottom: 1.25rem;
 }
 
+.r-l-t-inner-content-container.r-d-t{
+    padding-left: 0;
+    padding-right: 0;
+}
+
 
 .r-l-t-first-row-container{
     display: flex;

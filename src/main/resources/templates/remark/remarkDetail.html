@@ -35,172 +35,188 @@
                 <div id="r-l-table-container" class="r-d-table-container">
                     <div id="r-l-table">
                         <div class="r-l-t-row-container r-d-t-row-container row" th:object="${remark}">
-                            <div class="r-l-t-first-row-container d-flex justify-content-between">
+                            <div class="r-l-t-inner-content-container r-d-t">
+                                <div class="r-l-t-first-row-container d-flex justify-content-between">
 
-                                <div class="r-l-t-picture-container r-l-t-first-col">
-                                    <div class="r-l-t-image-wrap">
-                                        <a class="r-l-t-image-link r-d-t"
-                                           th:href="@{/person/{personId}(personId=*{personId})}">
-                                            <img th:if="*{image!= null && !#strings.isEmpty(image)}" th:src="*{image}"
-                                                 class="r-l-t-image" alt="사진">
-                                            <img th:unless="*{image!= null && !#strings.isEmpty(image)}"
-                                                 src="/css/images/basic_image.svg" class="r-l-t-image" alt="사진">
+                                    <div class="r-l-t-picture-container r-l-t-first-col">
+                                        <div class="r-l-t-image-wrap">
+                                            <a class="r-l-t-image-link r-d-t"
+                                               th:href="@{/person/{personId}(personId=*{personId})}">
+                                                <img th:if="*{image!= null && !#strings.isEmpty(image)}" th:src="*{image}"
+                                                     class="r-l-t-image" alt="사진">
+                                                <img th:unless="*{image!= null && !#strings.isEmpty(image)}"
+                                                     src="/css/images/basic_image.svg" class="r-l-t-image" alt="사진">
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="r-l-t-title-container r-l-t-second-col col">
+                                        <div class="r-l-t-first-row-container">
+                                            <div class="r-l-t-person-and-date-container">
+                                                <!-- 이름 -->
+                                                <a class="r-l-t-person-name-link r-d-t"
+                                                   th:href="@{/person/{personId}(personId=*{personId})}">
+                                                    <span class="r-l-t-person-name r-d-t-person-name"
+                                                          th:text="*{name}"></span>
+                                                </a>
+                                                <!-- 다른이름, 직업, 날짜 -->
+                                                <span class="r-l-t-person-job" th:text="*{job}"></span>
+                                                <span class="r-l-t-date-divider" th:if="*{!#strings.isEmpty(job)}">|</span>
+                                                <div class="r-l-t-date-container">
+                                                    <span class="r-l-t-date" th:text="|*{remarkDate}|"></span>
+                                                    <span class="r-l-t-info-icon r-d-t-info-icon tt bi bi-info-circle"
+                                                          data-bs-html="true" data-bs-placement="right"
+                                                          th:title="|<div class='d-flex align-items-center justify-content-center'>
+                                                                <span class='r-l-t-info-nickname'>작성자 : *{nickname}</span></div>
+                                                                <div><span class='r-l-t-info-date'>*{createdDate} 등록됨</span></div>|">
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="r-l-t-first-row-third-col d-flex justify-content-end">
+                                                <a th:if="*{isBookmarked > 0}"
+                                                   class="r-l-t-btn r-d-t r-l-t-bookmark-btn btn bookmark-active"
+                                                   th:onclick="|saveOrDeleteBookmark(this,*{remarkId})|"
+                                                   href="javascript:;">
+                                                    <div class="r-l-t-btn-icon-wrap bookmark-icon-wrap">
+                                                        <i class="r-l-t-btn-icon r-l-t-bookmark-icon r-d-t icon-bookmark fill"></i>
+                                                    </div>
+                                                </a>
+                                                <a th:unless="*{isBookmarked > 0}"
+                                                   class="r-l-t-btn r-d-t r-l-t-bookmark-btn btn"
+                                                   th:onclick="|saveOrDeleteBookmark(this,*{remarkId})|"
+                                                   href="javascript:;">
+                                                    <div class="r-l-t-btn-icon-wrap bookmark-icon-wrap">
+                                                        <i class="r-l-t-btn-icon r-l-t-bookmark-icon r-d-t icon-bookmark"></i>
+                                                    </div>
+                                                </a>
+
+                                                <a class="r-l-t-share-btn r-d-t share-btn r-l-t-btn btn " href=""
+                                                   th:onclick="|openShareModal(this, *{remarkId})|"
+                                                   th:data-name="*{name}" th:data-date="*{remarkDate}" data-index="999"
+                                                   data-bs-toggle="modal" data-bs-target="#shareModal">
+                                                    <div class="r-l-t-btn-icon-wrap share-icon-wrap d-flex align-items-center">
+                                                        <i class="r-l-t-btn-icon icon-more-horiz"></i>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="r-l-t-tag-container r-d-t">
+                                            <div th:if="*{#strings.equals(category, 'none')}" class="r-l-t-tags-wrap">
+                                                <span class="r-l-t-category r-d-t-category">기타</span><a
+                                                    class="r-l-t-tags r-d-t-tags" th:each="tag : *{remarkTagList}"
+                                                    th:href="@{/remark(keyword=${tag.name}, tab=1)}"><span
+                                                    th:text="|#${tag.name}|"></span></a>
+                                            </div>
+                                            <div th:unless="*{#strings.equals(category, 'none')}" class="r-l-t-tags-wrap">
+                                                <a th:class="|r-l-t-category r-d-t-category *{catClassName}|"
+                                                   th:text="*{category}" th:href="@{/remark(category=*{category})}"></a><a
+                                                    class="r-l-t-tags r-d-t-tags"
+                                                    th:each="tag : *{remarkTagList}"
+                                                    th:href="@{/remark(keyword=${tag.name}, tab=1)}"><span
+                                                    th:text="|#${tag.name}|"></span></a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="r-l-t-second-row-container r-d-t-second-row-container d-flex">
+
+                                    <div class="r-l-t-quote-icon-container r-l-t-first-col col-1">
+                                        <div class="r-l-t-quote-icon-wrap r-d-t-quote-icon-wrap">
+                                            <i class="r-l-t-quote-icon fas fa-quote-left" style="margin-right: 0"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="r-l-t-content-container r-d-t r-l-t-second-col">
+                                        <span class="r-d-t-content"
+                                              th:text="*{content}" th:data-source="*{sourceUrl}"
+                                              id="remark-content-999"></span>
+                                    </div>
+
+                                </div>
+
+                                <div id="cmCont" class="r-l-t-last-row-container r-d-t">
+                                    <div class="r-l-t-source-wrap">
+                                        <a class="r-l-t-source r-d-t" th:href="*{sourceUrl}" th:text="*{sourceUrl}"
+                                           data-bs-trigger="hover" title="출처" target="_blank"
+                                           rel="noopener noreferer nofollow"></a>
+                                    </div>
+
+                                    <div class="r-l-t-last-row-btn-container">
+                                        <a class="r-l-t-btn r-d-t r-l-t-like-btn btn like-active"
+                                           sec:authorize="isAuthenticated()" th:if="*{isLike eq 1}"
+                                           th:id="|like-btn-*{remarkId}|"
+                                           href="javascript:;"
+                                           th:onclick="|like(this, *{remarkId}, 1)|">
+                                            <div class="r-l-t-btn-icon-wrap like-icon-wrap">
+                                                <i class="r-l-t-like-icon like-icon r-l-t-btn-icon r-d-t icon-thumb-up fill"></i>
+                                                <span th:id="|like-count-*{remarkId}|"
+                                                      class="r-l-t-btn-text r-d-t r-l-t-like-count like-count"
+                                                      th:text="*{likeCount}"></span>
+                                            </div>
+                                        </a>
+                                        <a th:unless="*{isLike eq 1}" th:id="|like-btn-*{remarkId}|"
+                                           class="r-l-t-btn r-d-t r-l-t-like-btn" href="javascript:;"
+                                           th:onclick="|like(this, *{remarkId}, 1)|">
+                                            <div class="r-l-t-btn-icon-wrap like-icon-wrap">
+                                                <i class="r-l-t-like-icon like-icon r-l-t-btn-icon r-d-t icon-thumb-up"></i>
+                                                <span th:id="|like-count-*{remarkId}|"
+                                                      class="r-l-t-btn-text r-d-t r-l-t-like-count like-count"
+                                                      th:text="*{likeCount}"></span>
+                                            </div>
+                                        </a>
+
+                                        <a sec:authorize="isAuthenticated()" th:if="*{isLike eq -1}"
+                                           th:id="|dislike-btn-*{remarkId}|"
+                                           class="r-l-t-dislike-btn r-l-t-btn r-d-t btn like-active" href="javascript:;"
+                                           th:onclick="|like(this, *{remarkId}, -1)|">
+                                            <div class="r-l-t-btn-icon-wrap dislike-icon-wrap">
+                                                <i class="r-l-t-dislike-icon dislike-icon r-l-t-btn-icon r-d-t icon-thumb-down fill"></i>
+                                                <span th:id="|dislike-count-*{remarkId}|"
+                                                      class="r-l-t-btn-text r-d-t r-l-t-dislike-count dislike-count"
+                                                      th:text="*{dislikeCount}">
+                                        </span>
+                                            </div>
+                                        </a>
+                                        <a th:unless="*{isLike eq -1}" th:id="|dislike-btn-*{remarkId}|"
+                                           class="r-l-t-dislike-btn r-d-t r-l-t-btn btn" href="javascript:;"
+                                           th:onclick="|like(this, *{remarkId}, -1)|">
+                                            <div class="r-l-t-btn-icon-wrap dislike-icon-wrap">
+                                                <i class="r-l-t-dislike-icon dislike-icon r-l-t-btn-icon r-d-t icon-thumb-down"></i>
+                                                <span th:id="|dislike-count-*{remarkId}|"
+                                                      class="r-l-t-btn-text r-d-t r-l-t-dislike-count dislike-count"
+                                                      th:text="*{dislikeCount}">
+                                        </span>
+                                            </div>
+                                        </a>
+
+                                        <a class="r-l-t-btn r-d-t r-l-t-comment-count-btn btn" onclick="toggleComment()">
+                                            <div class="r-l-t-btn-icon-wrap">
+                                                <i class="r-l-t-btn-icon r-d-t r-l-t-last-row-comment-count-icon icon-comment-empty"></i>
+                                                <span class="r-l-t-comment-count r-l-t-btn-text r-d-t"
+                                                      th:text="*{commentCount}"></span>
+                                            </div>
                                         </a>
                                     </div>
                                 </div>
-
-                                <div class="r-l-t-title-container r-l-t-second-col col">
-                                    <div class="r-l-t-first-row-container">
-                                        <div class="r-l-t-person-and-date-container">
-                                            <!-- 이름 -->
-                                            <a class="r-l-t-person-name-link r-d-t"
-                                               th:href="@{/person/{personId}(personId=*{personId})}">
-                                                <span class="r-l-t-person-name r-d-t-person-name"
-                                                      th:text="*{name}"></span>
-                                            </a>
-                                            <!-- 다른이름, 직업, 날짜 -->
-                                            <span class="r-l-t-person-job" th:text="*{job}"></span>
-                                            <span class="r-l-t-date-divider" th:if="*{!#strings.isEmpty(job)}">|</span>
-                                            <div class="r-l-t-date-container">
-                                                <span class="r-l-t-date" th:text="|*{remarkDate}|"></span>
-                                                <span class="r-l-t-info-icon r-d-t-info-icon tt bi bi-info-circle"
-                                                      data-bs-html="true" data-bs-placement="right"
-                                                      th:title="|<div class='d-flex align-items-center justify-content-center'>
-                                                            <span class='r-l-t-info-nickname'>작성자 : *{nickname}</span></div>
-                                                            <div><span class='r-l-t-info-date'>*{createdDate} 등록됨</span></div>|">
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="r-l-t-first-row-third-col d-flex justify-content-end">
-                                            <a th:if="*{isBookmarked > 0}"
-                                               class="r-l-t-btn r-d-t r-l-t-bookmark-btn btn bookmark-active"
-                                               th:onclick="|saveOrDeleteBookmark(this,*{remarkId})|"
-                                               href="javascript:;">
-                                                <div class="r-l-t-btn-icon-wrap bookmark-icon-wrap">
-                                                    <i class="r-l-t-btn-icon r-l-t-bookmark-icon r-d-t icon-bookmark fill"></i>
-                                                </div>
-                                            </a>
-                                            <a th:unless="*{isBookmarked > 0}"
-                                               class="r-l-t-btn r-d-t r-l-t-bookmark-btn btn"
-                                               th:onclick="|saveOrDeleteBookmark(this,*{remarkId})|"
-                                               href="javascript:;">
-                                                <div class="r-l-t-btn-icon-wrap bookmark-icon-wrap">
-                                                    <i class="r-l-t-btn-icon r-l-t-bookmark-icon r-d-t icon-bookmark"></i>
-                                                </div>
-                                            </a>
-
-                                            <a class="r-l-t-share-btn r-d-t share-btn r-l-t-btn btn " href=""
-                                               th:onclick="|openShareModal(this, *{remarkId})|"
-                                               th:data-name="*{name}" th:data-date="*{remarkDate}" data-index="999"
-                                               data-bs-toggle="modal" data-bs-target="#shareModal">
-                                                <div class="r-l-t-btn-icon-wrap share-icon-wrap d-flex align-items-center">
-                                                    <i class="r-l-t-btn-icon icon-more-horiz"></i>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="r-l-t-tag-container r-d-t">
-                                        <div th:if="*{#strings.equals(category, 'none')}" class="r-l-t-tags-wrap">
-                                            <span class="r-l-t-category r-d-t-category">기타</span><a
-                                                class="r-l-t-tags r-d-t-tags" th:each="tag : *{remarkTagList}"
-                                                th:href="@{/remark(keyword=${tag.name}, tab=1)}"><span
-                                                th:text="|#${tag.name}|"></span></a>
-                                        </div>
-                                        <div th:unless="*{#strings.equals(category, 'none')}" class="r-l-t-tags-wrap">
-                                            <a th:class="|r-l-t-category r-d-t-category *{catClassName}|"
-                                               th:text="*{category}" th:href="@{/remark(category=*{category})}"></a><a
-                                                class="r-l-t-tags r-d-t-tags"
-                                                th:each="tag : *{remarkTagList}"
-                                                th:href="@{/remark(keyword=${tag.name}, tab=1)}"><span
-                                                th:text="|#${tag.name}|"></span></a>
-                                        </div>
-                                    </div>
-
-                                </div>
                             </div>
 
-
-                            <div class="r-l-t-second-row-container r-d-t-second-row-container d-flex">
-
-                                <div class="r-l-t-quote-icon-container r-l-t-first-col col-1">
-                                    <div class="r-l-t-quote-icon-wrap r-d-t-quote-icon-wrap">
-                                        <i class="r-l-t-quote-icon fas fa-quote-left" style="margin-right: 0"></i>
-                                    </div>
-                                </div>
-
-                                <div class="r-l-t-content-container r-d-t r-l-t-second-col">
-                                    <span class="r-d-t-content"
-                                          th:text="*{content}" th:data-source="*{sourceUrl}"
-                                          id="remark-content-999"></span>
-                                </div>
-
+                            <div class="r-d-t-ads-container">
+                                <hr class="r-l-t-border-bottom">
+                                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5145635293228409"
+                                            crossorigin="anonymous"></script>
+                                    <ins class="adsbygoogle"
+                                         style="display:block"
+                                         data-ad-format="fluid"
+                                         data-ad-layout-key="-gw-3+1f-3d+2z"
+                                         data-ad-client="ca-pub-5145635293228409"
+                                         data-ad-slot="3028451032"></ins>
+                                    <script>
+                                        (adsbygoogle = window.adsbygoogle || []).push({});
+                                    </script>
+                                <hr class="r-l-t-border-bottom">
                             </div>
-
-                            <div id="cmCont" class="r-l-t-last-row-container r-d-t">
-                                <div class="r-l-t-source-wrap">
-                                    <a class="r-l-t-source r-d-t" th:href="*{sourceUrl}" th:text="*{sourceUrl}"
-                                       data-bs-trigger="hover" title="출처" target="_blank"
-                                       rel="noopener noreferer nofollow"></a>
-                                </div>
-
-                                <div class="r-l-t-last-row-btn-container">
-                                    <a class="r-l-t-btn r-d-t r-l-t-like-btn btn like-active"
-                                       sec:authorize="isAuthenticated()" th:if="*{isLike eq 1}"
-                                       th:id="|like-btn-*{remarkId}|"
-                                       href="javascript:;"
-                                       th:onclick="|like(this, *{remarkId}, 1)|">
-                                        <div class="r-l-t-btn-icon-wrap like-icon-wrap">
-                                            <i class="r-l-t-like-icon like-icon r-l-t-btn-icon r-d-t icon-thumb-up fill"></i>
-                                            <span th:id="|like-count-*{remarkId}|"
-                                                  class="r-l-t-btn-text r-d-t r-l-t-like-count like-count"
-                                                  th:text="*{likeCount}"></span>
-                                        </div>
-                                    </a>
-                                    <a th:unless="*{isLike eq 1}" th:id="|like-btn-*{remarkId}|"
-                                       class="r-l-t-btn r-d-t r-l-t-like-btn" href="javascript:;"
-                                       th:onclick="|like(this, *{remarkId}, 1)|">
-                                        <div class="r-l-t-btn-icon-wrap like-icon-wrap">
-                                            <i class="r-l-t-like-icon like-icon r-l-t-btn-icon r-d-t icon-thumb-up"></i>
-                                            <span th:id="|like-count-*{remarkId}|"
-                                                  class="r-l-t-btn-text r-d-t r-l-t-like-count like-count"
-                                                  th:text="*{likeCount}"></span>
-                                        </div>
-                                    </a>
-
-                                    <a sec:authorize="isAuthenticated()" th:if="*{isLike eq -1}"
-                                       th:id="|dislike-btn-*{remarkId}|"
-                                       class="r-l-t-dislike-btn r-l-t-btn r-d-t btn like-active" href="javascript:;"
-                                       th:onclick="|like(this, *{remarkId}, -1)|">
-                                        <div class="r-l-t-btn-icon-wrap dislike-icon-wrap">
-                                            <i class="r-l-t-dislike-icon dislike-icon r-l-t-btn-icon r-d-t icon-thumb-down fill"></i>
-                                            <span th:id="|dislike-count-*{remarkId}|"
-                                                  class="r-l-t-btn-text r-d-t r-l-t-dislike-count dislike-count"
-                                                  th:text="*{dislikeCount}">
-                                    </span>
-                                        </div>
-                                    </a>
-                                    <a th:unless="*{isLike eq -1}" th:id="|dislike-btn-*{remarkId}|"
-                                       class="r-l-t-dislike-btn r-d-t r-l-t-btn btn" href="javascript:;"
-                                       th:onclick="|like(this, *{remarkId}, -1)|">
-                                        <div class="r-l-t-btn-icon-wrap dislike-icon-wrap">
-                                            <i class="r-l-t-dislike-icon dislike-icon r-l-t-btn-icon r-d-t icon-thumb-down"></i>
-                                            <span th:id="|dislike-count-*{remarkId}|"
-                                                  class="r-l-t-btn-text r-d-t r-l-t-dislike-count dislike-count"
-                                                  th:text="*{dislikeCount}">
-                                    </span>
-                                        </div>
-                                    </a>
-
-                                    <a class="r-l-t-btn r-d-t r-l-t-comment-count-btn btn" onclick="toggleComment()">
-                                        <div class="r-l-t-btn-icon-wrap">
-                                            <i class="r-l-t-btn-icon r-d-t r-l-t-last-row-comment-count-icon icon-comment-empty"></i>
-                                            <span class="r-l-t-comment-count r-l-t-btn-text r-d-t"
-                                                  th:text="*{commentCount}"></span>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-
 
                             <div class="r-c-table-container" id="comment-container">
                                 <hr class="r-l-t-border-bottom">
