@@ -1312,6 +1312,7 @@ a:hover {
 }
 
 .r-l-t-ads-container{
+    padding: .875rem;
     background-color: #fff;
     border-radius: .75rem;
     margin-bottom: .875rem;
@@ -1325,6 +1326,7 @@ a:hover {
 
 @media (max-width: 787px) {
     .r-l-t-ads-container{
+        padding: .75rem;
         margin-bottom: .5rem;
         margin-right: 0.75rem;
         margin-left: 0.75rem;
