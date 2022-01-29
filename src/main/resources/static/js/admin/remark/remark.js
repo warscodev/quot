@@ -350,7 +350,7 @@ document.addEventListener("DOMContentLoaded", function () {
     contents.forEach(c => {
         c.addEventListener("click", function (e){
             makeBackUrl();
-            location.href = c.nextElementSibling.getAttribute('href');
+            /*location.href = c.nextElementSibling.getAttribute('href');*/
         })
 
         $(c).append(quoteIcon)

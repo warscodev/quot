@@ -8,7 +8,7 @@ REPOSITORY=/home/ec2-user/app/step3
 
 PROJECT_NAME=quot
 
-echo "> Build파일 복사"
+echo "> Build 파일 복사"
 echo "> cp $REPOSITORY/zip/*.jar $REPOSITORY/"
 
 cp $REPOSITORY/zip/*.jar $REPOSITORY/

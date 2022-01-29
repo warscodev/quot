@@ -1577,6 +1577,10 @@ a:hover {
     padding-top: .125rem;
 }
 
+.r-l-t-content-link{
+    display: block;
+}
+
 .r-l-t-content {
     font-family: Pretendard, Noto Sans KR;
     font-size: .938rem;
