@@ -15,12 +15,15 @@ function find_idle_profile()
     else
       echo "else - CURRENT_PROFILE : (curl -s http://localhost/_profile)"
       CURRENT_PROFILE=$(curl -s http://localhost/_profile)
+      echo "CURRENT_PROFILE : ${CURRENT_PROFILE}"
     fi
 
     if [ "${CURRENT_PROFILE}" == real1 ]
     then
+      echo "IDLE_PROFILE : real2"
       IDLE_PROFILE=real2
     else
+      echo "IDLE_PROFILE : real1"
       IDLE_PROFILE=real1
     fi
 
