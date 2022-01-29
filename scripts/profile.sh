@@ -33,8 +33,9 @@ function find_idle_profile()
 # 쉬고 있는 PROFILE의 PORT 찾기
 function find_idle_port()
 {
+    echo " > find_idle_port 실행"
     IDLE_PROFILE=$(find_idle_profile)
-
+    echo " > IDLE_PROFILE on find_idle_port : $IDLE_PROFILE"
     if [ "${IDLE_PROFILE}" == real1 ]
     then
       echo "8081"
