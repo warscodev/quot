@@ -6,9 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="naver-site-verification" content="b113d6addcbd8b2b2a19cc66f68b3042bb6ae5b4" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5145635293228409" crossorigin="anonymous"></script>
-    <link th:if="${canonical != null}" rel="가" th:href="${canonical}">
-    <link th:if="${canonical == null && category !=null && (!#strings.equals(category, '팔로우') && !#strings.equals(category, '화제') && !#strings.equals(category, '스크랩'))}" rel="canonical" th:href="|https://quot.wiki/remark?category=${category}|">
-    <link th:if="${canonical == null && (category == null || #strings.equals(category, '종합'))}" rel="canonical" href="https://quot.wiki">
+    <link th:if="${canonical != null}" rel="canonical" th:href="${canonical}">
 
     <title th:if="${category != null && !(#strings.equals(category, '종합'))}" th:text="|${category} - 쿼트위키|"></title>
     <title th:if="${category != null && (#strings.equals(category, '종합')) && content == null}" th:text="|쿼트위키 - 화제의 발언, 어록 모음|"></title>
