@@ -10,8 +10,10 @@ function find_idle_profile()
     if [ "${RESPONSE_CODE}" -ge 400 ]
 
     then
+      echo " then - CURRENT_PROFILE : real2"
       CURRENT_PROFILE=real2
     else
+      echo "else - CURRENT_PROFILE : (curl -s http://localhost/_profile)"
       CURRENT_PROFILE=$(curl -s http://localhost/_profile)
     fi
 
