@@ -1324,7 +1324,7 @@ a:hover {
 }
 
 .max-height-90{
-    max-height: 90px !important;
+    height: 90px !important;
 }
 
 @media (max-width: 787px) {
