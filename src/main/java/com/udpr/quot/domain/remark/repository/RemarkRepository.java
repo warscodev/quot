@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface RemarkRepository extends JpaRepository<Remark, Long>, RemarkRepositoryCustom {
 
-    @Query("select r.id from Remark r")
+    @Query("select r.id from Remark r order by r.id desc")
     List<Long> findAllId();
 
 }
