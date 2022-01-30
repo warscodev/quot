@@ -43,7 +43,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
         if("naver".equals(registrationId) && StringUtils.isEmpty(attributes.getEmail())){
-            throw new OAuth2AuthenticationProcessingException("이메일 주소는 필수 항목입니다. \n https://nid.naver.com/user2/help/externalAuth 으로 접속하여 정보제공 철회 후 다시 로그인 해 주세요.");
+            throw new OAuth2AuthenticationProcessingException("이메일 주소는 필수 항목입니다. \n <https://nid.naver.com/user2/help/externalAuth>으로 접속하여 정보제공 철회 후 다시 로그인 해 주세요.");
         }
 
         User user = saveOrUpdate(attributes);
