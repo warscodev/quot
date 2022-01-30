@@ -18,7 +18,7 @@
 @media (max-width: 767px) {
 
     .p-d-header-container{
-        padding-top: .75rem;
+        padding-top: .5rem;
         padding-left: 0;
         padding-right: 0;
     }
@@ -354,7 +354,7 @@
     }
 
     .p-d-body-container{
-        margin-top: .75rem;
+        margin-top: .5rem;
     }
 
     .p-d-r-row-container{
