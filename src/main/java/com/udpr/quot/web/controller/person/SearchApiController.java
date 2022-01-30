@@ -1,4 +1,4 @@
-package com.udpr.quot.web.controller;
+package com.udpr.quot.web.controller.person;
 
 import com.udpr.quot.domain.user.repository.FollowQueryRepository;
 import com.udpr.quot.service.person.PersonService;

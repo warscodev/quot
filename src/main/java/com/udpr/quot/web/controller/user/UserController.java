@@ -1,20 +1,14 @@
-package com.udpr.quot.web.controller;
+package com.udpr.quot.web.controller.user;
 
 import com.udpr.quot.config.auth.LoginUser;
 import com.udpr.quot.config.auth.dto.SessionUser;
 import com.udpr.quot.domain.user.repository.UserQueryRepository;
 import com.udpr.quot.service.user.NicknameValidator;
 import com.udpr.quot.service.user.UserService;
-import com.udpr.quot.web.dto.user.UserNicknameRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import javax.validation.Valid;
 
 @Controller
 @RequiredArgsConstructor

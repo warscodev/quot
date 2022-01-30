@@ -1,4 +1,4 @@
-package com.udpr.quot.web.controller;
+package com.udpr.quot.web.controller.person;
 
 
 import com.udpr.quot.config.auth.LoginUser;
@@ -13,12 +13,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.naming.AuthenticationException;
 import javax.validation.Valid;
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -37,11 +38,11 @@ public class PersonController {
         }
 
         // 검색 form
-        if (condition == null)
+        if (condition == null) {
             model.addAttribute("searchCondition", new PersonSearchCondition());
-        else
+        }else {
             model.addAttribute("searchCondition", condition);
-
+        }
         List<PersonListResponseDto> list = personService.search(condition);
         model.addAttribute("list", list);
         return "person/personList";

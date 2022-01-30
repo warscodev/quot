@@ -1,4 +1,4 @@
-package com.udpr.quot.web.controller;
+package com.udpr.quot.web.controller.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;

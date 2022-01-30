@@ -1,4 +1,4 @@
-package com.udpr.quot.web.controller;
+package com.udpr.quot.web.controller.user;
 
 import com.udpr.quot.config.auth.LoginUser;
 import com.udpr.quot.config.auth.dto.SessionUser;

@@ -1,4 +1,4 @@
-package com.udpr.quot.web.controller;
+package com.udpr.quot.web.controller.remark;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -1,4 +1,4 @@
-package com.udpr.quot.web.controller;
+package com.udpr.quot.web.controller.config;
 
 import com.udpr.quot.service.sitemap.SitemapService;
 import lombok.RequiredArgsConstructor;
