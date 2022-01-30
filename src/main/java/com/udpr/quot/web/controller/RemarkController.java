@@ -15,9 +15,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 
 @Controller
@@ -33,13 +36,6 @@ public class RemarkController {
         return "redirect:/remark";
     }
 
-    /*@GetMapping("/remark/{remarkId}/tmp")
-    public String detailTemp(@PathVariable("remarkId") Long remarkId, RedirectAttributes rtt, RemarkSearchCondition condition){
-        rtt.addFlashAttribute("condition", condition);
-        return "redirect:/remark/"+remarkId;
-    }
-*/
-
     //코멘트 디테일 폼
     @GetMapping("/remark/{remarkId}")
     public String detail(@PathVariable("remarkId") Long remarkId, Model model, @LoginUser SessionUser user) {
@@ -53,10 +49,15 @@ public class RemarkController {
             dto = remarkService.getDetail(remarkId);
         }
 
+        if(dto != null){
+            model.addAttribute("personRemarkList", remarkService.getPersonRemarkList(remarkId, dto.getPersonId()));
+            model.addAttribute("categoryRemarkList", remarkService.getOtherCategoryRemarkList(remarkId, dto.getCategory()));
+            model.addAttribute("remark", dto);
+        }else {
+            throw new ResponseStatusException(NOT_FOUND, "존재하지 않는 페이지입니다.");
+        }
 
-        model.addAttribute("personRemarkList", remarkService.getPersonRemarkList(remarkId, dto.getPersonId()));
-        model.addAttribute("categoryRemarkList", remarkService.getOtherCategoryRemarkList(remarkId, dto.getCategory()));
-        model.addAttribute("remark", dto);
+
 
         return "remark/remarkDetail";
     }

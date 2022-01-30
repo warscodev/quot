@@ -18,10 +18,7 @@ import org.springframework.data.domain.Pageable;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.udpr.quot.domain.person.QPerson.person;
@@ -88,20 +85,22 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                 .where(comment.remark.id.eq(remarkId).and(comment.status.ne(Status.DELETED)))
                 .fetchCount();
 
-        assert result != null;
-        result.setRemarkTagList(tagList);
+        if(result != null) {
+            result.setRemarkTagList(tagList);
 
-        result.setTags(tagList.stream()
-                .map(RemarkTagQueryDto::getName)
-                .collect(Collectors.joining(", ")));
+            result.setTags(tagList.stream()
+                    .map(RemarkTagQueryDto::getName)
+                    .collect(Collectors.joining(", ")));
 
-        result.setIsBookmarked(isBookmarked);
+            result.setIsBookmarked(isBookmarked);
 
-        result.setCommentCount(commentCount);
+            result.setCommentCount(commentCount);
 
-        if (isLike != null) {
-            result.setIsLike(isLike);
+            if (isLike != null) {
+                result.setIsLike(isLike);
+            }
         }
+
         return result;
     }
 
@@ -138,14 +137,15 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                 .fetchCount();
 
 
-        assert result != null;
-        result.setRemarkTagList(tagList);
+        if(result != null){
+            result.setRemarkTagList(tagList);
 
-        result.setTags(tagList.stream()
-                .map(RemarkTagQueryDto::getName)
-                .collect(Collectors.joining(", ")));
+            result.setTags(tagList.stream()
+                    .map(RemarkTagQueryDto::getName)
+                    .collect(Collectors.joining(", ")));
 
-        result.setCommentCount(commentCount);
+            result.setCommentCount(commentCount);
+        }
 
         return result;
     }
