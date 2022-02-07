@@ -28,6 +28,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static com.udpr.quot.domain.person.QPerson.person;
+import static com.udpr.quot.domain.person.icon.QIcon.icon;
 import static com.udpr.quot.domain.remark.QRemark.remark;
 import static com.udpr.quot.domain.remark.QRemarkTag.remarkTag;
 import static com.udpr.quot.domain.remark.comment.QComment.comment;
@@ -162,8 +163,10 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
     public PersonQueryDto getDetail(Long id){
         return queryFactory
                 .select(new QPersonQueryDto( person.id, person.name, person.alias, person.birth,
-                        person.gender, person.job, person.summary, person.category, person.organization, person.image))
+                        person.gender, person.job, person.summary, person.category, person.organization, person.image,
+                        icon.id, icon.path))
                 .from(person)
+                .leftJoin(person.icon, icon)
                 .where(person.id.eq(id))
                 .fetchOne();
     }
@@ -172,8 +175,11 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
     public PersonQueryDto getDetail(Long personId, Long userId){
         return queryFactory
                 .select(new QPersonQueryDto( person.id, person.name, person.alias, person.birth,
-                        person.gender, person.job, person.summary, person.category, follow.id, person.organization, person.image))
+                        person.gender, person.job, person.summary, person.category, follow.id, person.organization, person.image,
+                        icon.id, icon.path))
                 .from(person)
+                .leftJoin(person.icon, icon)
+
                 .leftJoin(follow)
                 .on(person.id.eq(follow.person.id))
                 .on(follow.user.id.eq(userId))

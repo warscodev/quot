@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div class="iconSelectModal" th:fragment="iconSelectModal">
+    <div class="modal fade" id="iconSelectModal" tabindex="-1" aria-labelledby="iconSelectModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title i-s-m-title" id="iconSelectModalLabel">아이콘 선택</h6>
+                </div>
+                <div class="modal-body">
+                    <div class="i-s-m-row pb-3">
+                        <div class="i-s-m-inner-container">
+                            <div class="i-s-m-cat-nav-container">
+                                <ul class="i-s-m-cat-nav">
+                                    <li class="i-s-m-cat-nav-items active">전체</li>
+                                    <li class="i-s-m-cat-nav-items">정치</li>
+                                    <li class="i-s-m-cat-nav-items">방송/연예</li>
+                                    <li class="i-s-m-cat-nav-items">사회/문화</li>
+                                    <li class="i-s-m-cat-nav-items">스포츠</li>
+                                    <li class="i-s-m-cat-nav-items">창작물</li>
+                                </ul>
+                            </div>
+                            <div class="i-s-m-main-table">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gap-2 d-flex justify-content-end">
+                        <!--<button class="btn btn-primary btn-sm i-s-m-select-btn">선택</button>-->
+                        <button class="btn btn-secondary btn-sm i-s-m-cancel-btn" data-bs-dismiss="modal">취소</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        let iconList,
+            selectedIcon;
+
+        function loadIconListExec(){
+            getIconList()
+                .then(function (res){
+                    return iconList = res;
+                })
+                .then(setIconTable)
+        }
+
+        async function getIconList(){
+            const res = fetch("/api/icon",{
+                method: "get"
+            })
+            try {
+                return iconList = (await res).json();
+            } catch (error){
+                alert(JSON.stringify(error));
+            }
+        }
+
+        function setIconTable(list){
+            const iconTable = document.querySelector(".i-s-m-main-table");
+            list.forEach(r=>{
+                const iconWrap = document.createElement("div");
+                const iconImg = document.createElement("img");
+                iconImg.setAttribute("class", "i-s-m-icon");
+                iconImg.setAttribute("data-id", r.id);
+                iconImg.setAttribute("src", r.path);
+                iconImg.setAttribute("alt", "아이콘");
+                iconWrap.setAttribute("class", "i-s-m-icon-wrap");
+                iconWrap.appendChild(iconImg);
+
+                iconWrap.addEventListener("click", function (e){
+                    selectIcon(e.target)
+                })
+
+                iconTable.appendChild(iconWrap);
+            })
+        }
+
+        function selectIcon(el){
+            selectedIcon = el;
+            const preview = document.getElementById("preview-image");
+            const iconIdInput = document.getElementById("iconId");
+            const imageHiddenInput = document.getElementById("image");
+            const modalEl = document.getElementById('iconSelectModal');
+            const modal = bootstrap.Modal.getInstance(modalEl);
+
+            modal.hide();
+
+            iconIdInput.value = selectedIcon.dataset.id;
+            imageHiddenInput.value = '';
+            preview.src = selectedIcon.src;
+
+            console.log(selectedIcon);
+        }
+
+
+    </script>
+
+</div>
+
+
+</html>

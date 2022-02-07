@@ -6,6 +6,7 @@ import com.udpr.quot.service.user.NicknameValidator;
 import com.udpr.quot.service.user.UserService;
 import com.udpr.quot.web.dto.user.UserNicknameRequestDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,8 @@ public class UserApiController {
 
 
     @PostMapping("/api/user/nickname")
-    public String editNickname(@LoginUser SessionUser user, @RequestBody @Valid UserNicknameRequestDto dto, Errors errors){
+    public String editNickname(@LoginUser SessionUser user, @RequestBody @Valid UserNicknameRequestDto dto,
+                               BindingResult result, Errors errors){
         nicknameValidator.validate(dto,errors);
 
         return userService.editNickname(user.getId(), dto).getNickname();

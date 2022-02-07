@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div class="iconModifyModal" th:fragment="iconModifyModal">
+    <div class="modal fade" id="iconModifyModal" tabindex="-1" aria-labelledby="iconModifyModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title image-upload-modal-title" id="iconModifyModalLabel">아이콘 수정</h6>
+                </div>
+                <div class="modal-body">
+                    <div class="image-upload-modal-row pb-3 justify-content-center">
+                        <div class="image-upload-modal-image-container">
+                            <div class="i-u-m-icon-container py-3 mb-3 d-flex justify-content-center">
+                                <div class="i-u-m-image-wrap i-u-m d-flex align-items-center justify-content-center">
+                                    <img class="icon-modify-modal-preview-image" src="/css/images/basic_image.svg" alt="아이콘">
+                                </div>
+                            </div>
+                            <div class="input-group input-group-sm px-4 mb-3">
+                                <input class="icon-modify-modal-input form-control" type="file">
+                            </div>
+                            <div class="input-group input-group-sm px-4 mb-2">
+                                <select class="form-select icon-modify-modal-category-select">
+                                    <option selected>카테고리</option>
+                                    <option value="정치">정치</option>
+                                    <option value="방송연예">방송/연예</option>
+                                    <option value="사회문화">사회/문화</option>
+                                    <option value="스포츠">스포츠</option>
+                                    <option value="창작물">창작물</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-grid px-4 pb-2 gap-2">
+                        <button class="btn btn-primary btn-sm icon-modify-modal-submit-btn">수정</button>
+                        <button class="btn btn-danger btn-sm icon-modify-modal-delete-btn mb-2">삭제</button>
+                        <button class="btn btn-secondary btn-sm icon-modify-modal-cancel-btn" data-bs-dismiss="modal">취소</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateIcon(res){
+            selectedIcon.src = res.path;
+            selectedIcon.dataset.id = res.id;
+            selectedIcon.dataset.cat = res.category;
+
+            const modalEl = document.getElementById('iconModifyModal');
+            const modal = bootstrap.Modal.getInstance(modalEl);
+            modal.hide();
+        }
+
+        function deleteIconExec(){
+
+            if(confirm("정말 삭제하시겠습니까?\n")){
+                const iconId = selectedIcon.dataset.id;
+                deleteIcon(iconId)
+                    .then(function (){
+                        const modalEl = document.getElementById('iconModifyModal');
+                        const modal = bootstrap.Modal.getInstance(modalEl);
+                        modal.hide();
+                        selectedIcon.parentNode.remove();
+                    })
+            }
+        }
+
+        function deleteIcon(id){
+            const res = fetch(`/api/icon/${id}`, {
+                headers: {},
+                method: "delete",
+            })
+            try{
+                alert("삭제되었습니다.");
+                return(res)
+            }catch (error){
+                alert(JSON.stringify(error));
+            }
+        }
+
+        document.querySelector(".icon-modify-modal-submit-btn").addEventListener("click", function (){
+            uploadIconExec();
+        });
+        document.querySelector(".icon-modify-modal-cancel-btn").addEventListener("click" ,function (){
+            resetImage();
+        });
+        document.querySelector(".icon-modify-modal-delete-btn").addEventListener("click" ,function (){
+            deleteIconExec();
+        });
+    </script>
+
+</div>
+
+
+</html>

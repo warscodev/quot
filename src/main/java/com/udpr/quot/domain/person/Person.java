@@ -1,6 +1,7 @@
 package com.udpr.quot.domain.person;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.udpr.quot.domain.person.icon.Icon;
 import com.udpr.quot.domain.remark.Remark;
 import com.udpr.quot.domain.common.BaseTimeEntity;
 import com.udpr.quot.domain.common.Status;
@@ -49,6 +50,10 @@ public class Person extends BaseTimeEntity {
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Remark> remarkList = new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "icon_id")
+    private Icon icon;
+
     @Builder
     public Person(String name, String alias, Birth birth, String job,
                   String gender, String summary, String category, String organization, String image) {
@@ -77,4 +82,24 @@ public class Person extends BaseTimeEntity {
         this.organization = organization;
         this.image = image;
     }
+
+    public void update(String name, String alias, Birth birth, String job, String gender,
+                       String summary, String category, String organization, String image, Icon icon){
+        this.name = name.trim();
+        this.alias = alias.trim();
+        this.birth = birth;
+        this.job = job.trim();
+        this.gender = gender;
+        this.summary = summary.trim();
+        this.status = Status.UPDATED;
+        this.category = category;
+        this.organization = organization;
+        this.image = image;
+        this.icon =icon;
+    }
+
+    public void setIconNull(){
+        this.icon = null;
+    }
+
 }

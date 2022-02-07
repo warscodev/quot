@@ -740,30 +740,6 @@ a:hover {
 
 /*--- 서브바 끝 ---*/
 
-/*--- 검색결과 네비바 ---*/
-.nav-tabs .nav-link, nav .nav-link {
-    color: #212529;
-    position: relative;
-    z-index: 2;
-    border-top: 0.25rem solid transparent !important;
-    border-left: 0 !important;
-    border-bottom: 0 !important;
-    border-right: 0 !important;
-}
-
-.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
-    font-weight: 500;
-}
-
-.nav-link.active, .nav-link:focus, .nav-link:hover {
-    color: black;
-    border-top: 0.25rem solid #1B95E0FF !important;
-    border-left: 0 !important;
-    border-bottom: 0 !important;
-    border-right: 0 !important;
-}
-
-/*--- 검색결과 네비바 끝 ---*/
 
 /* 검색결과 타이틀*/
 .search-result-keyword {
@@ -3053,6 +3029,9 @@ a:hover {
     border-color: transparent;
 }
 
+.a-p-s-i-cat-nav-items.active:hover{
+    background-color: #404243;
+}
 .a-p-s-i-cat-nav-items:hover{
     background-color: #eaecee;
 }
@@ -3071,7 +3050,15 @@ a:hover {
     /*box-shadow: 5px 5px 15px -5px rgb(0 0 0 / 20%);*/
     box-shadow: 0 0 0 1px #0000000d;
     margin-right: 2rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
+    cursor: pointer;
+}
+
+.a-p-s-i-icon-wrap:hover{
+    transition: filter .2s linear, transform .2s, box-shadow .2s;
+    filter: brightness(90%);
+    box-shadow: 0px 10px 10px -2px rgba(0, 0, 0, .15);
+    transform: translateY(-.5px);
 }
 
 .a-p-s-i-icon{
@@ -3080,7 +3067,7 @@ a:hover {
     object-fit: cover;
 }
 
-.a-p-s-i-icon-add-button {
+.a-p-s-i-icon-add-btn {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -3088,22 +3075,23 @@ a:hover {
     height: 90px;
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
     margin-right: 2rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     border-radius: 70%;
     transition: background-color .2s ease-in-out;
     font-size: 1.25rem;
     color: #666;
+    cursor: pointer;
 }
 
-.a-p-s-i-icon-add-button:hover{
+.a-p-s-i-icon-add-btn:hover{
     background-color: #efefef;
 }
 
-.a-p-s-i-icon-add-button:hover i{
+.a-p-s-i-icon-add-btn:hover i{
     display: none;
 }
 
-.a-p-s-i-icon-add-button:hover:before{
+.a-p-s-i-icon-add-btn:hover:before{
     font-size: .938rem;
     color: #777;
     content: '업로드';
@@ -3116,9 +3104,21 @@ a:hover {
 .image-upload-modal-row{
 }
 
-.image-upload-modal-image-container{
-    margin: 0;
-    border-radius: .25rem;
+.i-u-m-icon-container{
+}
+
+.i-u-m-image-wrap{
+    width: 90px;
+    height: 90px;
+    border-radius: 70%;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px #0000000d;
+}
+
+.i-u-m-image-wrap img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 

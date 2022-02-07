@@ -130,8 +130,9 @@
                             <div class="r-l-t-image-wrap">
                                 <a class="r-l-t-image-link"
                                    th:href="@{/person/{personId}(personId=${r.personId})}">
-                                    <img th:if="${r.image!= null && !#strings.isEmpty(r.image)}" th:src="${r.image}" class="r-l-t-image">
-                                    <img th:unless="${r.image!= null && !#strings.isEmpty(r.image)}" src="/css/images/basic_image.svg" class="r-l-t-image">
+                                    <img th:if="${r.iconPath != null && !#strings.isEmpty(r.iconPath)}" th:src="${r.iconPath}" class="r-l-t-image">
+                                    <img th:if="${r.iconPath == null && !#strings.isEmpty(r.image)}" th:src="${r.image}" class="r-l-t-image">
+                                    <img th:if="${r.iconPath == null && #strings.isEmpty(r.image)}" src="/css/images/basic_image.svg" class="r-l-t-image">
                                 </a>
                             </div>
                         </div>
@@ -159,14 +160,14 @@
                                        class="r-l-t-btn r-l-t-bookmark-btn btn bookmark-active"
                                        th:onclick="|saveOrDeleteBookmark(this,${r.remarkId})|" href="javascript:;">
                                         <div class="r-l-t-btn-icon-wrap bookmark-icon-wrap">
-                                            <i class="r-l-t-btn-icon r-l-t-bookmark-icon icon-bookmark fill"></i>
+                                            <i class="r-l-t-btn-icon r-l-t-bookmark-icon custom-icon-bookmark fill"></i>
                                         </div>
                                     </a>
                                     <a th:unless="${r.isBookmarked > 0}"
                                        class="r-l-t-btn r-l-t-bookmark-btn btn"
                                        th:onclick="|saveOrDeleteBookmark(this,${r.remarkId})|" href="javascript:;">
                                         <div class="r-l-t-btn-icon-wrap bookmark-icon-wrap">
-                                            <i class="r-l-t-btn-icon r-l-t-bookmark-icon icon-bookmark"></i>
+                                            <i class="r-l-t-btn-icon r-l-t-bookmark-icon custom-icon-bookmark"></i>
                                         </div>
                                     </a>
 
@@ -175,7 +176,7 @@
                                        th:data-name="${r.name}" th:data-date="${r.remarkDate}" th:data-index="${rStat.index+1}"
                                        data-bs-toggle="modal" data-bs-target="#shareModal">
                                         <div class="r-l-t-btn-icon-wrap share-icon-wrap d-flex align-items-center">
-                                            <i class="r-l-t-btn-icon icon-more-horiz"></i>
+                                            <i class="r-l-t-btn-icon custom-icon-more-horiz"></i>
                                         </div>
                                     </a>
                                 </div>
@@ -228,7 +229,7 @@
                                href="javascript:;"
                                th:onclick="|like(this, ${r.remarkId}, 1)|">
                                 <div class="r-l-t-btn-icon-wrap like-icon-wrap">
-                                    <i class="r-l-t-like-icon like-icon r-l-t-btn-icon icon-thumb-up fill"></i>
+                                    <i class="r-l-t-like-icon like-icon r-l-t-btn-icon custom-icon-thumb-up fill"></i>
                                     <span th:id="|like-count-${r.remarkId}|"
                                           class="r-l-t-btn-text r-l-t-like-count like-count"
                                           th:text="${r.likeCount}"></span>
@@ -238,7 +239,7 @@
                                class="r-l-t-btn r-l-t-like-btn btn" href="javascript:;"
                                th:onclick="|like(this, ${r.remarkId}, 1)|">
                                 <div class="r-l-t-btn-icon-wrap like-icon-wrap">
-                                    <i class="r-l-t-like-icon like-icon r-l-t-btn-icon icon-thumb-up"></i>
+                                    <i class="r-l-t-like-icon like-icon r-l-t-btn-icon custom-icon-thumb-up"></i>
                                     <span th:id="|like-count-${r.remarkId}|"
                                           class="r-l-t-btn-text r-l-t-like-count like-count"
                                           th:text="${r.likeCount}"></span>
@@ -250,7 +251,7 @@
                                class="r-l-t-dislike-btn r-l-t-btn btn like-active" href="javascript:;"
                                th:onclick="|like(this, ${r.remarkId}, -1)|">
                                 <div class="r-l-t-btn-icon-wrap dislike-icon-wrap">
-                                    <i class="r-l-t-dislike-icon dislike-icon r-l-t-btn-icon icon-thumb-down fill"></i>
+                                    <i class="r-l-t-dislike-icon dislike-icon r-l-t-btn-icon custom-icon-thumb-down fill"></i>
                                     <span th:id="|dislike-count-${r.remarkId}|"
                                           class="r-l-t-btn-text r-l-t-dislike-count dislike-count"
                                           th:text="${r.dislikeCount}">
@@ -261,7 +262,7 @@
                                class="r-l-t-dislike-btn r-l-t-btn btn" href="javascript:;"
                                th:onclick="|like(this, ${r.remarkId}, -1)|">
                                 <div class="r-l-t-btn-icon-wrap dislike-icon-wrap">
-                                    <i class="r-l-t-dislike-icon dislike-icon r-l-t-btn-icon icon-thumb-down"></i>
+                                    <i class="r-l-t-dislike-icon dislike-icon r-l-t-btn-icon custom-icon-thumb-down"></i>
                                     <span th:id="|dislike-count-${r.remarkId}|"
                                           class="r-l-t-btn-text r-l-t-dislike-count dislike-count"
                                           th:text="${r.dislikeCount}">
@@ -272,7 +273,7 @@
                             <a class="r-l-t-btn r-l-t-comment-count-btn btn"
                                th:href="@{/remark/{id}#cmCont(id=${r.remarkId})}">
                                 <div class="r-l-t-btn-icon-wrap">
-                                    <i class="r-l-t-btn-icon r-l-t-comment-count-icon icon-comment-empty"></i>
+                                    <i class="r-l-t-btn-icon r-l-t-comment-count-icon custom-icon-comment-empty"></i>
                                     <span class="r-l-t-comment-count r-l-t-btn-text"
                                           th:text="${r.commentCount}"></span>
                                 </div>

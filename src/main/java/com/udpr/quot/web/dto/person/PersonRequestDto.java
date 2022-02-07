@@ -2,6 +2,7 @@ package com.udpr.quot.web.dto.person;
 
 import com.udpr.quot.domain.person.Birth;
 import com.udpr.quot.domain.person.Person;
+import com.udpr.quot.domain.person.icon.Icon;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -42,6 +43,8 @@ public class PersonRequestDto {
     private String image;
 
     private MultipartFile multipartFile;
+
+    private Long iconId;
 
 
     public Person toEntity() {

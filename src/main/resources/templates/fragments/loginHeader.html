@@ -20,6 +20,8 @@
             <ul class="login-header-profile-dropdown dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser2">
                 <li><a class="dropdown-item" href="/profile">내 정보</a></li>
                 <li><hr sec:authorize="hasRole('ADMIN')" class="dropdown-divider">
+                <li><a sec:authorize="hasRole('ADMIN')" class="dropdown-item" href="/admin/setting-icons">관리자 페이지</a></li>
+                <li><hr sec:authorize="hasRole('ADMIN')" class="dropdown-divider">
                 <li><a sec:authorize="hasRole('ADMIN')" class="dropdown-item" href="/admin/person">인물목록</a></li>
                 <li><a sec:authorize="hasRole('ADMIN')" class="dropdown-item" href="/admin/person/new">인물등록</a></li>
                 <li><a sec:authorize="hasRole('ADMIN')" class="dropdown-item" href="/remark/new">발언등록</a></li>

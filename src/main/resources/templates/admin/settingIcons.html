@@ -1,0 +1,264 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="fragments/header :: header(title='[ADMIN] 아이콘 관리')">
+
+<body>
+<div th:replace="fragments/loginHeader :: loginHeader"></div>
+<div th:replace="fragments/topHeader :: topHeader"></div>
+<div th:replace="fragments/subNavbar :: subNavbar"></div>
+
+<div class="container-xl">
+    <div class="px-3">
+        <div class="admin-page-header">
+            <div class="admin-page-nav-container">
+                <ul class="admin-page-nav">
+                    <li class="admin-page-nav items active">아이콘 관리</li>
+                </ul>
+            </div>
+            <div class="admin-page-title">
+            </div>
+
+        </div>
+        <div class="admin-page-body">
+
+            <div class="a-p-s-i-cat-nav-container">
+                <ul class="a-p-s-i-cat-nav">
+                    <li class="a-p-s-i-cat-nav-items active">전체</li>
+                    <!--<li class="a-p-s-i-cat-nav-items">정치</li>
+                    <li class="a-p-s-i-cat-nav-items">방송/연예</li>
+                    <li class="a-p-s-i-cat-nav-items">사회/문화</li>
+                    <li class="a-p-s-i-cat-nav-items">스포츠</li>
+                    <li class="a-p-s-i-cat-nav-items">창작물</li>-->
+                </ul>
+            </div>
+
+
+            <div class="a-p-s-i-main-table">
+                <div class="a-p-s-i-icon-add-btn" data-bs-toggle="modal" data-bs-target="#imageUploadModal">
+                    <span><i class="bi bi-upload"></i></span>
+                </div>
+                <!--<div class="a-p-s-i-icon-wrap">
+                    <img class="a-p-s-i-icon" alt="아이콘">
+                </div>-->
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/imageUploadModal :: imageUploadModal"></div>
+<div th:replace="fragments/iconModifyModal :: iconModifyModal"></div>
+<div th:replace="fragments/footer :: footer"></div>
+
+<script>
+    const basicIcon = '/css/images/basic_image.svg';
+    const openUploadModalBtn = document.querySelector(".a-p-s-i-icon-add-btn");
+
+    let iconList,
+        fileInput,
+        categorySelect,
+        previewImage,
+        currentModal,
+        selectedIcon,
+        selectedIconsPersonList;
+
+    function setUploadModalData(){
+        fileInput = document.querySelector(".image-upload-modal-input");
+        categorySelect = document.querySelector(".image-upload-modal-category-select");
+        previewImage = document.querySelector(".image-upload-modal-preview-image");
+        currentModal = "upload";
+        resetImage();
+        setFileInputListener();
+    }
+
+    function setModifyModalData(icon){
+        fileInput = document.querySelector(".icon-modify-modal-input");
+        categorySelect = document.querySelector(".icon-modify-modal-category-select");
+        previewImage = document.querySelector(".icon-modify-modal-preview-image");
+        currentModal = "modify";
+        selectedIcon = icon;
+
+        setFileInputListener();
+        selectedControl(icon)
+        fileInput.value = "";
+        previewImage.src = icon.src;
+        previewImage.setAttribute("data-id", icon.dataset.id);
+    }
+
+    function selectedControl(el){
+        const len = categorySelect.options.length;
+        const cat = el.dataset.cat;
+        for (let i=0; i<len; i++){
+            if(categorySelect.options[i].value === cat){
+                categorySelect.options[i].selected = true;
+            }
+        }
+    }
+
+
+    function loadIconListExec(){
+        getIconList()
+            .then(function (res){
+                return iconList = res;
+            })
+            .then(setIconTable)
+            .then(setListenerToIconWraps);
+    }
+
+    async function getIconList(){
+        const res = fetch("/api/icon",{
+            method: "get"
+        })
+        try {
+            return iconList = (await res).json();
+        } catch (error){
+            alert(JSON.stringify(error));
+        }
+    }
+
+    function setIconTable(list){
+        const iconTable = document.querySelector(".a-p-s-i-main-table");
+        list.forEach(r=>{
+            const iconWrap = document.createElement("div");
+            const iconImg = document.createElement("img");
+            iconImg.setAttribute("class", "a-p-s-i-icon");
+            iconImg.setAttribute("data-bs-toggle", "modal");
+            iconImg.setAttribute("data-bs-target", "#iconModifyModal");
+            iconImg.setAttribute("data-cat", r.category);
+            iconImg.setAttribute("data-id", r.id);
+            iconImg.setAttribute("src", r.path);
+            iconImg.setAttribute("alt", "아이콘");
+            iconWrap.setAttribute("class", "a-p-s-i-icon-wrap");
+            iconWrap.appendChild(iconImg);
+
+            iconTable.appendChild(iconWrap);
+        })
+    }
+
+    function setListenerToIconWraps(){
+        const iconWrap = document.querySelectorAll(".a-p-s-i-icon-wrap");
+        iconWrap.forEach(wrap => {
+            wrap.addEventListener("click", e => {
+                setModifyModalData(e.target);
+            })
+        })
+    }
+
+    function setFileInputListener(){
+        fileInput.addEventListener("change", e => {
+            if (validateFile(e.target)) {
+                renderImageToPreview(e.target);
+            } else {
+                resetImage();
+            }
+        })
+    }
+
+    function renderImageToPreview(input) {
+        if(input.files && input.files[0]){
+            const reader = new FileReader()
+            reader.onload = e => {
+                previewImage.src = e.target.result
+            }
+            reader.readAsDataURL(input.files[0])
+        }
+    }
+
+    function validateFile(input) {
+        if (input.files && input.files[0]) {
+            const maxSize = 5 * 1024 * 1024;
+            const regExp = /(.*?)\.(jpg|jpeg|png|gif|bmp|svg)$/;
+            const fileSize = input.files[0].size;
+            const fileName = input.value;
+
+            if (!fileName.match(regExp)) {
+                return alert("이미지 파일만 업로드 가능합니다.");
+            } else if (fileSize > maxSize) {
+                return alert("파일 크기는 5MB를 넘을 수 없습니다.");
+            } else if (currentModal==="upload" && fileSize === 0) {
+                return alert("파일을 선택해 주세요.")
+            }
+            else {
+                return true;
+            }
+        }
+    }
+
+    function resetImage() {
+        previewImage.src = basicIcon;
+        fileInput.value = '';
+        categorySelect.options.selectedIndex = 0;
+    }
+
+    function uploadIconExec() {
+        if(currentModal !== "modify"){
+            if(!fileInput.files || !fileInput.files[0]){
+                fileInput.focus();
+                alert("파일을 선택해 주세요.")
+            }else if(categorySelect.options.selectedIndex < 1 ){
+                categorySelect.focus();
+                alert("카테고리를 입력해 주세요.")
+            }else {
+                uploadIcon(getDataAndSetFormData())
+                    .then(setUploadedIconToTable);
+            }
+
+        }else{
+            if(categorySelect.options.selectedIndex < 1 ){
+                categorySelect.focus();
+                alert("카테고리를 입력해 주세요.")
+            }else {
+                uploadIcon(getDataAndSetFormData())
+                    .then(updateIcon);
+            }
+        }
+    }
+
+    function getDataAndSetFormData() {
+        let formData = new FormData();
+
+        if(fileInput.files && fileInput.files[0]){
+            formData.append("multipartFile", fileInput.files[0]);
+        }
+
+        if(categorySelect.options.selectedIndex !== 0){
+            formData.append("category", categorySelect.value);
+        }else {
+            categorySelect.focus();
+            return alert("카테고리를 선택해 주세요.");
+        }
+
+        if(currentModal !== "upload"){
+            formData.append("id", previewImage.dataset.id);
+        }
+
+        return formData;
+    }
+
+    async function uploadIcon(formData) {
+        const res = await fetch("/api/icon", {
+            headers: {},
+            method: "post",
+            body: formData,
+        })
+        try {
+            alert("저장 되었습니다.")
+            return (await res).json();
+        } catch (error) {
+            alert(JSON.stringify(error));
+        }
+    }
+
+
+
+
+
+
+    openUploadModalBtn.addEventListener("click", setUploadModalData);
+
+    document.addEventListener("DOMContentLoaded", loadIconListExec);
+</script>
+</body>
+</html>

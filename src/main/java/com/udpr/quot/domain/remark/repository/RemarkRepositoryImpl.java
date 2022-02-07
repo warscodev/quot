@@ -22,6 +22,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.udpr.quot.domain.person.QPerson.person;
+import static com.udpr.quot.domain.person.icon.QIcon.icon;
 import static com.udpr.quot.domain.remark.QRemark.remark;
 import static com.udpr.quot.domain.remark.QRemarkLike.remarkLike;
 import static com.udpr.quot.domain.remark.QRemarkTag.remarkTag;
@@ -49,11 +50,12 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                         remark.id, remark.content, remark.remarkDate,
                         remark.createdDate, remark.updatedDate, remark.likeCount,
                         remark.dislikeCount, remark.sourceSort, remark.sourceUrl,
-                        person.id, person.name, person.alias, person.job, person.category, person.image,
+                        person.id, person.name, person.alias, person.job, person.category, person.image, person.icon.path,
                         user.id, user.nickname))
                 .from(remark)
                 .leftJoin(remark.person, person)
                 .leftJoin(remark.user, user)
+                .leftJoin(person.icon, icon)
 
                 .where(remark.id.eq(remarkId))
                 .fetchOne();
@@ -112,11 +114,12 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                         remark.id, remark.content, remark.remarkDate,
                         remark.createdDate, remark.updatedDate, remark.likeCount,
                         remark.dislikeCount, remark.sourceSort, remark.sourceUrl,
-                        person.id, person.name, person.alias, person.job, person.category, person.image,
+                        person.id, person.name, person.alias, person.job, person.category, person.image, person.icon.path,
                         user.id, user.nickname))
                 .from(remark)
                 .leftJoin(remark.person, person)
                 .leftJoin(remark.user, user)
+                .leftJoin(person.icon, icon)
 
                 .where(remark.id.eq(remarkId))
                 .fetchOne();
@@ -188,11 +191,12 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                         remark.id, remark.content, remark.remarkDate,
                         remark.createdDate, remark.updatedDate, remark.likeCount,
                         remark.dislikeCount, remark.sourceSort, remark.sourceUrl,
-                        person.id, person.name, person.alias, person.job, person.category, person.image,
+                        person.id, person.name, person.alias, person.job, person.category, person.image, person.icon.path,
                         user.id, user.nickname))
                 .from(remark)
                 .leftJoin(remark.person, person)
                 .leftJoin(remark.user, user)
+                .leftJoin(person.icon, icon)
                 .where(categoryEq(condition.getCategory()))
 
                 .offset(pageable.getOffset())
@@ -220,11 +224,12 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                         remark.id, remark.content, remark.remarkDate,
                         remark.createdDate, remark.updatedDate, remark.likeCount,
                         remark.dislikeCount, remark.sourceSort, remark.sourceUrl,
-                        person.id, person.name, person.alias, person.job, person.category, person.image,
+                        person.id, person.name, person.alias, person.job, person.category, person.image, person.icon.path,
                         user.id, user.nickname))
                 .from(remark)
                 .join(remark.person, person)
                 .join(remark.user, user)
+                .leftJoin(person.icon, icon)
                 .join(remark.remarkTagList, remarkTag).on(remark.eq(remarkTag.remark))
                 .groupBy(remark.id)
 
@@ -257,11 +262,13 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                         remark.id, remark.content, remark.remarkDate,
                         remark.createdDate, remark.updatedDate, remark.likeCount,
                         remark.dislikeCount, remark.sourceSort, remark.sourceUrl,
-                        person.id, person.name, person.alias, person.job, person.category, person.image,
+                        person.id, person.name, person.alias, person.job, person.category, person.image, person.icon.path,
                         user.id, user.nickname))
                 .from(remark)
                 .join(remark.person, person)
                 .join(remark.user, user)
+                .leftJoin(person.icon, icon)
+
 
                 .where(person.name.likeIgnoreCase("%" + condition.getKeyword() + "%")
                         .or(removeCommaOnPersonAlias().likeIgnoreCase("%" + condition.getKeyword() + "%"))
@@ -290,12 +297,14 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                         remark.id, remark.content, remark.remarkDate,
                         remark.createdDate, remark.updatedDate, remark.likeCount,
                         remark.dislikeCount, remark.sourceSort, remark.sourceUrl,
-                        person.id, person.name, person.alias, person.job, person.category, person.image,
+                        person.id, person.name, person.alias, person.job, person.category, person.image, person.icon.path,
                         user.id, user.nickname))
                 .from(remarkTag)
                 .join(remarkTag.remark, remark)
                 .join(remark.person, person)
+                .leftJoin(person.icon, icon)
                 .join(remark.user, user)
+
                 .on(remarkTag.tag.name.eq(condition.getKeyword()))
 
                 .offset(pageable.getOffset())
@@ -323,11 +332,13 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                         remark.id, remark.content, remark.remarkDate,
                         remark.createdDate, remark.updatedDate, remark.likeCount,
                         remark.dislikeCount, remark.sourceSort, remark.sourceUrl,
-                        person.id, person.name, person.alias, person.job, person.category, person.image,
+                        person.id, person.name, person.alias, person.job, person.category, person.image, person.icon.path,
                         user.id, user.nickname))
                 .from(remark)
                 .leftJoin(remark.person, person)
                 .leftJoin(remark.user, user)
+                .leftJoin(person.icon, icon)
+
                 .where(remark.createdDate.between(LocalDateTime.now().minusDays(14), LocalDateTime.now())
                         .and(remark.likeCount.add(remark.dislikeCount).add(remark.commentCount).goe(1)))
                 .orderBy(remark.likeCount.add(remark.dislikeCount).add(remark.commentCount).desc())
@@ -357,12 +368,14 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                         remark.id, remark.content, remark.remarkDate,
                         remark.createdDate, remark.updatedDate, remark.likeCount,
                         remark.dislikeCount, remark.sourceSort, remark.sourceUrl,
-                        person.id, person.name, person.alias, person.job, person.category, person.image,
+                        person.id, person.name, person.alias, person.job, person.category, person.image, person.icon.path,
                         user.id, user.nickname))
                 .from(bookmark)
                 .join(bookmark.remark, remark)
                 .join(remark.person, person)
                 .join(remark.user, user)
+                .leftJoin(person.icon, icon)
+
                 .on(bookmark.user.id.eq(condition.getSid()))
 
                 .offset(pageable.getOffset())
@@ -390,13 +403,15 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                         remark.id, remark.content, remark.remarkDate,
                         remark.createdDate, remark.updatedDate, remark.likeCount,
                         remark.dislikeCount, remark.sourceSort, remark.sourceUrl,
-                        person.id, person.name, person.alias, person.job, person.category, person.image,
+                        person.id, person.name, person.alias, person.job, person.category, person.image, person.icon.path,
                         user.id, user.nickname))
                 .from(follow)
                 .where(follow.user.id.eq(condition.getSid()))
                 .leftJoin(person).on(follow.person.id.eq(person.id))
                 .leftJoin(remark).on(remark.person.id.eq(person.id))
                 .leftJoin(user).on(remark.user.id.eq(user.id))
+                .leftJoin(person.icon, icon)
+
 
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())

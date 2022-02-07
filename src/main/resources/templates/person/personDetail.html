@@ -30,8 +30,9 @@
                         <div class="p-d-header-row-container d-flex align-items-top">
                             <div class="p-d-profile-icon-container d-flex justify-content-end">
                                 <div class="p-d-image-wrap">
-                                    <img th:if="*{image != null && !#strings.isEmpty(image)}" th:src="*{image}" class="p-d-image" alt="사진">
-                                    <img th:unless="*{image != null && !#strings.isEmpty(image)}" src="/css/images/basic_image.svg" class="p-d-image" alt="사진">
+                                    <img th:if="*{iconId != null}" th:src="*{iconPath}" class="p-d-image" alt="사진">
+                                    <img th:if="*{iconId == null && !#strings.isEmpty(image)}" th:src="*{image}" class="p-d-image" alt="사진">
+                                    <img th:if="*{iconId == null && #strings.isEmpty(image)}" src="/css/images/basic_image.svg" class="p-d-image" alt="사진">
                                 </div>
                                 <!--<div th:unless="*{image != null || !#strings.isEmpty(image)}" class="p-d-image-wrap d-flex align-items-center justify-content-center">
                                     <i class="p-d-profile-icon fas fa-user-alt"></i>
@@ -126,14 +127,14 @@
                             <div class="p-d-r-icons-container">
                                 <div class="d-flex">
                                     <div class="p-d-r-icons-like"><i
-                                            class="icon-thumb-up"></i>&nbsp;<span class="p-d-r-icons-text"
-                                            th:text="${r.likeCount}"></span></div>
-                                    <div class="p-d-r-icons-dislike"><i class="icon-thumb-down"></i>&nbsp;<span class="p-d-r-icons-text"
-                                            th:text="${r.dislikeCount}"></span></div>
+                                            class="custom-icon-thumb-up"></i>&nbsp;<span class="p-d-r-icons-text"
+                                                                                         th:text="${r.likeCount}"></span></div>
+                                    <div class="p-d-r-icons-dislike"><i class="custom-icon-thumb-down"></i>&nbsp;<span class="p-d-r-icons-text"
+                                                                                                                       th:text="${r.dislikeCount}"></span></div>
                                 </div>
                                 <div>
-                                    <div class="p-d-r-icons-comments"><i class="icon-comment"></i>&nbsp;<span class="p-d-r-icons-text"
-                                            th:text="${r.commentCount}"></span></div>
+                                    <div class="p-d-r-icons-comments"><i class="custom-icon-comment"></i>&nbsp;<span class="p-d-r-icons-text"
+                                                                                                                     th:text="${r.commentCount}"></span></div>
                                 </div>
                                 <span class="p-d-r-icons-info tt fas fa-info-circle"
                                       data-bs-html="true" data-bs-placement="right"

@@ -10,7 +10,7 @@
   font-display: block;
 }
 
-[class^="icon-"], [class*=" icon-"] {
+[class^="custom-icon-"], [class*=" custom-icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'Custom Icon' !important;
   speak: never;
@@ -56,39 +56,39 @@
 */
 
 
-.icon-bookmark.fill:before{
+.custom-icon-bookmark.fill:before{
   content: "\e90b";
 }
-.icon-bookmark-add-border:before {
+.custom-icon-bookmark-add-border:before {
   content: "\e900";
 }
-.icon-bookmark-added.fill:before {
+.custom-icon-bookmark-added.fill:before {
   content: "\e901";
 }
-.icon-bookmark:before {
+.custom-icon-bookmark:before {
   content: "\e902";
 }
-.icon-comment-empty:before {
+.custom-icon-comment-empty:before {
   content: "\e903";
 }
-.icon-comment:before {
+.custom-icon-comment:before {
   content: "\e904";
 }
-.icon-more-horiz:before {
+.custom-icon-more-horiz:before {
   content: "\e905";
 }
-.icon-more-vert:before {
+.custom-icon-more-vert:before {
   content: "\e906";
 }
-.icon-thumb-down.fill:before {
+.custom-icon-thumb-down.fill:before {
   content: "\e907";
 }
-.icon-thumb-down:before {
+.custom-icon-thumb-down:before {
   content: "\e908";
 }
-.icon-thumb-up.fill:before {
+.custom-icon-thumb-up.fill:before {
   content: "\e909";
 }
-.icon-thumb-up:before {
+.custom-icon-thumb-up:before {
   content: "\e90a";
 }

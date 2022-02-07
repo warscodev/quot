@@ -26,9 +26,11 @@
                                         <div class="r-l-t-image-wrap">
                                             <a class="r-l-t-image-link r-d-t"
                                                th:href="@{/person/{personId}(personId=*{personId})}">
-                                                <img th:if="*{image!= null && !#strings.isEmpty(image)}" th:src="*{image}"
+                                                <img th:if="*{iconPath != null && !#strings.isEmpty(iconPath)}" th:src="*{iconPath}"
                                                      class="r-l-t-image" alt="사진">
-                                                <img th:unless="*{image!= null && !#strings.isEmpty(image)}"
+                                                <img th:if="*{iconPath == null && !#strings.isEmpty(image)}" th:src="*{image}"
+                                                     class="r-l-t-image" alt="사진">
+                                                <img th:unless="*{iconPath == null && #strings.isEmpty(image)}"
                                                      src="/css/images/basic_image.svg" class="r-l-t-image" alt="사진">
                                             </a>
                                         </div>
@@ -62,7 +64,7 @@
                                                    th:onclick="|saveOrDeleteBookmark(this,*{remarkId})|"
                                                    href="javascript:;">
                                                     <div class="r-l-t-btn-icon-wrap bookmark-icon-wrap">
-                                                        <i class="r-l-t-btn-icon r-l-t-bookmark-icon r-d-t icon-bookmark fill"></i>
+                                                        <i class="r-l-t-btn-icon r-l-t-bookmark-icon r-d-t custom-icon-bookmark fill"></i>
                                                     </div>
                                                 </a>
                                                 <a th:unless="*{isBookmarked > 0}"
@@ -70,7 +72,7 @@
                                                    th:onclick="|saveOrDeleteBookmark(this,*{remarkId})|"
                                                    href="javascript:;">
                                                     <div class="r-l-t-btn-icon-wrap bookmark-icon-wrap">
-                                                        <i class="r-l-t-btn-icon r-l-t-bookmark-icon r-d-t icon-bookmark"></i>
+                                                        <i class="r-l-t-btn-icon r-l-t-bookmark-icon r-d-t custom-icon-bookmark"></i>
                                                     </div>
                                                 </a>
 
@@ -79,7 +81,7 @@
                                                    th:data-name="*{name}" th:data-date="*{remarkDate}" data-index="999"
                                                    data-bs-toggle="modal" data-bs-target="#shareModal">
                                                     <div class="r-l-t-btn-icon-wrap share-icon-wrap d-flex align-items-center">
-                                                        <i class="r-l-t-btn-icon icon-more-horiz"></i>
+                                                        <i class="r-l-t-btn-icon custom-icon-more-horiz"></i>
                                                     </div>
                                                 </a>
                                             </div>
@@ -134,7 +136,7 @@
                                            href="javascript:;"
                                            th:onclick="|like(this, *{remarkId}, 1)|">
                                             <div class="r-l-t-btn-icon-wrap like-icon-wrap">
-                                                <i class="r-l-t-like-icon like-icon r-l-t-btn-icon r-d-t icon-thumb-up fill"></i>
+                                                <i class="r-l-t-like-icon like-icon r-l-t-btn-icon r-d-t custom-icon-thumb-up fill"></i>
                                                 <span th:id="|like-count-*{remarkId}|"
                                                       class="r-l-t-btn-text r-d-t r-l-t-like-count like-count"
                                                       th:text="*{likeCount}"></span>
@@ -144,7 +146,7 @@
                                            class="r-l-t-btn r-d-t r-l-t-like-btn" href="javascript:;"
                                            th:onclick="|like(this, *{remarkId}, 1)|">
                                             <div class="r-l-t-btn-icon-wrap like-icon-wrap">
-                                                <i class="r-l-t-like-icon like-icon r-l-t-btn-icon r-d-t icon-thumb-up"></i>
+                                                <i class="r-l-t-like-icon like-icon r-l-t-btn-icon r-d-t custom-icon-thumb-up"></i>
                                                 <span th:id="|like-count-*{remarkId}|"
                                                       class="r-l-t-btn-text r-d-t r-l-t-like-count like-count"
                                                       th:text="*{likeCount}"></span>
@@ -156,7 +158,7 @@
                                            class="r-l-t-dislike-btn r-l-t-btn r-d-t btn like-active" href="javascript:;"
                                            th:onclick="|like(this, *{remarkId}, -1)|">
                                             <div class="r-l-t-btn-icon-wrap dislike-icon-wrap">
-                                                <i class="r-l-t-dislike-icon dislike-icon r-l-t-btn-icon r-d-t icon-thumb-down fill"></i>
+                                                <i class="r-l-t-dislike-icon dislike-icon r-l-t-btn-icon r-d-t custom-icon-thumb-down fill"></i>
                                                 <span th:id="|dislike-count-*{remarkId}|"
                                                       class="r-l-t-btn-text r-d-t r-l-t-dislike-count dislike-count"
                                                       th:text="*{dislikeCount}">
@@ -167,7 +169,7 @@
                                            class="r-l-t-dislike-btn r-d-t r-l-t-btn btn" href="javascript:;"
                                            th:onclick="|like(this, *{remarkId}, -1)|">
                                             <div class="r-l-t-btn-icon-wrap dislike-icon-wrap">
-                                                <i class="r-l-t-dislike-icon dislike-icon r-l-t-btn-icon r-d-t icon-thumb-down"></i>
+                                                <i class="r-l-t-dislike-icon dislike-icon r-l-t-btn-icon r-d-t custom-icon-thumb-down"></i>
                                                 <span th:id="|dislike-count-*{remarkId}|"
                                                       class="r-l-t-btn-text r-d-t r-l-t-dislike-count dislike-count"
                                                       th:text="*{dislikeCount}">
@@ -177,7 +179,7 @@
 
                                         <a class="r-l-t-btn r-d-t r-l-t-comment-count-btn btn" onclick="toggleComment()">
                                             <div class="r-l-t-btn-icon-wrap">
-                                                <i class="r-l-t-btn-icon r-d-t r-l-t-last-row-comment-count-icon icon-comment-empty"></i>
+                                                <i class="r-l-t-btn-icon r-d-t r-l-t-last-row-comment-count-icon custom-icon-comment-empty"></i>
                                                 <span class="r-l-t-comment-count r-l-t-btn-text r-d-t"
                                                       th:text="*{commentCount}"></span>
                                             </div>
@@ -457,9 +459,9 @@
                 }
 
                 if (c.parentId != null) {
-                    row += "<a id='openCmReplyBtn-" + c.commentId + "' onclick='openCmReplyTextarea(this)' class='r-c-t-reply-btn' data-writer='" + c.nickname + "' data-aid='" + c.ancestorId + "' data-cid='" + c.commentId + "'><i class=\"icon-comment\"></i><span>답글</span></a>";
+                    row += "<a id='openCmReplyBtn-" + c.commentId + "' onclick='openCmReplyTextarea(this)' class='r-c-t-reply-btn' data-writer='" + c.nickname + "' data-aid='" + c.ancestorId + "' data-cid='" + c.commentId + "'><i class=\"custom-icon-comment\"></i><span>답글</span></a>";
                 } else if (c.parentId === null) {
-                    row += "<a id='openCmReplyBtn-" + c.commentId + "' onclick='openCmReplyTextarea(this)' class='r-c-t-reply-btn' data-writer='" + c.nickname + "' data-cid='" + c.commentId + "'><i class=\"icon-comment\"></i><span>답글</span></a>";
+                    row += "<a id='openCmReplyBtn-" + c.commentId + "' onclick='openCmReplyTextarea(this)' class='r-c-t-reply-btn' data-writer='" + c.nickname + "' data-cid='" + c.commentId + "'><i class=\"custom-icon-comment\"></i><span>답글</span></a>";
                 }
 
 

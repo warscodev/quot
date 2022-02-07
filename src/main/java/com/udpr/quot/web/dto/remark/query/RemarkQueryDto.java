@@ -38,6 +38,7 @@ public class RemarkQueryDto {
     private String category;
     private String catClassName;
     private String image;
+    private String iconPath;
 
     private Long user_id;
     private String nickname;
@@ -55,7 +56,7 @@ public class RemarkQueryDto {
     @QueryProjection
     public RemarkQueryDto(Long remarkId, String content, LocalDate remarkDate, LocalDateTime createdDate, LocalDateTime updatedDate,
                           int likeCount, int dislikeCount, String sourceSort, String sourceUrl,
-                          Long personId, String name, String alias, String job, String category, String image,
+                          Long personId, String name, String alias, String job, String category, String image, String iconPath,
                           Long user_id, String nickname) {
         this.remarkId = remarkId;
         this.content = content;
@@ -72,6 +73,7 @@ public class RemarkQueryDto {
         this.job = job;
         this.category = category;
         this.image = image;
+        this.iconPath = iconPath;
         this.catClassName = setCatClassName(category);
         this.user_id = user_id;
         this.nickname = nickname;
