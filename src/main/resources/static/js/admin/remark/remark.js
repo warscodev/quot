@@ -348,10 +348,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const contents = document.querySelectorAll(".r-l-t-content, .r-d-t-content");
 
     contents.forEach(c => {
-        c.addEventListener("click", function (e){
-            makeBackUrl();
-            /*location.href = c.nextElementSibling.getAttribute('href');*/
-        })
+
+        if(c.className === "r-l-t-content"){
+            c.addEventListener("click", makeBackUrl)
+        }
 
         $(c).append(quoteIcon)
     });
