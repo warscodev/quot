@@ -30,7 +30,7 @@
                                                      class="r-l-t-image" alt="사진">
                                                 <img th:if="*{iconPath == null && !#strings.isEmpty(image)}" th:src="*{image}"
                                                      class="r-l-t-image" alt="사진">
-                                                <img th:unless="*{iconPath == null && #strings.isEmpty(image)}"
+                                                <img th:if="*{iconPath == null && #strings.isEmpty(image)}"
                                                      src="/css/images/basic_image.svg" class="r-l-t-image" alt="사진">
                                             </a>
                                         </div>
