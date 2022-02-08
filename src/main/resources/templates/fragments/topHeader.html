@@ -55,6 +55,8 @@
                  <ul class="login-header-profile-dropdown dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser2">
                      <li><a class="dropdown-item my" href="/profile"><i class="fas fa-user-circle main-header-profile-btn-icon"></i><span class="login-header-profile-dropdown-info" th:text="${session.user.nickname}"></span></a></li>
                      <li><hr sec:authorize="hasRole('ADMIN')" class="dropdown-divider">
+                     <li><a sec:authorize="hasRole('ADMIN')" class="dropdown-item" href="/admin/setting-icons">관리자 페이지</a></li>
+                     <li><hr sec:authorize="hasRole('ADMIN')" class="dropdown-divider">
                      <li><a sec:authorize="hasRole('ADMIN')" class="dropdown-item" href="/admin/person">인물목록</a></li>
                      <li><a sec:authorize="hasRole('ADMIN')" class="dropdown-item" href="/admin/person/new">인물등록</a></li>
                      <li><a sec:authorize="hasRole('ADMIN')" class="dropdown-item" href="/remark/new">발언등록</a></li>
