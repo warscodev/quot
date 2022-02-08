@@ -16,7 +16,7 @@
                         <div class="p-d-header-row-container d-sm-flex align-items-top">
                             <div class="p-d-profile-icon-container text-center">
                                 <div class="p-u-image-preview-wrap p-u" data-bs-toggle="modal" data-bs-target="#iconSelectModal">
-                                    <img th:if="*{iconId != null}" th:src="*{iconPath}" th:id="preview-image" alt="사진">
+                                    <img th:if="*{iconId != null}" th:src="*{iconPath}" th:id="preview-image" alt="사진!!">
                                     <img th:if="*{iconId == null && !#strings.isEmpty(image)}" th:src="*{image}" th:id="preview-image" alt="사진">
                                     <img th:if="*{iconId == null && #strings.isEmpty(image)}" src="/css/images/basic_image.svg" th:id="preview-image" alt="사진">
                                     <input type="hidden" th:field="*{image}">
@@ -106,6 +106,9 @@
                                     <textarea class="form-control form-control-sm"
                                               th:field="*{summary}"
                                               rows="5"></textarea>
+                                </div>
+                                <div th:if="*{!#strings.equals(createdDate, updatedDate)}" class="d-flex justify-content-end text-muted mt-2" style="font-size: .875rem">
+                                    <span>최종 수정일 :&nbsp;</span><span th:text="*{updatedDate}"></span>
                                 </div>
 
                             </div>

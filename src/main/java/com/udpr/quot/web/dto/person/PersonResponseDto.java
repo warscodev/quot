@@ -8,6 +8,7 @@ import com.udpr.quot.web.dto.person.utils.PersonDtoUtils;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 public class PersonResponseDto {
@@ -21,8 +22,8 @@ public class PersonResponseDto {
     private final String organization;
     private final String summary;
     private final Status status;
-    private final LocalDateTime createdDate;
-    private final LocalDateTime updatedDate;
+    private final String createdDate;
+    private final String updatedDate;
     private final String category;
     private final String image;
     private Long iconId;
@@ -38,8 +39,8 @@ public class PersonResponseDto {
         this.summary = entity.getSummary();
         this.status = entity.getStatus();
         this.category = entity.getCategory();
-        this.createdDate = entity.getCreatedDate();
-        this.updatedDate = entity.getUpdatedDate();
+        this.createdDate = entity.getCreatedDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        this.updatedDate = entity.getUpdatedDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         this.organization = entity.getOrganization();
         this.image = entity.getImage();
         if(entity.getIcon() != null){
