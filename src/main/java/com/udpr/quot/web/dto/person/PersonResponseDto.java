@@ -39,8 +39,8 @@ public class PersonResponseDto {
         this.summary = entity.getSummary();
         this.status = entity.getStatus();
         this.category = entity.getCategory();
-        this.createdDate = entity.getCreatedDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        this.updatedDate = entity.getUpdatedDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        this.createdDate = entity.getCreatedDate().format(DateTimeFormatter.ofPattern("yyyy.MM.dd. HH:mm"));
+        this.updatedDate = entity.getUpdatedDate().format(DateTimeFormatter.ofPattern("yyyy.MM.dd. HH:mm"));
         this.organization = entity.getOrganization();
         this.image = entity.getImage();
         if(entity.getIcon() != null){
