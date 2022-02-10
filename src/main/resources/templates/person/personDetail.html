@@ -34,9 +34,6 @@
                                     <img th:if="*{iconId == null && !#strings.isEmpty(image)}" th:src="*{image}" class="p-d-image" alt="사진">
                                     <img th:if="*{iconId == null && #strings.isEmpty(image)}" src="/css/images/basic_image.svg" class="p-d-image" alt="사진">
                                 </div>
-                                <!--<div th:unless="*{image != null || !#strings.isEmpty(image)}" class="p-d-image-wrap d-flex align-items-center justify-content-center">
-                                    <i class="p-d-profile-icon fas fa-user-alt"></i>
-                                </div>-->
                             </div>
                             <div class="p-d-info-container">
                                 <div class="p-d-info-first-row d-flex justify-content-between">
@@ -92,8 +89,7 @@
                                     </table>
                                 </div>
 
-                                <div>
-
+                                <div class="p-d-date-wrap">
                                 </div>
 
                             </div>

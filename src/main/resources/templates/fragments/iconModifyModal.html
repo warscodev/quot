@@ -48,6 +48,8 @@
             selectedIcon.dataset.id = res.id;
             selectedIcon.dataset.cat = res.category;
 
+            iconList.splice(iconList.map( function( d ) { return d['id']; }).indexOf(Number(res.id)), 1, res);
+
             const modalEl = document.getElementById('iconModifyModal');
             const modal = bootstrap.Modal.getInstance(modalEl);
             modal.hide();
@@ -63,6 +65,12 @@
                         const modal = bootstrap.Modal.getInstance(modalEl);
                         modal.hide();
                         selectedIcon.parentNode.remove();
+                        /*iconList.splice(iconList.map( function( d ) { return d['id']; }).indexOf(Number(iconId)), 1);*/
+
+                        iconList = iconList.filter(function (e){
+                            return e.id !== Number(iconId);
+                        })
+
                     })
             }
         }

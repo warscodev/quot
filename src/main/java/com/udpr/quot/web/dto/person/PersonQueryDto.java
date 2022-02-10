@@ -6,6 +6,8 @@ import com.udpr.quot.web.dto.remark.RemarkForPersonDetailQueryDto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Getter
@@ -27,12 +29,15 @@ public class PersonQueryDto {
     private String image;
     private Long iconId;
     private String iconPath;
+    private String updatedDate;
+    private String createdDate;
 
     private List<RemarkForPersonDetailQueryDto> remarkList;
 
     @QueryProjection
     public PersonQueryDto(Long personId, String name, String alias, Birth birth, String gender, String job,
-                          String summary, String category, Long followId, String organization, String image, Long iconId, String iconPath) {
+                          String summary, String category, Long followId, String organization, String image,
+                          LocalDateTime createdDate, LocalDateTime updatedDate, Long iconId, String iconPath) {
         this.personId = personId;
         this.name = name;
         this.alias = alias;
@@ -48,13 +53,16 @@ public class PersonQueryDto {
         this.followId = followId;
         this.organization = organization;
         this.image = image;
+        this.createdDate = createdDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd. HH:mm"));
+        this.updatedDate = updatedDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd. HH:mm"));
         this.iconId = iconId;
         this.iconPath = iconPath;
     }
 
     @QueryProjection
     public PersonQueryDto(Long personId, String name, String alias, Birth birth, String gender,
-                          String job, String summary, String category, String organization, String image, Long iconId, String iconPath) {
+                          String job, String summary, String category, String organization, String image,
+                          LocalDateTime createdDate, LocalDateTime updatedDate, Long iconId, String iconPath) {
         this.personId = personId;
         this.name = name;
         this.alias = alias;
@@ -69,6 +77,8 @@ public class PersonQueryDto {
         this.category = category;
         this.organization = organization;
         this.image = image;
+        this.createdDate = createdDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd. HH:mm"));
+        this.updatedDate = updatedDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd. HH:mm"));
         this.iconId = iconId;
         this.iconPath = iconPath;
     }

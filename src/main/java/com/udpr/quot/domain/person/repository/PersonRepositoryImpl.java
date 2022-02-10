@@ -164,6 +164,7 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
         return queryFactory
                 .select(new QPersonQueryDto( person.id, person.name, person.alias, person.birth,
                         person.gender, person.job, person.summary, person.category, person.organization, person.image,
+                        person.createdDate, person.updatedDate,
                         icon.id, icon.path))
                 .from(person)
                 .leftJoin(person.icon, icon)
@@ -176,6 +177,7 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
         return queryFactory
                 .select(new QPersonQueryDto( person.id, person.name, person.alias, person.birth,
                         person.gender, person.job, person.summary, person.category, follow.id, person.organization, person.image,
+                        person.createdDate, person.updatedDate,
                         icon.id, icon.path))
                 .from(person)
                 .leftJoin(person.icon, icon)

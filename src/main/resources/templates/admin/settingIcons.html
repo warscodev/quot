@@ -25,12 +25,12 @@
 
             <div class="a-p-s-i-cat-nav-container">
                 <ul class="a-p-s-i-cat-nav">
-                    <li class="a-p-s-i-cat-nav-items active">전체</li>
-                    <!--<li class="a-p-s-i-cat-nav-items">정치</li>
-                    <li class="a-p-s-i-cat-nav-items">방송/연예</li>
-                    <li class="a-p-s-i-cat-nav-items">사회/문화</li>
-                    <li class="a-p-s-i-cat-nav-items">스포츠</li>
-                    <li class="a-p-s-i-cat-nav-items">창작물</li>-->
+                    <li class="a-p-s-i-cat-nav-items active" data-cat="전체">전체</li>
+                    <li class="a-p-s-i-cat-nav-items" data-cat="정치">정치</li>
+                    <li class="a-p-s-i-cat-nav-items" data-cat="방송연예">방송/연예</li>
+                    <li class="a-p-s-i-cat-nav-items" data-cat="사회문화">사회/문화</li>
+                    <li class="a-p-s-i-cat-nav-items" data-cat="스포츠">스포츠</li>
+                    <li class="a-p-s-i-cat-nav-items" data-cat="창작물">창작물</li>
                 </ul>
             </div>
 
@@ -39,9 +39,6 @@
                 <div class="a-p-s-i-icon-add-btn" data-bs-toggle="modal" data-bs-target="#imageUploadModal">
                     <span><i class="bi bi-upload"></i></span>
                 </div>
-                <!--<div class="a-p-s-i-icon-wrap">
-                    <img class="a-p-s-i-icon" alt="아이콘">
-                </div>-->
             </div>
 
         </div>
@@ -55,6 +52,7 @@
 <script>
     const basicIcon = '/css/images/basic_image.svg';
     const openUploadModalBtn = document.querySelector(".a-p-s-i-icon-add-btn");
+    const categoryNavItems = document.querySelectorAll(".a-p-s-i-cat-nav-items");
 
     let iconList,
         fileInput,
@@ -119,8 +117,10 @@
     }
 
     function setIconTable(list){
+
         const iconTable = document.querySelector(".a-p-s-i-main-table");
         list.forEach(r=>{
+
             const iconWrap = document.createElement("div");
             const iconImg = document.createElement("img");
             iconImg.setAttribute("class", "a-p-s-i-icon");
@@ -251,13 +251,37 @@
         }
     }
 
+    function changeCategory(e){
+        const activatedCategory = document.querySelector(".a-p-s-i-cat-nav-items.active");
+        const iconWraps = document.querySelectorAll(".a-p-s-i-icon-wrap");
+        const selectedCategory = e.dataset.cat;
+        let selectedCategoryIconList = [];
+        activatedCategory.classList.remove("active");
+        e.classList.add("active");
+
+        iconWraps.forEach(w =>{
+            w.remove();
+        })
+
+        if(selectedCategory !== "전체"){
+            selectedCategoryIconList = iconList.filter(function (e){
+                return e.category === selectedCategory;
+            })
+        }else {
+            selectedCategoryIconList = iconList;
+        }
 
 
-
-
+        setIconTable(selectedCategoryIconList);
+        setListenerToIconWraps();
+    }
 
     openUploadModalBtn.addEventListener("click", setUploadModalData);
-
+    categoryNavItems.forEach(i => {
+        i.addEventListener("click", function (e){
+            changeCategory(e.target)
+        });
+    })
     document.addEventListener("DOMContentLoaded", loadIconListExec);
 </script>
 </body>

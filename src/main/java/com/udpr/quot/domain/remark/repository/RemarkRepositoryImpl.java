@@ -500,10 +500,13 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
             Map<Long, List<BookmarkQueryDto>> bookmarkMap = findIsBookmarkedMap(remarkIdList, condition.getSid());
 
             results.getResults().forEach(r -> {
-                r.setRemarkTagList(tagMap.get(r.getRemarkId()));
-                r.setTags(tagMap.get(r.getRemarkId()).stream()
-                        .map(RemarkTagQueryDto::getName)
-                        .collect(Collectors.joining(", ")));
+
+                if(!tagMap.isEmpty()){
+                    r.setRemarkTagList(tagMap.get(r.getRemarkId()));
+                    r.setTags(tagMap.get(r.getRemarkId()).stream()
+                            .map(RemarkTagQueryDto::getName)
+                            .collect(Collectors.joining(", ")));
+                }
                 r.setCommentCount(commentCountMap.get(r.getRemarkId()).get(0).getCommentCount());
 
                 if (likeMap.get(r.getRemarkId()) != null) {
@@ -516,10 +519,12 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
             });
         } else {
             results.getResults().forEach(r -> {
-                r.setRemarkTagList(tagMap.get(r.getRemarkId()));
-                r.setTags(tagMap.get(r.getRemarkId()).stream()
-                        .map(RemarkTagQueryDto::getName)
-                        .collect(Collectors.joining(", ")));
+                if(!tagMap.isEmpty()){
+                    r.setRemarkTagList(tagMap.get(r.getRemarkId()));
+                    r.setTags(tagMap.get(r.getRemarkId()).stream()
+                            .map(RemarkTagQueryDto::getName)
+                            .collect(Collectors.joining(", ")));
+                }
                 r.setCommentCount(commentCountMap.get(r.getRemarkId()).get(0).getCommentCount());
             });
         }

@@ -34,7 +34,9 @@
                     </div>
                     <div class="d-grid px-4 pb-2 gap-2">
                         <button class="btn btn-primary btn-sm image-upload-modal-submit-btn">저장</button>
-                        <button class="btn btn-secondary btn-sm image-upload-modal-cancel-btn" data-bs-dismiss="modal">취소</button>
+                        <button class="btn btn-secondary btn-sm image-upload-modal-cancel-btn" data-bs-dismiss="modal">
+                            취소
+                        </button>
                     </div>
                 </div>
             </div>
@@ -43,38 +45,57 @@
 
 
     <script>
-        function setUploadedIconToTable(res){
-            const table = document.querySelector(".a-p-s-i-main-table");
-            const secondChild = table.childNodes[2];
-            const updatedIconWrap = document.createElement("div");
-            const updatedIconImg = document.createElement("img");
-            updatedIconImg.setAttribute("class", "a-p-s-i-icon");
-            updatedIconImg.setAttribute("data-bs-toggle", "modal");
-            updatedIconImg.setAttribute("data-bs-target", "#iconModifyModal");
-            updatedIconImg.setAttribute("data-cat", res.category);
-            updatedIconImg.setAttribute("data-id", res.id);
-            updatedIconImg.setAttribute("src", res.path);
-            updatedIconImg.setAttribute("alt", "아이콘");
-            updatedIconWrap.setAttribute("class", "a-p-s-i-icon-wrap");
-            updatedIconWrap.appendChild(updatedIconImg);
+        function setUploadedIconToTable(res) {
+            iconList.unshift(res);
+            let selectedCategoryItemEl,
+                updatedCategoryItemEl;
 
-            updatedIconWrap.addEventListener("click", function (e){
-                setModifyModalData(e.target);
+            categoryNavItems.forEach(e => {
+                if (e.classList.contains("active")) {
+                    selectedCategoryItemEl = e;
+                }
+
+                if (e.dataset.cat === res.category){
+                    updatedCategoryItemEl = e;
+                }
             })
+
+            if(selectedCategoryItemEl.dataset.cat !== '전체' &&  selectedCategoryItemEl.dataset.cat !== res.category){
+                changeCategory(updatedCategoryItemEl);
+            }else {
+                const table = document.querySelector(".a-p-s-i-main-table");
+                const secondChild = table.childNodes[2];
+                const updatedIconWrap = document.createElement("div");
+                const updatedIconImg = document.createElement("img");
+                updatedIconImg.setAttribute("class", "a-p-s-i-icon");
+                updatedIconImg.setAttribute("data-bs-toggle", "modal");
+                updatedIconImg.setAttribute("data-bs-target", "#iconModifyModal");
+                updatedIconImg.setAttribute("data-cat", res.category);
+                updatedIconImg.setAttribute("data-id", res.id);
+                updatedIconImg.setAttribute("src", res.path);
+                updatedIconImg.setAttribute("alt", "아이콘");
+                updatedIconWrap.setAttribute("class", "a-p-s-i-icon-wrap");
+                updatedIconWrap.appendChild(updatedIconImg);
+
+                updatedIconWrap.addEventListener("click", function (e) {
+                    setModifyModalData(e.target);
+                })
+
+                table.insertBefore(updatedIconWrap, secondChild);
+            }
 
             const myModalEl = document.getElementById('imageUploadModal');
             const modal = bootstrap.Modal.getInstance(myModalEl);
             modal.hide();
 
-            table.insertBefore(updatedIconWrap,secondChild);
         }
 
 
-        document.querySelector(".image-upload-modal-submit-btn").addEventListener("click", function (){
+        document.querySelector(".image-upload-modal-submit-btn").addEventListener("click", function () {
             uploadIconExec();
         })
 
-        document.querySelector(".image-upload-modal-cancel-btn").addEventListener("click" ,function (){
+        document.querySelector(".image-upload-modal-cancel-btn").addEventListener("click", function () {
             resetImage();
         })
 
