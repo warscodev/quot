@@ -49,6 +49,7 @@
     }
 
     function loadPersonListExec(index){
+        showSpinner();
         getPersonList(index)
             .then(setPersonListTable);
     }
