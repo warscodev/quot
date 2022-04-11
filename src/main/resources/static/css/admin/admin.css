@@ -375,6 +375,17 @@ a:hover {
 
 
 @media (max-width: 767px){
+
+    .main-header-category-container{
+        padding: .25rem 0 0 0;
+    }
+
+    .main-header-category-items{
+        padding-left: .25rem;
+        padding-right: .25rem;
+        font-size: 1rem;
+    }
+
     .main-search-bar-container{
         display: none;
         padding-left: 1rem;
