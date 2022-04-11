@@ -371,17 +371,19 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                         person.id, person.name, person.alias, person.job, person.category, person.image, person.icon.path,
                         user.id, user.nickname))
                 .from(bookmark)
-                .join(bookmark.remark, remark)
-                .join(remark.person, person)
-                .join(remark.user, user)
+                .where(bookmark.user.id.eq(condition.getSid()))
+                .leftJoin(bookmark.remark, remark)
+                .leftJoin(remark.person, person)
+                .leftJoin(remark.user, user)
                 .leftJoin(person.icon, icon)
-
-                .on(bookmark.user.id.eq(condition.getSid()))
-
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .orderBy(getOrderSpecifier(condition.getSort()).toArray(OrderSpecifier[]::new))
                 .fetchResults();
+
+        results.getResults().forEach(r -> {
+            System.out.println(r.getIconPath());
+        });
 
         List<Long> remarkIdList = toRemarkIdList(results);
 

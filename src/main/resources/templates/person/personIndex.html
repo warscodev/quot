@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="fragments/header :: header(isPerson=true)">
+<body>
+<div th:replace="fragments/loginHeader :: loginHeader"></div>
+<div th:replace="fragments/topHeader :: topHeader(isPerson=true)"></div>
+<div th:replace="fragments/subNavbarForPersonList :: subNavbar-person"></div>
+
+<div class="container-xl">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="p-i-container">
+                <div class="p-i-title-wrap">
+                    <span class="p-i-title">인물 분류</span>
+                </div>
+
+                <div class="p-i-category-card-container">
+                    <div class="row row-cols-sm-2 row-cols-1">
+                        <div class="col">
+                            <a class="p-i-category-card" href="/person/list/정치">
+                                <div>
+                                    <img class="p-i-category-card-icon" src="/css/icon/category/정치.svg" alt="정치">
+                                </div>
+                                <div>
+                                    <span class="p-i-category-card-title">정치</span>
+                                </div>
+                                <div>
+                                    <span class="p-i-category-card-count" th:text="|${info['정치'].personCount} 명 / ${info['정치'].remarkCount} 발언|"></span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a class="p-i-category-card" href="/person/list/방송연예">
+                                <div>
+                                    <img class="p-i-category-card-icon" src="/css/icon/category/방송연예.svg" alt="방송/연예">
+                                </div>
+                                <div>
+                                    <span class="p-i-category-card-title">방송/연예</span>
+                                </div>
+                                <div>
+                                    <span class="p-i-category-card-count" th:text="|${info['방송연예'].personCount} 명 / ${info['방송연예'].remarkCount} 발언|"></span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a class="p-i-category-card" href="/person/list/사회문화">
+                                <div>
+                                    <img class="p-i-category-card-icon" src="/css/icon/category/사회문화.svg" alt="사회/문화">
+                                </div>
+                                <div>
+                                    <span class="p-i-category-card-title">사회/문화</span>
+                                </div>
+                                <div>
+                                    <span class="p-i-category-card-count" th:text="|${info['사회문화'].personCount} 명 / ${info['사회문화'].remarkCount} 발언|"></span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a class="p-i-category-card" href="/person/list/스포츠">
+                                <div>
+                                    <img class="p-i-category-card-icon" src="/css/icon/category/스포츠.svg" alt="스포츠">
+                                </div>
+                                <div>
+                                    <span class="p-i-category-card-title">스포츠</span>
+                                </div>
+                                <div>
+                                    <span class="p-i-category-card-count" th:text="|${info['스포츠'].personCount} 명 / ${info['스포츠'].remarkCount} 발언|"></span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div th:replace="fragments/aside :: aside"></div>
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>

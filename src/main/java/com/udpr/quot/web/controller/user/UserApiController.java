@@ -24,7 +24,6 @@ public class UserApiController {
     public String editNickname(@LoginUser SessionUser user, @RequestBody @Valid UserNicknameRequestDto dto,
                                BindingResult result, Errors errors){
         nicknameValidator.validate(dto,errors);
-
         return userService.editNickname(user.getId(), dto).getNickname();
     }
 

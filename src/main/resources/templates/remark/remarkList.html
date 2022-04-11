@@ -12,7 +12,7 @@
 <div class="container-xl">
 </div>
 <div class="container-xl">
-    <div class="row">
+<div class="row">
     <div class="col-lg-8">
     <div class="r-l-page-container" th:object="${dto}">
         <input type="hidden" id="r-l-keyword" th:value="${keyword}">
@@ -21,8 +21,6 @@
         <input type="hidden" id="r-l-user" th:value="${userId}">
         <div th:if="${keyword}" class="r-l-table-title r-l-person-table-title">
             <span>인물 검색결과</span>
-        </div>
-        <div th:unless="${keyword}" class="r-l-table-title-empty">
         </div>
 
         <div th:if="${keyword != null || (category !=null && #strings.equals(category, '팔로우'))}" >
@@ -95,7 +93,24 @@
                 </div>
             </div>
         </div>
-        <div th:unless="${keyword}" class="r-l-table-title-empty">
+        <div th:unless="${keyword}" class="">
+            <!--<div class="r-l-notice-container r-l-t-row-container accordion accordion-flush" id="remarkNoticeAccordion">
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <button class="r-l-notice-container-button accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+
+                            <span><i class="bi bi-info-circle-fill" style="color: #999"></i>사회적으로 널리 알려진 사람들의 발언 중에서 보존할만한 가치가 있는 말을 누구나 자유롭게 등록, 수정, 삭제할 수 있는 위키입니다.</span>
+                        </button>
+                    </div>
+
+                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#remarkNoticeAccordion">
+                        <div class="r-l-notice-container-body accordion-body">
+                            무수한 말 중에서 재미와 흥미, 정보, 가치관이 담겨있는 말을 지향하며, 특정 대상에 대한 도를 넘는 비난이나 비속어, 욕설 등 미풍양속을 해치는 말은 지양합니다. 사실에 근거하지 않거나, 발언의 일부를 발췌하여 화자의 의도를 왜곡하거나, 당사자의 요청이 있거나, 기타 부적절한 사이트 이용시에는 관리자에 의해 삭제 및 권한이 제한될 수 있습니다.
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+
         </div>
 
 
@@ -325,14 +340,6 @@
                         </th:block>
                     </th:block>
 
-                    <th:block th:if=" not (*{endBlock} - *{startBlock} < 9) and (*{endBlock} != *{totalPages})">
-                        <li class="page-item disabled"><span class="page-link">...</span></li>
-                        <li class="page-item">
-                            <a class="page-link" th:href="@{|${baseUrl}|(page=*{totalPages}, sort=${cond.sort} ? ${cond.sort} : 'cd_d',
-                        tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : '종합')}" th:text="*{totalPages}">
-                            </a></li>
-                    </th:block>
-
 
                     <li th:if="*{not last and totalElements != 0}" class="page-item page-chevron-right">
                         <a class="page-link page-chevron-right" th:href="@{|${baseUrl}|(page=*{page}+1, sort=${cond.sort} ? ${cond.sort} : 'cd_d',
@@ -387,17 +394,6 @@
                             </li>
                         </th:block>
                     </th:block>
-
-                    <th:block
-                            th:if=" not (*{endBlock_sm} - *{startBlock_sm} < 4) and (*{endBlock_sm} != *{totalPages})">
-                        <li class="page-item disabled"><span class="page-link">...</span></li>
-                        <li class="page-item">
-                            <a class="page-link" th:href="@{|${baseUrl}|(page=*{totalPages}, sort=${cond.sort} ? ${cond.sort} : 'cd_d',
-                    tab=${cond.tab} ? ${cond.tab} : 1, category=${cond.category} ? ${cond.category} : '종합')}" th:text="*{totalPages}">
-                            </a>
-                        </li>
-                    </th:block>
-
 
                     <li th:if="*{not last and totalElements != 0}" class="page-item page-chevron-right">
                         <a class="page-link" th:href="@{|${baseUrl}|(page=*{page}+1, sort=${cond.sort} ? ${cond.sort} : 'cd_d',

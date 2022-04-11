@@ -7,13 +7,15 @@
     <meta name="naver-site-verification" content="b113d6addcbd8b2b2a19cc66f68b3042bb6ae5b4" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5145635293228409" crossorigin="anonymous"></script>
     <link th:if="${canonical != null}" rel="canonical" th:href="${canonical}">
+    <link rel="icon" href="/css/icon/favicon.ico" type="image/x-icon" sizes="16x16">
 
     <title th:if="${category != null && !(#strings.equals(category, '종합'))}" th:text="|${category} - 쿼트위키|"></title>
     <title th:if="${category != null && (#strings.equals(category, '종합')) && content == null}" th:text="|쿼트위키 - 화제의 발언, 어록 모음|"></title>
     <title th:if="${keyword}" th:text="|${keyword} : 검색 - 쿼트위키|"></title>
     <title th:if="${keyword==null && title != null}" th:text="|${title} - 쿼트위키|"></title>
+    <title th:if="${isPerson == true}">인물 분류 - 쿼트위키</title>
     <meta th:if="${content != null && !(#strings.equals(content, '종합'))}" name="description" th:content="${content}"/>
-    <meta th:unless="${content != null && !(#strings.equals(content, '종합'))}" name="description" content="화제의 발언, 어록 위키입니다."/>
+    <meta th:unless="${content != null && !(#strings.equals(content, '종합'))}" name="description" content="화제의 발언, 어록 위키입니다. 무수한 말 중에서 재미와 흥미, 정보, 가치관이 담겨있는 말을 지향하며, 특정 대상에 대한 도를 넘는 비난이나 비속어, 욕설 등 미풍양속을 해치는 말은 지양합니다."/>
     <meta property="og:type" content="website">
     <meta property="og:image" content="/css/images/logo.png">
 
@@ -43,10 +45,10 @@
     <!-- container 사이즈 조절 custom -->
     <link rel="stylesheet" href="/css/form/form.css?ver=20220116_001">
     <!-- admin 커스텀 css (fieldError)-->
-    <link rel="stylesheet" href="/css/admin/admin.css?ver=20220210_001">
+    <link rel="stylesheet" href="/css/admin/admin.css?ver=20220411_001">
     <link rel="stylesheet" href="/css/icon/style.css?ver=20220207_001">
     <!-- person-detail -->
-    <link rel="stylesheet" href="/css/person/person-detail.css?ver=20220211_001">
+    <link rel="stylesheet" href="/css/person/person-detail.css?ver=20220411_001">
     <!-- fonts -->
     <link rel="stylesheet" href="/css/fonts.css?ver=20220116_001">
     <!-- tagify & dragsort -->

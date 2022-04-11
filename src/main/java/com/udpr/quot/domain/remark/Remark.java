@@ -6,6 +6,7 @@ import com.udpr.quot.domain.common.BaseTimeEntity;
 import com.udpr.quot.domain.common.Status;
 import com.udpr.quot.domain.person.Person;
 import com.udpr.quot.domain.remark.comment.Comment;
+import com.udpr.quot.domain.user.Bookmark;
 import com.udpr.quot.domain.user.User;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -56,6 +57,9 @@ public class Remark extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "remark", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> commentList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "remark", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Bookmark> bookmarkList = new ArrayList<>();
 
     @ColumnDefault("0")
     private int likeCount;

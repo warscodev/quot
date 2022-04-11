@@ -6,17 +6,14 @@ import com.udpr.quot.config.auth.dto.SessionUser;
 import com.udpr.quot.domain.person.PersonSearchCondition;
 import com.udpr.quot.domain.person.search.RemarkForPersonDetailSearchCondition;
 import com.udpr.quot.service.person.PersonService;
-import com.udpr.quot.web.dto.person.PersonListResponseDto;
+import com.udpr.quot.web.dto.person.AdminPersonListResponseDto;
 import com.udpr.quot.web.dto.person.PersonRequestDto;
 import com.udpr.quot.web.dto.person.PersonResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.naming.AuthenticationException;
 import javax.validation.Valid;
@@ -29,7 +26,31 @@ public class PersonController {
 
     private final PersonService personService;
 
-    //인물 리스트
+    //인물 페이지 인덱스
+    @GetMapping("/person")
+    public String index(Model model, @LoginUser SessionUser user){
+        if(user != null){
+            model.addAttribute("user", user);
+        }
+
+        model.addAttribute("info", personService.getPersonInfoCount());
+
+        return "person/personIndex";
+    }
+
+    @GetMapping("/person/list/{category}")
+    public String personList(@PathVariable String category, Model model, @LoginUser SessionUser user){
+        if(user != null){
+            model.addAttribute("user", user);
+        }
+
+        model.addAttribute("chs", personService.getFirstLettersFromPersonNames(category));
+        model.addAttribute("category", category);
+        return "person/personList";
+    }
+
+
+    //인물 리스트(관리자페이지)
     @GetMapping("/admin/person")
     public String list(@ModelAttribute PersonSearchCondition condition, Model model , @LoginUser SessionUser user){
 
@@ -43,9 +64,9 @@ public class PersonController {
         }else {
             model.addAttribute("searchCondition", condition);
         }
-        List<PersonListResponseDto> list = personService.search(condition);
+        List<AdminPersonListResponseDto> list = personService.search(condition);
         model.addAttribute("list", list);
-        return "person/personList";
+        return "admin/adminPersonList";
     }
 
     //인물 등록 폼

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<nav class="subNavbar" th:fragment="subNavbar-person">
+    <div class="subNav-menu-wrap container-xl">
+        <ul class="subNav-menu">
+            <li class="subNav-menu-items person main-menu"
+                th:classappend="${category == null} ? active">
+                <a href="/person">
+                    <span>분류</span>
+                </a>
+            </li>
+            <li class="subNav-menu-items divider">
+                <a>|</a>
+            </li>
+            <li class="subNav-menu-items person"
+                th:classappend="${#strings.equals(category, '정치')} ? active">
+                <a href="/person/list/정치">
+                    <span>정치</span>
+                </a>
+            </li>
+            <li class="subNav-menu-items person"
+                th:classappend="${#strings.equals(category, '방송연예')} ? active">
+                <a href="/person/list/방송연예">
+                    <span>방송/연예</span>
+                </a>
+            </li>
+            <li class="subNav-menu-items person"
+                th:classappend="${#strings.equals(category, '사회문화')} ? active">
+                <a href="/person/list/사회문화">
+                    <span>사회/문화</span>
+                </a>
+            </li>
+            <li class="subNav-menu-items person"
+                th:classappend="${#strings.equals(category, '스포츠')} ? active">
+                <a href="/person/list/스포츠">
+                    <span>스포츠</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+
+        $(document).ready(function () {
+            let $scrItem = $('.subNav-menu-items');
+            let scrIWidth = 0;
+            for (let i = 0; i < $scrItem.length; i++) {
+                scrIWidth += $scrItem.eq(i).outerWidth();
+            }
+            alignCenter();
+
+            function alignCenter() {
+                let target = $(".subNav-menu-items.active")
+                let box = $('.subNav-menu-wrap');
+                let boxItem = box.find('.subNav-menu-items');
+                let boxHalf = box.width() / 2;
+                let pos;
+                let listWidth = 0;
+                let targetLeft = 0;
+
+                boxItem.each(function () {
+                    listWidth += $(this).outerWidth();
+                })
+
+                for (let i = 0; i < target.index(); i++) targetLeft += boxItem.eq(i).outerWidth();
+
+                let selectTargetPos = (targetLeft + target.outerWidth() / 2);
+                if (selectTargetPos <= boxHalf) { // left
+                    pos = 0;
+                } else if (listWidth - selectTargetPos <= boxHalf) { //right
+                    pos = box.width();
+                } else {
+                    pos = selectTargetPos - boxHalf; // 중앙
+                }
+
+                /*box.animate({scrollLeft: pos}, 300)*/
+                box.scrollLeft(pos);
+
+
+            }
+        });
+
+        const menu = document.querySelectorAll(".subNav-menu-items");
+        menu.forEach(m => {
+            m.addEventListener("click", function (e) {
+            })
+        })
+    </script>
+</nav>

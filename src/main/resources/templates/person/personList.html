@@ -1,87 +1,138 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header">
-    <title>Hello</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-</head>
+<html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="fragments/header :: header(isPerson=true)">
 <body>
 <div th:replace="fragments/loginHeader :: loginHeader"></div>
-<div th:replace="fragments/topHeader :: topHeader"></div>
-<div th:replace="fragments/subNavbar :: subNavbar"></div>
-<div class="container-xl">
-    </br>
-    <div class="py-2 d-flex" style="grid-template-columns: 1fr 2fr;">
-        <div class="person-title">
-            <h4>인물 목록</h4>
-        </div>
-    </div>
-    <div class="py-1">
-        <form th:action="@{/admin/person}" th:object="${searchCondition}" class="row g-1">
-            <div class="col-2">
-                <select class="form-select" th:field="*{status}">
-                    <option th:value=null selected="selected">상태</option>
-                    <option th:value="CREATED">수정되지 않음</option>
-                    <option th:value="UPDATED">수정됨</option>
-                </select>
-            </div>
-            <div class="col-2">
-                <select class="form-select" th:field="*{category}">
-                    <option th:value=null>카테고리</option>
-                    <option th:value="기타">기타</option>
-                    <option th:value="정치">정치</option>
-                    <option th:value="사회">사회</option>
-                    <option th:value="연예">연예</option>
-                    <option th:value="스포츠">스포츠</option>
-                    <option th:value="인플루언서">인플루언서</option>
-                </select>
-            </div>
-            <div class="col-8">
-                <input type="text" th:field="*{name}" class="form-control" placeholder="검색(이름)">
-            </div>
-        </form>
-    </div>
-    <div class="table-responsive" style="font-size:0.85rem; white-space: nowrap;">
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th>이름</th>
-                <th>생일</th>
-                <th>직업</th>
-                <th>등록일</th>
-                <th>마지막 수정일</th>
-            </tr>
-            </thead>
-            <tbody id="tbody">
-            <tr th:each="person : ${list}">
-                <!--이름-->
-                <td scope="row">
-                    <a href="#" class="person-name" th:href="@{/admin/person/{id} (id=${person.id})}" th:text="${person.name}"></a>
-                </td>
-                <!--생년월일-->
-                <td>
-                    <th:block th:if="${not #strings.isEmpty(person.birth.birth_year)}"
-                              th:text="${person.birth.birth_year}+'년'"></th:block>
-                    <th:block th:if="${not #strings.isEmpty(person.birth.birth_month)}"
-                              th:text="${person.birth.birth_month}+'월'"></th:block>
-                    <th:block th:if="${not #strings.isEmpty(person.birth.birth_day)}"
-                              th:text="${person.birth.birth_day}+'일'"></th:block>
-                </td>
-                <!-- 직업 -->
-                <td th:text="${person.job}"></td>
-                <!-- 생성일 -->
-                <td th:text="${#temporals.format(person.createdDate,'yyyy-MM-dd HH:mm:ss')}"></td>
-                <!-- 수정일 -->
-                <td th:if="${person.status.toString.equals('UPDATED') or person.status.toString.equals('DELETED')}"
-                    th:text="${#temporals.format(person.updatedDate,'yyyy-MM-dd HH:mm:ss')}">
-                <td th:unless="${person.status.toString.equals('UPDATED') or person.status.toString.equals('DELETED')}"
-                    th:text=null>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+<div th:replace="fragments/topHeader :: topHeader(isPerson=true)"></div>
+<div th:replace="fragments/subNavbarForPersonList :: subNavbar-person"></div>
 
+<div class="container-xl">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="p-l-container">
+                <div class="p-l-index-nav-container">
+                    <div class="p-l-index-nav-wrap">
+                        <a class="p-l-index-nav" th:each="c : ${chs}" th:text="${c}"></a>
+                    </div>
+                </div>
+                <div class="p-l-table-container">
+                    <div class="p-l-table-spinner-container d-flex justify-content-center align-items-center">
+                        <div class="spinner-border text-secondary" role="status">
+                            <span class='visually-hidden'>Loading...</span>
+                        </div>
+                    </div>
+
+                    <div class="p-l-table-wrap row row-cols-2">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div th:replace="fragments/aside :: aside"></div>
+    </div>
 </div>
-<div th:replace="fragments/footer :: footer"/>
+
+<script th:inline="javascript">
+    const category = /*[[ ${category} ]]*/;
+    let currentIndexEl;
+    let currentIndex;
+    const listTableWrap = document.querySelector(".p-l-table-wrap");
+    const spinner = document.querySelector(".p-l-table-spinner-container>.spinner-border");
+
+    function initPage(){
+        currentIndexEl = document.querySelectorAll('.p-l-index-nav')[0];
+        currentIndex = currentIndexEl.text;
+        currentIndexEl.classList.add("selected");
+        loadPersonListExec(currentIndex);
+    }
+
+    function loadPersonListExec(index){
+        getPersonList(index)
+            .then(setPersonListTable);
+    }
+
+    async function getPersonList(index){
+        const res = await fetch(`/api/person/${category}/${index}`, {
+            method: "get"
+        })
+        try{
+            return res.json();
+        } catch (error) {
+            alert(JSON.stringify(error));
+        }
+    }
+
+    function setPersonListTable(list){
+        list.forEach(list=>{
+            const tableCol = document.createElement("div");
+            const dot = document.createElement("i");
+            const nameWrap = document.createElement("a");
+
+            const nameSpan = document.createElement("span");
+            const countSpan = document.createElement("span");
+            const jobSpan = document.createElement("span");
+
+            tableCol.setAttribute("class", "p-l-col col");
+            dot.setAttribute("class", "bi bi-dot");
+            nameWrap.setAttribute("class", "p-l-name-wrap");
+            nameWrap.setAttribute("href","/person/"+list.id);
+            tableCol.appendChild(dot);
+
+            nameSpan.setAttribute("class", "p-l-name");
+            nameSpan.innerText = list.name;
+            countSpan.setAttribute("class", "p-l-count");
+            countSpan.innerText = "(" + list.count + ")";
+            jobSpan.setAttribute("class", "p-l-job");
+            jobSpan.innerText = list.job;
+
+            nameWrap.appendChild(nameSpan);
+            nameWrap.appendChild(countSpan);
+
+            tableCol.appendChild(nameWrap);
+            tableCol.appendChild(jobSpan);
+
+            listTableWrap.appendChild(tableCol);
+
+            });
+
+        hideSpinner();
+    }
+
+    function changeIndex(e){
+        const tableCols = document.querySelectorAll(".p-l-col");
+        currentIndexEl.classList.remove("selected");
+        currentIndexEl = e;
+        currentIndexEl.classList.add("selected");
+        let thisIndex = e.innerText;
+        currentIndex = thisIndex;
+
+        tableCols.forEach(c=>{
+            c.remove();
+        })
+        loadPersonListExec(thisIndex)
+    }
+
+    function hideSpinner(){
+        spinner.style.display = 'none';
+    }
+
+    function showSpinner(){
+        spinner.style.display = 'block'
+    }
+
+
+    document.addEventListener("DOMContentLoaded", initPage);
+    document.querySelectorAll('.p-l-index-nav').forEach(n => {
+        n.addEventListener("click", function (e){
+            changeIndex(e.target);
+        })
+    })
+
+</script>
+
+<div th:replace="fragments/footer :: footer"></div>
+
 </body>
 </html>

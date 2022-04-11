@@ -25,7 +25,7 @@ public class Tag {
 
     @JsonManagedReference(value = "tag")
     @OneToMany(mappedBy = "tag", fetch = FetchType.LAZY)
-    private List<RemarkTag> remarkTagList = new ArrayList<>();
+    private final List<RemarkTag> remarkTagList = new ArrayList<>();
 
 
     @Builder

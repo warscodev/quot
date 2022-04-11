@@ -3,6 +3,7 @@ package com.udpr.quot.domain.person.repository;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.StringTemplate;
@@ -23,8 +24,11 @@ import org.springframework.data.domain.Pageable;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static com.udpr.quot.domain.person.QPerson.person;
@@ -35,19 +39,20 @@ import static com.udpr.quot.domain.remark.comment.QComment.comment;
 import static com.udpr.quot.domain.tag.QTag.tag;
 import static com.udpr.quot.domain.user.QFollow.follow;
 import static com.udpr.quot.domain.user.QUser.user;
+import static org.springframework.util.ObjectUtils.isEmpty;
 
-public class PersonRepositoryImpl implements PersonRepositoryCustom{
+public class PersonRepositoryImpl implements PersonRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
 
-    public PersonRepositoryImpl(EntityManager em){
+    public PersonRepositoryImpl(EntityManager em) {
         this.queryFactory = new JPAQueryFactory(em);
     }
 
     @Override
-    public List<PersonListResponseDto> search(PersonSearchCondition condition){
+    public List<AdminPersonListResponseDto> search(PersonSearchCondition condition) {
         return queryFactory
-                .select(new QPersonListResponseDto(
+                .select(new QAdminPersonListResponseDto(
                         person.id,
                         person.name,
                         person.alias,
@@ -62,14 +67,14 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
                         categoryEq(condition.getCategory()),
                         statusEq(condition.getStatus()),
                         jobLike((condition.getJob()))
-                        )
+                )
 
                 .orderBy(person.name.asc())
                 .fetch();
     }
 
     @Override
-    public Page<SearchPersonResponseDto> findByPersonName(String keyword, Pageable pageable){
+    public Page<SearchPersonResponseDto> findByPersonName(String keyword, Pageable pageable) {
 
         QueryResults<SearchPersonResponseDto> results = queryFactory
                 .select(new QSearchPersonResponseDto(
@@ -111,7 +116,7 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
     }
 
     @Override
-    public List<PersonAutoCompleteDto> personAutoComplete(String keyword){
+    public List<PersonAutoCompleteDto> personAutoComplete(String keyword) {
         return queryFactory
                 .select(new QPersonAutoCompleteDto(
                         person.id,
@@ -120,7 +125,7 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
                 ))
                 .from(person)
                 .where(replaceSpacePersonName().likeIgnoreCase(keyword + "%")
-                .or(replaceCommaOnPersonAlias().likeIgnoreCase(keyword + "%")))
+                        .or(replaceCommaOnPersonAlias().likeIgnoreCase(keyword + "%")))
                 .orderBy(new CaseBuilder()
                         .when(replaceSpacePersonName().equalsIgnoreCase(keyword))
                         .then(1)
@@ -132,12 +137,12 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
     }
 
     @Override
-    public List<PersonAutoCompleteDto> personAutoCompleteForMainSearch(String keyword){
+    public List<PersonAutoCompleteDto> personAutoCompleteForMainSearch(String keyword) {
         int limit;
-        if(keyword.length()>1){
-            limit=15;
-        }else{
-            limit=10;
+        if (keyword.length() > 1) {
+            limit = 15;
+        } else {
+            limit = 10;
         }
         return queryFactory
                 .select(new QPersonAutoCompleteDto(
@@ -160,9 +165,9 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
     }
 
     @Override
-    public PersonQueryDto getDetail(Long id){
+    public PersonQueryDto getDetail(Long id) {
         return queryFactory
-                .select(new QPersonQueryDto( person.id, person.name, person.alias, person.birth,
+                .select(new QPersonQueryDto(person.id, person.name, person.alias, person.birth,
                         person.gender, person.job, person.summary, person.category, person.organization, person.image,
                         person.createdDate, person.updatedDate,
                         icon.id, icon.path))
@@ -173,9 +178,9 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
     }
 
     @Override
-    public PersonQueryDto getDetail(Long personId, Long userId){
+    public PersonQueryDto getDetail(Long personId, Long userId) {
         return queryFactory
-                .select(new QPersonQueryDto( person.id, person.name, person.alias, person.birth,
+                .select(new QPersonQueryDto(person.id, person.name, person.alias, person.birth,
                         person.gender, person.job, person.summary, person.category, follow.id, person.organization, person.image,
                         person.createdDate, person.updatedDate,
                         icon.id, icon.path))
@@ -190,13 +195,13 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
     }
 
     @Override
-    public List<RemarkForPersonDetailQueryDto> getRemarkListForPersonDetail(RemarkForPersonDetailSearchCondition condition, Long id){
+    public List<RemarkForPersonDetailQueryDto> getRemarkListForPersonDetail(RemarkForPersonDetailSearchCondition condition, Long id) {
 
         List<RemarkForPersonDetailQueryDto> results = queryFactory
                 .select(new QRemarkForPersonDetailQueryDto(
                         remark.id, remark.content, remark.remarkDate,
                         remark.createdDate, remark.updatedDate, remark.likeCount,
-                        remark.dislikeCount,remark.sourceSort, remark.sourceUrl,
+                        remark.dislikeCount, remark.sourceSort, remark.sourceUrl,
                         user.id, user.nickname))
                 .from(remark)
                 .where(remark.person.id.eq(id))
@@ -233,16 +238,93 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
                 .collect(Collectors.toList());
     }
 
-    private void setTagMapsToRemark(List<RemarkForPersonDetailQueryDto> results, Map<Long, List<RemarkTagQueryDto>> tagMap) {
-            results.forEach(r -> r.setRemarkTagList(tagMap.get(r.getRemarkId())));
+    @Override
+    public Map<String, PersonIndexDto> getPersonCount() {
+        List<PersonIndexDto> result = queryFactory
+                .select(new QPersonIndexDto(
+                        person.category, person.category.count().intValue(), person.remarkList.size().sum()
+                ))
+                .from(person)
+                .groupBy(person.category)
+                .where(person.remarkList.size().goe(1))
+                .fetch();
+
+        return result.stream().collect(Collectors.toMap(PersonIndexDto::getCategory, Function.identity()));
+    }
+
+    @Override
+    public List<String> getFirstLettersFromPersonNames(String category) {
+
+        return queryFactory
+                .select(person.name.substring(0, 1))
+                .from(person)
+                .groupBy(person.name.substring(0, 1))
+                .where(person.category.eq(category)
+                        .and(person.remarkList.size().goe(1)))
+                .fetch();
+    }
+
+    @Override
+    public List<PersonListResponseDto> getPersonInfoForPersonList(String category, String index){
+
+        return queryFactory
+                .select(new QPersonListResponseDto(
+                        person.id, person.name, person.remarkList.size(), person.job
+                ))
+                .from(person)
+                .where(person.category.eq(category)
+                        .and(person.remarkList.size().goe(1))
+                        .and(indexRegexp(index)))
+                .orderBy(person.name.asc())
+                .fetch();
+    }
+
+    private BooleanExpression indexRegexp(String index) {
+
+        String pattern = "^[a-zA-Z0-9]"; //영문 또는 숫자
+        boolean isNotKorean = Pattern.matches(pattern, index.substring(0,1));
+
+        System.out.println("index : " + index.substring(0,1) + ", isNotKorean : " + isNotKorean);
+
+        if(!isNotKorean) {
+
+            List<String> index_list = new ArrayList<>();
+            Map<Integer, String> index_map = new HashMap<>();
+            int num = 0;
+
+            index_list.add("ㄱ"); index_list.add("ㄴ"); index_list.add("ㄷ");
+            index_list.add("ㄹ"); index_list.add("ㅁ"); index_list.add("ㅂ");
+            index_list.add("ㅅ"); index_list.add("ㅇ"); index_list.add("ㅈ");
+            index_list.add("ㅊ"); index_list.add("ㅋ"); index_list.add("ㅌ");
+            index_list.add("ㅍ"); index_list.add("ㅎ");
+
+            index_map.put(0, "가");  index_map.put(1, "나");  index_map.put(2, "다");
+            index_map.put(3, "라");  index_map.put(4, "마");  index_map.put(5, "바");
+            index_map.put(6, "사");  index_map.put(7, "아");  index_map.put(8, "자");
+            index_map.put(9, "차");  index_map.put(10, "카");  index_map.put(11, "타");
+            index_map.put(12, "파");  index_map.put(13, "하"); index_map.put(14, "힣");
+
+            for( int i = 0; i < index_list.size(); i++ ) {
+                if( index.equals(index_list.get(i)) ) {
+                    num = i; break;
+                }
+            }
+
+            return person.name.between(index_map.get(num), index_map.get(num+1));
+
+        }else {
+            return person.name.notBetween("가", "힣");
+        }
+
     }
 
 
 
 
 
-
-
+    private void setTagMapsToRemark(List<RemarkForPersonDetailQueryDto> results, Map<Long, List<RemarkTagQueryDto>> tagMap) {
+        results.forEach(r -> r.setRemarkTagList(tagMap.get(r.getRemarkId())));
+    }
 
 
     private Predicate nameLike(String name) {
@@ -270,11 +352,11 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom{
         return null;
     }
 
-    private List<OrderSpecifier<?>> getOrderSpecifier(String sort){
+    private List<OrderSpecifier<?>> getOrderSpecifier(String sort) {
 
         List<OrderSpecifier<?>> orders = new ArrayList<>();
 
-        if(sort!=null) {
+        if (sort != null) {
             switch (sort) {
                 case "rd_d":
                     orders.add(remark.remarkDate.desc());
