@@ -279,7 +279,11 @@ a:hover {
 
 
 
-.main-header-category-container{
+.main-header-category-menu{
+    list-style: none;
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 0;
     padding: .25rem .25rem 0 .25rem;
 }
 
@@ -289,24 +293,35 @@ a:hover {
     font-weight: 400;
     padding-left: .5rem;
     padding-right: .5rem;
-    /*font-family: MaruBuri;*/
 }
 
-.main-header-category-items.active{
-    font-weight: 600;
-    color: #222;
+.main-header-category-items span{
+    transition: color .15s ease-in-out;
+}
+
+.main-header-category-items.active span{
+    font-weight: 500;
+    color: #FF674A;
     pointer-events: none;
 }
 
-.main-header-category-items:hover>span{
-    text-decoration: underline;
-    text-underline-position : under;
+.main-header-category-items:hover span{
+    color: #FF674A;
+    /*text-decoration: underline;
+    text-underline-position : under;*/
 }
 
-.main-header-category-divider{
-
+.main-header-category-items.divider{
     color: #909bab;
+    font-size: 1rem;
+    padding-left: .25rem;
+    padding-right: .25rem;
     font-weight: 200 !important;
+    cursor: initial;
+}
+
+.main-header-category-items.divider a{
+    pointer-events: none;
 }
 
 .main-search-bar-container{
@@ -373,7 +388,7 @@ a:hover {
 
 @media (max-width: 767px){
 
-    .main-header-category-container{
+    .main-header-category-menu{
         padding-left: .125rem;
     }
 
