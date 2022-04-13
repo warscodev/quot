@@ -299,10 +299,13 @@ a:hover {
     transition: color .15s ease-in-out;
 }
 
+.main-header-category-items.active{
+    pointer-events: none;
+}
+
 .main-header-category-items.active span{
     font-weight: 500;
     color: #FF674A;
-    pointer-events: none;
 }
 
 .main-header-category-items:hover span{
