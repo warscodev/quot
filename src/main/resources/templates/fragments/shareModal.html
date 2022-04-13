@@ -95,7 +95,7 @@
                 contentForSend = "\"" + content + "\"";
             }
 
-            let sendText = date.replace(/(\s*)/g, "") + " " + name.replace(/(\s*)/g, "") + " 발언 " + contentForSend;
+            let sendText = date.replace(/(\s*)/g, "") + " " + name.replace(/(\s*)/g, "") + " " + contentForSend;
 
             let encodedUri = encodeURI("https://twitter.com/intent/tweet?text=" + sendText + "&hashtags="+ name.replace(/(\s*)/g, "") +"&url=" + urlInput.value);
             window.open(encodedUri);
