@@ -3301,6 +3301,11 @@ a:hover {
 
 @media (max-width: 767px) {
 
+    .p-i-container, .p-l-container{
+        padding-top: 1rem;
+    }
+
+
     .p-i-title-wrap{
         padding-left: .75rem;
         padding-right: .75rem;
