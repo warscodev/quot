@@ -52,7 +52,6 @@
                 <option th:value="영상">영상</option>
                 <option th:value="SNS">SNS</option>
                 <option th:value="기사">기사</option>
-                <option value="">없음</option>
             </select>
             <!--<input th:value="${form.sourceSort}" type="text" class="form-control" placeholder="ex)유튜브, 기사 등..."
                    id="sourceSort">-->
@@ -161,6 +160,9 @@
             return false;
         } else if (!data.remarkDate) {
             alert("발언 일자를 입력해주세요.")
+            return false;
+        }else if(data.sourceUrl.replace(blank_pattern, "") === "" || !data.sourceUrl){
+            alert("출처 링크를 바르게 입력해주세요.")
             return false;
         }
         return true;

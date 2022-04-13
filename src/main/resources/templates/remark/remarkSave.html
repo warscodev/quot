@@ -28,7 +28,6 @@
                 <option value="영상">영상</option>
                 <option value="SNS">SNS</option>
                 <option value="기사">기사</option>
-                <option value="">없음</option>
             </select>
         </div>
 
@@ -180,7 +179,7 @@
         } else if(!data.jasonArrayTags){
             alert("태그는 한개 이상 입력되어야 합니다.")
             return false;
-        }else if(!data.sourceSort === "" && (data.sourceUrl.replace(blank_pattern, "") === "" || !data.sourceUrl)){
+        }else if(data.sourceUrl.replace(blank_pattern, "") === "" || !data.sourceUrl){
             alert("출처 링크를 바르게 입력해주세요.")
             return false;
         }
