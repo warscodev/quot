@@ -32,6 +32,7 @@ public class RemarkRequestDto implements Serializable{
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String remarkDate;
     private String sourceSort;
+    @NotBlank(message = "출처를 입력해주세요.")
     private String sourceUrl;
     private List<String> tags = new ArrayList<>();
     private String jasonArrayTags;

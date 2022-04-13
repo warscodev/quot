@@ -236,6 +236,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                 .where(keywordLike().likeIgnoreCase("%" + condition.getKeyword().replace(" ", "") + "%")
                         .or(person.name.likeIgnoreCase("%" + condition.getKeyword() + "%"))
                         .or(removeCommaOnPersonAlias().likeIgnoreCase("%" + condition.getKeyword() + "%"))
+                        .or(person.organization.like("%" + condition.getKeyword() + "%"))
                         .or(remarkTag.tag.name.eq(condition.getKeyword())))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
@@ -272,6 +273,7 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
 
                 .where(person.name.likeIgnoreCase("%" + condition.getKeyword() + "%")
                         .or(removeCommaOnPersonAlias().likeIgnoreCase("%" + condition.getKeyword() + "%"))
+                        .or(person.organization.like("%" + condition.getKeyword() + "%"))
                         .and(personIdEq(condition.getPersonId())))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())

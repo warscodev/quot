@@ -11,6 +11,8 @@ public class SearchPersonResponseDto {
     String job;
     String category;
 
+    String organization;
+
     @QueryProjection
     public SearchPersonResponseDto(Long id, String name, String job, String category) {
         this.id = id;

@@ -47,6 +47,8 @@ public class RemarkQueryDto {
 
     private Long isBookmarked;
 
+    private String organization;
+
     private String remarkSummary;
 
     private String remarkSummaryForTitle;

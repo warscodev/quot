@@ -90,7 +90,10 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom {
                         .or(replaceSpacePersonName().likeIgnoreCase(keyword + "%"))
                         .or(replaceSpacePersonName().likeIgnoreCase("%" + keyword + "%"))
                         .or(replaceCommaOnPersonAlias().likeIgnoreCase(keyword + "%"))
-                        .or(replaceCommaOnPersonAlias().likeIgnoreCase("%" + keyword + "%")))
+                        .or(replaceCommaOnPersonAlias().likeIgnoreCase("%" + keyword + "%"))
+                        .or(person.organization.like("%" + keyword + "%"))
+                )
+
 
                 .orderBy(new CaseBuilder()
                         .when(replaceSpacePersonName().equalsIgnoreCase(keyword))
