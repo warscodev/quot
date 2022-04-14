@@ -16,6 +16,7 @@
     <title th:if="${isPerson == true}">인물 분류 - 쿼트위키</title>
     <meta th:if="${content != null && !(#strings.equals(content, '종합'))}" name="description" th:content="${content}"/>
     <meta th:unless="${content != null && !(#strings.equals(content, '종합'))}" name="description" content="화제의 발언, 어록 위키입니다. 무수한 말 중에서 재미와 흥미, 정보, 가치관이 담겨있는 말을 지향합니다."/>
+    <meta th:if="${date != null} "name="Date" th:content="${date}"/>
     <meta property="og:type" content="website">
     <meta property="og:image" content="/css/images/logo.png">
 

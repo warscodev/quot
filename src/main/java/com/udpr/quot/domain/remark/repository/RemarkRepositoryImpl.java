@@ -91,8 +91,9 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
             result.setRemarkTagList(tagList);
 
             result.setTags(tagList.stream()
-                    .map(RemarkTagQueryDto::getName)
-                    .collect(Collectors.joining(", ")));
+                    .map(tagDto-> "#"+tagDto.getName())
+                    .collect(Collectors.joining(" ")));
+
 
             result.setIsBookmarked(isBookmarked);
 
@@ -144,8 +145,8 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
             result.setRemarkTagList(tagList);
 
             result.setTags(tagList.stream()
-                    .map(RemarkTagQueryDto::getName)
-                    .collect(Collectors.joining(", ")));
+                    .map(tagDto-> "#"+tagDto.getName())
+                    .collect(Collectors.joining(" ")));
 
             result.setCommentCount(commentCount);
         }

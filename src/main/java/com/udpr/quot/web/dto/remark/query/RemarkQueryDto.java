@@ -53,6 +53,7 @@ public class RemarkQueryDto {
 
     private String remarkSummaryForTitle;
     private String remarkDateForDescription;
+    private LocalDate remarkDateForMetaTag;
 
 
     @QueryProjection
@@ -81,7 +82,8 @@ public class RemarkQueryDto {
         this.nickname = nickname;
         this.remarkSummary = summarySubstring(content);
         this.remarkSummaryForTitle = summaryForTitleSubstring(content);
-        this.remarkDateForDescription = remarkDate.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"));
+        this.remarkDateForDescription = remarkDate.format(DateTimeFormatter.ofPattern("yyyy. MM. dd."));
+        this.remarkDateForMetaTag = remarkDate;
     }
 
     @QueryProjection
@@ -111,11 +113,12 @@ public class RemarkQueryDto {
 
     public String summarySubstring(String content){
         if(content.trim().length()>185){
-            return content.trim().substring(0,182).trim() + "...";
+            return "\""+ content.trim().substring(0,182).trim() + "...\"";
         }else{
-            return content;
+            return "\"" + content+"\"";
         }
     }
+
     public String summaryForTitleSubstring(String remarkSummary){
         if(remarkSummary.length()>32){
             return remarkSummary.substring(0,29) + "...";
@@ -139,4 +142,6 @@ public class RemarkQueryDto {
 
         return className;
     }
+
+
 }
