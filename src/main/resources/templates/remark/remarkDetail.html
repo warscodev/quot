@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-<head th:replace="fragments/header :: header(title=|${remark.name} &#34;${remark.remarkSummaryForTitle}&#34;|, content=|${remark.tags} ${remark.remarkSummary}|, canonical=|https://quot.wiki/remark/${remark.remarkId}|, date = ${remark.remarkDateForMetaTag})">
+<head th:replace="fragments/header :: header(title=|${remark.name} &#34;${remark.remarkSummaryForTitle}&#34;|, content=|${remark.tags} &#34;${remark.remarkSummary}&#34;|, canonical=|https://quot.wiki/remark/${remark.remarkId}|, date = ${remark.remarkDateForMetaTag})">
 <body>
 <div th:replace="fragments/loginHeader :: loginHeader"></div>
 <div th:replace="fragments/topHeader :: topHeader"></div>

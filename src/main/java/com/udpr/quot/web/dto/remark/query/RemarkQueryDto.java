@@ -113,9 +113,9 @@ public class RemarkQueryDto {
 
     public String summarySubstring(String content){
         if(content.trim().length()>185){
-            return "\""+ content.trim().substring(0,182).trim() + "...\"";
+            return content.trim().substring(0,182).trim() + "...";
         }else{
-            return "\"" + content+"\"";
+            return content;
         }
     }
 

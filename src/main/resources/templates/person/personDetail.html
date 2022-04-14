@@ -2,11 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-<head th:replace="fragments/header :: header(title=|${info.person.name}님의 어록|, content=|${info.person.name} 인물 페이지. ${info.person.name} 인물정보, 연도별 ${info.person.name} 발언 모음.|, canonical=|https://quot.wiki/person/${info.person.personId}|)">
+<head th:replace="fragments/header :: header(title=|${info.person.name}님의 어록|, content=|${info.person.name} 인물 정보, 연도별 발언 모음.|, canonical=|https://quot.wiki/person/${info.person.personId}|)">
 <body th:object="${info}">
 <div th:replace="fragments/loginHeader :: loginHeader"></div>
-<div th:replace="fragments/topHeader :: topHeader"></div>
-<div th:replace="fragments/subNavbar :: subNavbar"></div>
+<div th:replace="fragments/topHeader :: topHeader(isPerson=true)"></div>
+<div th:replace="fragments/subNavbarForPersonList :: subNavbar-person(category=${info.person.category})"></div>
 <div class="container-xl person-detail-container">
     <div>
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5145635293228409"
