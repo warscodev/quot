@@ -15,7 +15,7 @@
     <title th:if="${keyword==null && title != null}" th:text="|${title} - 쿼트위키|"></title>
     <title th:if="${isPerson == true}">인물 분류 - 쿼트위키</title>
     <meta th:if="${content != null && !(#strings.equals(content, '종합'))}" name="description" th:content="${content}"/>
-    <meta th:unless="${content != null && !(#strings.equals(content, '종합'))}" name="description" content="화제의 발언, 어록 위키입니다. 무수한 말 중에서 재미와 흥미, 정보, 가치관이 담겨있는 말을 지향하며, 특정 대상에 대한 도를 넘는 비난이나 비속어, 욕설 등 미풍양속을 해치는 말은 지양합니다."/>
+    <meta th:unless="${content != null && !(#strings.equals(content, '종합'))}" name="description" content="화제의 발언, 어록 위키입니다. 무수한 말 중에서 재미와 흥미, 정보, 가치관이 담겨있는 말을 지향합니다."/>
     <meta property="og:type" content="website">
     <meta property="og:image" content="/css/images/logo.png">
 
