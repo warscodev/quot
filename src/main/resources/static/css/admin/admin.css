@@ -1158,7 +1158,7 @@ a:hover {
 .r-l-t-row-container {
     position: relative;
     z-index: 1;
-    padding: .688rem .875rem .375rem .875rem;
+    padding: .688rem .875rem .25rem .875rem;
     background-color: #fff;
     background-clip: border-box;
     border-radius: .75rem;
