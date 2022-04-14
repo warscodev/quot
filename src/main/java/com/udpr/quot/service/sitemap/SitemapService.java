@@ -61,10 +61,7 @@ public class SitemapService {
             sb.append(new Sitemap(BASE_URL+"/person/" + id));
         });
 
-
-
         sb.append(END_DOC);
-
 
         return sb.toString();
     }
