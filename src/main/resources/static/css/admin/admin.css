@@ -2006,8 +2006,8 @@ a:hover {
     background-color: #f4f4f5;
 }
 
-.r-c-t-row-mine-container {
-    /*box-shadow: 0 0 0 0.1rem rgba(13, 110, 253, .2);*/
+.r-c-t-row-mine-container > .r-c-t-first-row-container{
+    box-shadow: 0 0 0 0.1rem rgba(13, 110, 253, .2);
 }
 
 .r-c-t-first-row-container {
@@ -2171,8 +2171,12 @@ a:hover {
     margin-right: .875rem;
 }
 
-.r-c-t-modify-btn, .r-c-t-delete-btn{
+.r-c-t-modify-btn{
     color: #999;
+}
+
+.r-c-t-delete-btn{
+    color: #FF310A;
 }
 
 
@@ -2185,7 +2189,9 @@ a:hover {
 }
 
 .r-c-t-delete-btn:hover{
+    font-weight: 700;
     color: #FF310A !important;
+
 }
 
 @media (max-width: 767px) {
