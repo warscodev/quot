@@ -18,12 +18,11 @@
                     </div>
                 </div>
                 <div class="p-l-table-container">
-                    <div class="p-l-table-spinner-container d-flex justify-content-center align-items-center">
+                    <!--<div class="p-l-table-spinner-container d-flex justify-content-center align-items-center">
                         <div class="spinner-border text-secondary" role="status">
                             <span class='visually-hidden'>Loading...</span>
                         </div>
-                    </div>
-
+                    </div>-->
                     <div class="p-l-table-wrap row row-cols-2">
                     </div>
                 </div>
@@ -39,7 +38,7 @@
     let currentIndexEl;
     let currentIndex;
     const listTableWrap = document.querySelector(".p-l-table-wrap");
-    const spinner = document.querySelector(".p-l-table-spinner-container>.spinner-border");
+    /*const spinner = document.querySelector(".p-l-table-spinner-container>.spinner-border");*/
 
     function initPage(){
         currentIndexEl = document.querySelectorAll('.p-l-index-nav')[0];
@@ -49,7 +48,6 @@
     }
 
     function loadPersonListExec(index){
-        showSpinner();
         getPersonList(index)
             .then(setPersonListTable);
     }
@@ -66,6 +64,14 @@
     }
 
     function setPersonListTable(list){
+
+        if(document.querySelectorAll(".p-l-col")){
+            let tableCols = document.querySelectorAll(".p-l-col");
+            tableCols.forEach(c=>{
+                c.remove();
+            })
+        }
+
         list.forEach(list=>{
             const tableCol = document.createElement("div");
             const dot = document.createElement("i");
@@ -97,30 +103,15 @@
             listTableWrap.appendChild(tableCol);
 
             });
-
-        hideSpinner();
     }
 
     function changeIndex(e){
-        const tableCols = document.querySelectorAll(".p-l-col");
         currentIndexEl.classList.remove("selected");
         currentIndexEl = e;
         currentIndexEl.classList.add("selected");
         let thisIndex = e.innerText;
         currentIndex = thisIndex;
-
-        tableCols.forEach(c=>{
-            c.remove();
-        })
         loadPersonListExec(thisIndex)
-    }
-
-    function hideSpinner(){
-        spinner.style.display = 'none';
-    }
-
-    function showSpinner(){
-        spinner.style.display = 'block'
     }
 
 
