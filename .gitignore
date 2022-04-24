@@ -47,3 +47,5 @@ lucy-xss-servlet-filter-rule.xml
 
 ### aws ###
 application-aws.yml
+
+scripts/deploy.sh
