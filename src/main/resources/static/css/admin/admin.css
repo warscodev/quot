@@ -1201,6 +1201,16 @@ a:hover {
 
 }
 
+.r-d-t-row-header{
+    margin-bottom: .5rem;
+    font-size: .875rem;
+    padding: .25rem;
+    background-color: #6749FF;
+    color: #fff;
+    border-radius: .375rem;
+    box-shadow: 0 3px 12px 0 rgb(100 100 100 / 8%);
+}
+
 .r-d-t-row-container {
     margin-bottom: 1rem;
     padding-bottom: 1.25rem;
@@ -3281,8 +3291,8 @@ a:hover {
 }
 
 .p-i-category-card-icon{
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
 }
 
 .p-i-category-card-title{
