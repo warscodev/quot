@@ -42,9 +42,6 @@ src/main/resources/static/node_modules
 ### oauth profile ###
 application-oauth.yml
 
-### lucy-xss-servlet-filter ###
-lucy-xss-servlet-filter-rule.xml
-
 ### aws ###
 application-aws.yml
 
