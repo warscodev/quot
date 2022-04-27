@@ -38,8 +38,6 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails()
                 .getUserInfoEndpoint().getUserNameAttributeName();
 
-        String uri = userRequest.getClientRegistration().getProviderDetails().getAuthorizationUri();
-
         OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
         if("naver".equals(registrationId) && StringUtils.isEmpty(attributes.getEmail())){

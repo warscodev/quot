@@ -23,32 +23,11 @@ import java.util.List;
         argumentResolvers.add(loginUserArgumentResolver);
     }
 
-    /*@Bean
-    public HttpMessageConverter escapingConverter() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.getFactory().setCharacterEscapes(new HtmlCharacterEscapes());
-        *//*objectMapper.registerModule(new JavaTimeModule());
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);*//*
-
-        MappingJackson2HttpMessageConverter escapingConverter =
-                new MappingJackson2HttpMessageConverter();
-        escapingConverter.setObjectMapper(objectMapper);
-
-        return escapingConverter;
-    }*/
-
-    /*@Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        converters.add(escapingConverter());
-    }*/
-
     @Bean
     public MappingJackson2HttpMessageConverter jsonEscapeConverter() {
         ObjectMapper copy = objectMapper.copy();
         copy.getFactory().setCharacterEscapes(new HtmlCharacterEscapes());
         return new MappingJackson2HttpMessageConverter(copy);
     }
-
 
 }

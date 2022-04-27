@@ -56,7 +56,7 @@ public class S3Uploader {
     }
 
 
-    // 로컬에 저장된 이미지 지우기
+    // 로컬에 저장된 이미지 삭제
     private void removeNewFile(File targetFile) {
         if (targetFile.delete()) {
             log.info("File delete success");
@@ -65,12 +65,12 @@ public class S3Uploader {
         log.info("File delete fail");
     }
 
-    // 로컬에 파일 업로드 하기
+    // 로컬에 파일 업로드
     private Optional<File> convert(MultipartFile file) throws IOException {
 
         File convertFile = new File(System.getProperty("java.io.tmpdir") + System.getProperty("file.separator") + file.getOriginalFilename());
-        if (convertFile.createNewFile()) { // 바로 위에서 지정한 경로에 File이 생성됨 (경로가 잘못되었다면 생성 불가능)
-            try (FileOutputStream fos = new FileOutputStream(convertFile)) { // FileOutputStream 데이터를 파일에 바이트 스트림으로 저장하기 위함
+        if (convertFile.createNewFile()) {
+            try (FileOutputStream fos = new FileOutputStream(convertFile)) {
                 fos.write(file.getBytes());
             }
             return Optional.of(convertFile);
