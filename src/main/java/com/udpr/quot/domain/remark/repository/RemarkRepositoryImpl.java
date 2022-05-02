@@ -1,6 +1,5 @@
 package com.udpr.quot.domain.remark.repository;
 
-import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -18,7 +17,9 @@ import org.springframework.data.domain.Pageable;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static com.udpr.quot.domain.person.QPerson.person;
@@ -536,7 +537,6 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
     }
 
     private BooleanExpression categoryEq(String category) {
-
         if (("화제").equals(category)) {
             return remark.likeCount.add(remark.dislikeCount).goe(2);
         } else {
