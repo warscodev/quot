@@ -4,7 +4,6 @@ import com.udpr.quot.config.auth.handler.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -13,9 +12,6 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.logout.ForwardLogoutSuccessHandler;
-import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 @RequiredArgsConstructor
 @EnableWebSecurity
@@ -60,7 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                     .logout()
-                    .logoutSuccessHandler(customLogoutSuccessHandler())
+                    .logoutSuccessHandler(logoutSuccessHandler())
                     .invalidateHttpSession(true) // 세션 날리기
 
                 .and()
@@ -88,22 +84,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthenticationFailureHandler oAuth2AuthenticationFailureHandler() { return new OAuth2AuthenticationFailureHandler();}
 
-
     @Bean
-    public CustomLogoutSuccessHandler customLogoutSuccessHandler(){return new CustomLogoutSuccessHandler();}
-    /*@Bean
-    public OAuth2AuthorizationRequestResolver oAuth2AuthorizationRequestResolver(){ return new CustomOAuth2AuthorizationRequestResolver();}
-
-    @Bean
-    public HttpSessionOAuth2AuthorizationRequestRepository httpSessionOAuth2AuthorizationRequestRepository(){
-        return new HttpSessionOAuth2AuthorizationRequestRepository();
-    }*/
-
-
-
-
-
-
-
+    public CustomLogoutSuccessHandler logoutSuccessHandler(){return new CustomLogoutSuccessHandler();}
 
 }
