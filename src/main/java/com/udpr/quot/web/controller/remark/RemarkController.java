@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
@@ -62,10 +62,10 @@ public class RemarkController {
         return "remark/remarkDetail";
     }
 
-    //코멘트 등록 폼
+    //발언 등록 폼
     @GetMapping("/remark/new")
     public String saveForm(Model model, @LoginUser SessionUser user) throws JsonProcessingException {
-        List<String> tags = tagRepository.findTagName().stream().collect(Collectors.toList());
+        List<String> tags = new ArrayList<>(tagRepository.findTagName());
         model.addAttribute("whitelist", objectMapper.writeValueAsString(tags));
 
         if (user != null) {
@@ -75,7 +75,7 @@ public class RemarkController {
         return "remark/remarkSave";
     }
 
-    //코멘트 수정 폼
+    //발언 수정 폼
     @GetMapping("/remark/{remarkId}/update")
     public String updateForm(@PathVariable("remarkId") Long remarkId, Model model, @LoginUser SessionUser user) throws JsonProcessingException {
 
@@ -85,7 +85,7 @@ public class RemarkController {
 
         model.addAttribute("form", remarkService.findById(remarkId));
         model.addAttribute("remarkId", remarkId);
-        List<String> tags = tagRepository.findTagName().stream().collect(Collectors.toList());
+        List<String> tags = new ArrayList<>(tagRepository.findTagName());
         model.addAttribute("whitelist", objectMapper.writeValueAsString(tags));
         return "remark/remarkUpdate";
     }
