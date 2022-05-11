@@ -26,9 +26,9 @@ import java.util.List;
 @AllArgsConstructor
 public class RemarkRequestDto implements Serializable{
 
-    @NotBlank(message = "발언내용을 입력해주세요.")
+    @NotBlank(message = "발언 내용을 입력해주세요.")
     private String content;
-    @NotBlank(message = "발언일자를 입력해주세요.")
+    @NotBlank(message = "발언 일자를 입력해주세요.")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String remarkDate;
     private String sourceSort;
@@ -36,6 +36,7 @@ public class RemarkRequestDto implements Serializable{
     private String sourceUrl;
     private List<String> tags = new ArrayList<>();
     private String jasonArrayTags;
+    @NotBlank(message = "인물을 선택해주세요.")
     private Person person;
     private User user;
     private Long userId;

@@ -83,7 +83,7 @@ public class PersonController {
 
     //저장
     @PostMapping("/admin/person/new")
-    public String save(@ModelAttribute("form") @Valid PersonRequestDto form, BindingResult result , @LoginUser SessionUser user) {
+    public String save(@ModelAttribute("form") @Valid PersonRequestDto form, BindingResult result) {
 
         if(result.hasErrors()){
             return "person/personSave";
@@ -132,7 +132,7 @@ public class PersonController {
 
     //인물 삭제
     @PostMapping("/admin/person/{id}/delete")
-    public String delete(@PathVariable Long id , @LoginUser SessionUser user){
+    public String delete(@PathVariable Long id){
         personService.delete(id);
         return "redirect:/admin/person";
     }
