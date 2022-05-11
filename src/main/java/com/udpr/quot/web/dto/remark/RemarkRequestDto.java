@@ -36,7 +36,6 @@ public class RemarkRequestDto implements Serializable{
     private String sourceUrl;
     private List<String> tags = new ArrayList<>();
     private String jasonArrayTags;
-    @NotBlank(message = "인물을 선택해주세요.")
     private Person person;
     private User user;
     private Long userId;
