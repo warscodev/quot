@@ -36,7 +36,7 @@ public class RemarkController {
         return "redirect:/remark";
     }
 
-    //코멘트 디테일 폼
+    //발언 디테일 폼
     @GetMapping("/remark/{remarkId}")
     public String detail(@PathVariable("remarkId") Long remarkId, Model model, @LoginUser SessionUser user) {
 
