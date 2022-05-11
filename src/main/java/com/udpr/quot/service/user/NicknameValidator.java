@@ -24,7 +24,6 @@ public class NicknameValidator implements Validator {
                     new Object[]{dto.getNickname()}, "이미 사용중인 닉네임 입니다.");
         }
 
-
     }
 
 

@@ -20,8 +20,7 @@ public class UserNicknameRequestDto {
 
     @NotBlank
     @Length(min = 3, max = 8, message = "3~8자 이내로 입력해주세요.")
-    @Pattern(regexp = "^[ㄱ-ㅎ0-9:.\\-$-()_&a-zA-Z가-힣]*(?<![-(.])$", message = "✋ 사용할 수 없는 문자가 포함되었습니다.")
+    @Pattern(regexp = "^[ㄱ-ㅎ0-9:.\\-$-()_&a-zA-Z가-힣]*(?<![-(.])$", message = "사용할 수 없는 문자가 포함되었습니다.")
     private String nickname;
-
 
 }

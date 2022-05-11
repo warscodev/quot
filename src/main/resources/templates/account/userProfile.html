@@ -79,7 +79,7 @@
 
         if (!expr.test(nicknameInput.value)) {
             submitBtn.disabled = true;
-            lblError.innerHTML = "✋ 글자수 제한(3~8자)을 충족하지 않거나, 사용할 수 없는 문자가 포함되었습니다.";
+            lblError.innerHTML = "글자수 제한(3~8자)을 충족하지 않거나, 사용할 수 없는 문자가 포함되었습니다.";
         }else if(nicknameInput.value === currentNickname){
             submitBtn.disabled = true;
         }else{

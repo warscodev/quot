@@ -22,9 +22,13 @@ public class UserApiController {
 
     @PostMapping("/api/user/nickname")
     public String editNickname(@LoginUser SessionUser user, @RequestBody @Valid UserNicknameRequestDto dto,
-                               BindingResult result, Errors errors){
-        nicknameValidator.validate(dto,errors);
-        return userService.editNickname(user.getId(), dto).getNickname();
+                               BindingResult result){
+        nicknameValidator.validate(dto,result);
+        if(result.hasErrors()){
+            return result.getFieldError().getDefaultMessage();
+        }else {
+            return userService.editNickname(user.getId(), dto).getNickname();
+        }
     }
 
     @GetMapping("/api/user/nickname/{nickname}")
