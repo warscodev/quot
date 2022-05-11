@@ -138,7 +138,7 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom {
                         .then(3)
                         .when(replaceSpacePersonName().likeIgnoreCase("%" + keyword + "%"))
                         .then(4)
-                        .otherwise(4).asc())
+                        .otherwise(5).asc())
                 .limit(10)
                 .fetch();
     }
