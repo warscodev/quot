@@ -552,14 +552,6 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
 
         return Expressions.stringTemplate("replace({0},' ','')", remark.content);
 
-/*
-        if (keywords.length == 1) {
-            builder.or(remark.content.likeIgnoreCase("%" + keyword + "%"));
-        } else {
-            Arrays.stream(keywords).forEach(r -> builder.and(remark.content.likeIgnoreCase("%" + r + "%")));
-        }
-        return builder;
-*/
     }
 
 
