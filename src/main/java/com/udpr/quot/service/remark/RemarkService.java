@@ -164,6 +164,7 @@ public class RemarkService {
     public List<RemarkQueryDto> getPersonRemarkList(Long remarkId, Long personId){
         return remarkRepository.getPersonsRemarkList(remarkId, personId);
     }
+
     public List<RemarkQueryDto> getOtherCategoryRemarkList(Long remarkId, String category){
         return remarkRepository.getOtherCategoryRemarkList(remarkId, category);
     }
