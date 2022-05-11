@@ -46,7 +46,6 @@ public class Person extends BaseTimeEntity {
 
     private String image;
 
-    @JsonManagedReference(value = "person")
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Remark> remarkList = new ArrayList<>();
 

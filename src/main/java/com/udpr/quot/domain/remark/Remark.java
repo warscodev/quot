@@ -48,18 +48,17 @@ public class Remark extends BaseTimeEntity {
     @JoinColumn(name = "person_id")
     private Person person;
 
-    @JsonManagedReference(value = "remark")
     @OneToMany(mappedBy = "remark", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<RemarkTag> remarkTagList = new ArrayList<>();
+    private final List<RemarkTag> remarkTagList = new ArrayList<>();
 
     @OneToMany(mappedBy = "remark", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<RemarkLike> remarkLikeList = new ArrayList<>();
+    private final List<RemarkLike> remarkLikeList = new ArrayList<>();
 
     @OneToMany(mappedBy = "remark", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Comment> commentList = new ArrayList<>();
+    private final List<Comment> commentList = new ArrayList<>();
 
     @OneToMany(mappedBy = "remark", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Bookmark> bookmarkList = new ArrayList<>();
+    private final List<Bookmark> bookmarkList = new ArrayList<>();
 
     @ColumnDefault("0")
     private int likeCount;
