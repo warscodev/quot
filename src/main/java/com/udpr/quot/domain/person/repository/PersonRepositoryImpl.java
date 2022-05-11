@@ -127,15 +127,19 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom {
                         person.job
                 ))
                 .from(person)
-                .where(replaceSpacePersonName().likeIgnoreCase(keyword + "%")
-                        .or(replaceCommaOnPersonAlias().likeIgnoreCase(keyword + "%")))
+                .where(replaceSpacePersonName().likeIgnoreCase("%" + keyword + "%")
+                        .or(replaceCommaOnPersonAlias().likeIgnoreCase("%" + keyword + "%")))
                 .orderBy(new CaseBuilder()
                         .when(replaceSpacePersonName().equalsIgnoreCase(keyword))
                         .then(1)
-                        .when(replaceSpacePersonName().likeIgnoreCase(keyword + "%")
-                                .or(replaceCommaOnPersonAlias().likeIgnoreCase(keyword + "%")))
+                        .when(replaceSpacePersonName().likeIgnoreCase(keyword + "%"))
                         .then(2)
-                        .otherwise(3).asc())
+                        .when((replaceCommaOnPersonAlias().likeIgnoreCase(keyword + "%")))
+                        .then(3)
+                        .when(replaceSpacePersonName().likeIgnoreCase("%" + keyword + "%"))
+                        .then(4)
+                        .otherwise(4).asc())
+                .limit(10)
                 .fetch();
     }
 

@@ -72,6 +72,11 @@ body {
     cursor: pointer;
 }
 
+.ui-widget{
+    font-size: .875rem !important;
+}
+
+
 @media (max-width: 360px) {
     .close-autocompleted {
         line-height: 23.75px;
