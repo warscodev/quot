@@ -405,15 +405,8 @@
                     }
                 }
                 row += "<div class=\"r-c-t-first-row-container d-flex justify-content-between\">";
-                row += "<div class=\"r-c-t-first-row-first-col-container\">";
 
-                /*
-                                if (c.parentId != null) {
-                                    row += "<div id='comment-writer-" + c.commentId + "' class=\"r-c-t-comment-writer\"><i class=\"r-c-t-comment-reply-icon fas fa-level-up-alt fa-rotate-90\"></i>" + c.nickname + "</div>";
-                                } else {
-                                    row += "<div id='comment-writer-" + c.commentId + "' class=\"r-c-t-comment-writer\">" + c.nickname + "</div>";
-                                }
-                */
+                row += "<div class=\"r-c-t-first-row-first-col-container\">";
 
                 row += "<div class=\"r-c-t-comment-content-container\">";
 
@@ -477,16 +470,7 @@
                 row += "</a>";
 
                 row += "<ul class='r-c-t-etc-dropdown-menu dropdown-menu' aria-labelledby='commentDropdown'>";
-                /*
-                                if (sid === c.userId && c.status !== "DELETED_ANCESTOR") {
-                                    row += "<li>";
-                                    row += "<a class='r-c-t-modify-btn dropdown-item' onclick='openCmModifyTextArea(" + c.commentId + ")'><i class=\"r-c-t-etc-btn-icon r-c-t-modify-btn-icon bi bi-pencil-square\"></i>수정</a>";
-                                    row += "</li>";
-                                    row += "<li>";
-                                    row += "<a class='r-c-t-delete-btn dropdown-item' data-cid='" + c.commentId + "'><i class=\"r-c-t-etc-btn-icon r-c-t-delete-btn-icon bi bi-trash\"></i>삭제</a>";
-                                    row += "</li>";
-                                }
-                */
+
                 row += "<li>";
                 row += "<a class='r-c-t-report-btn dropdown-item' data-bs-toggle='modal' data-bs-target='#reportingCmModal' onclick='openReportingModal(" + c.commentId + ")'><i class=\"r-c-t-etc-btn-icon bi bi-flag\"></i>신고</a>";
                 row += "</li>";
@@ -508,7 +492,6 @@
 
                 row += "</div>";
             })
-            /*row += "<hr class='r-l-t-border-bottom'>";*/
         }
         return row;
     }
@@ -909,11 +892,7 @@
                 writerNickname = document.getElementById("comment-writer-" + commentId).innerText,
                 commentContent = '';
 
-            /*if (commentEl.dataset.aid != null) {
-                commentContent = $("#comment-content-" + commentId).html().split('>')[2];
-            } else {*/
             commentContent = document.getElementById("comment-content-" + commentId).innerHTML;
-            /*}*/
 
             document.getElementById("reporting-cm-writer").innerText = writerNickname;
             document.getElementById("reporting-cm-content").innerHTML = commentContent;
@@ -921,6 +900,7 @@
             let data = {
                 commentContent: commentContent
             }
+
             document.querySelector(".reporting-cm-submit-btn")
                 .setAttribute("onclick", "submitReporting(" + commentId + ")");
         }
@@ -943,7 +923,6 @@
             commentContent = document.getElementById("comment-content-" + commentId).innerText;
         }
 
-        /*let commentContent = replaceTags(document.querySelector("#comment-content-"+commentId).innerHTML);*/
 
         let data = {
             originContent: commentContent,
