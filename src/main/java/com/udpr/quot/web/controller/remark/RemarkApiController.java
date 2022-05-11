@@ -9,10 +9,10 @@ import com.udpr.quot.web.dto.remark.LikeInfo;
 import com.udpr.quot.web.dto.remark.RemarkRequestDto;
 import com.udpr.quot.web.dto.remark.query.RemarkApiQueryDto;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.naming.AuthenticationException;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 
@@ -26,7 +26,7 @@ public class RemarkApiController {
 
     //발언 저장
     @PostMapping("/api/person/{personId}/remark")
-    public Long save(@PathVariable("personId") Long personId, @RequestBody RemarkRequestDto requestDto,
+    public Long save(@PathVariable("personId") Long personId, @Valid @RequestBody RemarkRequestDto requestDto,
                      @LoginUser SessionUser user)
             throws JsonProcessingException {
 
