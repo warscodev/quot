@@ -84,25 +84,8 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom{
                 .fetchCount();
     }
 
-
-/*
-    @Override
-    public Long checkAncestor(Long ancestorId){
-        return queryFactory.select(comment.count())
-                .from(comment)
-                .leftJoin(comment.ancestor)
-                .where(comment.id.eq(ancestorId)
-                        .and(comment.status.ne(Status.DELETED))
-                        .and(comment.ancestor.status.eq(Status.DELETED_ANCESTOR)))
-                .fetchCount();
-    }
-*/
-
     @Override
     public void checkAncestorStatus(Long ancestorId){
-
-
-
 
         List<Long> ancestorIdList = queryFactory.select(comment.ancestor.id)
                 .from(comment)
@@ -115,9 +98,7 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom{
                         .and(comment.status.ne(Status.DELETED)))
                 .fetch();
 
-
-
-        if(ancestorIdList.size()  <0){
+        if(ancestorIdList.size() < 1){
             queryFactory.update(comment)
                     .where(comment.id.eq(JPAExpressions.select(comment.ancestor.id)
                             .from(comment)
@@ -128,8 +109,5 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom{
                     .execute();
         }
     }
-
-
-
 
 }

@@ -27,8 +27,6 @@ public class CommentApiController {
 
     private final CommentService commentService;
     private final CommentRepository commentRepository;
-    private final UserRepository userRepository;
-    private final ReportingRepository reportingRepository;
     private final ReportingService reportingService;
 
     @PostMapping("/api/remark/{remarkId}/comment")
@@ -45,7 +43,7 @@ public class CommentApiController {
 
         System.out.println("호출!");
 
-        Pageable commentPageable = PageRequest.of(pageable.getPageNumber()-1,40);
+        Pageable commentPageable = PageRequest.of(pageable.getPageNumber() - 1, 40);
 
         Page<CommentQueryDto> comments = commentRepository.getComments(remarkId, commentPageable);
         PageMetadata pageMetadata = new PageMetadata(comments);
@@ -57,9 +55,9 @@ public class CommentApiController {
     public Long deleteComment(@PathVariable("remarkId") Long remarkId, @PathVariable("commentId") Long commentId,
                               @LoginUser SessionUser user, @PathVariable("userId") Long userId, @RequestParam(value = "ancestorId", required = false) Long ancestorId) throws AuthenticationException {
         if (user != null && userId.equals(user.getId())) {
-            if(ancestorId != null){
-                commentService.deleteComment(commentId,ancestorId);
-            }else {
+            if (ancestorId != null) {
+                commentService.deleteComment(commentId, ancestorId);
+            } else {
                 commentService.deleteComment(commentId);
             }
             return commentRepository.getCommentCount(remarkId);
@@ -72,7 +70,7 @@ public class CommentApiController {
                               @LoginUser SessionUser user, @PathVariable("userId") Long userId, @RequestBody @Valid CommentRequestDto dto) throws AuthenticationException {
 
         if (user != null && userId.equals(user.getId())) {
-            commentService.modifyComment(commentId,dto.getContent());
+            commentService.modifyComment(commentId, dto.getContent());
             return commentRepository.getCommentCount(remarkId);
         } else
             throw new AuthenticationException();
@@ -81,7 +79,7 @@ public class CommentApiController {
 
     @PostMapping("/api/comment/{commentId}/reporting")
     public String reportingComment(@PathVariable("commentId") Long commentId,
-                                 @RequestBody ReportingRequestDto dto, @LoginUser SessionUser user){
+                                   @RequestBody ReportingRequestDto dto, @LoginUser SessionUser user) {
 
         return reportingService.saveReporting(commentId, user.getId(), dto);
     }

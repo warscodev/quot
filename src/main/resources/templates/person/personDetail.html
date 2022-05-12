@@ -246,11 +246,6 @@
         },300);
     }
 
-    function popupUnfollowModal() {
-        let modal = new bootstrap.Modal(document.getElementById('unfollowModal'))
-        modal.show();
-    }
-
     function toastTrigger(){
         const toastBody = document.querySelector(".toast-body");
         if(followBtn.classList.contains("followed")){
@@ -267,12 +262,6 @@
             toast.show()
         }
     }
-
-    function openPersonInfoEditor(){
-
-    }
-
-
 
     followBtn.addEventListener("click", followExec);
 </script>
