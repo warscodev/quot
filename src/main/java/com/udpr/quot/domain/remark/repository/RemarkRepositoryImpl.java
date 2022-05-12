@@ -385,10 +385,6 @@ public class RemarkRepositoryImpl implements RemarkRepositoryCustom {
                 .orderBy(getOrderSpecifier(condition.getSort()).toArray(OrderSpecifier[]::new))
                 .fetchResults();
 
-        results.getResults().forEach(r -> {
-            System.out.println(r.getIconPath());
-        });
-
         List<Long> remarkIdList = toRemarkIdList(results);
 
         Map<Long, List<RemarkTagQueryDto>> tagMap = findTagMap(remarkIdList);
