@@ -1,6 +1,6 @@
 package com.udpr.quot.service.person;
 
-import com.udpr.quot.config.S3Uploader;
+import com.udpr.quot.config.utils.S3Uploader;
 import com.udpr.quot.domain.person.Person;
 import com.udpr.quot.domain.person.PersonSearchCondition;
 import com.udpr.quot.domain.person.icon.Icon;

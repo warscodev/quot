@@ -1,6 +1,6 @@
 package com.udpr.quot.service.icon;
 
-import com.udpr.quot.config.S3Uploader;
+import com.udpr.quot.config.utils.S3Uploader;
 import com.udpr.quot.domain.person.icon.Icon;
 import com.udpr.quot.domain.person.icon.repository.IconApiQueryRepository;
 import com.udpr.quot.domain.person.icon.repository.IconRepository;
