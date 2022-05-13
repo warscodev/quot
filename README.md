@@ -61,11 +61,11 @@
 - 발언 하나에 다수의 태그를 등록할 수 있습니다. 태그를 통한 발언 검색도 가능해야 하기 때문에 발언과 태그의 중간 테이블을 Entity로 만들어 1:N, N:1 관계를 형성해 주었습니다.
 
   > - **관련 클래스**
-  >   - Remark (Domain Class) :pushpin: [코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/domain/remark/Remark.java)
-  >   - RemarkTag (Domain Class) :pushpin: [코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/domain/remark/RemarkTag.java)
+  >   - Remark (Domain Class) :pushpin: [코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/domain/remark/Remark.java#L26)
+  >   - RemarkTag (Domain Class) :pushpin: [코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/domain/remark/RemarkTag.java#L15)
   >   - RemarkRepository (JPA Interface)
-  >   - RemarkApiController :pushpin:[코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/web/controller/remark/RemarkApiController.java)
-  >   - RemarkService :pushpin:[코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/service/remark/RemarkService.java)
+  >   - RemarkApiController :pushpin:[코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/web/controller/remark/RemarkApiController.java#L21)
+  >   - RemarkService :pushpin:[코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/service/remark/RemarkService.java#L34)
 
 
 
@@ -82,8 +82,8 @@
   > - **관련 클래스**
   >   - RemarkContorller
   >   - RemarkService
-  >   - RemarkRepositoryImpl (QueryDSL Implements Class) :pushpin: [코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/domain/remark/repository/RemarkRepositoryImpl.java)
-  >   - RemarkApiQueryRepository :pushpin:[코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/domain/remark/repository/RemarkApiQueryRepository.java)
+  >   - RemarkRepositoryImpl (QueryDSL Implements Class) :pushpin: [코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/domain/remark/repository/RemarkRepositoryImpl.java#L190)
+  >   - RemarkApiQueryRepository :pushpin:[코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/domain/remark/repository/RemarkApiQueryRepository.java#L24)
 
 
 
@@ -97,9 +97,9 @@
 
   > - **관련 클래스**
   >   - Comment, Reporting (Domain Class)
-  >   - CommentApiController :pushpin:[코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/web/controller/remark/CommentApiController.java)
-  >   - CommentService :pushpin:[코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/service/remark/comment/CommentService.java)
-  >   - CommentRepositoryImpl :pushpin:[코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/domain/remark/comment/repository/CommentRepositoryImpl.java)
+  >   - CommentApiController :pushpin:[코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/web/controller/remark/CommentApiController.java#L26)
+  >   - CommentService :pushpin:[코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/service/remark/comment/CommentService.java#L26)
+  >   - CommentRepositoryImpl :pushpin:[코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/domain/remark/comment/repository/CommentRepositoryImpl.java#L21)
 
 
 
@@ -113,7 +113,7 @@
   >   - PersonController
   >   - PersonService
   >   - PersonRepositoryImpl
-  >   - GetChoSungFromNames :pushpin:[코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/domain/person/utils/GetChoSungFromNames.java)
+  >   - GetChoSungFromNames :pushpin:[코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/domain/person/utils/GetChoSungFromNames.java#L6)
 
   
 
@@ -128,8 +128,8 @@
   > - **관련 클래스**
   >   - PersonApiController
   >   - PersonService
-  >   - RemarkPersonPageQueryRepository:pushpin:[코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/domain/remark/repository/RemarkPersonPageQueryRepository.java)
-  >   - PersonDetail.html :pushpin:[코드](https://github.com/warscodev/quot/blob/master/src/main/resources/templates/person/personDetail.html)
+  >   - RemarkPersonPageQueryRepository:pushpin:[코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/domain/remark/repository/RemarkPersonPageQueryRepository.java#L27)
+  >   - PersonDetail.html :pushpin:[코드](https://github.com/warscodev/quot/blob/ecf7dad73ae11703f1a0680887c24bcf83861287/src/main/resources/templates/person/personDetail.html#L183)
 
 
 
@@ -143,10 +143,10 @@
 
   >  - **관련 클래스**
   >    - IconApiController
-  >    - IconService :pushpin:[코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/service/icon/IconService.java)
+  >    - IconService :pushpin:[코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/service/icon/IconService.java#L19)
   >    - IconApiQueryRepository
   >    - AwsS3Config
-  >    - S3Uploader :pushpin:[코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/config/S3Uploader.java)
+  >    - S3Uploader :pushpin:[코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/config/utils/S3Uploader.java#L22)
 
 
 
@@ -161,9 +161,9 @@
 - Custom Handler, Entry Point로 상황에 따른 추가 작업들을 작성했습니다.
 
   > - **관련 클래스**
-  >   - WebSecurityConfig :pushpin:[코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/config/auth/WebSecurityConfig.java)
-  >   - CustomOAuth2UserService (OAuth2UserService Implements Class) :pushpin:[코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/config/auth/CustomOAuth2UserService.java)
-  >   - CustomAccessDeniedHandler:pushpin:[코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/config/auth/handler/CustomAccessDeniedHandler.java)
+  >   - WebSecurityConfig :pushpin:[코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/config/auth/WebSecurityConfig.java#L18)
+  >   - CustomOAuth2UserService (OAuth2UserService Implements Class) :pushpin:[코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/config/auth/CustomOAuth2UserService.java#L27)
+  >   - CustomAccessDeniedHandler:pushpin:[코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/config/auth/handler/CustomAccessDeniedHandler.java#L15)
   >   - CustomLoginSuccessHandler
   >   - CustomLogoutSuccessHandler
 
