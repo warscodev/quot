@@ -1,4 +1,4 @@
-package com.udpr.quot.config;
+package com.udpr.quot.config.utils;
 
 import com.fasterxml.jackson.core.SerializableString;
 import com.fasterxml.jackson.core.io.CharacterEscapes;

@@ -16,8 +16,6 @@ public class GetChoSungFromNames {
                     .collect(Collectors.toList());
         }
 
-        firstLetters.forEach(System.out::println);
-
         return firstLetters;
     }
 
