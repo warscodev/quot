@@ -24,7 +24,6 @@ public class RemarkTag {
     @JoinColumn(name = "tag_id")
     private Tag tag;
 
-    @JsonBackReference(value = "remark")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "remark_id")
     private Remark remark;

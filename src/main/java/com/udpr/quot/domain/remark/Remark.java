@@ -43,7 +43,6 @@ public class Remark extends BaseTimeEntity {
     @Column(columnDefinition = "TEXT")
     private String sourceUrl;
 
-    @JsonBackReference(value = "person")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "person_id")
     private Person person;
