@@ -83,7 +83,7 @@
   >   - RemarkContorller
   >   - RemarkService
   >   - RemarkRepositoryImpl (QueryDSL Implements Class) :pushpin: [코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/domain/remark/repository/RemarkRepositoryImpl.java)
-  >   - RemarkApiQueryRepository :pushpin:[코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/domain/remark/repository/RemarkApiQueryRepository.java)
+  >   - RemarkApiQueryRepository :pushpin:[코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/domain/remark/repository/RemarkRepositoryImpl.java#L190)
 
 
 
@@ -129,7 +129,7 @@
   >   - PersonApiController
   >   - PersonService
   >   - RemarkPersonPageQueryRepository:pushpin:[코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/domain/remark/repository/RemarkPersonPageQueryRepository.java)
-  >   - PersonDetail.html :pushpin:[코드](https://github.com/warscodev/quot/blob/master/src/main/resources/templates/person/personDetail.html)
+  >   - PersonDetail.html :pushpin:[코드](https://github.com/warscodev/quot/blob/ecf7dad73ae11703f1a0680887c24bcf83861287/src/main/resources/templates/person/personDetail.html#L183)
 
 
 
