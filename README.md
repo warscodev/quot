@@ -146,7 +146,7 @@
   >    - IconService :pushpin:[코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/service/icon/IconService.java)
   >    - IconApiQueryRepository
   >    - AwsS3Config
-  >    - S3Uploader :pushpin:[코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/config/S3Uploader.java)
+  >    - S3Uploader :pushpin:[코드](https://github.com/warscodev/quot/blob/master/src/main/java/com/udpr/quot/config/utils/S3Uploader.java)
 
 
 
