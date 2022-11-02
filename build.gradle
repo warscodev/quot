@@ -55,7 +55,7 @@ dependencies {
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 
 	//JUnit4 추가
-	testImplementation('org.junit.vintage:junit-vintage-engine:5.8.2') {
+	testImplementation('org.junit.vintage:junit-vintage-engine:5.9.0') {
 		exclude group: "org.hamcrest", module: "hamcrest-core"
 	}
 }
@@ -97,3 +97,5 @@ task copyFrontLib(type: Copy) {
 copyFrontLib.dependsOn npmInstall
 compileJava.dependsOn copyFrontLib
 /** npm install end  */
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11

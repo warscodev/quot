@@ -39,7 +39,6 @@ import static com.udpr.quot.domain.remark.comment.QComment.comment;
 import static com.udpr.quot.domain.tag.QTag.tag;
 import static com.udpr.quot.domain.user.QFollow.follow;
 import static com.udpr.quot.domain.user.QUser.user;
-import static org.springframework.util.ObjectUtils.isEmpty;
 
 public class PersonRepositoryImpl implements PersonRepositoryCustom {
 

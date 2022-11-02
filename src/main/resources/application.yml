@@ -33,10 +33,11 @@ spring:
       ddl-auto: update
     properties:
       hibernate:
-        # show_sql: true
+        show_sql: false
         dialect: org.hibernate.dialect.MySQL57Dialect
-        format_sql: true
-        use_sql_comment: true
+        # format_sql: true
+        format_sql: false
+        use_sql_comment: false
         default_batch_fetch_size: 100
     open-in-view: false
 
@@ -47,11 +48,10 @@ server:
       force: true
       force-response: true
 
-
-
 logging.level:
-  org.hibernate.SQL: debug
+  org.hibernate.SQL: info
   # org.hibernate.type: trace
+  p6spy : info
 
 logging:
   level:
@@ -59,3 +59,8 @@ logging:
       amazonaws:
         util:
           EC2MetadataUtils: error
+
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true
