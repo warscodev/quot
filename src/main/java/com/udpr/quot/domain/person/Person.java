@@ -16,6 +16,7 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(catalog = "udpr_quot")
 @Entity
 public class Person extends BaseTimeEntity {
 

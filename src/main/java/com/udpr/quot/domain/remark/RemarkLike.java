@@ -11,6 +11,7 @@ import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor
+@Table(catalog = "udpr_quot")
 @Entity
 public class RemarkLike extends BaseTimeEntity {
 

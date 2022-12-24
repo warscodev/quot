@@ -11,6 +11,7 @@ import javax.persistence.*;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Table(catalog = "udpr_quot")
 @Entity
 public class RemarkTag {
 
